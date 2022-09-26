@@ -1,0 +1,69 @@
+version: "3.9"
+
+networks:
+  default:
+    name: instill
+    external: false
+
+secrets:
+  ca:
+    file: ./secrets/certs/ca/ca.crt
+  grafana.cert:
+    file: ./secrets/certs/grafana/grafana.crt
+  grafana.key:
+    file: ./secrets/certs/grafana/grafana.key
+  prometheus.cert:
+    file: ./secrets/certs/prometheus/prometheus.crt
+  prometheus.key:
+    file: ./secrets/certs/prometheus/prometheus.key
+  alertmanager.cert:
+    file: ./secrets/certs/alertmanager/alertmanager.crt
+  alertmanager.key:
+    file: ./secrets/certs/alertmanager/alertmanager.key
+
+services:
+  grafana:
+    image: grafana/grafana:latest
+    volumes:
+      - ./monitoring/grafana/grafana.ini:/etc/grafana/grafana.ini
+      - ./monitoring/grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
+      - ./monitoring/grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+    environment:
+      - GF_SERVER_CERT_FILE=/grafana/ssl/grafana.cert
+      - GF_SERVER_CERT_KEY=/grafana/ssl/grafana.key
+    secrets:
+      - source: ca
+        target: /etc/ssl/certs/ca.crt
+      - source: grafana.cert
+        target: /grafana/ssl/grafana.cert
+      - source: grafana.key
+        target: /grafana/ssl/grafana.key
+    ports:
+      - ${GRAFANA_HTTPS_PORT}:${GRAFANA_HTTPS_PORT}
+
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./monitoring/prometheus/tls-config.yml:/etc/prometheus/tls-config.yml
+    secrets:
+      - source: ca
+        target: /etc/ssl/certs/ca.crt
+      - source: prometheus.cert
+        target: /etc/prometheus/ssl/prometheus.cert
+      - source: prometheus.key
+        target: /etc/prometheus/ssl/prometheus.key
+    ports:
+      - ${PROMETHEUS_HTTPS_PORT}:${PROMETHEUS_HTTPS_PORT}
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--web.config.file=/etc/prometheus/tls-config.yml"
+
+  alertmanager:
+    image: prom/alertmanager:latest
+    volumes:
+      - ./monitoring/alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml
+    ports:
+      - ${ALERTMANAGER_HTTP_PORT}:${ALERTMANAGER_HTTP_PORT}
+    command:
+      - "--config.file=/etc/alertmanager/alertmanager.yml"

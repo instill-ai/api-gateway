@@ -1,0 +1,113 @@
+- key: filebeat
+  title: filebeat
+  description: Field mapping for INFERENCE-ACCESS logs.
+  fields:
+    - name: component
+      type: constant_keyword
+      required: true
+      value: INFERENCE-ACCESS
+    - name: timestamp
+      type: date
+      required: true
+      format: strict_date_optional_time||epoch_millis
+      index: true
+      ignore_malformed: false
+      store: false
+    - name: request_id
+      type: text
+      required: true
+      eager_global_ordinals: false
+      index_phrases: false
+      search_quote_analyzer: keyword
+      fielddata: false
+      norms: false
+      analyzer: keyword
+      index: true
+      store: false
+      index_options: docs
+    - name: http_code
+      type: integer
+      required: true
+    - name: roundtrip_time
+      type: half_float
+      required: true
+      index: false
+      ignore_malformed: false
+      coerce: true
+      store: false
+    - name: forwarded_for
+      type: text
+      required: true
+      eager_global_ordinals: false
+      index_phrases: false
+      search_quote_analyzer: keyword
+      fielddata: false
+      norms: false
+      analyzer: keyword
+      index: true
+      store: false
+      index_options: freqs
+    - name: method
+      type: text
+      required: true
+      eager_global_ordinals: false
+      index_phrases: false
+      search_quote_analyzer: keyword
+      fielddata: false
+      norms: false
+      analyzer: keyword
+      index: true
+      store: false
+      index_options: freqs
+    - name: path
+      type: text
+      required: true
+      eager_global_ordinals: false
+      index_phrases: false
+      search_quote_analyzer: keyword
+      fielddata: false
+      norms: false
+      analyzer: keyword
+      index: true
+      store: false
+      index_options: freqs
+    - name: client_id
+      type: keyword
+      required: true
+      index_options: freqs
+    - name: iss
+      type: text
+      required: true
+      eager_global_ordinals: false
+      index_phrases: false
+      search_quote_analyzer: keyword
+      fielddata: false
+      norms: false
+      analyzer: keyword
+      index: true
+      store: false
+      index_options: freqs
+    - name: aud
+      type: text
+      required: true
+      eager_global_ordinals: false
+      index_phrases: false
+      search_quote_analyzer: keyword
+      fielddata: false
+      norms: false
+      analyzer: keyword
+      index: true
+      store: false
+      index_options: freqs
+    - name: scope
+      type: text
+      required: true
+      eager_global_ordinals: false
+      index_phrases: false
+      search_quote_analyzer: keyword
+      fielddata: false
+      norms: false
+      analyzer: keyword
+      index: true
+      store: false
+      index_options: freqs

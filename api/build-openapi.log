@@ -1,0 +1,5 @@
+Merged OpenAPI public version: v0.1.3
+- inference/openapi_v0.4.8.yaml
+- management/openapi_v0.4.3.yaml
+- model/openapi_v0.0.2.yaml
+- pipeline/openapi_v0.0.3.yaml

@@ -1,0 +1,77 @@
+# ================================== Autodiscover ==================================
+filebeat.autodiscover:
+  providers:
+    - type: docker
+      hints.enabled: true
+      hints.default_config.enabled: false
+      templates:
+        - condition.contains:
+            docker.container.image: api-gateway
+          config:
+            - type: container
+              paths:
+                - /var/lib/docker/containers/${data.docker.container.id}/*.log
+              include_lines: ['^\[INFERENCE-ACCESS']
+
+# ================================== Processors ==================================
+processors:
+  - drop_event:
+      when:
+        not:
+          contains:
+            message: "INFERENCE-ACCESS"
+  - dissect:
+      when:
+        contains:
+          message: "INFERENCE-ACCESS"
+      tokenizer: '[%{component}] %{timestamp} | %{request_id} | %{+http_code} | %{roundtrip_time} | %{forwarded_for} | %{method} "%{path}" | %{client_id} | %{iss} | %{aud} | %{scope}'
+      field: message
+      target_prefix: ""
+  - timestamp:
+      field: timestamp
+      layouts:
+        - "2006-01-02T15:04:05.999Z"
+  - drop_fields:
+      fields:
+        - cid
+        - pid
+        - timestamp
+        - message
+        - input
+        - agent
+        - log
+        - host
+        - ecs
+        - syslog
+        - event
+        - docker
+        - container
+        - stream
+
+# ================================== Template ==================================
+setup.template.name: "instill-max-size-10gb"
+setup.template.pattern: "instill-inference-access-*"
+setup.template.fields: fields.yml
+setup.template.overwrite: false
+setup.template.settings:
+  index.number_of_shards: 1
+  index.number_of_replicas: 1
+  _source.enabled: true
+
+setup.ilm.enabled: false
+
+# ================================== Output ==================================
+output.elasticsearch:
+  hosts: ${ELASTICSEARCH_HOST_PORT}
+  username: ${ELASTIC_USERNAME}
+  password: ${ELASTIC_PASSWORD}
+  ssl.certificate_authorities:
+    - elasticsearch-ca.crt
+  indices:
+    - index: "instill-inference-access-dev"
+      when:
+        equals:
+          component: INFERENCE-ACCESS
+
+# output.console:
+#   pretty: true

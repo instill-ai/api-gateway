@@ -1,0 +1,5 @@
+tls_server_config:
+  client_ca_file: /etc/ssl/certs/ca.crt
+  cert_file: /etc/prometheus/ssl/prometheus.cert
+  key_file: /etc/prometheus/ssl/prometheus.key
+  client_auth_type: "VerifyClientCertIfGiven"

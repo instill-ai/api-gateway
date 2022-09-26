@@ -1,0 +1,75 @@
+instances:
+  - name: api-gateway
+    dns:
+      - api_gateway
+      - localhost
+    ip:
+      - 127.0.0.1
+
+  - name: pipeline-backend
+    dns:
+      - pipeline_backend
+      - localhost
+    ip:
+      - 127.0.0.1
+
+  - name: mgmt-backend
+    dns:
+      - mgmt_backend
+      - localhost
+    ip:
+      - 127.0.0.1
+
+  - name: elasticsearch
+    dns:
+      - elasticsearch
+      - localhost
+    ip:
+      - 127.0.0.1
+
+  - name: kibana
+    dns:
+      - kibana
+      - localhost
+    ip:
+      - 127.0.0.1
+
+  - name: influxdb
+    dns:
+      - influxdb
+      - localhost
+    ip:
+      - 127.0.0.1
+
+  - name: grafana
+    dns:
+      - grafana
+      - localhost
+    ip:
+      - 127.0.0.1
+
+  - name: prometheus
+    dns:
+      - prometheus
+      - localhost
+    ip:
+      - 127.0.0.1
+
+  - name: hydra
+    dns:
+      - hydra
+    ip:
+      - 127.0.0.1
+
+  - name: model-backend
+    dns:
+      - model_backend
+      - localhost
+    ip:
+      - 127.0.0.1
+
+  - name: kratos
+    dns:
+      - kratos
+    ip:
+      - 127.0.0.1

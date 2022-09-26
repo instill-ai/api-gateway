@@ -1,0 +1,59 @@
+{
+  "jwt_auth": [
+    "Content-Type",
+    "Content-Length",
+    "Jwt-Client-Id",
+    "Jwt-Sub",
+    "Jwt-Iss",
+    "Jwt-Aud",
+    "Jwt-Scope",
+    "Jwt-Client-Id",
+    "Jwt-Models",
+    "X-Forwarded-For",
+    "Request-Id",
+    "Backend",
+    "Jwt-Username"
+  ],
+  "no_auth": [
+    "Content-Type",
+    "Content-Length",
+    "X-Forwarded-For",
+    "Request-Id",
+    "Backend"
+  ],
+  "basic_auth": [
+    "Content-Type",
+    "Content-Length",
+    "Authorization",
+    "X-Forwarded-For",
+    "Request-Id",
+    "Backend"
+  ],
+  "grpc_auth": [
+    "Content-Type",
+    "Content-Length",
+    "Jwt-Client-Id",
+    "Jwt-Sub",
+    "Jwt-Iss",
+    "Jwt-Aud",
+    "Jwt-Scope",
+    "Jwt-Client-Id",
+    "Jwt-Models",
+    "X-Forwarded-For",
+    "Request-Id",
+    "Backend",
+    "Jwt-Username",
+    "Grpc-Accept-Encoding",
+    "Te"
+  ],
+  "grpc": [
+    "Content-Type",
+    "Content-Length",
+    "Accept-Encoding",
+    "X-Forwarded-For",
+    "Request-Id",
+    "Backend",
+    "Grpc-Accept-Encoding",
+    "Te"
+  ]
+}

@@ -1,0 +1,112 @@
+version: "3.9"
+
+networks:
+  default:
+    name: instill
+    external: false
+
+# will contain all elasticsearch data.
+volumes:
+  elasticsearch-data:
+
+secrets:
+  elasticsearch.keystore:
+    file: ./secrets/keystore/elasticsearch.keystore
+  ca:
+    file: ./secrets/certs/ca/ca.crt
+  elasticsearch.cert:
+    file: ./secrets/certs/elasticsearch/elasticsearch.crt
+  elasticsearch.key:
+    file: ./secrets/certs/elasticsearch/elasticsearch.key
+  kibana.cert:
+    file: ./secrets/certs/kibana/kibana.crt
+  kibana.key:
+    file: ./secrets/certs/kibana/kibana.key
+
+services:
+  elasticsearch:
+    image: api-gateway-elasticsearch:${ELASTIC_STACK_VERSION}
+    build:
+      context: logging/elasticsearch/
+      args:
+        ELASTIC_STACK_VERSION: ${ELASTIC_STACK_VERSION}
+    restart: unless-stopped
+    environment:
+      ELASTIC_USERNAME: ${ELASTIC_USERNAME}
+      ELASTIC_PASSWORD: ${ELASTIC_PASSWORD}
+      ELASTIC_CLUSTER_NAME: ${ELASTIC_CLUSTER_NAME}
+      ELASTIC_NODE_NAME: ${ELASTIC_NODE_NAME}
+      ELASTIC_INIT_MASTER_NODE: ${ELASTIC_INIT_MASTER_NODE}
+      ELASTIC_DISCOVERY_SEEDS: ${ELASTIC_DISCOVERY_SEEDS}
+      ES_JAVA_OPTS: -Xmx${ELASTICSEARCH_HEAP} -Xms${ELASTICSEARCH_HEAP} -Des.enforce.bootstrap.checks=true
+      bootstrap.memory_lock: "true"
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+      - ./logging/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - ./logging/elasticsearch/config/log4j2.properties:/usr/share/elasticsearch/config/log4j2.properties
+    secrets:
+      - source: elasticsearch.keystore
+        target: /usr/share/elasticsearch/config/elasticsearch.keystore
+      - source: ca
+        target: /usr/share/elasticsearch/config/certs/ca.crt
+      - source: elasticsearch.cert
+        target: /usr/share/elasticsearch/config/certs/elasticsearch.crt
+      - source: elasticsearch.key
+        target: /usr/share/elasticsearch/config/certs/elasticsearch.key
+    ports:
+      - ${ELASTICSEARCH_HTTPS_PORT}:${ELASTICSEARCH_HTTPS_PORT}
+      - ${ELASTICSEARCH_TRANSPORT_PORT}:${ELASTICSEARCH_TRANSPORT_PORT}
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 200000
+        hard: 200000
+
+  kibana:
+    image: api-gateway-kibana:${ELASTIC_STACK_VERSION}
+    build:
+      context: logging/kibana
+      args:
+        ELASTIC_STACK_VERSION: $ELASTIC_STACK_VERSION
+    restart: unless-stopped
+    volumes:
+      - ./logging/kibana/config/:/usr/share/kibana/config:ro
+    environment:
+      ELASTIC_USERNAME: ${ELASTIC_USERNAME}
+      ELASTIC_PASSWORD: ${ELASTIC_PASSWORD}
+      ELASTICSEARCH_HOST_PORT: ${ELASTICSEARCH_HOST}:${ELASTICSEARCH_HTTPS_PORT}
+    secrets:
+      - source: ca
+        target: /certs/ca.crt
+      - source: kibana.cert
+        target: /certs/kibana.crt
+      - source: kibana.key
+        target: /certs/kibana.key
+    ports:
+      - ${KIBANA_HTTPS_PORT}:${KIBANA_HTTPS_PORT}
+
+  filebeat:
+    image: api-gateway-filebeat:${ELASTIC_STACK_VERSION}
+    build:
+      context: logging/filebeat
+      args:
+        ELASTIC_STACK_VERSION: $ELASTIC_STACK_VERSION
+    restart: unless-stopped
+    # -e flag to log to stderr and disable syslog/file output
+    command: -e --strict.perms=false
+    user: root
+    environment:
+      ELASTIC_USERNAME: ${ELASTIC_USERNAME}
+      ELASTIC_PASSWORD: ${ELASTIC_PASSWORD}
+      KIBANA_HOST_PORT: ${KIBANA_HOST}:${KIBANA_HTTPS_PORT}
+      ELASTICSEARCH_HOST_PORT: https://${ELASTICSEARCH_HOST}:${ELASTICSEARCH_HTTPS_PORT}
+    volumes:
+      - ./logging/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+      - ./logging/filebeat/fields.yml:/usr/share/filebeat/fields.yml:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    secrets:
+      - source: ca
+        target: /usr/share/filebeat/elasticsearch-ca.crt

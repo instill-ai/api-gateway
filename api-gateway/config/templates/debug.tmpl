@@ -1,0 +1,36 @@
+{
+  "endpoint": "{{ (index .endpoints.debug 0).endpoint }}",
+  "method": "GET",
+  "output_encoding": "no-op",
+  "headers_to_pass": [
+    "*"
+  ],
+  "backend": [
+    {
+      "url_pattern": "{{ (index .endpoints.debug 0).url_pattern }}",
+      "host": {{ marshal .backends.debug }},
+      "encoding": "no-op",
+      "sd": "static",
+      "method": "GET",
+      "disable_host_sanitize": false
+    }
+  ]
+},
+{
+  "endpoint": "{{ (index .endpoints.debug 0).endpoint }}",
+  "method": "POST",
+  "output_encoding": "no-op",
+  "headers_to_pass": [
+    "*"
+  ],
+  "backend": [
+    {
+      "url_pattern": "{{ (index .endpoints.debug 0).url_pattern }}",
+      "host": {{ marshal .backends.debug }},
+      "encoding": "no-op",
+      "sd": "static",
+      "method": "GET",
+      "disable_host_sanitize": false
+    }
+  ]
+}

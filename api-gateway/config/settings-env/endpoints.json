@@ -1,0 +1,534 @@
+{
+  "debug": [
+    {
+      "endpoint": "/default",
+      "url_pattern": "/__debug/default"
+    }
+  ],
+  "pipeline": {
+    "jwt_auth": [
+      {
+        "endpoint": "/pipelines",
+        "url_pattern": "/pipelines",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": [],
+        "jwk_url": "${HYDRA_PUBLIC_URL}/.well-known/jwks.json",
+        "jwt_iss": "${HYDRA_ISSUER}",
+        "jwt_aud": ["${HYDRA_AUDIENCE}"],
+        "jwt_scopes": []
+      },
+      {
+        "endpoint": "/pipelines",
+        "url_pattern": "/pipelines",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": ["view", "page_size"],
+        "jwk_url": "${HYDRA_PUBLIC_URL}/.well-known/jwks.json",
+        "jwt_iss": "${HYDRA_ISSUER}",
+        "jwt_aud": ["${HYDRA_AUDIENCE}"],
+        "jwt_scopes": []
+      },
+      {
+        "endpoint": "/pipelines/{id}",
+        "url_pattern": "/pipelines/{id}",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [],
+        "jwk_url": "${HYDRA_PUBLIC_URL}/.well-known/jwks.json",
+        "jwt_iss": "${HYDRA_ISSUER}",
+        "jwt_aud": ["${HYDRA_AUDIENCE}"],
+        "jwt_scopes": []
+      },
+      {
+        "endpoint": "/pipelines/{id}",
+        "url_pattern": "/pipelines/{id}",
+        "method": "PATCH",
+        "timeout": "30s",
+        "input_query_strings": [],
+        "jwk_url": "${HYDRA_PUBLIC_URL}/.well-known/jwks.json",
+        "jwt_iss": "${HYDRA_ISSUER}",
+        "jwt_aud": ["${HYDRA_AUDIENCE}"],
+        "jwt_scopes": []
+      },
+      {
+        "endpoint": "/pipelines/{id}",
+        "url_pattern": "/pipelines/{id}",
+        "method": "DELETE",
+        "timeout": "30s",
+        "input_query_strings": [],
+        "jwk_url": "${HYDRA_PUBLIC_URL}/.well-known/jwks.json",
+        "jwt_iss": "${HYDRA_ISSUER}",
+        "jwt_aud": ["${HYDRA_AUDIENCE}"],
+        "jwt_scopes": []
+      },
+      {
+        "endpoint": "/pipelines/{id}/outputs",
+        "url_pattern": "/pipelines/{id}/outputs",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": [],
+        "jwk_url": "${HYDRA_PUBLIC_URL}/.well-known/jwks.json",
+        "jwt_iss": "${HYDRA_ISSUER}",
+        "jwt_aud": ["${HYDRA_AUDIENCE}"],
+        "jwt_scopes": []
+      },
+      {
+        "endpoint": "/pipelines/{id}/upload/outputs",
+        "url_pattern": "/pipelines/{id}/upload/outputs",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": [],
+        "jwk_url": "${HYDRA_PUBLIC_URL}/.well-known/jwks.json",
+        "jwt_iss": "${HYDRA_ISSUER}",
+        "jwt_aud": ["${HYDRA_AUDIENCE}"],
+        "jwt_scopes": []
+      }
+    ],
+    "no_auth": [
+      {
+        "endpoint": "/health/pipeline",
+        "url_pattern": "/health/pipeline",
+        "method": "GET",
+        "timeout": "5s",
+        "input_query_strings": []
+      }
+    ],
+    "grpc_auth": [
+      {
+        "endpoint": "/instill.pipeline.Pipeline/ListPipelines",
+        "url_pattern": "/instill.pipeline.Pipeline/ListPipelines",
+        "method": "POST",
+        "timeout": "5s",
+        "jwk_url": "${HYDRA_PUBLIC_URL}/.well-known/jwks.json",
+        "jwt_iss": "${HYDRA_ISSUER}",
+        "jwt_aud": ["${HYDRA_AUDIENCE}"],
+        "jwt_scopes": []
+      },
+      {
+        "endpoint": "/instill.pipeline.Pipeline/CreatePipeline",
+        "url_pattern": "/instill.pipeline.Pipeline/CreatePipeline",
+        "method": "POST",
+        "timeout": "5s",
+        "jwk_url": "${HYDRA_PUBLIC_URL}/.well-known/jwks.json",
+        "jwt_iss": "${HYDRA_ISSUER}",
+        "jwt_aud": ["${HYDRA_AUDIENCE}"],
+        "jwt_scopes": []
+      },
+      {
+        "endpoint": "/instill.pipeline.Pipeline/GetPipeline",
+        "url_pattern": "/instill.pipeline.Pipeline/GetPipeline",
+        "method": "POST",
+        "timeout": "5s",
+        "jwk_url": "${HYDRA_PUBLIC_URL}/.well-known/jwks.json",
+        "jwt_iss": "${HYDRA_ISSUER}",
+        "jwt_aud": ["${HYDRA_AUDIENCE}"],
+        "jwt_scopes": []
+      },
+      {
+        "endpoint": "/instill.pipeline.Pipeline/UpdatePipeline",
+        "url_pattern": "/instill.pipeline.Pipeline/UpdatePipeline",
+        "method": "POST",
+        "timeout": "5s",
+        "jwk_url": "${HYDRA_PUBLIC_URL}/.well-known/jwks.json",
+        "jwt_iss": "${HYDRA_ISSUER}",
+        "jwt_aud": ["${HYDRA_AUDIENCE}"],
+        "jwt_scopes": []
+      },
+      {
+        "endpoint": "/instill.pipeline.Pipeline/DeletePipeline",
+        "url_pattern": "/instill.pipeline.Pipeline/DeletePipeline",
+        "method": "POST",
+        "timeout": "5s",
+        "jwk_url": "${HYDRA_PUBLIC_URL}/.well-known/jwks.json",
+        "jwt_iss": "${HYDRA_ISSUER}",
+        "jwt_aud": ["${HYDRA_AUDIENCE}"],
+        "jwt_scopes": []
+      },
+      {
+        "endpoint": "/instill.pipeline.Pipeline/TriggerPipeline",
+        "url_pattern": "/instill.pipeline.Pipeline/TriggerPipeline",
+        "method": "POST",
+        "timeout": "5s",
+        "jwk_url": "${HYDRA_PUBLIC_URL}/.well-known/jwks.json",
+        "jwt_iss": "${HYDRA_ISSUER}",
+        "jwt_aud": ["${HYDRA_AUDIENCE}"],
+        "jwt_scopes": []
+      },
+      {
+        "endpoint": "/instill.pipeline.Pipeline/TriggerPipelineByUpload",
+        "url_pattern": "/instill.pipeline.Pipeline/TriggerPipelineByUpload",
+        "method": "POST",
+        "timeout": "5s",
+        "jwk_url": "${HYDRA_PUBLIC_URL}/.well-known/jwks.json",
+        "jwt_iss": "${HYDRA_ISSUER}",
+        "jwt_aud": ["${HYDRA_AUDIENCE}"],
+        "jwt_scopes": []
+      }
+    ],
+    "grpc_no_auth": [
+      {
+        "endpoint": "/instill.pipeline.Pipeline/Liveness",
+        "url_pattern": "/instill.pipeline.Pipeline/Liveness",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/instill.pipeline.Pipeline/Readiness",
+        "url_pattern": "/instill.pipeline.Pipeline/Readiness",
+        "method": "POST",
+        "timeout": "5s"
+      }
+    ]
+  },
+  "mgmt": {
+    "jwt_auth": [
+      {
+        "endpoint": "/clients",
+        "url_pattern": "/clients",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": ["limit", "offset"],
+        "jwk_url": "${HYDRA_PUBLIC_URL}/.well-known/jwks.json",
+        "jwt_iss": "${HYDRA_ISSUER}",
+        "jwt_aud": ["${HYDRA_AUDIENCE}"],
+        "jwt_scopes": []
+      },
+      {
+        "endpoint": "/clients",
+        "url_pattern": "/clients",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": [],
+        "jwk_url": "${HYDRA_PUBLIC_URL}/.well-known/jwks.json",
+        "jwt_iss": "${HYDRA_ISSUER}",
+        "jwt_aud": ["${HYDRA_AUDIENCE}"],
+        "jwt_scopes": []
+      },
+      {
+        "endpoint": "/clients/{id}",
+        "url_pattern": "/clients/{id}",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [],
+        "jwk_url": "${HYDRA_PUBLIC_URL}/.well-known/jwks.json",
+        "jwt_iss": "${HYDRA_ISSUER}",
+        "jwt_aud": ["${HYDRA_AUDIENCE}"],
+        "jwt_scopes": []
+      },
+      {
+        "endpoint": "/clients/{id}",
+        "url_pattern": "/clients/{id}",
+        "method": "PATCH",
+        "timeout": "30s",
+        "input_query_strings": [],
+        "jwk_url": "${HYDRA_PUBLIC_URL}/.well-known/jwks.json",
+        "jwt_iss": "${HYDRA_ISSUER}",
+        "jwt_aud": ["${HYDRA_AUDIENCE}"],
+        "jwt_scopes": []
+      },
+      {
+        "endpoint": "/clients/{id}",
+        "url_pattern": "/clients/{id}",
+        "method": "DELETE",
+        "timeout": "30s",
+        "input_query_strings": [],
+        "jwk_url": "${HYDRA_PUBLIC_URL}/.well-known/jwks.json",
+        "jwt_iss": "${HYDRA_ISSUER}",
+        "jwt_aud": ["${HYDRA_AUDIENCE}"],
+        "jwt_scopes": []
+      },
+      {
+        "endpoint": "/clients/{id}/rotate-secret",
+        "url_pattern": "/clients/{id}/rotate-secret",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": [],
+        "jwk_url": "${HYDRA_PUBLIC_URL}/.well-known/jwks.json",
+        "jwt_iss": "${HYDRA_ISSUER}",
+        "jwt_aud": ["${HYDRA_AUDIENCE}"],
+        "jwt_scopes": []
+      }
+    ],
+    "no_auth": [
+      {
+        "endpoint": "/health/management",
+        "url_pattern": "/health/management",
+        "method": "GET",
+        "timeout": "5s",
+        "input_query_strings": []
+      }
+    ],
+    "basic_auth": [
+      {
+        "endpoint": "/oauth2/token",
+        "url_pattern": "/oauth2/token",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": ["grant_type", "audience"]
+      }
+    ]
+  },
+  "model": {
+    "jwt_auth": [
+      {
+        "endpoint": "/v1alpha/model-definitions",
+        "url_pattern": "/v1alpha/model-definitions",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [],
+        "jwk_url": "${HYDRA_PUBLIC_URL}/.well-known/jwks.json",
+        "jwt_iss": "${HYDRA_ISSUER}",
+        "jwt_aud": ["${HYDRA_AUDIENCE}"],
+        "jwt_scopes": []
+      },
+      {
+        "endpoint": "/v1alpha/model-definitions/{definition_name}",
+        "url_pattern": "/v1alpha/model-definitions/{definition_name}",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [],
+        "jwk_url": "${HYDRA_PUBLIC_URL}/.well-known/jwks.json",
+        "jwt_iss": "${HYDRA_ISSUER}",
+        "jwt_aud": ["${HYDRA_AUDIENCE}"],
+        "jwt_scopes": []
+      },         
+      {
+        "endpoint": "/v1alpha/models",
+        "url_pattern": "/v1alpha/models",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": ["view", "page_size", "page_token"],
+        "jwk_url": "${HYDRA_PUBLIC_URL}/.well-known/jwks.json",
+        "jwt_iss": "${HYDRA_ISSUER}",
+        "jwt_aud": ["${HYDRA_AUDIENCE}"],
+        "jwt_scopes": []
+      },
+      {
+        "endpoint": "/v1alpha/models/{model_name}",
+        "url_pattern": "/v1alpha/models/{model_name}",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": ["view"],
+        "jwk_url": "${HYDRA_PUBLIC_URL}/.well-known/jwks.json",
+        "jwt_iss": "${HYDRA_ISSUER}",
+        "jwt_aud": ["${HYDRA_AUDIENCE}"],
+        "jwt_scopes": []
+      }, 
+      {
+        "endpoint": "/v1alpha/models/{model_name}",
+        "url_pattern": "/v1alpha/models/{model_name}",
+        "method": "PATCH",
+        "timeout": "30s",
+        "input_query_strings": [],
+        "jwk_url": "${HYDRA_PUBLIC_URL}/.well-known/jwks.json",
+        "jwt_iss": "${HYDRA_ISSUER}",
+        "jwt_aud": ["${HYDRA_AUDIENCE}"],
+        "jwt_scopes": []
+      },
+      {
+        "endpoint": "/v1alpha/models/{model_name}",
+        "url_pattern": "/v1alpha/models/{model_name}",
+        "method": "DELETE",
+        "timeout": "30s",
+        "input_query_strings": [],
+        "jwk_url": "${HYDRA_PUBLIC_URL}/.well-known/jwks.json",
+        "jwt_iss": "${HYDRA_ISSUER}",
+        "jwt_aud": ["${HYDRA_AUDIENCE}"],
+        "jwt_scopes": []
+      },
+      {
+        "endpoint": "/v1alpha/models/{model_name}/lookUp",
+        "url_pattern": "/v1alpha/models/{model_name}/lookUp",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": ["view"],
+        "jwk_url": "${HYDRA_PUBLIC_URL}/.well-known/jwks.json",
+        "jwt_iss": "${HYDRA_ISSUER}",
+        "jwt_aud": ["${HYDRA_AUDIENCE}"],
+        "jwt_scopes": []
+      }, 
+      {
+        "endpoint": "/v1alpha/models/{model_name}/rename",
+        "url_pattern": "/v1alpha/models/{model_name}/rename",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": [],
+        "jwk_url": "${HYDRA_PUBLIC_URL}/.well-known/jwks.json",
+        "jwt_iss": "${HYDRA_ISSUER}",
+        "jwt_aud": ["${HYDRA_AUDIENCE}"],
+        "jwt_scopes": []
+      },
+      {
+        "endpoint": "/v1alpha/models/{model_name}/publish",
+        "url_pattern": "/v1alpha/models/{model_name}/publish",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": [],
+        "jwk_url": "${HYDRA_PUBLIC_URL}/.well-known/jwks.json",
+        "jwt_iss": "${HYDRA_ISSUER}",
+        "jwt_aud": ["${HYDRA_AUDIENCE}"],
+        "jwt_scopes": []
+      },
+      {
+        "endpoint": "/v1alpha/models/{model_name}/unpublish",
+        "url_pattern": "/v1alpha/models/{model_name}/unpublish",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": [],
+        "jwk_url": "${HYDRA_PUBLIC_URL}/.well-known/jwks.json",
+        "jwt_iss": "${HYDRA_ISSUER}",
+        "jwt_aud": ["${HYDRA_AUDIENCE}"],
+        "jwt_scopes": []
+      },
+      {
+        "endpoint": "/v1alpha/models/{model_name}/instances",
+        "url_pattern": "/v1alpha/models/{model_name}/instances",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": ["view", "page_size", "page_token"],
+        "jwk_url": "${HYDRA_PUBLIC_URL}/.well-known/jwks.json",
+        "jwt_iss": "${HYDRA_ISSUER}",
+        "jwt_aud": ["${HYDRA_AUDIENCE}"],
+        "jwt_scopes": []
+      },
+      {
+        "endpoint": "/v1alpha/models/{model_name}/instances/{instance_name}",
+        "url_pattern": "/v1alpha/models/{model_name}/instances/{instance_name}",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": ["view"],
+        "jwk_url": "${HYDRA_PUBLIC_URL}/.well-known/jwks.json",
+        "jwt_iss": "${HYDRA_ISSUER}",
+        "jwt_aud": ["${HYDRA_AUDIENCE}"],
+        "jwt_scopes": []
+      },
+      {
+        "endpoint": "/v1alpha/models/{model_name}/instances/{instance_name}/lookUp",
+        "url_pattern": "/v1alpha/models/{model_name}/instances/{instance_name}/lookUp",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": ["view"],
+        "jwk_url": "${HYDRA_PUBLIC_URL}/.well-known/jwks.json",
+        "jwt_iss": "${HYDRA_ISSUER}",
+        "jwt_aud": ["${HYDRA_AUDIENCE}"],
+        "jwt_scopes": []
+      }, 
+      {
+        "endpoint": "/v1alpha/models/{model_name}/instances/{instance_name}/readme",
+        "url_pattern": "/v1alpha/models/{model_name}/instances/{instance_name}/readme",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [],
+        "jwk_url": "${HYDRA_PUBLIC_URL}/.well-known/jwks.json",
+        "jwt_iss": "${HYDRA_ISSUER}",
+        "jwt_aud": ["${HYDRA_AUDIENCE}"],
+        "jwt_scopes": []
+      },                                                                         
+      {
+        "endpoint": "/v1alpha/models",
+        "url_pattern": "/v1alpha/models",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": [],
+        "jwk_url": "${HYDRA_PUBLIC_URL}/.well-known/jwks.json",
+        "jwt_iss": "${HYDRA_ISSUER}",
+        "jwt_aud": ["${HYDRA_AUDIENCE}"],
+        "jwt_scopes": []
+      },
+      {
+        "endpoint": "/v1alpha/models/multipart",
+        "url_pattern": "/v1alpha/models/multipart",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": [],
+        "jwk_url": "${HYDRA_PUBLIC_URL}/.well-known/jwks.json",
+        "jwt_iss": "${HYDRA_ISSUER}",
+        "jwt_aud": ["${HYDRA_AUDIENCE}"],
+        "jwt_scopes": []
+      },      
+      {
+        "endpoint": "/v1alpha/models/{model_name}/instances/{instance_name}/deploy",
+        "url_pattern": "/v1alpha/models/{model_name}/instances/{instance_name}/deploy",
+        "method": "POST",
+        "timeout": "900s",
+        "input_query_strings": [],
+        "jwk_url": "${HYDRA_PUBLIC_URL}/.well-known/jwks.json",
+        "jwt_iss": "${HYDRA_ISSUER}",
+        "jwt_aud": ["${HYDRA_AUDIENCE}"],
+        "jwt_scopes": []
+      },
+      {
+        "endpoint": "/v1alpha/models/{model_name}/instances/{instance_name}/undeploy",
+        "url_pattern": "/v1alpha/models/{model_name}/instances/{instance_name}/undeploy",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": [],
+        "jwk_url": "${HYDRA_PUBLIC_URL}/.well-known/jwks.json",
+        "jwt_iss": "${HYDRA_ISSUER}",
+        "jwt_aud": ["${HYDRA_AUDIENCE}"],
+        "jwt_scopes": []
+      },
+      {
+        "endpoint": "/v1alpha/models/{model_name}/instances/{instance_name}/trigger",
+        "url_pattern": "/v1alpha/models/{model_name}/instances/{instance_name}/trigger",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": [],
+        "jwk_url": "${HYDRA_PUBLIC_URL}/.well-known/jwks.json",
+        "jwt_iss": "${HYDRA_ISSUER}",
+        "jwt_aud": ["${HYDRA_AUDIENCE}"],
+        "jwt_scopes": []
+      },
+      {
+        "endpoint": "/v1alpha/models/{model_name}/instances/{instance_name}/trigger-multipart",
+        "url_pattern": "/v1alpha/models/{model_name}/instances/{instance_name}/trigger-multipart",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": [],
+        "jwk_url": "${HYDRA_PUBLIC_URL}/.well-known/jwks.json",
+        "jwt_iss": "${HYDRA_ISSUER}",
+        "jwt_aud": ["${HYDRA_AUDIENCE}"],
+        "jwt_scopes": []
+      },
+      {
+        "endpoint": "/v1alpha/models/{model_name}/instances/{instance_name}/test",
+        "url_pattern": "/v1alpha/models/{model_name}/instances/{instance_name}/test",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": [],
+        "jwk_url": "${HYDRA_PUBLIC_URL}/.well-known/jwks.json",
+        "jwt_iss": "${HYDRA_ISSUER}",
+        "jwt_aud": ["${HYDRA_AUDIENCE}"],
+        "jwt_scopes": []
+      },      
+      {
+        "endpoint": "/v1alpha/models/{model_name}/instances/{instance_name}/test-multipart",
+        "url_pattern": "/v1alpha/models/{model_name}/instances/{instance_name}/test-multipart",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": [],
+        "jwk_url": "${HYDRA_PUBLIC_URL}/.well-known/jwks.json",
+        "jwt_iss": "${HYDRA_ISSUER}",
+        "jwt_aud": ["${HYDRA_AUDIENCE}"],
+        "jwt_scopes": []
+      }                              
+    ],
+    "no_auth": [
+      {
+        "endpoint": "/v1alpha/__liveness",
+        "url_pattern": "/v1alpha/__liveness",
+        "method": "GET",
+        "timeout": "5s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/__readiness",
+        "url_pattern": "/v1alpha/__readiness",
+        "method": "GET",
+        "timeout": "5s",
+        "input_query_strings": []
+      }      
+    ]
+  }
+}

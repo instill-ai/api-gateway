@@ -1,0 +1,136 @@
+syntax = "proto3";
+package instill.pipeline;
+
+option go_package = "github.com/instill-ai/protobufs/pipeline";
+
+// Protobuf standard
+import "google/protobuf/empty.proto";
+import "google/protobuf/struct.proto";
+import "google/protobuf/field_mask.proto";
+import "google/protobuf/timestamp.proto";
+
+service Pipeline {
+  rpc Liveness(google.protobuf.Empty) returns (HealthCheckResponse) {
+  }
+  rpc Readiness(google.protobuf.Empty) returns (HealthCheckResponse){
+  }
+  rpc CreatePipeline (CreatePipelineRequest) returns (PipelineInfo) {
+  }
+  rpc ListPipelines (ListPipelinesRequest) returns (ListPipelinesResponse) {
+  }
+  rpc GetPipeline (GetPipelineRequest) returns (PipelineInfo) {
+  }
+  rpc UpdatePipeline (UpdatePipelineRequest) returns (PipelineInfo) {
+  }
+  rpc DeletePipeline (DeletePipelineRequest) returns (google.protobuf.Empty) {
+  }
+  rpc TriggerPipeline (TriggerPipelineRequest) returns (google.protobuf.Struct) {
+  }
+  rpc TriggerPipelineByUpload (stream TriggerPipelineImageRequest) returns (google.protobuf.Struct) {
+  }
+}
+
+message PipelineInfo {
+  uint64 id = 1;
+  string name = 2;
+  string description = 3;
+  bool active = 4;
+  google.protobuf.Timestamp created_at = 5;
+  google.protobuf.Timestamp updated_at = 6;
+  instill.pipeline.Recipe recipe = 7;
+  string full_name = 8;
+}
+
+message CreatePipelineRequest {
+  string name = 1;
+  string description = 2;
+  bool active = 3;
+  instill.pipeline.Recipe recipe = 4;
+}
+
+message ListPipelinesRequest {
+  int32 page_size = 1;
+  string page_token = 2;
+  View view = 3;
+
+  enum View {
+    VIEW_UNSPECIFIED = 0;
+    BASIC = 1;
+    WITH_RECIPE = 2;
+  }
+}
+
+message ListPipelinesResponse {
+  repeated PipelineInfo contents = 1;
+  string next_page_token = 2;
+}
+
+message GetPipelineRequest {
+  string name = 1;
+}
+
+message UpdatePipelineRequest {
+  PipelineInfo pipeline = 1;
+
+  google.protobuf.FieldMask update_mask = 2;
+}
+
+message DeletePipelineRequest {
+  string name = 1;
+}
+
+message TriggerPipelineContent {
+  string url = 1;
+  string base64 = 2;
+}
+
+message TriggerPipelineRequest {
+  string name = 1;
+  repeated TriggerPipelineContent contents = 2;
+}
+
+message TriggerPipelineImageContent {
+  bytes chunk = 1;
+}
+
+message TriggerPipelineImageRequest {
+  string name = 1;
+  repeated TriggerPipelineImageContent contents = 2;
+}
+
+message Scheduler {
+  string crontab = 1;
+}
+
+message Source {
+  string type = 1;
+  string name = 2;
+  Scheduler scheduler = 3;
+}
+
+message Destination {
+  string type = 1;
+  string name = 2;
+}
+
+message Model {
+  string name = 1;
+  int32 version = 2;
+}
+
+message Recipe {
+  Source source = 1;
+  Destination destination = 2;
+  repeated Model model = 3;
+}
+
+message HealthCheckResponse {
+  enum ServingStatusCode {
+    UNKNOWN = 0;
+    SERVING = 1;
+    NOT_SERVING = 2;
+    SERVICE_UNKNOWN = 3;  // Used only by the Watch method.
+  }
+  ServingStatusCode code = 1;
+  string status = 2;
+}

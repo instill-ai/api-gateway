@@ -1,0 +1,51 @@
+{
+  "inputs": [
+    {
+      "inputFile": "api-gateway-openapi.yaml",
+      "dispute": {
+        "prefix": "api-gateway"
+      },
+      "description": {
+        "append": true
+      }
+    }
+    ,
+    {
+      "inputURL": "{{ OPENAPI_INFERENCE_URL }}",
+      "dispute": {
+        "prefix": "inference"
+      },
+      "description": {
+        "append": false
+      }
+    },
+		{
+      "inputURL": "{{ OPENAPI_MANAGEMENT_URL }}",
+      "dispute": {
+        "prefix": "management"
+      },
+      "description": {
+        "append": false
+      }
+		},
+    {
+      "inputURL": "{{ OPENAPI_MODEL_URL }}",
+      "dispute": {
+        "prefix": "model"
+      },
+      "description": {
+        "append": false
+      }
+		},
+    {
+      "inputURL": "{{ OPENAPI_PIPELINE_URL }}",
+      "dispute": {
+        "prefix": "pipeline"
+      },
+      "description": {
+        "append": false
+      }
+		}
+  ],
+  "output": "openapi.yaml"
+}
