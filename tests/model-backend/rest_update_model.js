@@ -57,11 +57,9 @@ export function UpdateModel(data) {
       let payload = JSON.stringify({
         "description": new_description
       })
-      let res = http.patch(`${apiHost}/v1alpha/models/${model_id}`, payload, {
+      check(http.patch(`${apiHost}/v1alpha/models/${model_id}`, payload, {
         headers: genAuthHeader(data.userAccessToken, "application/json")
-      })
-      console.log("---->>>> res ", res.status)
-      check(res, {
+      }), {
         [`PATCH /v1alpha/models/${model_id} task cls response status`]: (r) =>
           r.status === 200,
         [`PATCH /v1alpha/models/${model_id} task cls response model.name`]: (r) =>

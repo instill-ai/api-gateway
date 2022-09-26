@@ -30,17 +30,14 @@ PUBLIC_VERSION="${array[0]}.${array[1]}" # extract X.Y and fill into OpenAPI yam
 VERSION="${PUBLIC_VERSION}" SERVER_URL="$SERVER_URL" mo api-gateway/api/openapi.yaml.mustache > "$WORK_DIR/api-gateway-openapi.yaml"
 
 echo "Fetch the latest OpenAPI spec from each backend..."
-OPENAPI_INFERENCE_GCS_URL=$(gsutil ls 'gs://public-europe-west2-c-artifacts/docs/api/inference/openapi_*.yaml' | sort -V | tail -n 1)
 OPENAPI_MANAGEMENT_GCS_URL=$(gsutil ls 'gs://public-europe-west2-c-artifacts/docs/api/management/openapi_*.yaml' | sort -V | tail -n 1)
 OPENAPI_MODEL_GCS_URL=$(gsutil ls 'gs://public-europe-west2-c-artifacts/docs/api/model/openapi_*.yaml' | sort -V | tail -n 1)
 OPENAPI_PIPELINE_GCS_URL=$(gsutil ls 'gs://public-europe-west2-c-artifacts/docs/api/pipeline/openapi_*.yaml' | sort -V | tail -n 1)
 
-OPENAPI_INFERENCE_PATH="inference/$(basename "$OPENAPI_INFERENCE_GCS_URL")"
 OPENAPI_MANAGEMENT_PATH="management/$(basename "$OPENAPI_MANAGEMENT_GCS_URL")"
 OPENAPI_MODEL_PATH="model/$(basename "$OPENAPI_MODEL_GCS_URL")"
 OPENAPI_PIPELINE_PATH="pipeline/$(basename "$OPENAPI_PIPELINE_GCS_URL")"
 
-OPENAPI_INFERENCE_URL="https://artifacts.instill.tech/docs/api/$OPENAPI_INFERENCE_PATH" \
 OPENAPI_MANAGEMENT_URL="https://artifacts.instill.tech/docs/api/$OPENAPI_MANAGEMENT_PATH" \
 OPENAPI_MODEL_URL="https://artifacts.instill.tech/docs/api/$OPENAPI_MODEL_PATH" \
 OPENAPI_PIPELINE_URL="https://artifacts.instill.tech/docs/api/$OPENAPI_PIPELINE_PATH" \
@@ -52,7 +49,7 @@ npx openapi-merge-cli -c "$WORK_DIR"/openapi-merge.json
 cp "$WORK_DIR/openapi.yaml" "$ROOT_DIR/api/openapi.yaml"
 
 # re-write merge log file
-echo -e "Merged OpenAPI public version: v$PUBLIC_FULL_VERSION\n- $OPENAPI_INFERENCE_PATH\n- $OPENAPI_MANAGEMENT_PATH\n- $OPENAPI_MODEL_PATH\n- $OPENAPI_PIPELINE_PATH" > "$ROOT_DIR/api/build-openapi.log"
+echo -e "Merged OpenAPI public version: v$PUBLIC_FULL_VERSION\n- $OPENAPI_MANAGEMENT_PATH\n- $OPENAPI_MODEL_PATH\n- $OPENAPI_PIPELINE_PATH" > "$ROOT_DIR/api/build-openapi.log"
 echo "Finished merging openapi with v$PUBLIC_FULL_VERSION and writing to $ROOT_DIR/api/build-openapi.log"
 
 # deletes the temp directory

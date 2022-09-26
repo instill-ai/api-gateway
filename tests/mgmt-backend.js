@@ -23,7 +23,6 @@ const cuboModelID = "m_3v2Yq6ocICEq0LxDdt8dBtl92Yl3QeWA";
 const cuboModelVersion = 1;
 
 const allowedAudiences = [
-  "instill.tech/inference",
   "instill.tech/management",
   apiHost,
 ];
