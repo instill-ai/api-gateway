@@ -1,24 +1,31 @@
 instances:
   - name: api-gateway
     dns:
-      - api_gateway
+      - api-gateway
       - localhost
     ip:
       - 127.0.0.1
 
   - name: pipeline-backend
     dns:
-      - pipeline_backend
+      - pipeline-backend
       - localhost
     ip:
       - 127.0.0.1
 
   - name: mgmt-backend
     dns:
-      - mgmt_backend
+      - mgmt-backend
       - localhost
     ip:
       - 127.0.0.1
+
+  - name: connector-backend
+    dns:
+      - connector-backend
+      - localhost
+    ip:
+      - 127.0.0.1      
 
   - name: elasticsearch
     dns:
@@ -63,7 +70,7 @@ instances:
 
   - name: model-backend
     dns:
-      - model_backend
+      - model-backend
       - localhost
     ip:
       - 127.0.0.1

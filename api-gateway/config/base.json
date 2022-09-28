@@ -25,6 +25,7 @@
     {{- template "debug.tmpl" . }},
     {{- template "mgmt.tmpl" . }},
     {{- template "pipeline.tmpl" . }},
-    {{- template "model.tmpl" . }}
+    {{- template "model.tmpl" . }},
+    {{- template "connector.tmpl" . }}
   ]
 }

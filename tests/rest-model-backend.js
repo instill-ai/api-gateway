@@ -17,14 +17,11 @@ import * as queryModelDefinition from "./model-backend/rest_query_model_definiti
 import * as queryModelInstance from "./model-backend/rest_query_model_instance.js"
 import * as getModelCard from "./model-backend/rest_model_card.js"
 
-
 import {
+  genAuthHeader,
   generateUserToken,
   deleteUser,
   deleteUserClients,
-  generateClientToken,
-  genAuthHeader,
-  genNoAuthHeader,
 } from "./helpers.js";
 
 const hydraHost = "https://127.0.0.1:4445";
@@ -60,12 +57,9 @@ export default function (data) {
 
   // Health check
   {
-    group("Model API: __liveness check", () => {
-      check(http.request("GET", `${apiHost}/v1alpha/__liveness`), {
-        "GET /__liveness response status is 200": (r) => r.status === 200,
-      });
-      check(http.request("GET", `${apiHost}/v1alpha/__readiness`), {
-        "GET /__readiness response status is 200": (r) => r.status === 200,
+    group("Model API: health check", () => {
+      check(http.request("GET", `${apiHost}/v1alpha/health/model`), {
+        "GET /v1alpha/health/model response status is 200": (r) => r.status === 200,
       });
     });
   }
@@ -107,24 +101,21 @@ export default function (data) {
 export function teardown(data) {
   deleteUserClients(hydraHost, data.user.id);
   deleteUser(kratosHost, data.user.id);
-  // group("Model API: Delete all models created by this test", () => {
-  //   for (const model of http
-  //     .request("GET", `${apiHost}/v1alpha/models`, null, {
-  //       headers: genAuthHeader(data.userAccessToken, "application/json"),
-  //     })
-  //     .json("models")) {
-  //     check(model, {
-  //       "GET /clients response contents[*] id": (c) => c.id !== undefined,
-  //     });
-  //     check(
-  //       http.request("DELETE", `${apiHost}/v1alpha/models/${model.id}`, null, {
-  //         headers: genAuthHeader(data.userAccessToken, "application/json"),
-  //       }),
-  //       {
-  //         [`DELETE /v1alpha/models/${model.id} response status is 204`]: (r) =>
-  //           r.status === 204,
-  //       }
-  //     );
-  //   }
-  // });
+  group("Model API: Delete all models created by this test", () => {
+    for (const model of http
+      .request("GET", `${apiHost}/v1alpha/models`, null, {
+        headers: genAuthHeader(data.userAccessToken, "application/json"),
+      })
+      .json("models")) {
+      check(
+        http.request("DELETE", `${apiHost}/v1alpha/models/${model.id}`, null, {
+          headers: genAuthHeader(data.userAccessToken, "application/json"),
+        }),
+        {
+          [`DELETE /v1alpha/models/${model.id} response status is 204`]: (r) =>
+            r.status === 204,
+        }
+      );
+    }
+  });
 }

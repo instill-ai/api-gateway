@@ -28,6 +28,10 @@ secrets:
     file: ./secrets/certs/pipeline-backend/pipeline-backend.crt
   pipeline-backend.key:
     file: ./secrets/certs/pipeline-backend/pipeline-backend.key
+  connector-backend.cert:
+    file: ./secrets/certs/connector-backend/connector-backend.crt
+  connector-backend.key:
+    file: ./secrets/certs/connector-backend/connector-backend.key    
   hydra.cert:
     file: ./secrets/certs/hydra/hydra.crt
   hydra.key:
@@ -124,11 +128,20 @@ services:
       CFG_DATABASE_HOST: ${PG_SQL_HOST}
       CFG_DATABASE_PORT: ${PG_SQL_PORT}
       CFG_SERVER_CORSORIGINS: http://${DOMAIN:-localhost}:${CONSOLE_PORT}
+      CFG_SERVER_HTTPS_CERT: /mgmt-backend/ssl/tls.crt
+      CFG_SERVER_HTTPS_KEY: /mgmt-backend/ssl/tls.key
     ports:
       - ${MGMT_BACKEND_HTTPS_PORT}:8084
     entrypoint: ./mgmt-backend
     depends_on:
       - mgmt_backend_init
+    secrets:
+      - source: ca
+        target: /etc/ssl/certs/ca.crt
+      - source: mgmt-backend.cert
+        target: /mgmt-backend/ssl/tls.crt
+      - source: mgmt-backend.key
+        target: /mgmt-backend/ssl/tls.key          
 
   model_backend_migrate:
     container_name: ${MODEL_BACKEND_HOST}-migrate
@@ -172,8 +185,12 @@ services:
       CFG_DATABASE_PASSWORD: ${PG_SQL_PASSWORD}
       CFG_MGMTBACKEND_HOST: ${MGMT_BACKEND_HOST}
       CFG_MGMTBACKEND_PORT: ${MGMT_BACKEND_HTTPS_PORT}
+      CFG_MGMTBACKEND_HTTPS_CERT: /mgmt-backend/ssl/tls.crt
+      CFG_MGMTBACKEND_HTTPS_KEY: /mgmt-backend/ssl/tls.key      
       CFG_PIPELINEBACKEND_HOST: ${PIPELINE_BACKEND_HOST}
       CFG_PIPELINEBACKEND_PORT: ${PIPELINE_BACKEND_HTTPS_PORT}
+      CFG_PIPELINEBACKEND_HTTPS_CERT: /pipeline-backend/ssl/tls.crt
+      CFG_PIPELINEBACKEND_HTTPS_KEY: /pipeline-backend/ssl/tls.key
       CFG_TRITONSERVER_GRPCURI: ${TRITON_SERVER_HOST}:${TRITON_SERVER_PORT}
       CFG_TEMPORAL_CLIENTOPTIONS_HOSTPORT: ${TEMPORAL_HOST}:${TEMPORAL_PORT}
       CFG_CACHE_REDIS_REDISOPTIONS_ADDR: ${REDIS_HOST}:${REDIS_PORT}
@@ -198,6 +215,14 @@ services:
         target: /model-backend/ssl/tls.crt
       - source: model-backend.key
         target: /model-backend/ssl/tls.key
+      - source: pipeline-backend.cert
+        target: /pipeline-backend/ssl/tls.crt
+      - source: pipeline-backend.key
+        target: /pipeline-backend/ssl/tls.key      
+      - source: mgmt-backend.cert
+        target: /mgmt-backend/ssl/tls.crt
+      - source: mgmt-backend.key
+        target: /mgmt-backend/ssl/tls.key                
 
   pipeline_backend_migrate:
     container_name: ${PIPELINE_BACKEND_HOST}-migrate
@@ -228,13 +253,21 @@ services:
       CFG_DATABASE_PASSWORD: ${PG_SQL_PASSWORD}
       CFG_MGMTBACKEND_HOST: ${MGMT_BACKEND_HOST}
       CFG_MGMTBACKEND_PORT: ${MGMT_BACKEND_HTTPS_PORT}
+      CFG_MGMTBACKEND_HTTPS_CERT: /mgmt-backend/ssl/tls.crt
+      CFG_MGMTBACKEND_HTTPS_KEY: /mgmt-backend/ssl/tls.key      
       CFG_CONNECTORBACKEND_HOST: ${CONNECTOR_BACKEND_HOST}
       CFG_CONNECTORBACKEND_PORT: ${CONNECTOR_BACKEND_HTTPS_PORT}
+      CFG_CONNECTORBACKEND_HTTPS_CERT: /connector-backend/ssl/tls.crt
+      CFG_CONNECTORBACKEND_HTTPS_KEY: /connector-backend/ssl/tls.key      
       CFG_MODELBACKEND_HOST: ${MODEL_BACKEND_HOST}
       CFG_MODELBACKEND_PORT: ${MODEL_BACKEND_HTTPS_PORT}
+      CFG_MODELBACKEND_HTTPS_CERT: /model-backend/ssl/tls.crt
+      CFG_MODELBACKEND_HTTPS_KEY: /model-backend/ssl/tls.key
       CFG_TEMPORAL_CLIENTOPTIONS_HOSTPORT: ${TEMPORAL_HOST}:${TEMPORAL_PORT}
       CFG_CACHE_REDIS_REDISOPTIONS_ADDR: ${REDIS_HOST}:${REDIS_PORT}
       CFG_SERVER_CORSORIGINS: http://${DOMAIN:-localhost}:${CONSOLE_PORT}
+      CFG_SERVER_HTTPS_CERT: /pipeline-backend/ssl/tls.crt
+      CFG_SERVER_HTTPS_KEY: /pipeline-backend/ssl/tls.key           
     ports:
       - ${PIPELINE_BACKEND_HTTPS_PORT}:8081
     entrypoint: ./pipeline-backend
@@ -242,6 +275,25 @@ services:
       - pipeline_backend_migrate
       - temporal
       - redis
+    secrets:
+      - source: ca
+        target: /etc/ssl/certs/ca.crt
+      - source: model-backend.cert
+        target: /model-backend/ssl/tls.crt
+      - source: model-backend.key
+        target: /model-backend/ssl/tls.key      
+      - source: pipeline-backend.cert
+        target: /pipeline-backend/ssl/tls.crt
+      - source: pipeline-backend.key
+        target: /pipeline-backend/ssl/tls.key     
+      - source: connector-backend.cert
+        target: /connector-backend/ssl/tls.crt
+      - source: connector-backend.key
+        target: /connector-backend/ssl/tls.key       
+      - source: mgmt-backend.cert
+        target: /mgmt-backend/ssl/tls.crt
+      - source: mgmt-backend.key
+        target: /mgmt-backend/ssl/tls.key                         
 
   connector_backend_migrate:
     container_name: ${CONNECTOR_BACKEND_HOST}-migrate
@@ -308,15 +360,36 @@ services:
       CFG_DATABASE_PASSWORD: ${PG_SQL_PASSWORD}
       CFG_MGMTBACKEND_HOST: ${MGMT_BACKEND_HOST}
       CFG_MGMTBACKEND_PORT: ${MGMT_BACKEND_HTTPS_PORT}
+      CFG_MGMTBACKEND_HTTPS_CERT: /mgmt-backend/ssl/tls.crt
+      CFG_MGMTBACKEND_HTTPS_KEY: /mgmt-backend/ssl/tls.key
       CFG_PIPELINEBACKEND_HOST: ${PIPELINE_BACKEND_HOST}
       CFG_PIPELINEBACKEND_PORT: ${PIPELINE_BACKEND_HTTPS_PORT}
+      CFG_PIPELINEBACKEND_HTTPS_CERT: /pipeline-backend/ssl/tls.crt
+      CFG_PIPELINEBACKEND_HTTPS_KEY: /pipeline-backend/ssl/tls.key
       CFG_TEMPORAL_CLIENTOPTIONS_HOSTPORT: ${TEMPORAL_HOST}:${TEMPORAL_PORT}
       CFG_SERVER_CORSORIGINS: http://${DOMAIN:-localhost}:${CONSOLE_PORT}
+      CFG_SERVER_HTTPS_CERT: /connector-backend/ssl/tls.crt
+      CFG_SERVER_HTTPS_KEY: /connector-backend/ssl/tls.key
     ports:
       - ${CONNECTOR_BACKEND_HTTPS_PORT}:8082
     entrypoint: ./connector-backend
     depends_on:
       - connector_backend_worker
+    secrets:
+      - source: ca
+        target: /etc/ssl/certs/ca.crt
+      - source: pipeline-backend.cert
+        target: /pipeline-backend/ssl/tls.crt
+      - source: pipeline-backend.key
+        target: /pipeline-backend/ssl/tls.key 
+      - source: connector-backend.cert
+        target: /connector-backend/ssl/tls.crt
+      - source: connector-backend.key
+        target: /connector-backend/ssl/tls.key        
+      - source: mgmt-backend.cert
+        target: /mgmt-backend/ssl/tls.crt
+      - source: mgmt-backend.key
+        target: /mgmt-backend/ssl/tls.key              
 
   hydra_migrate:
     container_name: hydra-migrate
