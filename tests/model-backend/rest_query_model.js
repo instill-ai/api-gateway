@@ -7,9 +7,8 @@ import {
   genAuthHeader,
 } from "../helpers.js";
 
-const apiHost = "https://127.0.0.1:8000";
+import * as constant from "./const.js"
 
-const cls_model = open(`${__ENV.TEST_FOLDER_ABS_PATH}/data/dummy-cls-model.zip`, "b");
 const model_def_name = "model-definitions/local"
 
 export function GetModel(data) {
@@ -22,8 +21,8 @@ export function GetModel(data) {
       fd_cls.append("id", model_id);
       fd_cls.append("description", model_description);
       fd_cls.append("model_definition", model_def_name);
-      fd_cls.append("content", http.file(cls_model, "dummy-cls-model.zip"));
-      check(http.request("POST", `${apiHost}/v1alpha/models/multipart`, fd_cls.body(), {
+      fd_cls.append("content", http.file(constant.cls_model, "dummy-cls-model.zip"));
+      check(http.request("POST", `${constant.apiHost}/v1alpha/models/multipart`, fd_cls.body(), {
         headers: genAuthHeader(
             data.userAccessToken,
             `multipart/form-data; boundary=${fd_cls.boundary}`
@@ -53,7 +52,7 @@ export function GetModel(data) {
           r.json().model.update_time !== undefined,
       });
 
-      check(http.get(`${apiHost}/v1alpha/models/${model_id}`, {
+      check(http.get(`${constant.apiHost}/v1alpha/models/${model_id}`, {
         headers: genAuthHeader(data.userAccessToken, "application/json"),
       }), {
         [`GET /v1alpha/models/${model_id} task cls response status`]: (r) =>
@@ -80,7 +79,7 @@ export function GetModel(data) {
           r.json().model.update_time !== undefined,
       });
 
-      check(http.get(`${apiHost}/v1alpha/models/${model_id}?view=VIEW_FULL`, {
+      check(http.get(`${constant.apiHost}/v1alpha/models/${model_id}?view=VIEW_FULL`, {
         headers: genAuthHeader(data.userAccessToken, "application/json"),
       }), {
         [`GET /v1alpha/models/${model_id} task cls response status`]: (r) =>
@@ -108,7 +107,7 @@ export function GetModel(data) {
       });
 
       // clean up
-      check(http.request("DELETE", `${apiHost}/v1alpha/models/${model_id}`, null, {
+      check(http.request("DELETE", `${constant.apiHost}/v1alpha/models/${model_id}`, null, {
         headers: genAuthHeader(data.userAccessToken, "application/json"),
       }), {
         "DELETE clean up response status": (r) =>
@@ -123,7 +122,7 @@ export function ListModel(data) {
   {
     group("Model Backend API: Get model list", function () {
       let model_id = randomString(10)
-      check(http.request("POST", `${apiHost}/v1alpha/models`, JSON.stringify({
+      check(http.request("POST", `${constant.apiHost}/v1alpha/models`, JSON.stringify({
         "id": model_id,
         "model_definition": "model-definitions/github",
         "configuration": {
@@ -160,7 +159,7 @@ export function ListModel(data) {
           r.json().model.update_time !== undefined,
       });
 
-      check(http.get(`${apiHost}/v1alpha/models`, {
+      check(http.get(`${constant.apiHost}/v1alpha/models`, {
         headers: genAuthHeader(data.userAccessToken, "application/json"),
       }), {
         [`GET /v1alpha/models task cls response status`]: (r) =>
@@ -193,7 +192,7 @@ export function ListModel(data) {
           r.json().models[0].update_time !== undefined,
       });
 
-      check(http.get(`${apiHost}/v1alpha/models?view=VIEW_FULL`, {
+      check(http.get(`${constant.apiHost}/v1alpha/models?view=VIEW_FULL`, {
         headers: genAuthHeader(data.userAccessToken, "application/json"),
       }), {
         [`GET /v1alpha/models?view=VIEW_FULL task cls response status`]: (r) =>
@@ -229,7 +228,7 @@ export function ListModel(data) {
       });
 
       // clean up
-      check(http.request("DELETE", `${apiHost}/v1alpha/models/${model_id}`, null, {
+      check(http.request("DELETE", `${constant.apiHost}/v1alpha/models/${model_id}`, null, {
         headers: genAuthHeader(data.userAccessToken, "application/json"),
       }), {
         "DELETE clean up response status": (r) =>
@@ -250,8 +249,8 @@ export function LookupModel(data) {
       fd_cls.append("id", model_id);
       fd_cls.append("description", model_description);
       fd_cls.append("model_definition", model_def_name);
-      fd_cls.append("content", http.file(cls_model, "dummy-cls-model.zip"));
-      let res = http.request("POST", `${apiHost}/v1alpha/models/multipart`, fd_cls.body(), {
+      fd_cls.append("content", http.file(constant.cls_model, "dummy-cls-model.zip"));
+      let res = http.request("POST", `${constant.apiHost}/v1alpha/models/multipart`, fd_cls.body(), {
         headers: genAuthHeader(
             data.userAccessToken,
             `multipart/form-data; boundary=${fd_cls.boundary}`
@@ -282,7 +281,7 @@ export function LookupModel(data) {
           r.json().model.update_time !== undefined,
       });
 
-      check(http.get(`${apiHost}/v1alpha/models/${res.json().model.uid}/lookUp`, {
+      check(http.get(`${constant.apiHost}/v1alpha/models/${res.json().model.uid}/lookUp`, {
         headers: genAuthHeader(data.userAccessToken, "application/json"),
       }), {
         [`GET /v1alpha/models/${res.json().model.uid}/lookUp task cls response status`]: (r) =>
@@ -308,7 +307,7 @@ export function LookupModel(data) {
         [`GET /v1alpha/models/${res.json().model.uid}/lookUp task cls response model.update_time`]: (r) =>
           r.json().model.update_time !== undefined,
       });
-      check(http.get(`${apiHost}/v1alpha/models/${res.json().model.uid}/lookUp?view=VIEW_FULL`, {
+      check(http.get(`${constant.apiHost}/v1alpha/models/${res.json().model.uid}/lookUp?view=VIEW_FULL`, {
         headers: genAuthHeader(data.userAccessToken, "application/json"),
       }), {
         [`GET /v1alpha/models/${res.json().model.uid}/lookUp task cls response status`]: (r) =>
@@ -336,7 +335,7 @@ export function LookupModel(data) {
       });
 
       // clean up
-      check(http.request("DELETE", `${apiHost}/v1alpha/models/${model_id}`, null, {
+      check(http.request("DELETE", `${constant.apiHost}/v1alpha/models/${model_id}`, null, {
         headers: genAuthHeader(data.userAccessToken, "application/json"),
       }), {
         "DELETE clean up response status": (r) =>

@@ -45,7 +45,7 @@ setup:		    ## Generate Elasticsearch SSL Certs and Keystore.
 #============================================================================
 
 dev:		    	## Start development stack
-	@docker-compose ${COMPOSE_DEV} up -d --build
+	@docker-compose ${COMPOSE_DEV} up -d --build api_gateway
 .PHONY: dev
 
 monitoring:		    ## Start monitoring stack
@@ -161,9 +161,10 @@ test:
 	@go install go.k6.io/xk6/cmd/xk6@latest
 	@xk6 build --with github.com/szkiba/xk6-jose@latest
 	# @TEST_FOLDER_ABS_PATH=${PWD}/tests ./k6 run tests/mgmt-backend.js --no-usage-report
-	@TEST_FOLDER_ABS_PATH=${PWD}/tests ./k6 run tests/rest-pipeline-backend.js --no-usage-report
-	@TEST_FOLDER_ABS_PATH=${PWD}/tests ./k6 run tests/rest-model-backend.js --no-usage-report
-	@TEST_FOLDER_ABS_PATH=${PWD}/tests ./k6 run tests/rest-connector-backend.js --no-usage-report
+	# @TEST_FOLDER_ABS_PATH=${PWD}/tests ./k6 run tests/rest-pipeline-backend.js --no-usage-report
+	# @TEST_FOLDER_ABS_PATH=${PWD}/tests ./k6 run tests/rest-model-backend.js --no-usage-report
+	@TEST_FOLDER_ABS_PATH=${PWD}/tests ./k6 run tests/grpc-model-backend.js --no-usage-report
+	# @TEST_FOLDER_ABS_PATH=${PWD}/tests ./k6 run tests/rest-connector-backend.js --no-usage-report
 	@rm k6
 .PHONY: test
 

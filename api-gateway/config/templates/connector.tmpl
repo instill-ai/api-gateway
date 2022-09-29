@@ -81,3 +81,60 @@
   ]
 }
 {{- end}}
+,
+{{- range $idx, $endpoint := $endpoints.grpc_auth }}
+{{- if $idx -}},{{ end }}
+{
+  "endpoint": "{{ .endpoint }}",
+  "method": "{{ .method }}",
+  "timeout": "{{ .timeout }}",
+  "output_encoding": "no-op",
+  "headers_to_pass": {{ marshal $headers_to_pass.grpc_auth }},
+  "extra_config": {
+    {{ template "jose_validator_hydra.tmpl" . }}
+  },
+  "backend": [
+    {
+      "url_pattern": "{{ .url_pattern }}",
+      "host": {{ marshal $host }},
+      "encoding": "no-op",
+      "sd": "static",
+      "method": "{{ .method }}",
+      "disable_host_sanitize": false,
+      "extra_config": {
+        "github.com/devopsfaith/krakend/transport/http/client/executor": {
+          "name": "grpc-access",
+          "grpc_endpoint": {{ marshal $host }}
+        }
+      }
+    }
+  ]
+}
+{{- end }}
+,
+{{- range $idx, $endpoint := $endpoints.grpc_no_auth }}
+{{- if $idx -}},{{ end }}
+{
+  "endpoint": "{{ .endpoint }}",
+  "method": "{{ .method }}",
+  "timeout": "{{ .timeout }}",
+  "output_encoding": "no-op",
+  "headers_to_pass": {{ marshal $headers_to_pass.grpc_no_auth }},
+  "backend": [
+    {
+      "url_pattern": "{{ .url_pattern }}",
+      "host": {{ marshal $host }},
+      "encoding": "no-op",
+      "sd": "static",
+      "method": "{{ .method }}",
+      "disable_host_sanitize": false,
+      "extra_config": {
+        "github.com/devopsfaith/krakend/transport/http/client/executor": {
+          "name": "grpc-access",
+          "grpc_endpoint": {{ marshal $host }}
+        }
+      }
+    }
+  ]
+}
+{{- end }}

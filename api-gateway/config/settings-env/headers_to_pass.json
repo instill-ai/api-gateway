@@ -46,7 +46,7 @@
     "Grpc-Accept-Encoding",
     "Te"
   ],
-  "grpc": [
+  "grpc_no_auth": [
     "Content-Type",
     "Content-Length",
     "Accept-Encoding",

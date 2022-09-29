@@ -7,10 +7,9 @@ import {
   genAuthHeader,
 } from "../helpers.js";
 
-const apiHost = "https://127.0.0.1:8000";
+import * as constant from "./const.js"
 
 const model_def_name = "model-definitions/local"
-const cls_model = open(`${__ENV.TEST_FOLDER_ABS_PATH}/data/dummy-cls-model.zip`, "b");
 
 export function PublishUnpublishModel(data) {
   // Model Backend API: PublishModel
@@ -22,8 +21,8 @@ export function PublishUnpublishModel(data) {
       fd_cls.append("id", model_id);
       fd_cls.append("description", model_description);
       fd_cls.append("model_definition", model_def_name);
-      fd_cls.append("content", http.file(cls_model, "dummy-cls-model.zip"));
-      check(http.request("POST", `${apiHost}/v1alpha/models/multipart`, fd_cls.body(), {
+      fd_cls.append("content", http.file(constant.cls_model, "dummy-cls-model.zip"));
+      check(http.request("POST", `${constant.apiHost}/v1alpha/models/multipart`, fd_cls.body(), {
          headers: genAuthHeader(
             data.userAccessToken,
             `multipart/form-data; boundary=${fd_cls.boundary}`
@@ -53,7 +52,7 @@ export function PublishUnpublishModel(data) {
           r.json().model.update_time !== undefined,
       });
 
-      check(http.post(`${apiHost}/v1alpha/models/${model_id}/publish`, null, {
+      check(http.post(`${constant.apiHost}/v1alpha/models/${model_id}/publish`, null, {
         headers: genAuthHeader(data.userAccessToken, "application/json"),
       }), {
         [`POST /v1alpha/models/${model_id}/publish task cls response status`]: (r) =>
@@ -80,7 +79,7 @@ export function PublishUnpublishModel(data) {
           r.json().model.update_time !== undefined,
       });
 
-      check(http.post(`${apiHost}/v1alpha/models/${model_id}/unpublish`, null, {
+      check(http.post(`${constant.apiHost}/v1alpha/models/${model_id}/unpublish`, null, {
         headers: genAuthHeader(data.userAccessToken, "application/json"),
       }), {
         [`POST /v1alpha/models/${model_id}/unpublish task cls response status`]: (r) =>
@@ -107,19 +106,19 @@ export function PublishUnpublishModel(data) {
           r.json().model.update_time !== undefined,
       });
 
-      check(http.post(`${apiHost}/v1alpha/models/${randomString(10)}/publish`, null, {
+      check(http.post(`${constant.apiHost}/v1alpha/models/${randomString(10)}/publish`, null, {
         headers: genAuthHeader(data.userAccessToken, "application/json"),
       }), {
         [`POST /v1alpha/models/${model_id}/publish task cls response not found status`]: (r) => r.status === 404,
       });
 
-      check(http.post(`${apiHost}/v1alpha/models/${randomString(10)}/unpublish`, null, {
+      check(http.post(`${constant.apiHost}/v1alpha/models/${randomString(10)}/unpublish`, null, {
         headers: genAuthHeader(data.userAccessToken, "application/json"),
       }), {
         [`POST /v1alpha/models/${model_id}/unpublish task cls response not found status`]: (r) => r.status === 404,
       });
       // clean up
-      check(http.request("DELETE", `${apiHost}/v1alpha/models/${model_id}`, null, {
+      check(http.request("DELETE", `${constant.apiHost}/v1alpha/models/${model_id}`, null, {
         headers: genAuthHeader(data.userAccessToken, "application/json"),
       }), {
         "DELETE clean up response status": (r) =>

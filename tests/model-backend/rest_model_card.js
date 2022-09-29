@@ -8,10 +8,8 @@ import {
   genAuthHeader,
 } from "../helpers.js";
 
-const apiHost = "https://127.0.0.1:8000";
+import * as constant from "./const.js"
 
-const cls_model = open(`${__ENV.TEST_FOLDER_ABS_PATH}/data/dummy-cls-model.zip`, "b");
-const cls_no_readme_model = open(`${__ENV.TEST_FOLDER_ABS_PATH}/data/dummy-cls-no-readme.zip`, "b");
 const model_def_name = "model-definitions/local"
 
 export function GetModelCard(data) {
@@ -24,8 +22,8 @@ export function GetModelCard(data) {
       fd_cls.append("id", model_id);
       fd_cls.append("description", model_description);
       fd_cls.append("model_definition", model_def_name);
-      fd_cls.append("content", http.file(cls_model, "dummy-cls-model.zip"));
-      check(http.request("POST", `${apiHost}/v1alpha/models/multipart`, fd_cls.body(), {
+      fd_cls.append("content", http.file(constant.cls_model, "dummy-cls-model.zip"));
+      check(http.request("POST", `${constant.apiHost}/v1alpha/models/multipart`, fd_cls.body(), {
         headers: genAuthHeader(
             data.userAccessToken,
             `multipart/form-data; boundary=${fd_cls.boundary}`
@@ -55,7 +53,7 @@ export function GetModelCard(data) {
           r.json().model.update_time !== undefined,
       });
 
-      check(http.get(`${apiHost}/v1alpha/models/${model_id}/instances/latest/readme`), {
+      check(http.get(`${constant.apiHost}/v1alpha/models/${model_id}/instances/latest/readme`), {
         [`GET /v1alpha/models/${model_id}/instances/latest/readme response status`]: (r) =>
           r.status === 200,
         [`GET /v1alpha/models/${model_id}/instances/latest/readme response readme.name`]: (r) =>
@@ -71,7 +69,7 @@ export function GetModelCard(data) {
       });
 
       // clean up
-      check(http.request("DELETE", `${apiHost}/v1alpha/models/${model_id}`, null, {
+      check(http.request("DELETE", `${constant.apiHost}/v1alpha/models/${model_id}`, null, {
         headers: genAuthHeader(data.userAccessToken, "application/json"),
       }), {
         "DELETE clean up response status": (r) =>
@@ -88,8 +86,8 @@ export function GetModelCard(data) {
     fd_cls.append("id", model_id);
     fd_cls.append("description", model_description);
     fd_cls.append("model_definition", model_def_name);
-    fd_cls.append("content", http.file(cls_no_readme_model, "dummy-cls-no-readme.zip"));
-    check(http.request("POST", `${apiHost}/v1alpha/models/multipart`, fd_cls.body(), {
+    fd_cls.append("content", http.file(constant.cls_no_readme_model, "dummy-cls-no-readme.zip"));
+    check(http.request("POST", `${constant.apiHost}/v1alpha/models/multipart`, fd_cls.body(), {
        headers: genAuthHeader(
             data.userAccessToken,
             `multipart/form-data; boundary=${fd_cls.boundary}`
@@ -119,7 +117,7 @@ export function GetModelCard(data) {
         r.json().model.update_time !== undefined,
     });
 
-    check(http.get(`${apiHost}/v1alpha/models/${model_id}/instances/latest/readme`), {
+    check(http.get(`${constant.apiHost}/v1alpha/models/${model_id}/instances/latest/readme`), {
       [`GET /v1alpha/models/${model_id}/instances/latest/readme response status`]: (r) =>
         r.status === 200,
       [`GET /v1alpha/models/${model_id}/instances/latest/readme no readme response readme.name`]: (r) =>
@@ -135,7 +133,7 @@ export function GetModelCard(data) {
     });
 
     // clean up
-    check(http.request("DELETE", `${apiHost}/v1alpha/models/${model_id}`, null, {
+    check(http.request("DELETE", `${constant.apiHost}/v1alpha/models/${model_id}`, null, {
       headers: genAuthHeader(data.userAccessToken, "application/json"),
     }), {
       "DELETE clean up response status": (r) =>
