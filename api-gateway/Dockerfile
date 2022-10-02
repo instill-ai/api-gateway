@@ -3,7 +3,9 @@ ARG BASE_KRAKEND_VERSION
 #
 #
 # Build KrakenD plugins
-FROM golang:1.16.4 AS build
+FROM golang:1.17.13-alpine AS build
+
+RUN apk add make gcc musl-dev
 
 COPY api-gateway/plugins /api-gateway/plugins
 
