@@ -1,0 +1,27 @@
+{
+  "version": 3,
+  "name": "API Gateway",
+  "port": {{ .ports.api_gateway_port }},
+  "timeout": "3000ms",
+  "cache_ttl": "300s",
+  "plugin": {
+    "pattern": ".so",
+    "folder": "/api-gateway/plugins/"
+  },
+  "extra_config": {
+    {{ include "gologging" }},
+    {{ template "influxdb_metrics.tmpl" . }},
+    {{ template "opencensus.tmpl" . }},
+    {{ template "cors.tmpl" . }},
+    "github_com/devopsfaith/krakend/transport/http/server/handler": {
+      "name": "modifier"
+    }
+  },
+  "endpoints": [
+    {{- template "debug.tmpl" . }},
+    {{- template "pipeline.tmpl" . }},
+    {{- template "connector.tmpl" . }},
+    {{- template "model.tmpl" . }},   
+    {{- template "mgmt.tmpl" . }}     
+  ]
+}

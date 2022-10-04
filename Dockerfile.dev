@@ -1,0 +1,13 @@
+ARG SERVICE_NAME
+
+FROM --platform=$BUILDPLATFORM instill/krakend:2.1.0 AS base
+
+WORKDIR /${SERVICE_NAME}
+
+COPY . .
+
+USER root
+
+RUN apk update && apk add bash make gcc musl-dev gettext jq
+
+ENTRYPOINT ["tail", "-f", "/dev/null"]

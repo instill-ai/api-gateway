@@ -1,8 +1,0 @@
-{
-  "debug": ["https://${API_GATEWAY_HOST}:${API_GATEWAY_HTTPS_PORT}"],
-  "mgmt": ["https://${MGMT_BACKEND_HOST}:${MGMT_BACKEND_HTTPS_PORT}"],
-  "model": ["https://${MODEL_BACKEND_HOST}:${MODEL_BACKEND_HTTPS_PORT}"],
-  "model_grpc": ["${MODEL_BACKEND_HOST}:${MODEL_BACKEND_HTTPS_PORT}"],
-  "pipeline": "https://${PIPELINE_BACKEND_HOST}:${PIPELINE_BACKEND_HTTPS_PORT}",
-  "connector": "https://${CONNECTOR_BACKEND_HOST}:${CONNECTOR_BACKEND_HTTPS_PORT}"
-}

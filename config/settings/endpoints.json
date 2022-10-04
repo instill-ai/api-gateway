@@ -1,0 +1,961 @@
+{
+  "debug": [
+    {
+      "endpoint": "/default",
+      "url_pattern": "/__debug/default"
+    }
+  ],
+  "pipeline": {
+    "jwt_auth": [
+      {
+        "endpoint": "/v1alpha/pipelines",
+        "url_pattern": "/v1alpha/pipelines",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/pipelines",
+        "url_pattern": "/v1alpha/pipelines",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view",
+          "page_size",
+          "page_token",
+          "filter"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/pipelines/{id}",
+        "url_pattern": "/v1alpha/pipelines/{id}",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/pipelines/{id}",
+        "url_pattern": "/v1alpha/pipelines/{id}",
+        "method": "PATCH",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/pipelines/{id}",
+        "url_pattern": "/v1alpha/pipelines/{id}",
+        "method": "DELETE",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/pipelines/{id}/lookUp",
+        "url_pattern": "/v1alpha/pipelines/{id}/lookUp",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/pipelines/{id}/activate",
+        "url_pattern": "/v1alpha/pipelines/{id}/activate",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/pipelines/{id}/deactivate",
+        "url_pattern": "/v1alpha/pipelines/{id}/deactivate",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/pipelines/{id}/rename",
+        "url_pattern": "/v1alpha/pipelines/{id}/rename",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/pipelines/{id}/trigger",
+        "url_pattern": "/v1alpha/pipelines/{id}/trigger",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/pipelines/{id}/trigger-multipart",
+        "url_pattern": "/v1alpha/pipelines/{id}/trigger-multipart",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      }
+    ],
+    "no_auth": [
+      {
+        "endpoint": "/v1alpha/health/pipeline",
+        "url_pattern": "/v1alpha/health/pipeline",
+        "method": "GET",
+        "timeout": "5s",
+        "input_query_strings": []
+      }
+    ],
+    "grpc_auth": [
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelineService/CreatePipeline",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelineService/CreatePipeline",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelineService/ListPipeline",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelineService/ListPipeline",
+        "method": "GET",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelineService/GetPipeline",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelineService/GetPipeline",
+        "method": "GET",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelineService/UpdatePipeline",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelineService/UpdatePipeline",
+        "method": "PATCH",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelineService/DeletePipeline",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelineService/DeletePipeline",
+        "method": "DELETE",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelineService/LookUpPipeline",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelineService/LookUpPipeline",
+        "method": "GET",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelineService/ActivatePipeline",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelineService/ActivatePipeline",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelineService/DeactivatePipeline",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelineService/DeactivatePipeline",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelineService/RenamePipeline",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelineService/RenamePipeline",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelineService/TriggerPipeline",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelineService/TriggerPipeline",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelineService/TriggerPipelineBinaryFileUpload",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelineService/TriggerPipelineBinaryFileUpload",
+        "method": "POST",
+        "timeout": "5s"
+      }
+    ],
+    "grpc_no_auth": [
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelineService/Liveness",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelineService/Liveness",
+        "method": "GET",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelineService/Readiness",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelineService/Readiness",
+        "method": "GET",
+        "timeout": "5s"
+      }
+    ]
+  },
+  "connector": {
+    "jwt_auth": [
+      {
+        "endpoint": "/v1alpha/source-connector-definitions",
+        "url_pattern": "/v1alpha/source-connector-definitions",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "page_size",
+          "page_token",
+          "view"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/source-connector-definitions/{id}",
+        "url_pattern": "/v1alpha/source-connector-definitions/{id}",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/destination-connector-definitions",
+        "url_pattern": "/v1alpha/destination-connector-definitions",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "page_size",
+          "page_token",
+          "view"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/destination-connector-definitions/{id}",
+        "url_pattern": "/v1alpha/destination-connector-definitions/{id}",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/source-connectors",
+        "url_pattern": "/v1alpha/source-connectors",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/source-connectors",
+        "url_pattern": "/v1alpha/source-connectors",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "page_size",
+          "page_token",
+          "view"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/source-connectors/{id}",
+        "url_pattern": "/v1alpha/source-connectors/{id}",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/source-connectors/{id}",
+        "url_pattern": "/v1alpha/source-connectors/{id}",
+        "method": "PATCH",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/source-connectors/{id}",
+        "url_pattern": "/v1alpha/source-connectors/{id}",
+        "method": "DELETE",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/source-connectors/{id}/lookUp",
+        "url_pattern": "/v1alpha/source-connectors/{id}/lookUp",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/source-connectors/{id}/connect",
+        "url_pattern": "/v1alpha/source-connectors/{id}/connect",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/source-connectors/{id}/disconnect",
+        "url_pattern": "/v1alpha/source-connectors/{id}/disconnect",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/source-connectors/{id}/rename",
+        "url_pattern": "/v1alpha/source-connectors/{id}/rename",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/source-connectors/{id}/read",
+        "url_pattern": "/v1alpha/source-connectors/{id}/read",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/destination-connectors",
+        "url_pattern": "/v1alpha/destination-connectors",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view",
+          "page_size",
+          "page_token"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/destination-connectors",
+        "url_pattern": "/v1alpha/destination-connectors",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/destination-connectors/{id}",
+        "url_pattern": "/v1alpha/destination-connectors/{id}",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/destination-connectors/{id}",
+        "url_pattern": "/v1alpha/destination-connectors/{id}",
+        "method": "PATCH",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/destination-connectors/{id}",
+        "url_pattern": "/v1alpha/destination-connectors/{id}",
+        "method": "DELETE",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/destination-connectors/{id}/lookUp",
+        "url_pattern": "/v1alpha/destination-connectors/{id}/lookUp",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/destination-connectors/{id}/connect",
+        "url_pattern": "/v1alpha/destination-connectors/{id}/connect",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/destination-connectors/{id}/disconnect",
+        "url_pattern": "/v1alpha/destination-connectors/{id}/disconnect",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/destination-connectors/{id}/rename",
+        "url_pattern": "/v1alpha/destination-connectors/{id}/rename",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/destination-connectors/{id}/write",
+        "url_pattern": "/v1alpha/destination-connectors/{id}/write",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      }
+    ],
+    "no_auth": [
+      {
+        "endpoint": "/v1alpha/health/connector",
+        "url_pattern": "/v1alpha/health/connector",
+        "method": "GET",
+        "timeout": "5s",
+        "input_query_strings": []
+      }
+    ],
+    "grpc_auth": [
+      {
+        "endpoint": "/vdp.connector.v1alpha.ConnectorService/ListSourceConnectorDefinition",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorService/ListSourceConnectorDefinition",
+        "method": "GET",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.connector.v1alpha.ConnectorService/GetSourceConnectorDefinition",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorService/GetSourceConnectorDefinition",
+        "method": "GET",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.connector.v1alpha.ConnectorService/ListDestinationConnectorDefinition",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorService/ListDestinationConnectorDefinition",
+        "method": "GET",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.connector.v1alpha.ConnectorService/GetDestinationConnectorDefinition",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorService/GetDestinationConnectorDefinition",
+        "method": "GET",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.connector.v1alpha.ConnectorService/CreateSourceConnector",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorService/CreateSourceConnector",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.connector.v1alpha.ConnectorService/ListSourceConnector",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorService/ListSourceConnector",
+        "method": "GET",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.connector.v1alpha.ConnectorService/GetSourceConnector",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorService/GetSourceConnector",
+        "method": "GET",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.connector.v1alpha.ConnectorService/UpdateSourceConnector",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorService/UpdateSourceConnector",
+        "method": "PATCH",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.connector.v1alpha.ConnectorService/DeleteSourceConnector",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorService/DeleteSourceConnector",
+        "method": "DELETE",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.connector.v1alpha.ConnectorService/LookUpSourceConnector",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorService/LookUpSourceConnector",
+        "method": "GET",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.connector.v1alpha.ConnectorService/ConnectSourceConnector",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorService/ConnectSourceConnector",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.connector.v1alpha.ConnectorService/DisconnectSourceConnector",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorService/DisconnectSourceConnector",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.connector.v1alpha.ConnectorService/RenameSourceConnector",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorService/RenameSourceConnector",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.connector.v1alpha.ConnectorService/ReadSourceConnector",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorService/ReadSourceConnector",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.connector.v1alpha.ConnectorService/CreateDestinationConnector",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorService/CreateDestinationConnector",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.connector.v1alpha.ConnectorService/ListDestinationConnector",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorService/ListDestinationConnector",
+        "method": "GET",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.connector.v1alpha.ConnectorService/GetDestinationConnector",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorService/GetDestinationConnector",
+        "method": "GET",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.connector.v1alpha.ConnectorService/UpdateDestinationConnector",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorService/UpdateDestinationConnector",
+        "method": "PATCH",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.connector.v1alpha.ConnectorService/DeleteDestinationConnector",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorService/DeleteDestinationConnector",
+        "method": "DELETE",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.connector.v1alpha.ConnectorService/LookUpDestinationConnector",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorService/LookUpDestinationConnector",
+        "method": "GET",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.connector.v1alpha.ConnectorService/ConnectDestinationConnector",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorService/ConnectDestinationConnector",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.connector.v1alpha.ConnectorService/DisconnectDestinationConnector",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorService/DisconnectDestinationConnector",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.connector.v1alpha.ConnectorService/RenameDestinationConnector",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorService/RenameDestinationConnector",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.connector.v1alpha.ConnectorService/WriteDestinationConnector",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorService/WriteDestinationConnector",
+        "method": "POST",
+        "timeout": "5s"
+      }
+    ],
+    "grpc_no_auth": [
+      {
+        "endpoint": "/vdp.connector.v1alpha.ConnectorService/Liveness",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorService/Liveness",
+        "method": "GET",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.connector.v1alpha.ConnectorService/Readiness",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorService/Readiness",
+        "method": "GET",
+        "timeout": "5s"
+      }
+    ]
+  },
+  "model": {
+    "jwt_auth": [
+      {
+        "endpoint": "/v1alpha/model-definitions",
+        "url_pattern": "/v1alpha/model-definitions",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/model-definitions/{definition_name}",
+        "url_pattern": "/v1alpha/model-definitions/{definition_name}",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/models",
+        "url_pattern": "/v1alpha/models",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view",
+          "page_size",
+          "page_token"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/models/{model_id}",
+        "url_pattern": "/v1alpha/models/{model_id}",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/models/{model_id}",
+        "url_pattern": "/v1alpha/models/{model_id}",
+        "method": "PATCH",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/models/{model_id}",
+        "url_pattern": "/v1alpha/models/{model_id}",
+        "method": "DELETE",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/models/{model_id}/lookUp",
+        "url_pattern": "/v1alpha/models/{model_id}/lookUp",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/models/{model_id}/rename",
+        "url_pattern": "/v1alpha/models/{model_id}/rename",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/models/{model_id}/publish",
+        "url_pattern": "/v1alpha/models/{model_id}/publish",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/models/{model_id}/unpublish",
+        "url_pattern": "/v1alpha/models/{model_id}/unpublish",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/models/{model_id}/instances",
+        "url_pattern": "/v1alpha/models/{model_id}/instances",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view",
+          "page_size",
+          "page_token"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/models/{model_id}/instances/{instance_id}",
+        "url_pattern": "/v1alpha/models/{model_id}/instances/{instance_id}",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/models/{model_id}/instances/{instance_id}/lookUp",
+        "url_pattern": "/v1alpha/models/{model_id}/instances/{instance_id}/lookUp",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/models/{model_id}/instances/{instance_id}/readme",
+        "url_pattern": "/v1alpha/models/{model_id}/instances/{instance_id}/readme",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/models",
+        "url_pattern": "/v1alpha/models",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/models/multipart",
+        "url_pattern": "/v1alpha/models/multipart",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/models/{model_id}/instances/{instance_id}/deploy",
+        "url_pattern": "/v1alpha/models/{model_id}/instances/{instance_id}/deploy",
+        "method": "POST",
+        "timeout": "900s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/models/{model_id}/instances/{instance_id}/undeploy",
+        "url_pattern": "/v1alpha/models/{model_id}/instances/{instance_id}/undeploy",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/models/{model_id}/instances/{instance_id}/trigger",
+        "url_pattern": "/v1alpha/models/{model_id}/instances/{instance_id}/trigger",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/models/{model_id}/instances/{instance_id}/trigger-multipart",
+        "url_pattern": "/v1alpha/models/{model_id}/instances/{instance_id}/trigger-multipart",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/models/{model_id}/instances/{instance_id}/test",
+        "url_pattern": "/v1alpha/models/{model_id}/instances/{instance_id}/test",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/models/{model_id}/instances/{instance_id}/test-multipart",
+        "url_pattern": "/v1alpha/models/{model_id}/instances/{instance_id}/test-multipart",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      }
+    ],
+    "no_auth": [
+      {
+        "endpoint": "/v1alpha/health/model",
+        "url_pattern": "/v1alpha/health/model",
+        "method": "GET",
+        "timeout": "5s",
+        "input_query_strings": []
+      }
+    ],
+    "grpc_auth": [
+      {
+        "endpoint": "/vdp.model.v1alpha.ModelService/ListModelDefinition",
+        "url_pattern": "/vdp.model.v1alpha.ModelService/ListModelDefinition",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.model.v1alpha.ModelService/GetModelDefinition",
+        "url_pattern": "/vdp.model.v1alpha.ModelService/GetModelDefinition",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.model.v1alpha.ModelService/ListModel",
+        "url_pattern": "/vdp.model.v1alpha.ModelService/ListModel",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.model.v1alpha.ModelService/CreateModel",
+        "url_pattern": "/vdp.model.v1alpha.ModelService/CreateModel",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.model.v1alpha.ModelService/CreateModelBinaryFileUpload",
+        "url_pattern": "/vdp.model.v1alpha.ModelService/CreateModelBinaryFileUpload",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.model.v1alpha.ModelService/GetModel",
+        "url_pattern": "/vdp.model.v1alpha.ModelService/GetModel",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.model.v1alpha.ModelService/UpdateModel",
+        "url_pattern": "/vdp.model.v1alpha.ModelService/UpdateModel",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.model.v1alpha.ModelService/DeleteModel",
+        "url_pattern": "/vdp.model.v1alpha.ModelService/DeleteModel",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.model.v1alpha.ModelService/LookUpModel",
+        "url_pattern": "/vdp.model.v1alpha.ModelService/LookUpModel",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.model.v1alpha.ModelService/RenameModel",
+        "url_pattern": "/vdp.model.v1alpha.ModelService/RenameModel",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.model.v1alpha.ModelService/PublishModel",
+        "url_pattern": "/vdp.model.v1alpha.ModelService/PublishModel",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.model.v1alpha.ModelService/UnpublishModel",
+        "url_pattern": "/vdp.model.v1alpha.ModelService/UnpublishModel",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.model.v1alpha.ModelService/ListModelInstance",
+        "url_pattern": "/vdp.model.v1alpha.ModelService/ListModelInstance",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.model.v1alpha.ModelService/GetModelInstance",
+        "url_pattern": "/vdp.model.v1alpha.ModelService/GetModelInstance",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.model.v1alpha.ModelService/LookUpModelInstance",
+        "url_pattern": "/vdp.model.v1alpha.ModelService/LookUpModelInstance",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.model.v1alpha.ModelService/DeployModelInstance",
+        "url_pattern": "/vdp.model.v1alpha.ModelService/DeployModelInstance",
+        "method": "POST",
+        "timeout": "900s"
+      },
+      {
+        "endpoint": "/vdp.model.v1alpha.ModelService/UndeployModelInstance",
+        "url_pattern": "/vdp.model.v1alpha.ModelService/UndeployModelInstance",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.model.v1alpha.ModelService/GetModelInstanceCard",
+        "url_pattern": "/vdp.model.v1alpha.ModelService/GetModelInstanceCard",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.model.v1alpha.ModelService/TriggerModelInstance",
+        "url_pattern": "/vdp.model.v1alpha.ModelService/TriggerModelInstance",
+        "method": "POST",
+        "timeout": "300s"
+      },
+      {
+        "endpoint": "/vdp.model.v1alpha.ModelService/TriggerModelInstanceBinaryFileUpload",
+        "url_pattern": "/vdp.model.v1alpha.ModelService/TriggerModelInstanceBinaryFileUpload",
+        "method": "POST",
+        "timeout": "300s"
+      },
+      {
+        "endpoint": "/vdp.model.v1alpha.ModelService/TestModelInstance",
+        "url_pattern": "/vdp.model.v1alpha.ModelService/TestModelInstance",
+        "method": "POST",
+        "timeout": "300s"
+      },
+      {
+        "endpoint": "/vdp.model.v1alpha.ModelService/TestModelInstanceBinaryFileUpload",
+        "url_pattern": "/vdp.model.v1alpha.ModelService/TestModelInstanceBinaryFileUpload",
+        "method": "POST",
+        "timeout": "300s"
+      }
+    ],
+    "grpc_no_auth": [
+      {
+        "endpoint": "/vdp.model.v1alpha.ModelService/Liveness",
+        "url_pattern": "/vdp.model.v1alpha.ModelService/Liveness",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.model.v1alpha.ModelService/Readiness",
+        "url_pattern": "/vdp.model.v1alpha.ModelService/Readiness",
+        "method": "POST",
+        "timeout": "5s"
+      }
+    ]
+  },
+  "mgmt": {
+    "jwt_auth": [
+      {
+        "endpoint": "/clients",
+        "url_pattern": "/clients",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "limit",
+          "offset"
+        ]
+      },
+      {
+        "endpoint": "/clients",
+        "url_pattern": "/clients",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/clients/{id}",
+        "url_pattern": "/clients/{id}",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/clients/{id}",
+        "url_pattern": "/clients/{id}",
+        "method": "PATCH",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/clients/{id}",
+        "url_pattern": "/clients/{id}",
+        "method": "DELETE",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/clients/{id}/rotate-secret",
+        "url_pattern": "/clients/{id}/rotate-secret",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      }
+    ],
+    "no_auth": [
+      {
+        "endpoint": "/health/management",
+        "url_pattern": "/health/management",
+        "method": "GET",
+        "timeout": "5s",
+        "input_query_strings": []
+      }
+    ],
+    "basic_auth": [
+      {
+        "endpoint": "/oauth2/token",
+        "url_pattern": "/oauth2/token",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": [
+          "grant_type",
+          "audience"
+        ]
+      }
+    ]
+  }
+}
