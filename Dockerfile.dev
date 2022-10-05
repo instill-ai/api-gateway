@@ -1,13 +1,37 @@
+FROM --platform=amd64 golang:1.19.1-alpine3.16 AS build
+
 ARG SERVICE_NAME
 
-FROM --platform=$BUILDPLATFORM instill/krakend:2.1.0 AS base
+USER root
+
+RUN apk add make gcc musl-dev
+
+WORKDIR /${SERVICE_NAME}
+
+COPY plugins plugins
+
+WORKDIR /${SERVICE_NAME}/plugins
+
+RUN go env -w GO111MODULE=on
+# RUN go mod tidy
+RUN go build -buildmode=plugin /${SERVICE_NAME}/plugins/handler/modifier.go
+RUN go build -buildmode=plugin /${SERVICE_NAME}/plugins/client/grpc/grpc.go
+
+RUN go test -v plugins/handler
+
+FROM --platform=$BUILDPLATFORM devopsfaith/krakend:2.1.0 AS base
+
+ARG SERVICE_NAME
 
 WORKDIR /${SERVICE_NAME}
 
 COPY . .
 
+# Copy plugins
+COPY --from=build /${SERVICE_NAME}/plugins /${SERVICE_NAME}/plugins
+
 USER root
 
-RUN apk update && apk add bash make gcc musl-dev gettext jq
+RUN apk add bash make gcc musl-dev gettext jq
 
 ENTRYPOINT ["tail", "-f", "/dev/null"]

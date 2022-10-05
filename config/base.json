@@ -10,11 +10,10 @@
   },
   "extra_config": {
     {{ include "gologging" }},
-    {{ template "influxdb_metrics.tmpl" . }},
     {{ template "opencensus.tmpl" . }},
     {{ template "cors.tmpl" . }},
-    "github_com/devopsfaith/krakend/transport/http/server/handler": {
-      "name": "modifier"
+    "tls": {
+      "disabled": true
     }
   },
   "endpoints": [

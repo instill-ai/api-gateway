@@ -1,5 +1,4 @@
 {{ $host := .backends.model }}
-{{ $host_grpc := .backends.model_grpc }}
 {{ $headers_to_pass := .headers_to_pass }}
 {{ $endpoints := .endpoints.model }}
 {{- range $idx, $endpoint := $endpoints.jwt_auth }}
@@ -105,8 +104,7 @@
       "extra_config": {
         "github.com/devopsfaith/krakend/transport/http/client/executor": {
           "name": "grpc-access",
-          "grpc_endpoint": {{ marshal $host_grpc }},
-          "endpoints": {{ marshal $host_grpc }}
+          "grpc_endpoint": {{ marshal $host }}
         }
       }
     }
@@ -133,8 +131,7 @@
       "extra_config": {
         "github.com/devopsfaith/krakend/transport/http/client/executor": {
           "name": "grpc-access",
-          "grpc_endpoint": {{ marshal $host_grpc }},
-          "endpoints": {{ marshal $host_grpc }}
+          "grpc_endpoint": {{ marshal $host }}
         }
       }
     }

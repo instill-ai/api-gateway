@@ -1,6 +1,0 @@
-{
-  "api_gateway_port": "8080",
-  "api_gateway_stats_port": "8090",
-  "api_gateway_metrics_port": "9000",
-  "influxdb_port": ""
-}

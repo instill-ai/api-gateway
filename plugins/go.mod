@@ -1,6 +1,6 @@
 module plugins
 
-go 1.17
+go 1.19
 
 require (
 	github.com/chilts/sid v0.0.0-20190607042430-660e94789ec9
