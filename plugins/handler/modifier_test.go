@@ -102,7 +102,7 @@ var inputJSONObject string = `
 			"id": "rs_N2R3YWoQsDQziHUeUCLXqvucdLJjU8Co",
 			"identifier": "instill.tech/inference",
 			"name": "Instill Inference API",
-			"description": "Instill Inference API is to perform Vision AI inference tasks.",
+			"description": "Instill Inference API is to perform model inference for specific AI tasks.",
 			"base_url": "https://api.instill.tech",
 			"scopes": [
 				{
@@ -154,7 +154,7 @@ func TestReplaceSelfHost(t *testing.T) {
 					"id": "rs_N2R3YWoQsDQziHUeUCLXqvucdLJjU8Co",
 					"identifier": "instill.tech/inference",
 					"name": "Instill Inference API",
-					"description": "Instill Inference API is to perform Vision AI inference tasks.",
+					"description": "Instill Inference API is to perform model inference for specific AI tasks.",
 					"base_url": "https://api.instill.tech",
 					"scopes": [
 						{
@@ -364,7 +364,7 @@ func TestInsertDuration(t *testing.T) {
 					"id": "rs_N2R3YWoQsDQziHUeUCLXqvucdLJjU8Co",
 					"identifier": "instill.tech/inference",
 					"name": "Instill Inference API",
-					"description": "Instill Inference API is to perform Vision AI inference tasks.",
+					"description": "Instill Inference API is to perform model inference for specific AI tasks.",
 					"base_url": "https://api.instill.tech",
 					"scopes": [
 						{
