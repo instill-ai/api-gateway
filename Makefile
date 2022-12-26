@@ -12,7 +12,7 @@ export
 dev:							## Run dev container
 	@docker inspect --type container ${SERVICE_NAME} >/dev/null 2>&1 && echo "A container named ${SERVICE_NAME} is already running." || \
 	echo "Run dev container ${SERVICE_NAME}. To stop it, run \"make stop\"." && \
-	docker run -d --rm -v $(PWD):/${SERVICE_NAME} \
+	docker run -d --rm -v $(PWD)/config:/${SERVICE_NAME}/config \
 	-p ${SERVICE_PORT}:${SERVICE_PORT} \
 	--network instill-network \
 	--name ${SERVICE_NAME} \

@@ -40,7 +40,7 @@ RUN bash /${SERVICE_NAME}/config/envsubst.sh && \
     FC_OUT="/${SERVICE_NAME}/config/out.json" \
     krakend check -c /${SERVICE_NAME}/config/base.json
 
-RUN jq . config/out.json > krakend.json
+RUN jq . config/out.json > /etc/krakend/krakend.json
 RUN rm config/out.json && rm -rf config/settings
 
 # Copy plugins

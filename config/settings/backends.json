@@ -1,8 +1,0 @@
-{
-  "debug": "https://api-gateway:8080",
-  "pipeline": "https://pipeline-backend:",
-  "connector": "https://connector-backend:",
-  "model": "https://model-backend:",
-  "model_grpc": "model-backend:",
-  "mgmt": "https://mgmt-backend:"
-}

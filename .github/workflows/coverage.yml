@@ -15,6 +15,7 @@ jobs:
 
       - name: Generate coverage report
         run: |
+          cd plugins
           go mod tidy
           go test -race ./... -coverprofile=coverage.txt -covermode=atomic
 

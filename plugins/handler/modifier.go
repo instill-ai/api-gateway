@@ -10,7 +10,7 @@ import (
 	"net/http/httptest"
 	"net/url"
 	"strconv"
-	"strings"
+
 	"time"
 
 	"github.com/chilts/sid"
@@ -142,12 +142,12 @@ type HTTPResponseInterceptor struct {
 	http.Flusher
 }
 
-//NewHTTPResponseInterceptor create new httpInterceptor
+// NewHTTPResponseInterceptor create new httpInterceptor
 func NewHTTPResponseInterceptor(w http.ResponseWriter) *HTTPResponseInterceptor {
 	return &HTTPResponseInterceptor{w, http.StatusOK, w.(http.Flusher)}
 }
 
-//WriteHeader override response WriteHeader
+// WriteHeader override response WriteHeader
 func (i *HTTPResponseInterceptor) WriteHeader(code int) {
 	// log.Error(fmt.Sprintf("Status code %d\n", code))
 	i.ResponseWriter.WriteHeader(code)
@@ -181,15 +181,15 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]inter
 	return http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
 		// According to https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md#requests
 		// The Content-Type of gRPC has the "application/grpc" prefix
-		contentType := req.Header.Get("Content-Type")
 
-		if strings.Contains(contentType, "application/grpc") {
+		if req.Proto == "HTTP/2.0" && req.ProtoMajor == 2 {
 			start := time.Now()
 
 			// Insert a request id (23 char string) to the request header
 			reqId := sid.IdBase64()
 			req.Header.Set("Instill-Request-Id", reqId)
 			req.Header.Set("Request-Id", reqId) // Deprecated, remove until all backends have removed it
+			req.Header.Set("Content-Type", "application/grpc")
 
 			ww := NewHTTPResponseInterceptor(rw)
 			h.ServeHTTP(ww, req)
