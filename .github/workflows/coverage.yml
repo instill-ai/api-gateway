@@ -7,11 +7,19 @@ jobs:
     name: codecov
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.botGitHubToken }}
+
+      - name: Load .env file
+        uses: cardinalby/export-env-action@v2
+        with:
+          envFile: .env
+          expand: true
+
       - uses: actions/setup-go@v3
         with:
-          go-version: 1.19
-
-      - uses: actions/checkout@v2
+          go-version: ${{ env.GOLANG_VERSION }}
 
       - name: Generate coverage report
         run: |

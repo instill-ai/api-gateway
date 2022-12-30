@@ -1,6 +1,6 @@
 ARG GOLANG_VERSION
 ARG APLINE_VERSION
-ARG KRAKEND_VERSION
+ARG KRAKEND_CE_VERSION
 FROM --platform=$BUILDPLATFORM golang:${GOLANG_VERSION}-alpine${APLINE_VERSION} AS build
 
 ARG SERVICE_NAME
@@ -26,7 +26,7 @@ RUN if [ "$BUILDARCH" = "amd64" && "$TARGETARCH" = "arm64" ] ; \
     cd plugin && \
     go build -buildmode=plugin -o grpc-proxy.so /api-gateway/plugin/server/grpc; fi
 
-FROM --platform=$BUILDPLATFORM devopsfaith/krakend:${KRAKEND_VERSION}
+FROM --platform=$BUILDPLATFORM devopsfaith/krakend:${KRAKEND_CE_VERSION}
 
 ARG SERVICE_NAME
 

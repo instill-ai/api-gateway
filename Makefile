@@ -52,9 +52,9 @@ top:							## Display all running service processes
 build:							## Build dev docker image
 	@docker build \
 		--build-arg SERVICE_NAME=${SERVICE_NAME} \
-		--build-arg GOLANG_VERSION=1.19.3 \
-		--build-arg ALPINE_VERSION=3.16 \
-		--build-arg KRAKEND_VERSION=2.1.3 \
+		--build-arg GOLANG_VERSION=${GOLANG_VERSION} \
+		--build-arg ALPINE_VERSION=${ALPINE_VERSION} \
+		--build-arg KRAKEND_CE_VERSION=${KRAKEND_CE_VERSION} \
 		-f Dockerfile.dev -t instill/${SERVICE_NAME}:dev .
 
 .PHONY: config
