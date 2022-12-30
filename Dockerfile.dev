@@ -1,37 +1,28 @@
-FROM --platform=amd64 golang:1.19.1-alpine3.16 AS build
-
-ARG SERVICE_NAME
+ARG GOLANG_VERSION
+FROM golang:${GOLANG_VERSION}
 
 USER root
 
-RUN apk add make gcc musl-dev
+RUN apt-get update && \
+    apt-get install -y gcc make gettext jq \
+    && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /${SERVICE_NAME}
+RUN git clone https://github.com/krakendio/krakend-ce.git /krakend
 
-COPY plugins plugins
+WORKDIR /krakend
 
-WORKDIR /${SERVICE_NAME}/plugins
+ARG KRAKEND_VERSION
+RUN git checkout v${KRAKEND_VERSION}
 
-RUN go env -w GO111MODULE=on
-# RUN go mod tidy
-RUN go build -buildmode=plugin /${SERVICE_NAME}/plugins/handler/modifier.go
-RUN go build -buildmode=plugin /${SERVICE_NAME}/plugins/client/grpc/grpc.go
+RUN make build
 
-RUN go test -v plugins/handler
-
-FROM --platform=$BUILDPLATFORM devopsfaith/krakend:2.1.0 AS base
+RUN cp krakend /usr/bin/krakend
 
 ARG SERVICE_NAME
-
 WORKDIR /${SERVICE_NAME}
 
 COPY . .
 
-# Copy plugins
-COPY --from=build /${SERVICE_NAME}/plugins /${SERVICE_NAME}/plugins
-
-USER root
-
-RUN apk add bash make gcc musl-dev gettext jq
+RUN go install github.com/cosmtrek/air@latest
 
 ENTRYPOINT ["tail", "-f", "/dev/null"]

@@ -1,4 +1,3 @@
 {
-  "api_gateway_host": "${API_GATEWAY_HOST}",
   "influxdb_host": "${INFLUXDB_HOST}"
 }

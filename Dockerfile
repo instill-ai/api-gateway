@@ -1,28 +1,26 @@
-FROM --platform=amd64 golang:1.19.1-alpine3.16 AS build
+ARG GOLANG_VERSION
+ARG APLINE_VERSION
+ARG KRAKEND_VERSION
+FROM --platform=$BUILDPLATFORM golang:${GOLANG_VERSION}-alpine${APLINE_VERSION} AS build
 
 ARG SERVICE_NAME
 
-USER root
+RUN apk --no-cache --virtual .build-deps add tar make gcc musl-dev binutils-gold
 
-RUN apk update && apk add make gcc musl-dev
+RUN cd / && wget http://musl.cc/aarch64-linux-musl-cross.tgz && \
+    tar zxf aarch64-linux-musl-cross.tgz && rm -f aarch64-linux-musl-cross.tgz
 
 WORKDIR /${SERVICE_NAME}
 
-COPY plugins plugins
+COPY plugin plugin
 
-WORKDIR /${SERVICE_NAME}/plugins
+WORKDIR /${SERVICE_NAME}/plugin
 
-RUN go env -w GO111MODULE=on
-RUN go build -buildmode=plugin /${SERVICE_NAME}/plugins/handler/modifier.go
-RUN go build -buildmode=plugin /${SERVICE_NAME}/plugins/client/grpc/grpc.go
+RUN go build -buildmode=plugin -o grpc-proxy.so /api-gateway/plugin/server/grpc
 
-RUN go test -v plugins/handler
-
-FROM --platform=$BUILDPLATFORM instill/krakend:2.1.0
+FROM --platform=$BUILDPLATFORM devopsfaith/krakend:${KRAKEND_VERSION}
 
 ARG SERVICE_NAME
-
-USER root
 
 RUN apk update && apk add bash gettext jq
 
@@ -43,5 +41,8 @@ RUN bash /${SERVICE_NAME}/config/envsubst.sh && \
 RUN jq . config/out.json > /etc/krakend/krakend.json
 RUN rm config/out.json && rm -rf config/settings
 
-# Copy plugins
-COPY --from=build /${SERVICE_NAME}/plugins /${SERVICE_NAME}/plugins
+# Copy plugin
+COPY --from=build /${SERVICE_NAME}/plugin /${SERVICE_NAME}/plugin
+
+ENTRYPOINT [ "/usr/bin/krakend" ]
+CMD [ "run", "-c", "/etc/krakend/krakend.json" ]

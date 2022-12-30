@@ -2,18 +2,29 @@
   "version": 3,
   "name": "API Gateway",
   "port": {{ .ports.api_gateway_port }},
+  "allow_insecure_connections": true,
+  "tls": {
+    "public_key": "{{ .tls.public_key }}",
+    "private_key": "{{ .tls.private_key }}"
+  },
   "timeout": "3000ms",
   "cache_ttl": "300s",
   "plugin": {
     "pattern": ".so",
-    "folder": "/api-gateway/plugins/"
+    "folder": "/api-gateway/plugin"
   },
   "extra_config": {
     {{ include "gologging" }},
     {{ template "opencensus.tmpl" . }},
     {{ template "cors.tmpl" . }},
-    "tls": {
-      "disabled": true
+   "plugin/http-server": {
+      "name": ["grpc-proxy"],
+      "grpc-proxy": {
+        "pipeline": "{{ .backends.pipeline }}",
+        "connector": "{{ .backends.connector }}",
+        "model": "{{ .backends.model }}",
+        "mgmt": "{{ .backends.mgmt }}"
+      }
     }
   },
   "endpoints": [

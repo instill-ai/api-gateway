@@ -9,7 +9,6 @@
     {
       "url_pattern": "{{ (index .endpoints.debug 0).url_pattern }}",
       "host": {{ marshal .backends.debug }},
-      "encoding": "no-op",
       "sd": "static",
       "method": "GET",
       "disable_host_sanitize": false
@@ -27,7 +26,6 @@
     {
       "url_pattern": "{{ (index .endpoints.debug 0).url_pattern }}",
       "host": {{ marshal .backends.debug }},
-      "encoding": "no-op",
       "sd": "static",
       "method": "GET",
       "disable_host_sanitize": false

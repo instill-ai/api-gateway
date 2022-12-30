@@ -1,0 +1,4 @@
+{
+    "public_key": "${API_GATEWAY_CERT_FILE}",
+    "private_key": "${API_GATEWAY_KEY_FILE}"
+}
