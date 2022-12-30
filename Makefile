@@ -10,13 +10,27 @@ export
 
 .PHONY: dev
 dev:							## Run dev container
+	@docker compose ls -q | grep -q "instill-vdp" && true || \
+		(echo "Error: Run \"make dev PROFILE=api-gateway\" in vdp repository (https://github.com/instill-ai/vdp) in your local machine first." && exit 1)
 	@docker inspect --type container ${SERVICE_NAME} >/dev/null 2>&1 && echo "A container named ${SERVICE_NAME} is already running." || \
-	echo "Run dev container ${SERVICE_NAME}. To stop it, run \"make stop\"." && \
-	docker run -d --rm -v $(PWD)/config:/${SERVICE_NAME}/config \
-	-p ${SERVICE_PORT}:${SERVICE_PORT} \
-	--network instill-network \
-	--name ${SERVICE_NAME} \
-	instill/${SERVICE_NAME}:dev >/dev/null 2>&1
+		echo "Run dev container ${SERVICE_NAME}. To stop it, run \"make stop\"."
+	@docker run -d --rm \
+		-v $(PWD)/plugin:/${SERVICE_NAME}/plugin \
+		-v $(PWD)/config:/${SERVICE_NAME}/config \
+		-v ${PWD}/cert:/${SERVICE_NAME}/cert \
+		-v ${PWD}/Makefile:/${SERVICE_NAME}/Makefile \
+		-v ${PWD}/.env:/${SERVICE_NAME}/.env \
+		-v ${PWD}/cert/rootCA.pem:/etc/ssl/cert/rootCA.pem \
+		-p ${SERVICE_PORT}:${SERVICE_PORT} \
+		--network instill-network \
+		--name ${SERVICE_NAME} \
+		instill/${SERVICE_NAME}:dev
+
+.PHONY: cert
+cert:							## Run mkcert to (re-)generate TLS files
+	@rm -rf cert && mkdir cert
+	@mkcert -client -key-file cert/dev-key.pem -cert-file cert/dev-cert.pem localhost api-gateway
+	@cp "$(shell mkcert -CAROOT)"/rootCA.pem cert/
 
 .PHONY: logs
 logs:							## Tail container logs with -n 10
@@ -36,9 +50,12 @@ top:							## Display all running service processes
 
 .PHONY: build
 build:							## Build dev docker image
-	docker build --build-arg SERVICE_NAME=${SERVICE_NAME} -f Dockerfile.dev -t instill/${SERVICE_NAME}:dev .
-
-#============================================================================
+	@docker build \
+		--build-arg SERVICE_NAME=${SERVICE_NAME} \
+		--build-arg GOLANG_VERSION=1.19.3 \
+		--build-arg ALPINE_VERSION=3.16 \
+		--build-arg KRAKEND_VERSION=2.1.3 \
+		-f Dockerfile.dev -t instill/${SERVICE_NAME}:dev .
 
 .PHONY: config
 config:				## Output the composed KrakenD configuration
