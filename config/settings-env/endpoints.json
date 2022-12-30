@@ -891,46 +891,58 @@
   "mgmt": {
     "jwt_auth": [
       {
-        "endpoint": "/clients",
-        "url_pattern": "/clients",
+        "endpoint": "/v1alpha/users",
+        "url_pattern": "/v1alpha/users",
         "method": "GET",
         "timeout": "30s",
         "input_query_strings": [
-          "limit",
-          "offset"
+          "view",
+          "page_size",
+          "page_token"
         ]
       },
       {
-        "endpoint": "/clients",
-        "url_pattern": "/clients",
+        "endpoint": "/v1alpha/users",
+        "url_pattern": "/v1alpha/users",
         "method": "POST",
         "timeout": "30s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/clients/{id}",
-        "url_pattern": "/clients/{id}",
+        "endpoint": "/v1alpha/users/{id}",
+        "url_pattern": "/v1alpha/users/{id}",
         "method": "GET",
         "timeout": "30s",
-        "input_query_strings": []
+        "input_query_strings": [
+          "view"
+        ]
       },
       {
-        "endpoint": "/clients/{id}",
-        "url_pattern": "/clients/{id}",
+        "endpoint": "/v1alpha/users/{id}",
+        "url_pattern": "/v1alpha/users/{id}",
         "method": "PATCH",
         "timeout": "30s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/clients/{id}",
-        "url_pattern": "/clients/{id}",
+        "endpoint": "/v1alpha/users/{id}",
+        "url_pattern": "/v1alpha/users/{id}",
         "method": "DELETE",
         "timeout": "30s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/clients/{id}/rotate-secret",
-        "url_pattern": "/clients/{id}/rotate-secret",
+        "endpoint": "/v1alpha/users/{id}/lookUp",
+        "url_pattern": "/v1alpha/users/{id}/lookUp",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/users/{id}/rotate-secret",
+        "url_pattern": "/v1alpha/users/{id}/rotate-secret",
         "method": "POST",
         "timeout": "30s",
         "input_query_strings": []
@@ -938,8 +950,8 @@
     ],
     "no_auth": [
       {
-        "endpoint": "/health/management",
-        "url_pattern": "/health/management",
+        "endpoint": "/v1alpha/health/mgmt",
+        "url_pattern": "/v1alpha/health/mgmt",
         "method": "GET",
         "timeout": "5s",
         "input_query_strings": []
@@ -947,8 +959,8 @@
     ],
     "basic_auth": [
       {
-        "endpoint": "/oauth2/token",
-        "url_pattern": "/oauth2/token",
+        "endpoint": "/v1alpha/oauth2/token",
+        "url_pattern": "/v1alpha/oauth2/token",
         "method": "POST",
         "timeout": "30s",
         "input_query_strings": [
