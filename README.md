@@ -6,7 +6,53 @@ This repository maintains the [KrakenD](https://www.krakend.io) API gateway conf
 
 KrakenD is a binary executable processing the configuration file `krakend.json` for the API Gateway. 
 
-The current used KrakenD version is `2.1.0` with Go `1.19.1` and Alpine `3.16`
+The current used KrakenD version is `2.3.1` with Go `1.19.3` and Alpine `3.16`
+
+## Local dev
+
+On the local machine, clone `vdp` repository in your workspace, move to the repository folder, and launch all dependent microservices:
+```bash
+$ cd <your-workspace>
+$ git clone https://github.com/instill-ai/vdp.git
+$ cd vdp
+$ make dev PROFILE=api-gateway
+```
+
+Clone `api-gateway` repository in your workspace and move to the repository folder:
+```bash
+$ cd <your-workspace>
+$ git clone https://github.com/instill-ai/api-gateway.git
+$ cd api-gateway
+```
+
+### Generate self-signed TLS certificate
+
+```bash
+$ make cert
+```
+
+### Build the dev image
+
+```bash
+$ make build
+```
+
+### Run the dev container
+
+```bash
+$ make dev
+```
+
+Now, you have the Go project set up in the container, in which you can compile and run the binaries together with the integration test in each container shell.
+
+### Run the api-gateway server
+
+```bash
+$ docker exec -it api-gateway /bin/bash
+$ cd plugin && go build -buildmode=plugin -o grpc-proxy.so /api-gateway/plugin/server/grpc && cd .. # compile the KrakenD grpc-proxy plugin
+$ make config # generate KrakenD configuration file
+$ krakend run -c krakend.json
+```
 
 ### CI/CD
 
