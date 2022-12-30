@@ -104,9 +104,6 @@ mysql-persistence/
 # dev generated krakend.json
 krakend.json
 
-# Folder for mkcert generated self-signed TLS files
-cert
-
 # air related files and folders
 .air.toml
 tmp
