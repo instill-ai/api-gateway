@@ -25,7 +25,6 @@
     {
       "url_pattern": "{{ .url_pattern }}",
       "host": {{ marshal $host }},
-      "encoding": "no-op",
       "sd": "static",
       "method": "{{ .method }}",
       "disable_host_sanitize": false,
@@ -64,7 +63,6 @@
     {
       "url_pattern": "{{ .url_pattern }}",
       "host": {{ marshal $host }},
-      "encoding": "no-op",
       "sd": "static",
       "method": "{{ .method }}",
       "disable_host_sanitize": false,
@@ -97,16 +95,9 @@
     {
       "url_pattern": "{{ .url_pattern }}",
       "host": {{ marshal $host }},
-      "encoding": "no-op",
       "sd": "static",
       "method": "{{ .method }}",
-      "disable_host_sanitize": false,
-      "extra_config": {
-        "github.com/devopsfaith/krakend/transport/http/client/executor": {
-          "name": "grpc-access",
-          "grpc_endpoint": {{ marshal $host }}
-        }
-      }
+      "disable_host_sanitize": false
     }
   ]
 }
@@ -124,16 +115,9 @@
     {
       "url_pattern": "{{ .url_pattern }}",
       "host": {{ marshal $host }},
-      "encoding": "no-op",
       "sd": "static",
       "method": "{{ .method }}",
-      "disable_host_sanitize": false,
-      "extra_config": {
-        "github.com/devopsfaith/krakend/transport/http/client/executor": {
-          "name": "grpc-access",
-          "grpc_endpoint": {{ marshal $host }}
-        }
-      }
+      "disable_host_sanitize": false
     }
   ]
 }
