@@ -8,7 +8,7 @@ cd "$SCRIPT_DIR" || exit 1
 set -a
 
 # shellcheck disable=SC1091
-source ../.env
+source .env
 set +a
 
 # create the settings folder to be used for krakend flexible configuration

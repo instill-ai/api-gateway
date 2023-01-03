@@ -20,7 +20,7 @@ dev:							## Run dev container
 		-v ${PWD}/cert:/${SERVICE_NAME}/cert \
 		-v ${PWD}/Makefile:/${SERVICE_NAME}/Makefile \
 		-v ${PWD}/.env:/${SERVICE_NAME}/.env \
-		-v ${PWD}/cert/rootCA.pem:/etc/ssl/cert/rootCA.pem \
+		-v ${PWD}/cert/dev-ca.pem:/etc/ssl/cert/dev-ca.pem \
 		-p ${SERVICE_PORT}:${SERVICE_PORT} \
 		--network instill-network \
 		--name ${SERVICE_NAME} \
@@ -41,7 +41,7 @@ stop:							## Stop container
 	@docker stop -t 1 ${SERVICE_NAME}
 
 .PHONY: rm
-rm:							## Remove container
+rm:								## Remove container
 	@docker rm -f ${SERVICE_NAME}
 
 .PHONY: top
@@ -57,8 +57,12 @@ build:							## Build dev docker image
 		--build-arg KRAKEND_CE_VERSION=${KRAKEND_CE_VERSION} \
 		-f Dockerfile.dev -t instill/${SERVICE_NAME}:dev .
 
+.PHONY: env
+env:							## Output the config/.env file overwritten by the host environement variables
+	@envsubst <config/.env.envsubst >config/.env
+
 .PHONY: config
-config:				## Output the composed KrakenD configuration
+config:							## Output the composed KrakenD configuration
 	@bash config/envsubst.sh
 	@FC_ENABLE=1 \
 		FC_SETTINGS="config/settings" \
@@ -69,6 +73,6 @@ config:				## Output the composed KrakenD configuration
 	@jq . config/out.json > krakend.json
 	@rm config/out.json && rm -rf config/settings
 
-help:       		## Show this help.
+help:       					## Show this help.
 	@echo "\nMake Application using Docker-Compose files."
 	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m (default: help)\n\nTargets:\n"} /^[a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-12s\033[0m %s\n", $$1, $$2 }' $(MAKEFILE_LIST)
