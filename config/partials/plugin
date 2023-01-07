@@ -1,0 +1,4 @@
+"plugin": {
+    "pattern": ".so",
+    "folder": "/api-gateway/plugin"
+}

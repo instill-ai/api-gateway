@@ -9,12 +9,14 @@
   },
   "timeout": "3000ms",
   "cache_ttl": "300s",
-  "plugin": {
-    "pattern": ".so",
-    "folder": "/api-gateway/plugin"
-  },
+  {{ include "plugin" }},
   "extra_config": {
-    {{ include "gologging" }},
+    "github_com/devopsfaith/krakend-gologging": {
+      "level": "{{ .log.level }}",
+      "prefix": "[KRAKEND]",
+      "syslog": false,
+      "stdout": true
+    },
     {{ template "opencensus.tmpl" . }},
     {{ template "cors.tmpl" . }},
    "plugin/http-server": {

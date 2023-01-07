@@ -1,6 +1,0 @@
-"github_com/devopsfaith/krakend-gologging": {
-    "level": "DEBUG",
-    "prefix": "[KRAKEND]",
-    "syslog": false,
-    "stdout": true
-}

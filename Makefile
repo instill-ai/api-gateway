@@ -24,7 +24,7 @@ dev:							## Run dev container
 		-p ${SERVICE_PORT}:${SERVICE_PORT} \
 		--network instill-network \
 		--name ${SERVICE_NAME} \
-		instill/${SERVICE_NAME}:dev
+		instill/${SERVICE_NAME}:dev >/dev/null 2>&1
 
 .PHONY: cert
 cert:							## Run mkcert to (re-)generate TLS files
