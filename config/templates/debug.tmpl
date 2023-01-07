@@ -27,7 +27,7 @@
       "url_pattern": "{{ (index .endpoints.debug 0).url_pattern }}",
       "host": {{ marshal .backends.debug }},
       "sd": "static",
-      "method": "GET",
+      "method": "POST",
       "disable_host_sanitize": false
     }
   ]

@@ -15,22 +15,11 @@ dev:							## Run dev container
 	@docker inspect --type container ${SERVICE_NAME} >/dev/null 2>&1 && echo "A container named ${SERVICE_NAME} is already running." || \
 		echo "Run dev container ${SERVICE_NAME}. To stop it, run \"make stop\"."
 	@docker run -d --rm \
-		-v $(PWD)/plugin:/${SERVICE_NAME}/plugin \
-		-v $(PWD)/config:/${SERVICE_NAME}/config \
-		-v ${PWD}/cert:/${SERVICE_NAME}/cert \
-		-v ${PWD}/Makefile:/${SERVICE_NAME}/Makefile \
-		-v ${PWD}/.env:/${SERVICE_NAME}/.env \
-		-v ${PWD}/cert/dev-ca.pem:/etc/ssl/cert/dev-ca.pem \
+		-v $(PWD):/${SERVICE_NAME} \
 		-p ${SERVICE_PORT}:${SERVICE_PORT} \
 		--network instill-network \
 		--name ${SERVICE_NAME} \
 		instill/${SERVICE_NAME}:dev >/dev/null 2>&1
-
-.PHONY: cert
-cert:							## Run mkcert to (re-)generate TLS files
-	@rm -rf cert && mkdir cert
-	@mkcert -client -key-file cert/dev-key.pem -cert-file cert/dev-cert.pem localhost api-gateway
-	@cp "$(shell mkcert -CAROOT)"/rootCA.pem cert/
 
 .PHONY: logs
 logs:							## Tail container logs with -n 10

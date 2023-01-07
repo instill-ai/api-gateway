@@ -25,4 +25,14 @@ COPY . .
 
 RUN go install github.com/cosmtrek/air@latest
 
+# Install local TLS files
+ARG TARGETARCH
+RUN curl -JLO "https://dl.filippo.io/mkcert/latest?for=linux/$TARGETARCH" && \
+    chmod +x mkcert-v*-linux-$TARGETARCH && \
+    cp mkcert-v*-linux-$TARGETARCH /usr/local/bin/mkcert
+RUN mkcert -install && mkdir cert && mkcert -client -key-file /etc/ssl/dev-key.pem -cert-file /etc/ssl/dev-cert.pem localhost api-gateway
+
+# Initialise krakend.json
+RUN make config
+
 ENTRYPOINT ["tail", "-f", "/dev/null"]
