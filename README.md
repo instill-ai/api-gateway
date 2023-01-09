@@ -12,7 +12,6 @@ The current used KrakenD version is `2.3.1` with Go `1.19.3` and Alpine `3.16`
 
 On the local machine, clone `vdp` repository in your workspace, move to the repository folder, and launch all dependent microservices:
 ```bash
-$ cd <your-workspace>
 $ git clone https://github.com/instill-ai/vdp.git
 $ cd vdp
 $ make dev PROFILE=api-gateway
@@ -20,15 +19,8 @@ $ make dev PROFILE=api-gateway
 
 Clone `api-gateway` repository in your workspace and move to the repository folder:
 ```bash
-$ cd <your-workspace>
 $ git clone https://github.com/instill-ai/api-gateway.git
 $ cd api-gateway
-```
-
-### Generate self-signed TLS certificate
-
-```bash
-$ make cert
 ```
 
 ### Build the dev image
@@ -48,7 +40,10 @@ Now, you have the Go project set up in the container, in which you can compile a
 ### Run the api-gateway server
 
 ```bash
+# Enter api-gateway container
 $ docker exec -it api-gateway /bin/bash
+
+# In the api-gateway container
 $ cd plugin && go build -buildmode=plugin -o grpc-proxy.so /api-gateway/plugin/server/grpc && cd .. # compile the KrakenD grpc-proxy plugin
 $ make env # generate config/.env
 $ make config # generate KrakenD configuration file
