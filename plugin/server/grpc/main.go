@@ -10,6 +10,8 @@ import (
 
 	"github.com/akosyakov/grpc-proxy/proxy"
 	"github.com/gogo/status"
+	"golang.org/x/net/http2"
+	"golang.org/x/net/http2/h2c"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/credentials/insecure"
@@ -38,7 +40,7 @@ func (r registerer) RegisterHandlers(f func(
 }
 
 func (r registerer) registerHandlers(ctx context.Context, extra map[string]interface{}, h http.Handler) (http.Handler, error) {
-	
+
 	logger, _ := logger.GetZapLogger()
 	defer func() {
 		// can't handle the error due to https://github.com/uber-go/zap/issues/880
@@ -70,51 +72,39 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]inter
 
 		target, _ := url.Parse(endpoint.(string))
 
-		conn, err := grpc.Dial(		
+		conn, err := grpc.Dial(
 			target.Host,
 			grpc.WithTransportCredentials(insecure.NewCredentials()),
 			grpc.WithCodec(proxy.Codec()))
-	
+
 		director := func(ctx context.Context, fullMethodName string) (context.Context, *grpc.ClientConn, error) {
 			md, ok := metadata.FromIncomingContext(ctx)
 			outCtx := metadata.NewOutgoingContext(ctx, md.Copy())
-			if ok {			
+			if ok {
 				return outCtx, conn, err
 			}
 			return nil, nil, status.Errorf(codes.Unimplemented, "Unknown method")
 		}
-	
+
 		grpcServerOpts = append(
-			grpcServerOpts,	
+			grpcServerOpts,
 			grpc.UnknownServiceHandler(proxy.TransparentHandler(director)))
-	
+
 		grpcServers[srv] = grpc.NewServer(grpcServerOpts...)
 	}
 
-	// Return the actual handler wrapping or your custom logic so it can be used as a replacement for the default http handler
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		// According to https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md#requests
-		// The Content-Type of gRPC has the "application/grpc" prefix
-		if r.ProtoMajor == 2 && strings.Contains(r.Header.Get("Content-Type"), "application/grpc") {								
-			// r.URL.Path is /vdp.{service_name}.v1alpha.{service_name}Service/{method}			
-			srv := strings.Split(strings.Split(r.URL.Path, "/")[1], ".")[1]
-			grpcServers[srv].ServeHTTP(w, r)
-		} else {
-			h.ServeHTTP(w, r)
-		}
-	}), nil
-}
-
-func removeDuplicateHeader(strSlice []string) []string {
-    allKeys := make(map[string]bool)
-    list := []string{}
-    for _, item := range strSlice {
-        if _, value := allKeys[item]; !value {
-            allKeys[item] = true
-            list = append(list, item)
-        }
-    }
-    return list
+	return h2c.NewHandler(
+		http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			if r.ProtoMajor == 2 && strings.Contains(r.Header.Get("Content-Type"), "application/grpc") {
+				// r.URL.Path is /vdp.{service_name}.v1alpha.{service_name}Service/{method}
+				srv := strings.Split(strings.Split(r.URL.Path, "/")[1], ".")[1]
+				grpcServers[srv].ServeHTTP(w, r)
+			} else {
+				h.ServeHTTP(w, r)
+			}
+		}),
+		&http2.Server{},
+	), nil
 }
 
 func init() {

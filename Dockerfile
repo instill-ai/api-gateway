@@ -5,7 +5,7 @@ FROM --platform=$BUILDPLATFORM golang:${GOLANG_VERSION}-alpine${ALPINE_VERSION} 
 
 ARG SERVICE_NAME
 
-RUN apk --no-cache --virtual .build-deps add tar make gcc musl-dev binutils-gold curl
+RUN apk --no-cache --virtual .build-deps add tar make gcc musl-dev binutils-gold build-base curl
 
 WORKDIR /${SERVICE_NAME}
 
@@ -15,16 +15,16 @@ ARG TARGETARCH
 ARG BUILDARCH
 RUN if [[ "$BUILDARCH" = "amd64" && "$TARGETARCH" = "arm64" ]] ; \
     then \
-    curl -L http://musl.cc/aarch64-linux-musl-cross.tgz | \
-    tar zxv && \
+    curl -sL http://musl.cc/aarch64-linux-musl-cross.tgz | \
+    tar zx && \
     export PATH="$PATH:/${SERVICE_NAME}/aarch64-linux-musl-cross/bin" && \
-    cd plugin && \
-    ARCH=$TARGETARCH GOARCH=$TARGETARCH GOHOSTARCH=$BUILDARCH \
+    cd plugin && go mod download && \
+    CGO_ENABLED=1 ARCH=$TARGETARCH GOARCH=$TARGETARCH GOHOSTARCH=$BUILDARCH \
     CC=aarch64-linux-musl-gcc EXTRA_LDFLAGS='-extld=aarch64-linux-musl-gcc' \
     go build -buildmode=plugin -o grpc-proxy.so ./server/grpc; \
     else \
-    cd plugin && \
-    go build -buildmode=plugin -o grpc-proxy.so ./server/grpc; fi
+    cd plugin && go mod download && \
+    CGO_ENABLED=1 go build -buildmode=plugin -o grpc-proxy.so ./server/grpc; fi
 
 FROM --platform=$BUILDPLATFORM devopsfaith/krakend:${KRAKEND_CE_VERSION}
 
