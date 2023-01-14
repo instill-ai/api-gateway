@@ -1,5 +1,5 @@
 {
-  "debug": "https://${API_GATEWAY_HOST}:${API_GATEWAY_HTTPS_PORT}",
+  "debug": "https://${API_GATEWAY_HOST}:${API_GATEWAY_PORT}",
   "pipeline": "http://${PIPELINE_BACKEND_HOST}:${PIPELINE_BACKEND_PORT}",
   "connector": "http://${CONNECTOR_BACKEND_HOST}:${CONNECTOR_BACKEND_PORT}",
   "model": "http://${MODEL_BACKEND_HOST}:${MODEL_BACKEND_PORT}",

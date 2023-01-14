@@ -26,7 +26,7 @@ RUN if [[ "$BUILDARCH" = "amd64" && "$TARGETARCH" = "arm64" ]] ; \
     cd plugin && go mod download && \
     CGO_ENABLED=1 go build -buildmode=plugin -o grpc-proxy.so ./server/grpc; fi
 
-FROM --platform=$BUILDPLATFORM devopsfaith/krakend:${KRAKEND_CE_VERSION}
+FROM devopsfaith/krakend:${KRAKEND_CE_VERSION}
 
 ARG SERVICE_NAME
 
@@ -39,6 +39,6 @@ COPY . .
 COPY --from=build /${SERVICE_NAME}/plugin/grpc-proxy.so /${SERVICE_NAME}/plugin/grpc-proxy.so
 
 ARG TARGETARCH
-RUN curl -JLO "https://dl.filippo.io/mkcert/latest?for=linux/$TARGETARCH" && \
+RUN curl -sJLO "https://dl.filippo.io/mkcert/latest?for=linux/$TARGETARCH" && \
     chmod +x mkcert-v*-linux-$TARGETARCH && \
     cp mkcert-v*-linux-$TARGETARCH /usr/local/bin/mkcert
