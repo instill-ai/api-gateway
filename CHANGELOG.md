@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0-alpha](https://github.com/instill-ai/api-gateway/compare/v0.1.1-alpha...v0.2.0-alpha) (2023-01-14)
+
+
+### Features
+
+* enable h2c ([a1e3598](https://github.com/instill-ai/api-gateway/commit/a1e3598287ac52f5c6a368bd883d692d8f62a186))
+
 ## [0.1.1-alpha](https://github.com/instill-ai/api-gateway/compare/v0.1.0-alpha...v0.1.1-alpha) (2023-01-03)
 
 
