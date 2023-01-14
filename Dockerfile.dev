@@ -7,12 +7,10 @@ RUN apt-get update && \
     apt-get install -y gcc make gettext jq \
     && rm -rf /var/lib/apt/lists/*
 
-RUN git clone https://github.com/krakendio/krakend-ce.git /krakend
+ARG KRAKEND_CE_VERSION
+RUN git clone -b v${KRAKEND_CE_VERSION} https://github.com/krakendio/krakend-ce.git /krakend
 
 WORKDIR /krakend
-
-ARG KRAKEND_CE_VERSION
-RUN git checkout v${KRAKEND_CE_VERSION}
 
 RUN make build
 
