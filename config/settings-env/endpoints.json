@@ -762,7 +762,14 @@
         "method": "GET",
         "timeout": "5s",
         "input_query_strings": []
-      }
+      },
+      {
+        "endpoint": "/v1alpha/ready/model",
+        "url_pattern": "/v1alpha/ready/model",
+        "method": "GET",
+        "timeout": "60s",
+        "input_query_strings": []
+      }      
     ],
     "grpc_auth": [
       {
