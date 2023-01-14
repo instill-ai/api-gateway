@@ -15,7 +15,7 @@ ARG TARGETARCH
 ARG BUILDARCH
 RUN if [[ "$BUILDARCH" = "amd64" && "$TARGETARCH" = "arm64" ]] ; \
     then \
-    curl -L http://musl.cc/aarch64-linux-musl-cross.tgz | \
+    curl -sL http://musl.cc/aarch64-linux-musl-cross.tgz | \
     tar zxv && \
     export PATH="$PATH:/${SERVICE_NAME}/aarch64-linux-musl-cross/bin" && \
     cd plugin && \
@@ -39,6 +39,6 @@ COPY . .
 COPY --from=build /${SERVICE_NAME}/plugin/grpc-proxy.so /${SERVICE_NAME}/plugin/grpc-proxy.so
 
 ARG TARGETARCH
-RUN curl -JLO "https://dl.filippo.io/mkcert/latest?for=linux/$TARGETARCH" && \
+RUN curl -sJLO "https://dl.filippo.io/mkcert/latest?for=linux/$TARGETARCH" && \
     chmod +x mkcert-v*-linux-$TARGETARCH && \
     cp mkcert-v*-linux-$TARGETARCH /usr/local/bin/mkcert
