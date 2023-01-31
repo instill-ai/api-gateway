@@ -32,13 +32,15 @@ ARG SERVICE_NAME
 
 RUN apk update && apk add make bash gettext jq curl
 
+RUN addgroup -g 10000 -S instill && adduser -u 10000 -S instill  -G instill 
+
 WORKDIR /${SERVICE_NAME}
 
-COPY . .
-
 COPY --from=build /${SERVICE_NAME}/plugin/grpc-proxy.so /${SERVICE_NAME}/plugin/grpc-proxy.so
+COPY .env .env
+COPY Makefile Makefile
+COPY config config
 
-ARG TARGETARCH
-RUN curl -sJLO "https://dl.filippo.io/mkcert/latest?for=linux/$TARGETARCH" && \
-    chmod +x mkcert-v*-linux-$TARGETARCH && \
-    cp mkcert-v*-linux-$TARGETARCH /usr/local/bin/mkcert
+RUN chown instill:instill -R .
+
+USER instill
