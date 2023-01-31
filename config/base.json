@@ -13,6 +13,11 @@
   "cache_ttl": "300s",
   {{ include "plugin" }},
   "extra_config": {
+    "router":{
+        "logger_skip_paths":[
+          "/__health"
+        ]
+    },
     "github_com/devopsfaith/krakend-gologging": {
       "level": "{{ .log.level }}",
       "prefix": "[KRAKEND]",
@@ -21,7 +26,7 @@
     },
     {{ template "opencensus.tmpl" . }},
     {{ template "cors.tmpl" . }},
-   "plugin/http-server": {
+  "plugin/http-server": {
       "name": ["grpc-proxy"],
       "grpc-proxy": {
         "pipeline": "{{ .backends.pipeline }}",
@@ -35,7 +40,7 @@
     {{- template "debug.tmpl" . }},
     {{- template "pipeline.tmpl" . }},
     {{- template "connector.tmpl" . }},
-    {{- template "model.tmpl" . }},   
-    {{- template "mgmt.tmpl" . }}     
+    {{- template "model.tmpl" . }},
+    {{- template "mgmt.tmpl" . }}
   ]
 }
