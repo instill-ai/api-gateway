@@ -45,7 +45,6 @@ $ docker exec -it api-gateway /bin/bash
 
 # In the api-gateway container
 $ cd plugin && go build -buildmode=plugin -o grpc-proxy.so /api-gateway/plugin/server/grpc && cd .. # compile the KrakenD grpc-proxy plugin
-$ make env # generate config/.env
 $ make config # generate KrakenD configuration file
 $ krakend run -c krakend.json
 ```

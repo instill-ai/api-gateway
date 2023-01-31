@@ -47,7 +47,7 @@ build:							## Build dev docker image
 		-f Dockerfile.dev -t instill/${SERVICE_NAME}:dev .
 
 .PHONY: env
-env:							## Output the config/.env file overwritten by the host environement variables
+env:							## Overwrite the config/.env file by the host environement variables
 	@envsubst <config/.env.envsubst >config/.env
 
 .PHONY: config
