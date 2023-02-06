@@ -18,9 +18,7 @@
   "timeout": "{{ .timeout }}",
   "output_encoding": "no-op",
   "headers_to_pass": {{ marshal $headers_to_pass.jwt_auth }},
-  "extra_config": {
-    {{ template "jose_validator_hydra.tmpl" . }}
-  },
+  "extra_config": {},
   "backend": [
     {
       "url_pattern": "{{ .url_pattern }}",

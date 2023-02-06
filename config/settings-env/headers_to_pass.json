@@ -2,11 +2,6 @@
   "jwt_auth": [
     "Content-Type",
     "Content-Length",
-    "Jwt-Sub",
-    "Jwt-Iss",
-    "Jwt-Aud",
-    "Jwt-Scope",
-    "Jwt-Client-Id",
     "X-Forwarded-For",
     "Request-Id",
     "Backend"
@@ -18,22 +13,9 @@
     "Request-Id",
     "Backend"
   ],
-  "basic_auth": [
-    "Content-Type",
-    "Content-Length",
-    "Authorization",
-    "X-Forwarded-For",
-    "Request-Id",
-    "Backend"
-  ],
   "grpc_auth": [
     "Content-Type",
     "Content-Length",
-    "Jwt-Client-Id",
-    "Jwt-Sub",
-    "Jwt-Iss",
-    "Jwt-Aud",
-    "Jwt-Scope",
     "X-Forwarded-For",
     "Request-Id",
     "Backend",
