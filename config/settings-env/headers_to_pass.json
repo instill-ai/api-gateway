@@ -2,17 +2,14 @@
   "jwt_auth": [
     "Content-Type",
     "Content-Length",
-    "Jwt-Client-Id",
     "Jwt-Sub",
     "Jwt-Iss",
     "Jwt-Aud",
     "Jwt-Scope",
     "Jwt-Client-Id",
-    "Jwt-Models",
     "X-Forwarded-For",
     "Request-Id",
-    "Backend",
-    "Jwt-Username"
+    "Backend"
   ],
   "no_auth": [
     "Content-Type",
@@ -37,12 +34,9 @@
     "Jwt-Iss",
     "Jwt-Aud",
     "Jwt-Scope",
-    "Jwt-Client-Id",
-    "Jwt-Models",
     "X-Forwarded-For",
     "Request-Id",
     "Backend",
-    "Jwt-Username",
     "Grpc-Accept-Encoding",
     "Te"
   ],
