@@ -78,40 +78,43 @@
 }
 {{- end}}
 ,
-{{- range $idx, $endpoint := $endpoints.basic_auth }}
+{{- range $idx, $endpoint := $endpoints.grpc_auth }}
 {{- if $idx -}},{{ end }}
 {
   "endpoint": "{{ .endpoint }}",
   "method": "{{ .method }}",
-  {{- if len .input_query_strings -}}
-  "input_query_strings":
-  [
-    {{- range $qidx, $qstring := .input_query_strings }}
-    {{- if $qidx -}},{{ end }}
-    "{{ $qstring }}"
-    {{- end}}
-  ],
-  {{- end}}
   "timeout": "{{ .timeout }}",
   "output_encoding": "no-op",
-  "headers_to_pass": {{ marshal $headers_to_pass.basic_auth }},
+  "headers_to_pass": {{ marshal $headers_to_pass.grpc_auth }},
+  "extra_config": {},
   "backend": [
     {
       "url_pattern": "{{ .url_pattern }}",
       "host": {{ marshal $host }},
       "sd": "static",
       "method": "{{ .method }}",
-      "disable_host_sanitize": false,
-      "extra_config": {
-        "github.com/devopsfaith/krakend-martian": {
-          "header.Modifier": {
-            "scope": ["response"],
-            "name": "Backend",
-            "value": "management"
-          }
-        }
-      }
+      "disable_host_sanitize": false
     }
   ]
 }
-{{- end}}
+{{- end }}
+,
+{{- range $idx, $endpoint := $endpoints.grpc_no_auth }}
+{{- if $idx -}},{{ end }}
+{
+  "endpoint": "{{ .endpoint }}",
+  "method": "{{ .method }}",
+  "timeout": "{{ .timeout }}",
+  "output_encoding": "no-op",
+  "headers_to_pass": {{ marshal $headers_to_pass.grpc_no_auth }},
+  "backend": [
+    {
+      "url_pattern": "{{ .url_pattern }}",
+      "host": {{ marshal $host }},
+      "sd": "static",
+      "method": "{{ .method }}",
+      "disable_host_sanitize": false
+    }
+  ]
+}
+{{- end }}
