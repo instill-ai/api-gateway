@@ -1,6 +1,6 @@
 # api-gateway
 
-This repository maintains the [KrakenD](https://www.krakend.io) API gateway configuration file `krakend.json` and a Docker Compose file `docker-compose.yaml` for integration test.
+This repository maintains the [KrakenD](https://www.krakend.io) API gateway configuration file `krakend.json`.
 
 ## KrakenD
 
