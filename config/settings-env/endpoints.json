@@ -113,31 +113,31 @@
       {
         "endpoint": "/vdp.pipeline.v1alpha.PipelineService/ListPipeline",
         "url_pattern": "/vdp.pipeline.v1alpha.PipelineService/ListPipeline",
-        "method": "GET",
+        "method": "POST",
         "timeout": "5s"
       },
       {
         "endpoint": "/vdp.pipeline.v1alpha.PipelineService/GetPipeline",
         "url_pattern": "/vdp.pipeline.v1alpha.PipelineService/GetPipeline",
-        "method": "GET",
+        "method": "POST",
         "timeout": "5s"
       },
       {
         "endpoint": "/vdp.pipeline.v1alpha.PipelineService/UpdatePipeline",
         "url_pattern": "/vdp.pipeline.v1alpha.PipelineService/UpdatePipeline",
-        "method": "PATCH",
+        "method": "POST",
         "timeout": "5s"
       },
       {
         "endpoint": "/vdp.pipeline.v1alpha.PipelineService/DeletePipeline",
         "url_pattern": "/vdp.pipeline.v1alpha.PipelineService/DeletePipeline",
-        "method": "DELETE",
+        "method": "POST",
         "timeout": "5s"
       },
       {
         "endpoint": "/vdp.pipeline.v1alpha.PipelineService/LookUpPipeline",
         "url_pattern": "/vdp.pipeline.v1alpha.PipelineService/LookUpPipeline",
-        "method": "GET",
+        "method": "POST",
         "timeout": "5s"
       },
       {
@@ -175,59 +175,19 @@
       {
         "endpoint": "/vdp.pipeline.v1alpha.PipelineService/Liveness",
         "url_pattern": "/vdp.pipeline.v1alpha.PipelineService/Liveness",
-        "method": "GET",
+        "method": "POST",
         "timeout": "5s"
       },
       {
         "endpoint": "/vdp.pipeline.v1alpha.PipelineService/Readiness",
         "url_pattern": "/vdp.pipeline.v1alpha.PipelineService/Readiness",
-        "method": "GET",
+        "method": "POST",
         "timeout": "5s"
       }
     ]
   },
   "connector": {
     "jwt_auth": [
-      {
-        "endpoint": "/v1alpha/source-connector-definitions",
-        "url_pattern": "/v1alpha/source-connector-definitions",
-        "method": "GET",
-        "timeout": "30s",
-        "input_query_strings": [
-          "page_size",
-          "page_token",
-          "view"
-        ]
-      },
-      {
-        "endpoint": "/v1alpha/source-connector-definitions/{id}",
-        "url_pattern": "/v1alpha/source-connector-definitions/{id}",
-        "method": "GET",
-        "timeout": "30s",
-        "input_query_strings": [
-          "view"
-        ]
-      },
-      {
-        "endpoint": "/v1alpha/destination-connector-definitions",
-        "url_pattern": "/v1alpha/destination-connector-definitions",
-        "method": "GET",
-        "timeout": "30s",
-        "input_query_strings": [
-          "page_size",
-          "page_token",
-          "view"
-        ]
-      },
-      {
-        "endpoint": "/v1alpha/destination-connector-definitions/{id}",
-        "url_pattern": "/v1alpha/destination-connector-definitions/{id}",
-        "method": "GET",
-        "timeout": "30s",
-        "input_query_strings": [
-          "view"
-        ]
-      },
       {
         "endpoint": "/v1alpha/source-connectors",
         "url_pattern": "/v1alpha/source-connectors",
@@ -392,33 +352,49 @@
         "method": "GET",
         "timeout": "5s",
         "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/source-connector-definitions",
+        "url_pattern": "/v1alpha/source-connector-definitions",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "page_size",
+          "page_token",
+          "view"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/source-connector-definitions/{id}",
+        "url_pattern": "/v1alpha/source-connector-definitions/{id}",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/destination-connector-definitions",
+        "url_pattern": "/v1alpha/destination-connector-definitions",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "page_size",
+          "page_token",
+          "view"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/destination-connector-definitions/{id}",
+        "url_pattern": "/v1alpha/destination-connector-definitions/{id}",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view"
+        ]
       }
     ],
     "grpc_auth": [
-      {
-        "endpoint": "/vdp.connector.v1alpha.ConnectorService/ListSourceConnectorDefinition",
-        "url_pattern": "/vdp.connector.v1alpha.ConnectorService/ListSourceConnectorDefinition",
-        "method": "GET",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.connector.v1alpha.ConnectorService/GetSourceConnectorDefinition",
-        "url_pattern": "/vdp.connector.v1alpha.ConnectorService/GetSourceConnectorDefinition",
-        "method": "GET",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.connector.v1alpha.ConnectorService/ListDestinationConnectorDefinition",
-        "url_pattern": "/vdp.connector.v1alpha.ConnectorService/ListDestinationConnectorDefinition",
-        "method": "GET",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.connector.v1alpha.ConnectorService/GetDestinationConnectorDefinition",
-        "url_pattern": "/vdp.connector.v1alpha.ConnectorService/GetDestinationConnectorDefinition",
-        "method": "GET",
-        "timeout": "5s"
-      },
       {
         "endpoint": "/vdp.connector.v1alpha.ConnectorService/CreateSourceConnector",
         "url_pattern": "/vdp.connector.v1alpha.ConnectorService/CreateSourceConnector",
@@ -428,31 +404,31 @@
       {
         "endpoint": "/vdp.connector.v1alpha.ConnectorService/ListSourceConnector",
         "url_pattern": "/vdp.connector.v1alpha.ConnectorService/ListSourceConnector",
-        "method": "GET",
+        "method": "POST",
         "timeout": "5s"
       },
       {
         "endpoint": "/vdp.connector.v1alpha.ConnectorService/GetSourceConnector",
         "url_pattern": "/vdp.connector.v1alpha.ConnectorService/GetSourceConnector",
-        "method": "GET",
+        "method": "POST",
         "timeout": "5s"
       },
       {
         "endpoint": "/vdp.connector.v1alpha.ConnectorService/UpdateSourceConnector",
         "url_pattern": "/vdp.connector.v1alpha.ConnectorService/UpdateSourceConnector",
-        "method": "PATCH",
+        "method": "POST",
         "timeout": "5s"
       },
       {
         "endpoint": "/vdp.connector.v1alpha.ConnectorService/DeleteSourceConnector",
         "url_pattern": "/vdp.connector.v1alpha.ConnectorService/DeleteSourceConnector",
-        "method": "DELETE",
+        "method": "POST",
         "timeout": "5s"
       },
       {
         "endpoint": "/vdp.connector.v1alpha.ConnectorService/LookUpSourceConnector",
         "url_pattern": "/vdp.connector.v1alpha.ConnectorService/LookUpSourceConnector",
-        "method": "GET",
+        "method": "POST",
         "timeout": "5s"
       },
       {
@@ -488,31 +464,31 @@
       {
         "endpoint": "/vdp.connector.v1alpha.ConnectorService/ListDestinationConnector",
         "url_pattern": "/vdp.connector.v1alpha.ConnectorService/ListDestinationConnector",
-        "method": "GET",
+        "method": "POST",
         "timeout": "5s"
       },
       {
         "endpoint": "/vdp.connector.v1alpha.ConnectorService/GetDestinationConnector",
         "url_pattern": "/vdp.connector.v1alpha.ConnectorService/GetDestinationConnector",
-        "method": "GET",
+        "method": "POST",
         "timeout": "5s"
       },
       {
         "endpoint": "/vdp.connector.v1alpha.ConnectorService/UpdateDestinationConnector",
         "url_pattern": "/vdp.connector.v1alpha.ConnectorService/UpdateDestinationConnector",
-        "method": "PATCH",
+        "method": "POST",
         "timeout": "5s"
       },
       {
         "endpoint": "/vdp.connector.v1alpha.ConnectorService/DeleteDestinationConnector",
         "url_pattern": "/vdp.connector.v1alpha.ConnectorService/DeleteDestinationConnector",
-        "method": "DELETE",
+        "method": "POST",
         "timeout": "5s"
       },
       {
         "endpoint": "/vdp.connector.v1alpha.ConnectorService/LookUpDestinationConnector",
         "url_pattern": "/vdp.connector.v1alpha.ConnectorService/LookUpDestinationConnector",
-        "method": "GET",
+        "method": "POST",
         "timeout": "5s"
       },
       {
@@ -544,46 +520,43 @@
       {
         "endpoint": "/vdp.connector.v1alpha.ConnectorService/Liveness",
         "url_pattern": "/vdp.connector.v1alpha.ConnectorService/Liveness",
-        "method": "GET",
+        "method": "POST",
         "timeout": "5s"
       },
       {
         "endpoint": "/vdp.connector.v1alpha.ConnectorService/Readiness",
         "url_pattern": "/vdp.connector.v1alpha.ConnectorService/Readiness",
-        "method": "GET",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.connector.v1alpha.ConnectorService/ListSourceConnectorDefinition",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorService/ListSourceConnectorDefinition",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.connector.v1alpha.ConnectorService/GetSourceConnectorDefinition",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorService/GetSourceConnectorDefinition",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.connector.v1alpha.ConnectorService/ListDestinationConnectorDefinition",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorService/ListDestinationConnectorDefinition",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.connector.v1alpha.ConnectorService/GetDestinationConnectorDefinition",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorService/GetDestinationConnectorDefinition",
+        "method": "POST",
         "timeout": "5s"
       }
     ]
   },
   "model": {
     "jwt_auth": [
-      {
-        "endpoint": "/v1alpha/model-definitions",
-        "url_pattern": "/v1alpha/model-definitions",
-        "method": "GET",
-        "timeout": "30s",
-        "input_query_strings": [
-          "view"
-        ]
-      },
-      {
-        "endpoint": "/v1alpha/model-definitions/{definition_name}",
-        "url_pattern": "/v1alpha/model-definitions/{definition_name}",
-        "method": "GET",
-        "timeout": "30s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/models",
-        "url_pattern": "/v1alpha/models",
-        "method": "GET",
-        "timeout": "30s",
-        "input_query_strings": [
-          "view",
-          "page_size",
-          "page_token"
-        ]
-      },
       {
         "endpoint": "/v1alpha/models/{model_id}",
         "url_pattern": "/v1alpha/models/{model_id}",
@@ -769,21 +742,36 @@
         "method": "GET",
         "timeout": "60s",
         "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/model-definitions",
+        "url_pattern": "/v1alpha/model-definitions",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/model-definitions/{definition_name}",
+        "url_pattern": "/v1alpha/model-definitions/{definition_name}",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/models",
+        "url_pattern": "/v1alpha/models",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view",
+          "page_size",
+          "page_token"
+        ]
       }      
     ],
     "grpc_auth": [
-      {
-        "endpoint": "/vdp.model.v1alpha.ModelService/ListModelDefinition",
-        "url_pattern": "/vdp.model.v1alpha.ModelService/ListModelDefinition",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.model.v1alpha.ModelService/GetModelDefinition",
-        "url_pattern": "/vdp.model.v1alpha.ModelService/GetModelDefinition",
-        "method": "POST",
-        "timeout": "5s"
-      },
       {
         "endpoint": "/vdp.model.v1alpha.ModelService/ListModel",
         "url_pattern": "/vdp.model.v1alpha.ModelService/ListModel",
@@ -917,6 +905,18 @@
         "url_pattern": "/vdp.model.v1alpha.ModelService/Readiness",
         "method": "POST",
         "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.model.v1alpha.ModelService/ListModelDefinition",
+        "url_pattern": "/vdp.model.v1alpha.ModelService/ListModelDefinition",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.model.v1alpha.ModelService/GetModelDefinition",
+        "url_pattern": "/vdp.model.v1alpha.ModelService/GetModelDefinition",
+        "method": "POST",
+        "timeout": "5s"
       }
     ]
   },
@@ -971,13 +971,6 @@
         "input_query_strings": [
           "view"
         ]
-      },
-      {
-        "endpoint": "/v1alpha/users/{id}/rotate-secret",
-        "url_pattern": "/v1alpha/users/{id}/rotate-secret",
-        "method": "POST",
-        "timeout": "30s",
-        "input_query_strings": []
       }
     ],
     "no_auth": [
@@ -989,16 +982,50 @@
         "input_query_strings": []
       }
     ],
-    "basic_auth": [
+    "grpc_auth": [
       {
-        "endpoint": "/v1alpha/oauth2/token",
-        "url_pattern": "/v1alpha/oauth2/token",
+        "endpoint": "/vdp.mgmt.v1alpha.UserService/ListUser",
+        "url_pattern": "/vdp.mgmt.v1alpha.UserService/ListUser",
         "method": "POST",
-        "timeout": "30s",
-        "input_query_strings": [
-          "grant_type",
-          "audience"
-        ]
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/vdp.mgmt.v1alpha.UserService/CreateUser",
+        "url_pattern": "/vdp.mgmt.v1alpha.UserService/CreateUser",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/vdp.mgmt.v1alpha.UserService/GetUser",
+        "url_pattern": "/vdp.mgmt.v1alpha.UserService/GetUser",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/vdp.mgmt.v1alpha.UserService/UpdateUser",
+        "url_pattern": "/vdp.mgmt.v1alpha.UserService/UpdateUser",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/vdp.mgmt.v1alpha.UserService/DeleteUser",
+        "url_pattern": "/vdp.mgmt.v1alpha.UserService/DeleteUser",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/vdp.mgmt.v1alpha.UserService/LookUpUser",
+        "url_pattern": "/vdp.mgmt.v1alpha.UserService/LookUpUser",
+        "method": "POST",
+        "timeout": "30s"
+      }
+    ],
+    "grpc_no_auth": [
+      {
+        "endpoint": "/vdp.mgmt.v1alpha.UserService/Liveness",
+        "url_pattern": "/vdp.mgmt.v1alpha.UserService/Liveness",
+        "method": "POST",
+        "timeout": "5s"
       }
     ]
   }
