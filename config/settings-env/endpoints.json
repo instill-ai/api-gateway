@@ -923,54 +923,18 @@
   "mgmt": {
     "jwt_auth": [
       {
-        "endpoint": "/v1alpha/users",
-        "url_pattern": "/v1alpha/users",
+        "endpoint": "/v1alpha/user",
+        "url_pattern": "/v1alpha/user",
         "method": "GET",
-        "timeout": "30s",
-        "input_query_strings": [
-          "view",
-          "page_size",
-          "page_token"
-        ]
-      },
-      {
-        "endpoint": "/v1alpha/users",
-        "url_pattern": "/v1alpha/users",
-        "method": "POST",
         "timeout": "30s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/users/{id}",
-        "url_pattern": "/v1alpha/users/{id}",
-        "method": "GET",
-        "timeout": "30s",
-        "input_query_strings": [
-          "view"
-        ]
-      },
-      {
-        "endpoint": "/v1alpha/users/{id}",
-        "url_pattern": "/v1alpha/users/{id}",
+        "endpoint": "/v1alpha/user",
+        "url_pattern": "/v1alpha/user",
         "method": "PATCH",
         "timeout": "30s",
         "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/users/{id}",
-        "url_pattern": "/v1alpha/users/{id}",
-        "method": "DELETE",
-        "timeout": "30s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/users/{id}/lookUp",
-        "url_pattern": "/v1alpha/users/{id}/lookUp",
-        "method": "GET",
-        "timeout": "30s",
-        "input_query_strings": [
-          "view"
-        ]
       }
     ],
     "no_auth": [
@@ -978,52 +942,54 @@
         "endpoint": "/v1alpha/health/mgmt",
         "url_pattern": "/v1alpha/health/mgmt",
         "method": "GET",
-        "timeout": "5s",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/ready/mgmt",
+        "url_pattern": "/v1alpha/ready/mgmt",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/users/{id}/exists",
+        "url_pattern": "/v1alpha/users/{id}/exists",
+        "method": "GET",
+        "timeout": "30s",
         "input_query_strings": []
       }
     ],
     "grpc_auth": [
       {
-        "endpoint": "/vdp.mgmt.v1alpha.UserService/ListUser",
-        "url_pattern": "/vdp.mgmt.v1alpha.UserService/ListUser",
+        "endpoint": "/vdp.mgmt.v1alpha.MgmtPublicService/GetAuthenticatedUser",
+        "url_pattern": "/vdp.mgmt.v1alpha.MgmtPublicService/GetAuthenticatedUser",
         "method": "POST",
         "timeout": "30s"
       },
       {
-        "endpoint": "/vdp.mgmt.v1alpha.UserService/CreateUser",
-        "url_pattern": "/vdp.mgmt.v1alpha.UserService/CreateUser",
-        "method": "POST",
-        "timeout": "30s"
-      },
-      {
-        "endpoint": "/vdp.mgmt.v1alpha.UserService/GetUser",
-        "url_pattern": "/vdp.mgmt.v1alpha.UserService/GetUser",
-        "method": "POST",
-        "timeout": "30s"
-      },
-      {
-        "endpoint": "/vdp.mgmt.v1alpha.UserService/UpdateUser",
-        "url_pattern": "/vdp.mgmt.v1alpha.UserService/UpdateUser",
-        "method": "POST",
-        "timeout": "30s"
-      },
-      {
-        "endpoint": "/vdp.mgmt.v1alpha.UserService/DeleteUser",
-        "url_pattern": "/vdp.mgmt.v1alpha.UserService/DeleteUser",
-        "method": "POST",
-        "timeout": "30s"
-      },
-      {
-        "endpoint": "/vdp.mgmt.v1alpha.UserService/LookUpUser",
-        "url_pattern": "/vdp.mgmt.v1alpha.UserService/LookUpUser",
+        "endpoint": "/vdp.mgmt.v1alpha.MgmtPublicService/UpdateAuthenticatedUser",
+        "url_pattern": "/vdp.mgmt.v1alpha.MgmtPublicService/UpdateAuthenticatedUser",
         "method": "POST",
         "timeout": "30s"
       }
     ],
     "grpc_no_auth": [
       {
-        "endpoint": "/vdp.mgmt.v1alpha.UserService/Liveness",
-        "url_pattern": "/vdp.mgmt.v1alpha.UserService/Liveness",
+        "endpoint": "/vdp.mgmt.v1alpha.MgmtPublicService/Liveness",
+        "url_pattern": "/vdp.mgmt.v1alpha.MgmtPublicService/Liveness",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.mgmt.v1alpha.MgmtPublicService/Readiness",
+        "url_pattern": "/vdp.mgmt.v1alpha.MgmtPublicService/Readiness",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.mgmt.v1alpha.MgmtPublicService/ExistUsername",
+        "url_pattern": "/vdp.mgmt.v1alpha.MgmtPublicService/ExistUsername",
         "method": "POST",
         "timeout": "5s"
       }

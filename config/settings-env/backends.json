@@ -3,5 +3,5 @@
   "pipeline": "http://${PIPELINE_BACKEND_HOST}:${PIPELINE_BACKEND_PORT}",
   "connector": "http://${CONNECTOR_BACKEND_HOST}:${CONNECTOR_BACKEND_PORT}",
   "model": "http://${MODEL_BACKEND_HOST}:${MODEL_BACKEND_PORT}",
-  "mgmt": "http://${MGMT_BACKEND_HOST}:${MGMT_BACKEND_PORT}"
+  "mgmt": "http://${MGMT_BACKEND_HOST}:${MGMT_BACKEND_PUBLIC_PORT}"
 }
