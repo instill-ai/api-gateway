@@ -1,5 +1,5 @@
 {{ $host := .backends.connector }}
-{{ $headers_to_pass := .headers_to_pass }}
+{{ $input_headers := .input_headers }}
 {{ $endpoints := .endpoints.connector }}
 {{- range $idx, $endpoint := $endpoints.jwt_auth }}
 {{- if $idx -}},{{ end }}
@@ -17,7 +17,7 @@
   {{- end}}
   "timeout": "{{ .timeout }}",
   "output_encoding": "no-op",
-  "headers_to_pass": {{ marshal $headers_to_pass.jwt_auth }},
+  "input_headers": {{ marshal $input_headers.jwt_auth }},
   "extra_config": {},
   "backend": [
     {
@@ -56,7 +56,7 @@
   {{- end}}
   "timeout": "{{ .timeout }}",
   "output_encoding": "no-op",
-  "headers_to_pass": {{ marshal $headers_to_pass.no_auth }},
+  "input_headers": {{ marshal $input_headers.no_auth }},
   "backend": [
     {
       "url_pattern": "{{ .url_pattern }}",
@@ -85,7 +85,7 @@
   "method": "{{ .method }}",
   "timeout": "{{ .timeout }}",
   "output_encoding": "no-op",
-  "headers_to_pass": {{ marshal $headers_to_pass.grpc_auth }},
+  "input_headers": {{ marshal $input_headers.grpc_auth }},
   "extra_config": {},
   "backend": [
     {
@@ -106,7 +106,7 @@
   "method": "{{ .method }}",
   "timeout": "{{ .timeout }}",
   "output_encoding": "no-op",
-  "headers_to_pass": {{ marshal $headers_to_pass.grpc_no_auth }},
+  "input_headers": {{ marshal $input_headers.grpc_no_auth }},
   "backend": [
     {
       "url_pattern": "{{ .url_pattern }}",

@@ -2,7 +2,7 @@
   "endpoint": "{{ (index .endpoints.debug 0).endpoint }}",
   "method": "GET",
   "output_encoding": "no-op",
-  "headers_to_pass": [
+  "input_headers": [
     "*"
   ],
   "backend": [
@@ -19,7 +19,7 @@
   "endpoint": "{{ (index .endpoints.debug 0).endpoint }}",
   "method": "POST",
   "output_encoding": "no-op",
-  "headers_to_pass": [
+  "input_headers": [
     "*"
   ],
   "backend": [
