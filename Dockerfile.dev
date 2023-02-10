@@ -1,36 +1,27 @@
 ARG GOLANG_VERSION
 FROM golang:${GOLANG_VERSION}
 
-USER root
+ARG SERVICE_NAME
 
-RUN apt-get update && \
-    apt-get install -y gcc make gettext jq \
+WORKDIR /${SERVICE_NAME}
+
+# -- install 3rd-party
+
+ARG TARGETOS TARGETARCH
+
+# air
+RUN --mount=target=. --mount=type=cache,target=/root/.cache/go-build --mount=type=cache,target=/go/pkg GOOS=$TARGETOS GOARCH=$TARGETARCH go install github.com/cosmtrek/air@latest
+
+RUN apt-get update && apt-get install -y \
+    gcc \
+    make \
+    gettext \
+    jq \
     && rm -rf /var/lib/apt/lists/*
 
 ARG KRAKEND_CE_VERSION
-RUN git clone -b v${KRAKEND_CE_VERSION} https://github.com/krakendio/krakend-ce.git /krakend
+RUN git clone -b v${KRAKEND_CE_VERSION} https://github.com/krakendio/krakend-ce.git /krakend && cd /krakend && make build && cp krakend /usr/bin
 
-WORKDIR /krakend
-
-RUN make build
-
-RUN cp krakend /usr/bin/krakend
-
-ARG SERVICE_NAME
-WORKDIR /${SERVICE_NAME}
-
-COPY . .
-
-RUN go install github.com/cosmtrek/air@latest
-
-# Install local TLS files
-ARG TARGETARCH
-RUN curl -sJLO "https://dl.filippo.io/mkcert/latest?for=linux/$TARGETARCH" && \
-    chmod +x mkcert-v*-linux-$TARGETARCH && \
-    cp mkcert-v*-linux-$TARGETARCH /usr/local/bin/mkcert
-RUN mkcert -install && mkdir cert && mkcert -client -key-file /etc/ssl/dev-key.pem -cert-file /etc/ssl/dev-cert.pem localhost api-gateway
-
-# Initialise krakend.json
-RUN make config
+USER nobody
 
 ENTRYPOINT ["tail", "-f", "/dev/null"]

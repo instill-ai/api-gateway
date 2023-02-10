@@ -28,19 +28,17 @@ RUN if [[ "$BUILDARCH" = "amd64" && "$TARGETARCH" = "arm64" ]] ; \
 
 FROM devopsfaith/krakend:${KRAKEND_CE_VERSION}
 
-ARG SERVICE_NAME
-
 RUN apk update && apk add make bash gettext jq curl
 
-RUN addgroup -g 10000 -S instill && adduser -u 10000 -S instill  -G instill 
+ARG SERVICE_NAME
 
 WORKDIR /${SERVICE_NAME}
 
-COPY --from=build /${SERVICE_NAME}/plugin/grpc-proxy.so /${SERVICE_NAME}/plugin/grpc-proxy.so
+COPY --from=build --chown=krakend:nogroup /${SERVICE_NAME}/plugin/grpc-proxy.so /${SERVICE_NAME}/plugin/grpc-proxy.so
 COPY .env .env
 COPY Makefile Makefile
 COPY config config
 
-RUN chown instill:instill -R .
+RUN chown krakend:nogroup -R .
 
-USER instill
+USER krakend
