@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.1-alpha](https://github.com/instill-ai/api-gateway/compare/v0.2.0-alpha...v0.2.1-alpha) (2023-02-10)
+
+
+### Bug Fixes
+
+* fix endpoints and remove jwt token configuration ([#13](https://github.com/instill-ai/api-gateway/issues/13)) ([7b35a60](https://github.com/instill-ai/api-gateway/commit/7b35a6075475e3f5b3d5361b3e7e05bb6c3923e0))
+* update configuration for headers allowed to reach the backend ([#16](https://github.com/instill-ai/api-gateway/issues/16)) ([a4f66b2](https://github.com/instill-ai/api-gateway/commit/a4f66b200105b7f9b9aa37e81efeeaafc818d52a))
+
 ## [0.2.0-alpha](https://github.com/instill-ai/api-gateway/compare/v0.1.1-alpha...v0.2.0-alpha) (2023-01-15)
 
 
