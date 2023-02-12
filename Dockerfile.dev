@@ -22,6 +22,11 @@ RUN apt-get update && apt-get install -y \
 ARG KRAKEND_CE_VERSION
 RUN git clone -b v${KRAKEND_CE_VERSION} https://github.com/krakendio/krakend-ce.git /krakend && cd /krakend && make build && cp krakend /usr/bin
 
+# -- set up Go
+RUN chown -R nobody:nogroup /go
+ENV GOCACHE /go/.cache/go-build
+ENV GOENV /go/.config/go/env
+
 USER nobody
 
 ENTRYPOINT ["tail", "-f", "/dev/null"]
