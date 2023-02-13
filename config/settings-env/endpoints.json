@@ -650,21 +650,21 @@
         "endpoint": "/v1alpha/models",
         "url_pattern": "/v1alpha/models",
         "method": "POST",
-        "timeout": "30s",
+        "timeout": "86400s",
         "input_query_strings": []
       },
       {
         "endpoint": "/v1alpha/models/multipart",
         "url_pattern": "/v1alpha/models/multipart",
         "method": "POST",
-        "timeout": "30s",
+        "timeout": "86400s",
         "input_query_strings": []
       },
       {
         "endpoint": "/v1alpha/models/{model_id}/instances/{instance_id}/deploy",
         "url_pattern": "/v1alpha/models/{model_id}/instances/{instance_id}/deploy",
         "method": "POST",
-        "timeout": "900s",
+        "timeout": "86400s",
         "input_query_strings": []
       },
       {
@@ -678,28 +678,28 @@
         "endpoint": "/v1alpha/models/{model_id}/instances/{instance_id}/trigger",
         "url_pattern": "/v1alpha/models/{model_id}/instances/{instance_id}/trigger",
         "method": "POST",
-        "timeout": "30s",
+        "timeout": "300s",
         "input_query_strings": []
       },
       {
         "endpoint": "/v1alpha/models/{model_id}/instances/{instance_id}/trigger-multipart",
         "url_pattern": "/v1alpha/models/{model_id}/instances/{instance_id}/trigger-multipart",
         "method": "POST",
-        "timeout": "30s",
+        "timeout": "300s",
         "input_query_strings": []
       },
       {
         "endpoint": "/v1alpha/models/{model_id}/instances/{instance_id}/test",
         "url_pattern": "/v1alpha/models/{model_id}/instances/{instance_id}/test",
         "method": "POST",
-        "timeout": "30s",
+        "timeout": "300s",
         "input_query_strings": []
       },
       {
         "endpoint": "/v1alpha/models/{model_id}/instances/{instance_id}/test-multipart",
         "url_pattern": "/v1alpha/models/{model_id}/instances/{instance_id}/test-multipart",
         "method": "POST",
-        "timeout": "30s",
+        "timeout": "300s",
         "input_query_strings": []
       },
       {
@@ -788,7 +788,7 @@
         "endpoint": "/vdp.model.v1alpha.ModelService/CreateModelBinaryFileUpload",
         "url_pattern": "/vdp.model.v1alpha.ModelService/CreateModelBinaryFileUpload",
         "method": "POST",
-        "timeout": "5s"
+        "timeout": "86400s"
       },
       {
         "endpoint": "/vdp.model.v1alpha.ModelService/GetModel",
@@ -854,7 +854,7 @@
         "endpoint": "/vdp.model.v1alpha.ModelService/DeployModelInstance",
         "url_pattern": "/vdp.model.v1alpha.ModelService/DeployModelInstance",
         "method": "POST",
-        "timeout": "900s"
+        "timeout": "86400s"
       },
       {
         "endpoint": "/vdp.model.v1alpha.ModelService/UndeployModelInstance",
