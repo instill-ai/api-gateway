@@ -83,14 +83,14 @@
         "endpoint": "/v1alpha/pipelines/{id}/trigger",
         "url_pattern": "/v1alpha/pipelines/{id}/trigger",
         "method": "POST",
-        "timeout": "30s",
+        "timeout": "300s",
         "input_query_strings": []
       },
       {
         "endpoint": "/v1alpha/pipelines/{id}/trigger-multipart",
         "url_pattern": "/v1alpha/pipelines/{id}/trigger-multipart",
         "method": "POST",
-        "timeout": "30s",
+        "timeout": "300s",
         "input_query_strings": []
       }
     ],
@@ -162,13 +162,13 @@
         "endpoint": "/vdp.pipeline.v1alpha.PipelineService/TriggerPipeline",
         "url_pattern": "/vdp.pipeline.v1alpha.PipelineService/TriggerPipeline",
         "method": "POST",
-        "timeout": "5s"
+        "timeout": "300s"
       },
       {
         "endpoint": "/vdp.pipeline.v1alpha.PipelineService/TriggerPipelineBinaryFileUpload",
         "url_pattern": "/vdp.pipeline.v1alpha.PipelineService/TriggerPipelineBinaryFileUpload",
         "method": "POST",
-        "timeout": "5s"
+        "timeout": "300s"
       }
     ],
     "grpc_no_auth": [
@@ -769,7 +769,7 @@
           "page_size",
           "page_token"
         ]
-      }      
+      }
     ],
     "grpc_auth": [
       {
