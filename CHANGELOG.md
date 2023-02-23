@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.2-alpha](https://github.com/instill-ai/api-gateway/compare/v0.2.1-alpha...v0.2.2-alpha) (2023-02-23)
+
+
+### Miscellaneous Chores
+
+* release v0.2.2-alpha ([d7f3dd0](https://github.com/instill-ai/api-gateway/commit/d7f3dd0c2f6dc4b7b009923beaa21973e73936dd))
+
 ## [0.2.1-alpha](https://github.com/instill-ai/api-gateway/compare/v0.2.0-alpha...v0.2.1-alpha) (2023-02-10)
 
 
