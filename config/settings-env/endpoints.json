@@ -83,14 +83,14 @@
         "endpoint": "/v1alpha/pipelines/{id}/trigger",
         "url_pattern": "/v1alpha/pipelines/{id}/trigger",
         "method": "POST",
-        "timeout": "300s",
+        "timeout": "600s",
         "input_query_strings": []
       },
       {
         "endpoint": "/v1alpha/pipelines/{id}/trigger-multipart",
         "url_pattern": "/v1alpha/pipelines/{id}/trigger-multipart",
         "method": "POST",
-        "timeout": "300s",
+        "timeout": "600s",
         "input_query_strings": []
       }
     ],
@@ -162,13 +162,13 @@
         "endpoint": "/vdp.pipeline.v1alpha.PipelineService/TriggerPipeline",
         "url_pattern": "/vdp.pipeline.v1alpha.PipelineService/TriggerPipeline",
         "method": "POST",
-        "timeout": "300s"
+        "timeout": "600s"
       },
       {
         "endpoint": "/vdp.pipeline.v1alpha.PipelineService/TriggerPipelineBinaryFileUpload",
         "url_pattern": "/vdp.pipeline.v1alpha.PipelineService/TriggerPipelineBinaryFileUpload",
         "method": "POST",
-        "timeout": "300s"
+        "timeout": "600s"
       }
     ],
     "grpc_no_auth": [
@@ -678,28 +678,28 @@
         "endpoint": "/v1alpha/models/{model_id}/instances/{instance_id}/trigger",
         "url_pattern": "/v1alpha/models/{model_id}/instances/{instance_id}/trigger",
         "method": "POST",
-        "timeout": "300s",
+        "timeout": "600s",
         "input_query_strings": []
       },
       {
         "endpoint": "/v1alpha/models/{model_id}/instances/{instance_id}/trigger-multipart",
         "url_pattern": "/v1alpha/models/{model_id}/instances/{instance_id}/trigger-multipart",
         "method": "POST",
-        "timeout": "300s",
+        "timeout": "600s",
         "input_query_strings": []
       },
       {
         "endpoint": "/v1alpha/models/{model_id}/instances/{instance_id}/test",
         "url_pattern": "/v1alpha/models/{model_id}/instances/{instance_id}/test",
         "method": "POST",
-        "timeout": "300s",
+        "timeout": "600s",
         "input_query_strings": []
       },
       {
         "endpoint": "/v1alpha/models/{model_id}/instances/{instance_id}/test-multipart",
         "url_pattern": "/v1alpha/models/{model_id}/instances/{instance_id}/test-multipart",
         "method": "POST",
-        "timeout": "300s",
+        "timeout": "600s",
         "input_query_strings": []
       },
       {
@@ -872,25 +872,25 @@
         "endpoint": "/vdp.model.v1alpha.ModelService/TriggerModelInstance",
         "url_pattern": "/vdp.model.v1alpha.ModelService/TriggerModelInstance",
         "method": "POST",
-        "timeout": "300s"
+        "timeout": "600s"
       },
       {
         "endpoint": "/vdp.model.v1alpha.ModelService/TriggerModelInstanceBinaryFileUpload",
         "url_pattern": "/vdp.model.v1alpha.ModelService/TriggerModelInstanceBinaryFileUpload",
         "method": "POST",
-        "timeout": "300s"
+        "timeout": "600s"
       },
       {
         "endpoint": "/vdp.model.v1alpha.ModelService/TestModelInstance",
         "url_pattern": "/vdp.model.v1alpha.ModelService/TestModelInstance",
         "method": "POST",
-        "timeout": "300s"
+        "timeout": "600s"
       },
       {
         "endpoint": "/vdp.model.v1alpha.ModelService/TestModelInstanceBinaryFileUpload",
         "url_pattern": "/vdp.model.v1alpha.ModelService/TestModelInstanceBinaryFileUpload",
         "method": "POST",
-        "timeout": "300s"
+        "timeout": "600s"
       }
     ],
     "grpc_no_auth": [
