@@ -1,9 +1,7 @@
 name: Build and Push Images
 
 on:
-  push:
-    branches:
-      - main
+  workflow_call:
   release:
     types: [published]
 
@@ -31,9 +29,11 @@ jobs:
           password: ${{ secrets.botDockerHubPassword }}
 
       - name: Build and push (latest)
+        if: github.event_name == 'pull_request'
         uses: docker/build-push-action@v3
         with:
           platforms: linux/amd64,linux/arm64
+          context: .
           push: true
           build-args: |
             SERVICE_NAME=api-gateway
@@ -41,6 +41,22 @@ jobs:
             ALPINE_VERSION=${{ env.ALPINE_VERSION }}
             KRAKEND_CE_VERSION=${{ env.KRAKEND_CE_VERSION }}
           tags: instill/api-gateway:latest
+          cache-from: type=registry,ref=instill/api-gateway:buildcache
+          cache-to: type=registry,ref=instill/api-gateway:buildcache,mode=max
+
+      - name: Build and push (rc)
+        if: github.ref == 'refs/heads/rc'
+        uses: docker/build-push-action@v3
+        with:
+          platforms: linux/amd64,linux/arm64
+          context: .
+          push: true
+          build-args: |
+            SERVICE_NAME=api-gateway
+            GOLANG_VERSION=${{ env.GOLANG_VERSION }}
+            ALPINE_VERSION=${{ env.ALPINE_VERSION }}
+            KRAKEND_CE_VERSION=${{ env.KRAKEND_CE_VERSION }}
+          tags: instill/api-gateway:rc
           cache-from: type=registry,ref=instill/api-gateway:buildcache
           cache-to: type=registry,ref=instill/api-gateway:buildcache,mode=max
 
@@ -60,6 +76,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           platforms: linux/amd64,linux/arm64
+          context: .
           push: true
           build-args: |
             SERVICE_NAME=api-gateway
