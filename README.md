@@ -1,5 +1,7 @@
 # api-gateway
 
+[![Integration Test](https://github.com/instill-ai/api-gateway/actions/workflows/integration-test.yml/badge.svg)](https://github.com/instill-ai/api-gateway/actions/workflows/integration-test.yml)
+
 This repository maintains the [KrakenD](https://www.krakend.io) API gateway configuration file `krakend.json`.
 
 ## KrakenD
@@ -51,7 +53,14 @@ $ krakend run -c krakend.json
 
 ### CI/CD
 
-The latest images will be published to Docker Hub [repository](https://hub.docker.com/r/instill/api-gateway) at release.
+- **pull_request** to the `main` branch will trigger the **`Integration Test`** workflow running the integration test using the image built on the PR head branch.
+- **push** to the `main` branch will trigger
+  - the **`Integration Test`** workflow building and pushing the `:latest` image on the `main` branch, following by running the integration test, and
+  - the **`Release Please`** workflow, which will create and update a PR with respect to the up-to-date `main` branch using [release-please-action](https://github.com/google-github-actions/release-please-action).
+
+Once the release PR is merged to the `main` branch, the [release-please-action](https://github.com/google-github-actions/release-please-action) will tag and release a version correspondingly.
+
+The images are pushed to Docker Hub [repository](https://hub.docker.com/r/instill/api-gateway).
 
 ## License
 

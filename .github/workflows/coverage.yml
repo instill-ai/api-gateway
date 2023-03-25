@@ -14,8 +14,7 @@ jobs:
       - name: Load .env file
         uses: cardinalby/export-env-action@v2
         with:
-          envFile: .env
-          expand: true
+          envFile: .env          
 
       - uses: actions/setup-go@v3
         with:
