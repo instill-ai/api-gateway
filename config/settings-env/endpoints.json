@@ -937,6 +937,37 @@
         "method": "PATCH",
         "timeout": "30s",
         "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/tokens",
+        "url_pattern": "/v1alpha/tokens",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/tokens",
+        "url_pattern": "/v1alpha/tokens",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "page_size",
+          "page_token"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/tokens/{id}",
+        "url_pattern": "/v1alpha/tokens/{id}",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/tokens/{id}",
+        "url_pattern": "/v1alpha/tokens/{id}",
+        "method": "DELETE",
+        "timeout": "30s",
+        "input_query_strings": []
       }
     ],
     "no_auth": [
@@ -972,6 +1003,30 @@
       {
         "endpoint": "/vdp.mgmt.v1alpha.MgmtPublicService/PatchAuthenticatedUser",
         "url_pattern": "/vdp.mgmt.v1alpha.MgmtPublicService/PatchAuthenticatedUser",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/vdp.mgmt.v1alpha.MgmtPublicService/CreateToken",
+        "url_pattern": "/vdp.mgmt.v1alpha.MgmtPublicService/CreateToken",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/vdp.mgmt.v1alpha.MgmtPublicService/ListTokens",
+        "url_pattern": "/vdp.mgmt.v1alpha.MgmtPublicService/ListTokens",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/vdp.mgmt.v1alpha.MgmtPublicService/GetToken",
+        "url_pattern": "/vdp.mgmt.v1alpha.MgmtPublicService/GetToken",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/vdp.mgmt.v1alpha.MgmtPublicService/DeleteToken",
+        "url_pattern": "/vdp.mgmt.v1alpha.MgmtPublicService/DeleteToken",
         "method": "POST",
         "timeout": "30s"
       }

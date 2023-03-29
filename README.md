@@ -16,7 +16,7 @@ On the local machine, clone `vdp` repository in your workspace, move to the repo
 ```bash
 $ git clone https://github.com/instill-ai/vdp.git
 $ cd vdp
-$ make dev PROFILE=api-gateway
+$ make latest PROFILE=api-gateway
 ```
 
 Clone `api-gateway` repository in your workspace and move to the repository folder:
