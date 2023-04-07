@@ -21,7 +21,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        component: [pipeline, connector, model, mgmt]
+        component:
+          [
+            pipeline-backend,
+            connector-backend,
+            model-backend,
+            mgmt-backend,
+            controller,
+          ]
     uses: instill-ai/vdp/.github/workflows/integration-test-backend.yml@main
     with:
       component: ${{ matrix.component }}
@@ -31,7 +38,7 @@ jobs:
     if: github.ref == 'refs/heads/main'
     name: Console
     uses: instill-ai/vdp/.github/workflows/integration-test-console.yml@main
-    with:      
+    with:
       target: latest
 
   pr-head:
@@ -39,7 +46,6 @@ jobs:
     name: PR head branch
     runs-on: ubuntu-latest
     steps:
-
       # mono occupies port 8084 which conflicts with mgmt-backend
       - name: Stop mono service
         run: |
@@ -52,7 +58,7 @@ jobs:
           sudo apt clean
           docker rmi $(docker image ls --all --quiet)
           rm --recursive --force "$AGENT_TOOLSDIRECTORY"
-          df --human-readable        
+          df --human-readable
 
       - name: Checkout
         uses: actions/checkout@v3
