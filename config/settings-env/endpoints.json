@@ -59,6 +59,13 @@
         ]
       },
       {
+        "endpoint": "/v1alpha/pipelines/{id}/watch",
+        "url_pattern": "/v1alpha/pipelines/{id}/watch",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
         "endpoint": "/v1alpha/pipelines/{id}/activate",
         "url_pattern": "/v1alpha/pipelines/{id}/activate",
         "method": "POST",
@@ -159,6 +166,12 @@
         "timeout": "5s"
       },
       {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelineService/WatchPipeline",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelineService/WatchPipeline",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
         "endpoint": "/vdp.pipeline.v1alpha.PipelineService/TriggerPipeline",
         "url_pattern": "/vdp.pipeline.v1alpha.PipelineService/TriggerPipeline",
         "method": "POST",
@@ -239,6 +252,13 @@
         ]
       },
       {
+        "endpoint": "/v1alpha/source-connectors/{id}/watch",
+        "url_pattern": "/v1alpha/source-connectors/{id}/watch",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
         "endpoint": "/v1alpha/source-connectors/{id}/connect",
         "url_pattern": "/v1alpha/source-connectors/{id}/connect",
         "method": "POST",
@@ -315,6 +335,13 @@
         "input_query_strings": [
           "view"
         ]
+      },
+      {
+        "endpoint": "/v1alpha/destination-connectors/{id}/watch",
+        "url_pattern": "/v1alpha/destination-connectors/{id}/watch",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": []
       },
       {
         "endpoint": "/v1alpha/destination-connectors/{id}/connect",
@@ -432,6 +459,12 @@
         "timeout": "5s"
       },
       {
+        "endpoint": "/vdp.pipeline.v1alpha.ConnectorService/WatchSourceConnector",
+        "url_pattern": "/vdp.pipeline.v1alpha.ConnectorService/WatchSourceConnector",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
         "endpoint": "/vdp.connector.v1alpha.ConnectorService/ConnectSourceConnector",
         "url_pattern": "/vdp.connector.v1alpha.ConnectorService/ConnectSourceConnector",
         "method": "POST",
@@ -488,6 +521,12 @@
       {
         "endpoint": "/vdp.connector.v1alpha.ConnectorService/LookUpDestinationConnector",
         "url_pattern": "/vdp.connector.v1alpha.ConnectorService/LookUpDestinationConnector",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.ConnectorService/WatchDestinationConnector",
+        "url_pattern": "/vdp.pipeline.v1alpha.ConnectorService/WatchDestinationConnector",
         "method": "POST",
         "timeout": "5s"
       },
@@ -613,6 +652,13 @@
       {
         "endpoint": "/v1alpha/models/{model_id}/readme",
         "url_pattern": "/v1alpha/models/{model_id}/readme",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/models/{model_id}/watch",
+        "url_pattern": "/v1alpha/models/{model_id}/watch",
         "method": "GET",
         "timeout": "30s",
         "input_query_strings": []
@@ -821,6 +867,12 @@
       {
         "endpoint": "/vdp.model.v1alpha.ModelService/GetModelCard",
         "url_pattern": "/vdp.model.v1alpha.ModelService/GetModelCard",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.model.v1alpha.ModelService/WatchModel",
+        "url_pattern": "/vdp.model.v1alpha.ModelService/WatchModel",
         "method": "POST",
         "timeout": "5s"
       },
