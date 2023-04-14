@@ -720,27 +720,9 @@
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/operations",
-        "url_pattern": "/v1alpha/operations",
-        "method": "GET",
-        "timeout": "30s",
-        "input_query_strings": [
-          "filter",
-          "page_size",
-          "page_token"
-        ]
-      },
-      {
         "endpoint": "/v1alpha/operations/{id}",
         "url_pattern": "/v1alpha/operations/{id}",
         "method": "GET",
-        "timeout": "30s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/operations/{id}/cancel",
-        "url_pattern": "/v1alpha/operations/{id}/cancel",
-        "method": "POST",
         "timeout": "30s",
         "input_query_strings": []
       }
@@ -812,13 +794,13 @@
       {
         "endpoint": "/vdp.model.v1alpha.ModelPublicService/GetModel",
         "url_pattern": "/vdp.model.v1alpha.ModelPublicService/GetModel",
-        "method": "POST",
+        "method": "GET",
         "timeout": "5s"
       },
       {
         "endpoint": "/vdp.model.v1alpha.ModelPublicService/UpdateModel",
         "url_pattern": "/vdp.model.v1alpha.ModelPublicService/UpdateModel",
-        "method": "POST",
+        "method": "PATCH",
         "timeout": "5s"
       },
       {
@@ -830,7 +812,7 @@
       {
         "endpoint": "/vdp.model.v1alpha.ModelPublicService/LookUpModel",
         "url_pattern": "/vdp.model.v1alpha.ModelPublicService/LookUpModel",
-        "method": "POST",
+        "method": "GET",
         "timeout": "5s"
       },
       {
@@ -866,13 +848,13 @@
       {
         "endpoint": "/vdp.model.v1alpha.ModelPublicService/GetModelCard",
         "url_pattern": "/vdp.model.v1alpha.ModelPublicService/GetModelCard",
-        "method": "POST",
+        "method": "GET",
         "timeout": "5s"
       },
       {
         "endpoint": "/vdp.model.v1alpha.ModelPublicService/WatchModel",
         "url_pattern": "/vdp.model.v1alpha.ModelPublicService/WatchModel",
-        "method": "POST",
+        "method": "GET",
         "timeout": "5s"
       },
       {
@@ -898,6 +880,12 @@
         "url_pattern": "/vdp.model.v1alpha.ModelPublicService/TestModelBinaryFileUpload",
         "method": "POST",
         "timeout": "600s"
+      },
+      {
+        "endpoint": "/vdp.model.v1alpha.ModelPublicService/GetModelOperation",
+        "url_pattern": "/vdp.model.v1alpha.ModelPublicService/GetModelOperation",
+        "method": "GET",
+        "timeout": "5s"
       }
     ],
     "grpc_no_auth": [
