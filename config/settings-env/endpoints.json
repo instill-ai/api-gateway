@@ -794,13 +794,13 @@
       {
         "endpoint": "/vdp.model.v1alpha.ModelPublicService/GetModel",
         "url_pattern": "/vdp.model.v1alpha.ModelPublicService/GetModel",
-        "method": "GET",
+        "method": "POST",
         "timeout": "5s"
       },
       {
         "endpoint": "/vdp.model.v1alpha.ModelPublicService/UpdateModel",
         "url_pattern": "/vdp.model.v1alpha.ModelPublicService/UpdateModel",
-        "method": "PATCH",
+        "method": "POST",
         "timeout": "5s"
       },
       {
@@ -812,7 +812,7 @@
       {
         "endpoint": "/vdp.model.v1alpha.ModelPublicService/LookUpModel",
         "url_pattern": "/vdp.model.v1alpha.ModelPublicService/LookUpModel",
-        "method": "GET",
+        "method": "POST",
         "timeout": "5s"
       },
       {
@@ -848,13 +848,13 @@
       {
         "endpoint": "/vdp.model.v1alpha.ModelPublicService/GetModelCard",
         "url_pattern": "/vdp.model.v1alpha.ModelPublicService/GetModelCard",
-        "method": "GET",
+        "method": "POST",
         "timeout": "5s"
       },
       {
         "endpoint": "/vdp.model.v1alpha.ModelPublicService/WatchModel",
         "url_pattern": "/vdp.model.v1alpha.ModelPublicService/WatchModel",
-        "method": "GET",
+        "method": "POST",
         "timeout": "5s"
       },
       {
@@ -884,7 +884,7 @@
       {
         "endpoint": "/vdp.model.v1alpha.ModelPublicService/GetModelOperation",
         "url_pattern": "/vdp.model.v1alpha.ModelPublicService/GetModelOperation",
-        "method": "GET",
+        "method": "POST",
         "timeout": "5s"
       }
     ],
