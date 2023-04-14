@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.5-alpha](https://github.com/instill-ai/api-gateway/compare/v0.2.4-alpha...v0.2.5-alpha) (2023-04-14)
+
+
+### Bug Fixes
+
+* **endpoints:** update service name ([#33](https://github.com/instill-ai/api-gateway/issues/33)) ([cdf8e4f](https://github.com/instill-ai/api-gateway/commit/cdf8e4f1f37a622b7581d4751e9cc4fd4eb438b8))
+
 ## [0.2.4-alpha](https://github.com/instill-ai/api-gateway/compare/v0.2.3-alpha...v0.2.4-alpha) (2023-04-09)
 
 
