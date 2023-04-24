@@ -597,6 +597,17 @@
   "model": {
     "jwt_auth": [
       {
+        "endpoint": "/v1alpha/models",
+        "url_pattern": "/v1alpha/models",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view",
+          "page_size",
+          "page_token"
+        ]
+      },
+      {
         "endpoint": "/v1alpha/models/{model_id}",
         "url_pattern": "/v1alpha/models/{model_id}",
         "method": "GET",
@@ -759,17 +770,6 @@
         "method": "GET",
         "timeout": "30s",
         "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/models",
-        "url_pattern": "/v1alpha/models",
-        "method": "GET",
-        "timeout": "30s",
-        "input_query_strings": [
-          "view",
-          "page_size",
-          "page_token"
-        ]
       }
     ],
     "grpc_auth": [
