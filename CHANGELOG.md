@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.6-alpha](https://github.com/instill-ai/api-gateway/compare/v0.2.5-alpha...v0.2.6-alpha) (2023-04-26)
+
+
+### Bug Fixes
+
+* refactor model backend endpoint ([#36](https://github.com/instill-ai/api-gateway/issues/36)) ([6a3283f](https://github.com/instill-ai/api-gateway/commit/6a3283fc86a83e2897e405b9b611087326cb9206))
+
 ## [0.2.5-alpha](https://github.com/instill-ai/api-gateway/compare/v0.2.4-alpha...v0.2.5-alpha) (2023-04-14)
 
 
