@@ -308,7 +308,7 @@
         "endpoint": "/v1alpha/destination-connectors",
         "url_pattern": "/v1alpha/destination-connectors",
         "method": "POST",
-        "timeout": "30s",
+        "timeout": "360s",
         "input_query_strings": []
       },
       {
@@ -324,7 +324,7 @@
         "endpoint": "/v1alpha/destination-connectors/{id}",
         "url_pattern": "/v1alpha/destination-connectors/{id}",
         "method": "PATCH",
-        "timeout": "30s",
+        "timeout": "360s",
         "input_query_strings": []
       },
       {
@@ -354,7 +354,7 @@
         "endpoint": "/v1alpha/destination-connectors/{id}/connect",
         "url_pattern": "/v1alpha/destination-connectors/{id}/connect",
         "method": "POST",
-        "timeout": "30s",
+        "timeout": "360s",
         "input_query_strings": []
       },
       {
@@ -506,7 +506,7 @@
         "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/TestSourceConnector",
         "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/TestSourceConnector",
         "method": "POST",
-        "timeout": "360s"
+        "timeout": "5s"
       },
       {
         "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/CreateDestinationConnector",
@@ -572,13 +572,13 @@
         "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/WriteDestinationConnector",
         "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/WriteDestinationConnector",
         "method": "POST",
-        "timeout": "360s"
+        "timeout": "5s"
       },
       {
         "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/TestDestinationConnector",
         "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/TestDestinationConnector",
         "method": "POST",
-        "timeout": "360s"
+        "timeout": "5s"
       }
     ],
     "grpc_no_auth": [
