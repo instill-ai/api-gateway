@@ -287,6 +287,13 @@
         "input_query_strings": []
       },
       {
+        "endpoint": "/v1alpha/source-connectors/{id}/testConnection",
+        "url_pattern": "/v1alpha/source-connectors/{id}/testConnection",
+        "method": "POST",
+        "timeout": "360s",
+        "input_query_strings": []
+      },
+      {
         "endpoint": "/v1alpha/destination-connectors",
         "url_pattern": "/v1alpha/destination-connectors",
         "method": "GET",
@@ -368,7 +375,14 @@
         "endpoint": "/v1alpha/destination-connectors/{id}/write",
         "url_pattern": "/v1alpha/destination-connectors/{id}/write",
         "method": "POST",
-        "timeout": "30s",
+        "timeout": "360s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/destination-connectors/{id}/testConnection",
+        "url_pattern": "/v1alpha/destination-connectors/{id}/testConnection",
+        "method": "POST",
+        "timeout": "360s",
         "input_query_strings": []
       }
     ],
@@ -489,6 +503,12 @@
         "timeout": "5s"
       },
       {
+        "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/TestSourceConnector",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/TestSourceConnector",
+        "method": "POST",
+        "timeout": "360s"
+      },
+      {
         "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/CreateDestinationConnector",
         "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/CreateDestinationConnector",
         "method": "POST",
@@ -552,7 +572,13 @@
         "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/WriteDestinationConnector",
         "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/WriteDestinationConnector",
         "method": "POST",
-        "timeout": "5s"
+        "timeout": "360s"
+      },
+      {
+        "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/TestDestinationConnector",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/TestDestinationConnector",
+        "method": "POST",
+        "timeout": "360s"
       }
     ],
     "grpc_no_auth": [
