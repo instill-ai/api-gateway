@@ -87,15 +87,29 @@
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/pipelines/{id}/trigger",
-        "url_pattern": "/v1alpha/pipelines/{id}/trigger",
+        "endpoint": "/v1alpha/pipelines/{id}/triggerSync",
+        "url_pattern": "/v1alpha/pipelines/{id}/triggerSync",
         "method": "POST",
         "timeout": "600s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/pipelines/{id}/trigger-multipart",
-        "url_pattern": "/v1alpha/pipelines/{id}/trigger-multipart",
+        "endpoint": "/v1alpha/pipelines/{id}/triggerSyncMultipart",
+        "url_pattern": "/v1alpha/pipelines/{id}/triggerSyncMultipart",
+        "method": "POST",
+        "timeout": "600s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/pipelines/{id}/triggerAsync",
+        "url_pattern": "/v1alpha/pipelines/{id}/triggerAsync",
+        "method": "POST",
+        "timeout": "600s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/pipelines/{id}/triggerAsyncMultipart",
+        "url_pattern": "/v1alpha/pipelines/{id}/triggerAsyncMultipart",
         "method": "POST",
         "timeout": "600s",
         "input_query_strings": []
@@ -172,14 +186,26 @@
         "timeout": "5s"
       },
       {
-        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/TriggerPipeline",
-        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/TriggerPipeline",
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/TriggerSyncPipeline",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/TriggerSyncPipeline",
         "method": "POST",
         "timeout": "600s"
       },
       {
-        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/TriggerPipelineBinaryFileUpload",
-        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/TriggerPipelineBinaryFileUpload",
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/TriggerSyncPipelineBinaryFileUpload",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/TriggerSyncPipelineBinaryFileUpload",
+        "method": "POST",
+        "timeout": "600s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/TriggerAsyncPipeline",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/TriggerAsyncPipeline",
+        "method": "POST",
+        "timeout": "600s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/TriggerAsyncPipelineBinaryFileUpload",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/TriggerAsyncPipelineBinaryFileUpload",
         "method": "POST",
         "timeout": "600s"
       }
