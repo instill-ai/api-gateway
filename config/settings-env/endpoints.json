@@ -440,7 +440,7 @@
         "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/CreateSourceConnector",
         "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/CreateSourceConnector",
         "method": "POST",
-        "timeout": "5s"
+        "timeout": "360s"
       },
       {
         "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/ListSourceConnectors",
@@ -458,7 +458,7 @@
         "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/UpdateSourceConnector",
         "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/UpdateSourceConnector",
         "method": "POST",
-        "timeout": "5s"
+        "timeout": "360s"
       },
       {
         "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/DeleteSourceConnector",
@@ -482,7 +482,7 @@
         "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/ConnectSourceConnector",
         "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/ConnectSourceConnector",
         "method": "POST",
-        "timeout": "5s"
+        "timeout": "360s"
       },
       {
         "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/DisconnectSourceConnector",
@@ -506,13 +506,13 @@
         "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/TestSourceConnector",
         "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/TestSourceConnector",
         "method": "POST",
-        "timeout": "5s"
+        "timeout": "360s"
       },
       {
         "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/CreateDestinationConnector",
         "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/CreateDestinationConnector",
         "method": "POST",
-        "timeout": "5s"
+        "timeout": "360s"
       },
       {
         "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/ListDestinationConnectors",
@@ -530,7 +530,7 @@
         "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/UpdateDestinationConnector",
         "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/UpdateDestinationConnector",
         "method": "POST",
-        "timeout": "5s"
+        "timeout": "360s"
       },
       {
         "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/DeleteDestinationConnector",
@@ -554,7 +554,7 @@
         "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/ConnectDestinationConnector",
         "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/ConnectDestinationConnector",
         "method": "POST",
-        "timeout": "5s"
+        "timeout": "360s"
       },
       {
         "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/DisconnectDestinationConnector",
@@ -572,13 +572,13 @@
         "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/WriteDestinationConnector",
         "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/WriteDestinationConnector",
         "method": "POST",
-        "timeout": "5s"
+        "timeout": "360s"
       },
       {
         "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/TestDestinationConnector",
         "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/TestDestinationConnector",
         "method": "POST",
-        "timeout": "5s"
+        "timeout": "360s"
       }
     ],
     "grpc_no_auth": [
