@@ -140,7 +140,7 @@ jobs:
         with:
           envFile: .env
 
-      - name: Run integration-test
+      - name: Run integration-test (connector)
         run: |
           make integration-test API_GATEWAY_HOST=localhost API_GATEWAY_PORT=8080
 
@@ -154,7 +154,7 @@ jobs:
         with:
           envFile: .env
 
-      - name: Run integration-test
+      - name: Run integration-test (model)
         run: |
           make integration-test API_GATEWAY_HOST=localhost API_GATEWAY_PORT=8080
 
@@ -168,6 +168,6 @@ jobs:
         with:
           envFile: .env
 
-      - name: Run integration-test
+      - name: Run integration-test (mgmt)
         run: |
           make integration-test API_GATEWAY_HOST=localhost API_GATEWAY_PORT=8080
