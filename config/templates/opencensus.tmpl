@@ -1,4 +1,4 @@
-"github_com/devopsfaith/krakend-opencensus": {
+"telemetry/opencensus": {
     "sample_rate": 100,
     "reporting_period": 1,
     "enabled_layers": {
@@ -9,7 +9,12 @@
     "exporters": {
         "prometheus": {
             "port": {{ .ports.api_gateway_metrics_port }},
-            "namespace": "krakend"
+            "namespace": "vdp"
+        },
+        "jaeger": {
+          "endpoint": "http://{{ .hosts.jaeger_host }}:{{ .ports.jaeger_port }}/api/traces",
+          "service_name":"vdp",
+          "buffer_max_count": 1000
         }
     }
 }

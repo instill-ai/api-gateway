@@ -18,7 +18,7 @@
           "/__health"
         ]
     },
-    "github_com/devopsfaith/krakend-gologging": {
+    "telemetry/logging": {
       "level": "{{ .log.level }}",
       "prefix": "[KRAKEND]",
       "syslog": false,
