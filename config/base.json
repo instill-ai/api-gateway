@@ -2,13 +2,15 @@
   "version": 3,
   "name": "API Gateway",
   "port": {{ .ports.api_gateway_port }},
-  "allow_insecure_connections": true,
   {{ if and .tls.public_key .tls.private_key }}
   "tls": {
     "public_key": "{{ .tls.public_key }}",
     "private_key": "{{ .tls.private_key }}"
   },
   {{ end }}
+  "client_tls": {
+    "allow_insecure_connections": true
+  },
   "timeout": "3000ms",
   "cache_ttl": "300s",
   {{ include "plugin" }},
@@ -21,6 +23,7 @@
     "telemetry/logging": {
       "level": "{{ .log.level }}",
       "prefix": "[KRAKEND]",
+      "spans": true,
       "syslog": false,
       "stdout": true
     },

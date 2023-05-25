@@ -1,4 +1,5 @@
 {
   "influxdb_host": "${INFLUXDB_HOST}",
-  "jaeger_host": "${JAEGER_HOST}"
+  "jaeger_host": "${JAEGER_HOST}",
+  "otel_host": "${OTEL_HOST}"
 }
