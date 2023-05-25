@@ -96,6 +96,11 @@ jobs:
         with:
           repository: instill-ai/vdp
 
+      - name: Load .env file
+        uses: cardinalby/export-env-action@v2
+        with:
+          envFile: .env
+
       - name: Launch VDP
         run: |
           COMPOSE_PROFILES=all \
@@ -107,6 +112,10 @@ jobs:
           EDITION=local-ce:test \
           docker compose -f docker-compose.yml -f docker-compose.latest.yml rm -f
 
+      - name: Install k6
+        run: |
+          curl https://github.com/grafana/k6/releases/download/v${{ env.K6_VERSION }}/k6-v${{ env.K6_VERSION }}-linux-amd64.tar.gz -L | tar xvz --strip-components 1 && sudo cp k6 /usr/bin
+
       - name: Checkout (pipeline)
         uses: actions/checkout@v3
         with:
@@ -117,37 +126,48 @@ jobs:
         with:
           envFile: .env
 
-      - name: Install k6
-        run: |
-          curl https://github.com/grafana/k6/releases/download/v${{ env.K6_VERSION }}/k6-v${{ env.K6_VERSION }}-linux-amd64.tar.gz -L | tar xvz --strip-components 1 && sudo cp k6 /usr/bin
-
       - name: Run integration-test (pipeline)
         run: |
-          make integration-test MODE=localhost
+          make integration-test API_GATEWAY_HOST=localhost API_GATEWAY_PORT=8080
 
       - name: Checkout (connector)
         uses: actions/checkout@v3
         with:
           repository: instill-ai/connector-backend
 
-      - name: Run integration-test (connector)
+      - name: Load .env file
+        uses: cardinalby/export-env-action@v2
+        with:
+          envFile: .env
+
+      - name: Run integration-test
         run: |
-          make integration-test MODE=localhost
+          make integration-test API_GATEWAY_HOST=localhost API_GATEWAY_PORT=8080
 
       - name: Checkout (model)
         uses: actions/checkout@v3
         with:
           repository: instill-ai/model-backend
 
-      - name: Run integration-test (model)
+      - name: Load .env file
+        uses: cardinalby/export-env-action@v2
+        with:
+          envFile: .env
+
+      - name: Run integration-test
         run: |
-          make integration-test MODE=localhost
+          make integration-test API_GATEWAY_HOST=localhost API_GATEWAY_PORT=8080
 
       - name: Checkout (mgmt)
         uses: actions/checkout@v3
         with:
           repository: instill-ai/mgmt-backend
 
-      - name: Run integration-test (mgmt)
+      - name: Load .env file
+        uses: cardinalby/export-env-action@v2
+        with:
+          envFile: .env
+
+      - name: Run integration-test
         run: |
-          make integration-test MODE=localhost
+          make integration-test API_GATEWAY_HOST=localhost API_GATEWAY_PORT=8080
