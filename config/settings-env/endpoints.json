@@ -231,7 +231,7 @@
         "endpoint": "/v1alpha/source-connectors",
         "url_pattern": "/v1alpha/source-connectors",
         "method": "POST",
-        "timeout": "30s",
+        "timeout": "360s",
         "input_query_strings": []
       },
       {
@@ -258,7 +258,7 @@
         "endpoint": "/v1alpha/source-connectors/{id}",
         "url_pattern": "/v1alpha/source-connectors/{id}",
         "method": "PATCH",
-        "timeout": "30s",
+        "timeout": "360s",
         "input_query_strings": []
       },
       {
@@ -288,7 +288,7 @@
         "endpoint": "/v1alpha/source-connectors/{id}/connect",
         "url_pattern": "/v1alpha/source-connectors/{id}/connect",
         "method": "POST",
-        "timeout": "30s",
+        "timeout": "360s",
         "input_query_strings": []
       },
       {
