@@ -3,6 +3,5 @@
   "api_gateway_stats_port": "${API_GATEWAY_STATS_PORT}",
   "api_gateway_metrics_port": "${API_GATEWAY_METRICS_PORT}",
   "influxdb_port": "${INFLUXDB_HTTPS_PORT}",
-  "jaeger_port": "${JAEGER_PORT}",
-  "otel_port": "${OTEL_PORT}"
+  "jaeger_port": "${JAEGER_PORT}"
 }
