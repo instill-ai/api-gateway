@@ -27,6 +27,7 @@
       "syslog": false,
       "stdout": true
     },
+    {{ template "influxdb_metrics.tmpl" . }},
     {{ template "opencensus.tmpl" . }},
     {{ template "cors.tmpl" . }},
   "plugin/http-server": {
