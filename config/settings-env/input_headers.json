@@ -4,14 +4,20 @@
     "Content-Length",
     "X-Forwarded-For",
     "Request-Id",
-    "Backend"
+    "Backend",
+    "X-B3-Sampled",
+    "X-B3-Spanid",
+    "X-B3-Traceid"
   ],
   "no_auth": [
     "Content-Type",
     "Content-Length",
     "X-Forwarded-For",
     "Request-Id",
-    "Backend"
+    "Backend",
+    "X-B3-Sampled",
+    "X-B3-Spanid",
+    "X-B3-Traceid"
   ],
   "grpc_auth": [
     "Content-Type",
@@ -20,7 +26,10 @@
     "Request-Id",
     "Backend",
     "Grpc-Accept-Encoding",
-    "Te"
+    "Te",
+    "X-B3-Sampled",
+    "X-B3-Spanid",
+    "X-B3-Traceid"
   ],
   "grpc_no_auth": [
     "Content-Type",
@@ -30,6 +39,9 @@
     "Request-Id",
     "Backend",
     "Grpc-Accept-Encoding",
-    "Te"
+    "Te",
+    "X-B3-Sampled",
+    "X-B3-Spanid",
+    "X-B3-Traceid"
   ]
 }

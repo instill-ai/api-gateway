@@ -1,13 +1,16 @@
-"github_com/letgoapp/krakend-influx":{
-    "address":"https://{{ .hosts.influxdb_host }}:{{ .ports.influxdb_port }}",
-    "ttl":"25s",
-    "buffer_size":0
+"telemetry/influx": {
+  "address":"http://{{ .hosts.influxdb_host }}:{{ .ports.influxdb_port }}",
+  "ttl": "25s",
+  "buffer_size": 0,
+  "db": "krakend",
+  "username": "admin",
+  "password": "password"
 },
-"github_com/devopsfaith/krakend-metrics": {
-    "collection_time": "30s",
-    "proxy_disabled": false,
-    "router_disabled": false,
-    "backend_disabled": false,
-    "endpoint_disabled": false,
-    "listen_address": ":{{ .ports.api_gateway_stats_port }}"
+"telemetry/metrics": {
+  "proxy_disabled": false,
+  "router_disabled": false,
+  "backend_disabled": false,
+  "endpoint_disabled": false,
+  "collection_time": "30s",
+  "listen_address": ":{{ .ports.api_gateway_stats_port }}"
 }
