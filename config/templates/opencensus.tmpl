@@ -10,11 +10,14 @@
     "prometheus": {
       "port": {{ .ports.api_gateway_metrics_port }},
       "namespace": "api_gateway"
-    },
+    }
+    {{ if eq .log.jaeger "true" }}
+    ,
     "jaeger": {
       "endpoint": "http://{{ .hosts.jaeger_host }}:{{ .ports.jaeger_port }}/api/traces",
       "service_name":"api-gateway",
       "buffer_max_count": 1000
     }
+    {{ end }}
   }
 }
