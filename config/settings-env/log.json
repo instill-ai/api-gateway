@@ -1,4 +1,4 @@
 {
   "level": "${API_GATEWAY_LOG_LEVEL}",
-  "jaeger": "${JAEGER_ENABLE}"
+  "jaeger": "${JAEGER_ENABLED}"
 }
