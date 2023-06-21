@@ -410,6 +410,98 @@
         "method": "POST",
         "timeout": "360s",
         "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/blockchain-connectors",
+        "url_pattern": "/v1alpha/blockchain-connectors",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view",
+          "page_size",
+          "page_token"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/blockchain-connectors",
+        "url_pattern": "/v1alpha/blockchain-connectors",
+        "method": "POST",
+        "timeout": "360s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/blockchain-connectors/{id}",
+        "url_pattern": "/v1alpha/blockchain-connectors/{id}",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/blockchain-connectors/{id}",
+        "url_pattern": "/v1alpha/blockchain-connectors/{id}",
+        "method": "PATCH",
+        "timeout": "360s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/blockchain-connectors/{id}",
+        "url_pattern": "/v1alpha/blockchain-connectors/{id}",
+        "method": "DELETE",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/blockchain-connectors/{id}/lookUp",
+        "url_pattern": "/v1alpha/blockchain-connectors/{id}/lookUp",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/blockchain-connectors/{id}/watch",
+        "url_pattern": "/v1alpha/blockchain-connectors/{id}/watch",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/blockchain-connectors/{id}/connect",
+        "url_pattern": "/v1alpha/blockchain-connectors/{id}/connect",
+        "method": "POST",
+        "timeout": "360s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/blockchain-connectors/{id}/disconnect",
+        "url_pattern": "/v1alpha/blockchain-connectors/{id}/disconnect",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/blockchain-connectors/{id}/rename",
+        "url_pattern": "/v1alpha/blockchain-connectors/{id}/rename",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/blockchain-connectors/{id}/execute",
+        "url_pattern": "/v1alpha/blockchain-connectors/{id}/execute",
+        "method": "POST",
+        "timeout": "360s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/blockchain-connectors/{id}/testConnection",
+        "url_pattern": "/v1alpha/blockchain-connectors/{id}/testConnection",
+        "method": "POST",
+        "timeout": "360s",
+        "input_query_strings": []
       }
     ],
     "no_auth": [
@@ -454,6 +546,26 @@
       {
         "endpoint": "/v1alpha/destination-connector-definitions/{id}",
         "url_pattern": "/v1alpha/destination-connector-definitions/{id}",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/blockchain-connector-definitions",
+        "url_pattern": "/v1alpha/blockchain-connector-definitions",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "page_size",
+          "page_token",
+          "view"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/blockchain-connector-definitions/{id}",
+        "url_pattern": "/v1alpha/blockchain-connector-definitions/{id}",
         "method": "GET",
         "timeout": "30s",
         "input_query_strings": [
@@ -605,6 +717,78 @@
         "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/TestDestinationConnector",
         "method": "POST",
         "timeout": "360s"
+      },
+      {
+        "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/CreateBlockchainConnector",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/CreateBlockchainConnector",
+        "method": "POST",
+        "timeout": "360s"
+      },
+      {
+        "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/ListBlockchainConnectors",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/ListBlockchainConnectors",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/GetBlockchainConnector",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/GetBlockchainConnector",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/UpdateBlockchainConnector",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/UpdateBlockchainConnector",
+        "method": "POST",
+        "timeout": "360s"
+      },
+      {
+        "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/DeleteBlockchainConnector",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/DeleteBlockchainConnector",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/LookUpBlockchainConnector",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/LookUpBlockchainConnector",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/WatchBlockchainConnector",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/WatchBlockchainConnector",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/ConnectBlockchainConnector",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/ConnectBlockchainConnector",
+        "method": "POST",
+        "timeout": "360s"
+      },
+      {
+        "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/DisconnectBlockchainConnector",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/DisconnectBlockchainConnector",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/RenameBlockchainConnector",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/RenameBlockchainConnector",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/ExecuteBlockchainConnector",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/ExecuteBlockchainConnector",
+        "method": "POST",
+        "timeout": "360s"
+      },
+      {
+        "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/TestBlockchainConnector",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/TestBlockchainConnector",
+        "method": "POST",
+        "timeout": "360s"
       }
     ],
     "grpc_no_auth": [
@@ -641,6 +825,18 @@
       {
         "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/GetDestinationConnectorDefinition",
         "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/GetDestinationConnectorDefinition",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/ListBlockchainConnectorDefinitions",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/ListBlockchainConnectorDefinitions",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/GetBlockchainConnectorDefinition",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/GetBlockchainConnectorDefinition",
         "method": "POST",
         "timeout": "5s"
       }
