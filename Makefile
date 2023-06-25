@@ -10,8 +10,6 @@ export
 
 .PHONY: dev
 dev:							## Run dev container
-	@docker compose ls -q | grep -q "instill-vdp" && true || \
-		(echo "Error: Run \"make latest PROFILE=api-gateway ITMODE_ENABLED=true\" in vdp repository (https://github.com/instill-ai/vdp) in your local machine first." && exit 1)
 	@docker inspect --type container ${SERVICE_NAME} >/dev/null 2>&1 && echo "A container named ${SERVICE_NAME} is already running." || \
 		echo "Run latest container ${SERVICE_NAME}. To stop it, run \"make stop\"."
 	@docker run -d --rm \
@@ -47,10 +45,6 @@ build:							## Build dev docker image
 		--build-arg ALPINE_VERSION=${ALPINE_VERSION} \
 		--build-arg KRAKEND_CE_VERSION=${KRAKEND_CE_VERSION} \
 		-f Dockerfile.dev -t instill/${SERVICE_NAME}:dev .
-
-.PHONY: env
-env:							## Overwrite the config/.env file by the host environement variables
-	@envsubst <config/.env.envsubst >config/.env
 
 .PHONY: config
 config:							## Output the composed KrakenD configuration
