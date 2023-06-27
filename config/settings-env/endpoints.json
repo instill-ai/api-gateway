@@ -826,142 +826,142 @@
     ],
     "grpc_auth": [
       {
-        "endpoint": "/vdp.model.v1alpha.ModelPublicService/ListModels",
-        "url_pattern": "/vdp.model.v1alpha.ModelPublicService/ListModels",
+        "endpoint": "/model.model.v1alpha.ModelPublicService/ListModels",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/ListModels",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/vdp.model.v1alpha.ModelPublicService/CreateModel",
-        "url_pattern": "/vdp.model.v1alpha.ModelPublicService/CreateModel",
+        "endpoint": "/model.model.v1alpha.ModelPublicService/CreateModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/CreateModel",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/vdp.model.v1alpha.ModelPublicService/CreateModelBinaryFileUpload",
-        "url_pattern": "/vdp.model.v1alpha.ModelPublicService/CreateModelBinaryFileUpload",
+        "endpoint": "/model.model.v1alpha.ModelPublicService/CreateModelBinaryFileUpload",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/CreateModelBinaryFileUpload",
         "method": "POST",
         "timeout": "86400s"
       },
       {
-        "endpoint": "/vdp.model.v1alpha.ModelPublicService/GetModel",
-        "url_pattern": "/vdp.model.v1alpha.ModelPublicService/GetModel",
+        "endpoint": "/model.model.v1alpha.ModelPublicService/GetModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/GetModel",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/vdp.model.v1alpha.ModelPublicService/UpdateModel",
-        "url_pattern": "/vdp.model.v1alpha.ModelPublicService/UpdateModel",
+        "endpoint": "/model.model.v1alpha.ModelPublicService/UpdateModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/UpdateModel",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/vdp.model.v1alpha.ModelPublicService/DeleteModel",
-        "url_pattern": "/vdp.model.v1alpha.ModelPublicService/DeleteModel",
+        "endpoint": "/model.model.v1alpha.ModelPublicService/DeleteModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/DeleteModel",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/vdp.model.v1alpha.ModelPublicService/LookUpModel",
-        "url_pattern": "/vdp.model.v1alpha.ModelPublicService/LookUpModel",
+        "endpoint": "/model.model.v1alpha.ModelPublicService/LookUpModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/LookUpModel",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/vdp.model.v1alpha.ModelPublicService/RenameModel",
-        "url_pattern": "/vdp.model.v1alpha.ModelPublicService/RenameModel",
+        "endpoint": "/model.model.v1alpha.ModelPublicService/RenameModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/RenameModel",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/vdp.model.v1alpha.ModelPublicService/PublishModel",
-        "url_pattern": "/vdp.model.v1alpha.ModelPublicService/PublishModel",
+        "endpoint": "/model.model.v1alpha.ModelPublicService/PublishModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/PublishModel",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/vdp.model.v1alpha.ModelPublicService/UnpublishModel",
-        "url_pattern": "/vdp.model.v1alpha.ModelPublicService/UnpublishModel",
+        "endpoint": "/model.model.v1alpha.ModelPublicService/UnpublishModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/UnpublishModel",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/vdp.model.v1alpha.ModelPublicService/DeployModel",
-        "url_pattern": "/vdp.model.v1alpha.ModelPublicService/DeployModel",
+        "endpoint": "/model.model.v1alpha.ModelPublicService/DeployModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/DeployModel",
         "method": "POST",
         "timeout": "86400s"
       },
       {
-        "endpoint": "/vdp.model.v1alpha.ModelPublicService/UndeployModel",
-        "url_pattern": "/vdp.model.v1alpha.ModelPublicService/UndeployModel",
+        "endpoint": "/model.model.v1alpha.ModelPublicService/UndeployModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/UndeployModel",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/vdp.model.v1alpha.ModelPublicService/GetModelCard",
-        "url_pattern": "/vdp.model.v1alpha.ModelPublicService/GetModelCard",
+        "endpoint": "/model.model.v1alpha.ModelPublicService/GetModelCard",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/GetModelCard",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/vdp.model.v1alpha.ModelPublicService/WatchModel",
-        "url_pattern": "/vdp.model.v1alpha.ModelPublicService/WatchModel",
+        "endpoint": "/model.model.v1alpha.ModelPublicService/WatchModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/WatchModel",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/vdp.model.v1alpha.ModelPublicService/TriggerModel",
-        "url_pattern": "/vdp.model.v1alpha.ModelPublicService/TriggerModel",
+        "endpoint": "/model.model.v1alpha.ModelPublicService/TriggerModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/TriggerModel",
         "method": "POST",
         "timeout": "600s"
       },
       {
-        "endpoint": "/vdp.model.v1alpha.ModelPublicService/TriggerModelBinaryFileUpload",
-        "url_pattern": "/vdp.model.v1alpha.ModelPublicService/TriggerModelBinaryFileUpload",
+        "endpoint": "/model.model.v1alpha.ModelPublicService/TriggerModelBinaryFileUpload",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/TriggerModelBinaryFileUpload",
         "method": "POST",
         "timeout": "600s"
       },
       {
-        "endpoint": "/vdp.model.v1alpha.ModelPublicService/TestModel",
-        "url_pattern": "/vdp.model.v1alpha.ModelPublicService/TestModel",
+        "endpoint": "/model.model.v1alpha.ModelPublicService/TestModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/TestModel",
         "method": "POST",
         "timeout": "600s"
       },
       {
-        "endpoint": "/vdp.model.v1alpha.ModelPublicService/TestModelBinaryFileUpload",
-        "url_pattern": "/vdp.model.v1alpha.ModelPublicService/TestModelBinaryFileUpload",
+        "endpoint": "/model.model.v1alpha.ModelPublicService/TestModelBinaryFileUpload",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/TestModelBinaryFileUpload",
         "method": "POST",
         "timeout": "600s"
       },
       {
-        "endpoint": "/vdp.model.v1alpha.ModelPublicService/GetModelOperation",
-        "url_pattern": "/vdp.model.v1alpha.ModelPublicService/GetModelOperation",
+        "endpoint": "/model.model.v1alpha.ModelPublicService/GetModelOperation",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/GetModelOperation",
         "method": "POST",
         "timeout": "5s"
       }
     ],
     "grpc_no_auth": [
       {
-        "endpoint": "/vdp.model.v1alpha.ModelPublicService/Liveness",
-        "url_pattern": "/vdp.model.v1alpha.ModelPublicService/Liveness",
+        "endpoint": "/model.model.v1alpha.ModelPublicService/Liveness",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/Liveness",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/vdp.model.v1alpha.ModelPublicService/Readiness",
-        "url_pattern": "/vdp.model.v1alpha.ModelPublicService/Readiness",
+        "endpoint": "/model.model.v1alpha.ModelPublicService/Readiness",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/Readiness",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/vdp.model.v1alpha.ModelPublicService/ListModelDefinitions",
-        "url_pattern": "/vdp.model.v1alpha.ModelPublicService/ListModelDefinitions",
+        "endpoint": "/model.model.v1alpha.ModelPublicService/ListModelDefinitions",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/ListModelDefinitions",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/vdp.model.v1alpha.ModelPublicService/GetModelDefinition",
-        "url_pattern": "/vdp.model.v1alpha.ModelPublicService/GetModelDefinition",
+        "endpoint": "/model.model.v1alpha.ModelPublicService/GetModelDefinition",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/GetModelDefinition",
         "method": "POST",
         "timeout": "5s"
       }
@@ -1040,58 +1040,58 @@
     ],
     "grpc_auth": [
       {
-        "endpoint": "/vdp.mgmt.v1alpha.MgmtPublicService/QueryAuthenticatedUser",
-        "url_pattern": "/vdp.mgmt.v1alpha.MgmtPublicService/QueryAuthenticatedUser",
+        "endpoint": "/base.mgmt.v1alpha.MgmtPublicService/QueryAuthenticatedUser",
+        "url_pattern": "/base.mgmt.v1alpha.MgmtPublicService/QueryAuthenticatedUser",
         "method": "POST",
         "timeout": "30s"
       },
       {
-        "endpoint": "/vdp.mgmt.v1alpha.MgmtPublicService/PatchAuthenticatedUser",
-        "url_pattern": "/vdp.mgmt.v1alpha.MgmtPublicService/PatchAuthenticatedUser",
+        "endpoint": "/base.mgmt.v1alpha.MgmtPublicService/PatchAuthenticatedUser",
+        "url_pattern": "/base.mgmt.v1alpha.MgmtPublicService/PatchAuthenticatedUser",
         "method": "POST",
         "timeout": "30s"
       },
       {
-        "endpoint": "/vdp.mgmt.v1alpha.MgmtPublicService/CreateToken",
-        "url_pattern": "/vdp.mgmt.v1alpha.MgmtPublicService/CreateToken",
+        "endpoint": "/base.mgmt.v1alpha.MgmtPublicService/CreateToken",
+        "url_pattern": "/base.mgmt.v1alpha.MgmtPublicService/CreateToken",
         "method": "POST",
         "timeout": "30s"
       },
       {
-        "endpoint": "/vdp.mgmt.v1alpha.MgmtPublicService/ListTokens",
-        "url_pattern": "/vdp.mgmt.v1alpha.MgmtPublicService/ListTokens",
+        "endpoint": "/base.mgmt.v1alpha.MgmtPublicService/ListTokens",
+        "url_pattern": "/base.mgmt.v1alpha.MgmtPublicService/ListTokens",
         "method": "POST",
         "timeout": "30s"
       },
       {
-        "endpoint": "/vdp.mgmt.v1alpha.MgmtPublicService/GetToken",
-        "url_pattern": "/vdp.mgmt.v1alpha.MgmtPublicService/GetToken",
+        "endpoint": "/base.mgmt.v1alpha.MgmtPublicService/GetToken",
+        "url_pattern": "/base.mgmt.v1alpha.MgmtPublicService/GetToken",
         "method": "POST",
         "timeout": "30s"
       },
       {
-        "endpoint": "/vdp.mgmt.v1alpha.MgmtPublicService/DeleteToken",
-        "url_pattern": "/vdp.mgmt.v1alpha.MgmtPublicService/DeleteToken",
+        "endpoint": "/base.mgmt.v1alpha.MgmtPublicService/DeleteToken",
+        "url_pattern": "/base.mgmt.v1alpha.MgmtPublicService/DeleteToken",
         "method": "POST",
         "timeout": "30s"
       }
     ],
     "grpc_no_auth": [
       {
-        "endpoint": "/vdp.mgmt.v1alpha.MgmtPublicService/Liveness",
-        "url_pattern": "/vdp.mgmt.v1alpha.MgmtPublicService/Liveness",
+        "endpoint": "/base.mgmt.v1alpha.MgmtPublicService/Liveness",
+        "url_pattern": "/base.mgmt.v1alpha.MgmtPublicService/Liveness",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/vdp.mgmt.v1alpha.MgmtPublicService/Readiness",
-        "url_pattern": "/vdp.mgmt.v1alpha.MgmtPublicService/Readiness",
+        "endpoint": "/base.mgmt.v1alpha.MgmtPublicService/Readiness",
+        "url_pattern": "/base.mgmt.v1alpha.MgmtPublicService/Readiness",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/vdp.mgmt.v1alpha.MgmtPublicService/ExistUsername",
-        "url_pattern": "/vdp.mgmt.v1alpha.MgmtPublicService/ExistUsername",
+        "endpoint": "/base.mgmt.v1alpha.MgmtPublicService/ExistUsername",
+        "url_pattern": "/base.mgmt.v1alpha.MgmtPublicService/ExistUsername",
         "method": "POST",
         "timeout": "5s"
       }

@@ -1,4 +1,4 @@
 "plugin": {
     "pattern": ".so",
-    "folder": "/api-gateway/plugin"
+    "folder": "/usr/local/lib/krakend/plugin"
 }

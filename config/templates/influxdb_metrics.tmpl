@@ -1,5 +1,5 @@
 "telemetry/influx": {
-  "address":"http://{{ .hosts.influxdb_host }}:{{ .ports.influxdb_port }}",
+  "address":"http://{{ .observe.influxdb_host }}:{{ .ports.influxdb_port }}",
   "ttl": "25s",
   "buffer_size": 0,
   "db": "krakend",
