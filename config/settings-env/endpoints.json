@@ -235,7 +235,8 @@
         "input_query_strings": [
           "view",
           "page_size",
-          "page_token"
+          "page_token",
+          "filter"
         ]
       },
       {
@@ -336,7 +337,8 @@
         "input_query_strings": [
           "page_size",
           "page_token",
-          "view"
+          "view",
+          "filter"
         ]
       },
       {
