@@ -7,7 +7,7 @@ ARG SERVICE_NAME
 
 RUN apk --no-cache --virtual .build-deps add tar make gcc musl-dev binutils-gold build-base curl
 
-WORKDIR /usr/local/lib/krakend
+WORKDIR /${SERVICE_NAME}
 
 COPY plugin plugin
 
@@ -30,11 +30,11 @@ FROM devopsfaith/krakend:${KRAKEND_CE_VERSION}
 
 RUN apk update && apk add make bash gettext jq curl
 
-COPY --from=build --chown=krakend:nogroup /usr/local/lib/krakend/plugin /usr/local/lib/krakend/plugin
-
 ARG SERVICE_NAME
 
 WORKDIR /${SERVICE_NAME}
+
+COPY --from=build --chown=krakend:nogroup /${SERVICE_NAME}/plugin /usr/local/lib/krakend/plugin
 
 COPY .env .env
 COPY Makefile Makefile
