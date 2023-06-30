@@ -11,16 +11,16 @@ set -a
 source .env
 set +a
 
-IFS='-' read -r -a array <<< "${API_GATEWAY_HOST}"
+IFS='-' read -r -a array <<<"${API_GATEWAY_HOST}"
 PROJECT=${array[2]}
 
 # create the settings folder to be used for krakend flexible configuration
 mkdir -p settings
 
 while IFS= read -r -d '' file; do
-  envsubst <"$file" >tmpfile && mv tmpfile ./settings/$(basename -- "${file}")
+  envsubst <"$file" >tmpfile && mv tmpfile ./settings/"$(basename -- "${file}")"
 done < <(find ./share/settings-env -type f -print0)
 
 while IFS= read -r -d '' file; do
-  envsubst <"$file" >tmpfile && mv tmpfile ./settings/$(basename -- "${file}")
-done < <(find ./${PROJECT}/settings-env -type f -print0)
+  envsubst <"$file" >tmpfile && mv tmpfile ./settings/"$(basename -- "${file}")"
+done < <(find ./"${PROJECT}"/settings-env -type f -print0)
