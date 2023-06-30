@@ -6,16 +6,16 @@ This repository maintains the [KrakenD](https://www.krakend.io) API gateway conf
 
 ## KrakenD
 
-KrakenD is a binary executable processing the configuration file `krakend.json` for the API Gateway. 
+KrakenD is a binary executable processing the configuration file `krakend.json` for the API Gateway.
 
 The current used KrakenD version is `2.3.1` with Go `1.19.3` and Alpine `3.16`
 
 ## Local dev
 
-On the local machine, clone `vdp` repository in your workspace, move to the repository folder, and launch all dependent microservices:
+On the local machine, clone the desired project repository in your workspace either [base](https://github.com/instill-ai/base), [vdp](https://github.com/instill-ai/vdp) or [model](https://github.com/instill-ai/model), then move to the repository folder, and launch all dependent microservices:
 ```bash
-$ git clone https://github.com/instill-ai/vdp.git
-$ cd vdp
+$ git clone https://github.com/instill-ai/<project-name-here>.git
+$ cd <project-name-here>
 $ make latest PROFILE=api-gateway
 ```
 
@@ -39,6 +39,12 @@ $ make dev
 
 Now, you have the Go project set up in the container, in which you can compile and run the binaries together with the integration test in each container shell.
 
+### Change the project name env variable
+Before you compile the `krakend` config, make sure to update the `PROJECT` variable in `config/.env` to match the project you decided to develop on. It's either `base`, `vdp` or `model`.
+```
+# instill project
+PROJECT=<project-name-here>
+```
 ### Run the api-gateway server
 
 ```bash
