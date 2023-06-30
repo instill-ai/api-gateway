@@ -16,7 +16,7 @@ jobs:
       - name: Load .env file
         uses: cardinalby/export-env-action@v2
         with:
-          envFile: .env          
+          envFile: .env
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2

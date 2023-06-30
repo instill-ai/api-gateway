@@ -1,0 +1,155 @@
+{
+  "debug": [
+    {
+      "endpoint": "/default",
+      "url_pattern": "/__debug/default"
+    }
+  ],
+  "mgmt": {
+    "jwt_auth": [
+      {
+        "endpoint": "/v1alpha/users/me",
+        "url_pattern": "/v1alpha/users/me",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/users/me",
+        "url_pattern": "/v1alpha/users/me",
+        "method": "PATCH",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/tokens",
+        "url_pattern": "/v1alpha/tokens",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/tokens",
+        "url_pattern": "/v1alpha/tokens",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "page_size",
+          "page_token"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/tokens/{id}",
+        "url_pattern": "/v1alpha/tokens/{id}",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/tokens/{id}",
+        "url_pattern": "/v1alpha/tokens/{id}",
+        "method": "DELETE",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/metrics/vdp/pipeline/triggers",
+        "url_pattern": "/v1alpha/metrics/vdp/pipeline/triggers",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "page_size",
+          "page_token",
+          "filter"
+        ]
+      }
+    ],
+    "no_auth": [
+      {
+        "endpoint": "/v1alpha/health/mgmt",
+        "url_pattern": "/v1alpha/health/mgmt",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/ready/mgmt",
+        "url_pattern": "/v1alpha/ready/mgmt",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/users/{id}/exist",
+        "url_pattern": "/v1alpha/users/{id}/exist",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": []
+      }
+    ],
+    "grpc_auth": [
+      {
+        "endpoint": "/base.mgmt.v1alpha.MgmtPublicService/QueryAuthenticatedUser",
+        "url_pattern": "/base.mgmt.v1alpha.MgmtPublicService/QueryAuthenticatedUser",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/base.mgmt.v1alpha.MgmtPublicService/PatchAuthenticatedUser",
+        "url_pattern": "/base.mgmt.v1alpha.MgmtPublicService/PatchAuthenticatedUser",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/base.mgmt.v1alpha.MgmtPublicService/CreateToken",
+        "url_pattern": "/base.mgmt.v1alpha.MgmtPublicService/CreateToken",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/base.mgmt.v1alpha.MgmtPublicService/ListTokens",
+        "url_pattern": "/base.mgmt.v1alpha.MgmtPublicService/ListTokens",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/base.mgmt.v1alpha.MgmtPublicService/GetToken",
+        "url_pattern": "/base.mgmt.v1alpha.MgmtPublicService/GetToken",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/base.mgmt.v1alpha.MgmtPublicService/DeleteToken",
+        "url_pattern": "/base.mgmt.v1alpha.MgmtPublicService/DeleteToken",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/base.mgmt.v1alpha.MgmtPublicService/ListPipelineTriggerRecords",
+        "url_pattern": "/base.mgmt.v1alpha.MgmtPublicService/ListPipelineTriggerRecords",
+        "method": "POST",
+        "timeout": "30s"
+      }
+    ],
+    "grpc_no_auth": [
+      {
+        "endpoint": "/base.mgmt.v1alpha.MgmtPublicService/Liveness",
+        "url_pattern": "/base.mgmt.v1alpha.MgmtPublicService/Liveness",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/base.mgmt.v1alpha.MgmtPublicService/Readiness",
+        "url_pattern": "/base.mgmt.v1alpha.MgmtPublicService/Readiness",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/base.mgmt.v1alpha.MgmtPublicService/ExistUsername",
+        "url_pattern": "/base.mgmt.v1alpha.MgmtPublicService/ExistUsername",
+        "method": "POST",
+        "timeout": "5s"
+      }
+    ]
+  }
+}

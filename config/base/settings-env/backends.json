@@ -1,0 +1,4 @@
+{
+  "debug": "https://${API_GATEWAY_HOST}:${API_GATEWAY_PORT}",
+  "mgmt": "http://${MGMT_BACKEND_HOST}:${MGMT_BACKEND_PUBLICPORT}"
+}

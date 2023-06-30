@@ -51,8 +51,8 @@ config:							## Output the composed KrakenD configuration
 	@bash config/envsubst.sh
 	@FC_ENABLE=1 \
 		FC_SETTINGS="config/settings" \
-		FC_PARTIALS="config/partials" \
-		FC_TEMPLATES="config/templates" \
+		FC_PARTIALS="config/share/partials" \
+		FC_TEMPLATES="config/share/templates" \
 		FC_OUT="config/out.json" \
 		krakend check -c config/base.json
 	@jq . config/out.json > krakend.json
