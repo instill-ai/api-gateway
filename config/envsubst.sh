@@ -11,9 +11,6 @@ set -a
 source .env
 set +a
 
-IFS='-' read -r -a array <<< "${API_GATEWAY_HOST}"
-PROJECT=${array[${#array[@]}-1]}
-
 # create the settings folder to be used for krakend flexible configuration
 mkdir -p settings
 
