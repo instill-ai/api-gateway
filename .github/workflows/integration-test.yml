@@ -14,31 +14,29 @@ jobs:
     name: Build and push image
     uses: instill-ai/api-gateway/.github/workflows/images.yml@main
     secrets: inherit
-  backends:
+  vdp:
     needs: build-push-image
     if: github.ref == 'refs/heads/main'
-    name: Backends
+    name: VDP Backends
     strategy:
       fail-fast: false
       matrix:
-        component:
-          [
-            pipeline-backend,
-            connector-backend,
-            model-backend,
-            mgmt-backend,
-            controller,
-          ]
+        component: [pipeline-backend, connector-backend, controller-vdp]
     uses: instill-ai/vdp/.github/workflows/integration-test-backend.yml@main
     with:
       component: ${{ matrix.component }}
       target: latest
-  console:
+  model:
     needs: build-push-image
     if: github.ref == 'refs/heads/main'
-    name: Console
-    uses: instill-ai/vdp/.github/workflows/integration-test-console.yml@main
+    name: Model Backends
+    strategy:
+      fail-fast: false
+      matrix:
+        component: [model-backend, controller-model]
+    uses: instill-ai/model/.github/workflows/integration-test-backend.yml@main
     with:
+      component: ${{ matrix.component }}
       target: latest
 
   pr-head:
@@ -91,12 +89,31 @@ jobs:
             KRAKEND_CE_VERSION=${{ env.KRAKEND_CE_VERSION }}
           tags: instill/api-gateway:latest
 
+      - name: Checkout repo (base)
+        uses: actions/checkout@v3
+        with:
+          repository: instill-ai/base
+
+      - name: Load .env file (base)
+        uses: cardinalby/export-env-action@v2
+        with:
+          envFile: .env
+
+      - name: Launch Instill Base (latest)
+        run: |
+          COMPOSE_PROFILES=all \
+          EDITION=local-ce:test \
+          docker compose -f docker-compose.yml -f docker-compose.latest.yml up -d --quiet-pull
+          COMPOSE_PROFILES=all \
+          EDITION=local-ce:test \
+          docker compose -f docker-compose.yml -f docker-compose.latest.yml rm -f
+
       - name: Checkout (vdp)
         uses: actions/checkout@v3
         with:
           repository: instill-ai/vdp
 
-      - name: Load .env file
+      - name: Load .env file (vdp)
         uses: cardinalby/export-env-action@v2
         with:
           envFile: .env
@@ -105,10 +122,29 @@ jobs:
         run: |
           COMPOSE_PROFILES=all \
           EDITION=local-ce:test \
-          ITMODE_ENABLED=true \
           TRITON_CONDA_ENV_PLATFORM=cpu \
           docker compose -f docker-compose.yml -f docker-compose.latest.yml up -d --quiet-pull
           COMPOSE_PROFILES=all \
+          EDITION=local-ce:test \
+          docker compose -f docker-compose.yml -f docker-compose.latest.yml rm -f
+
+      - name: Checkout repo (model)
+        uses: actions/checkout@v3
+        with:
+          repository: instill-ai/model
+
+      - name: Load .env file (model)
+        uses: cardinalby/export-env-action@v2
+        with:
+          envFile: .env
+
+      - name: Launch Instill Model (latest)
+        run: |
+          EDITION=local-ce:test \
+          ITMODE_ENABLED=true \
+          TRITON_CONDA_ENV_PLATFORM=cpu \
+          COMPOSE_PROFILES=all \
+          docker compose -f docker-compose.yml -f docker-compose.latest.yml up -d --quiet-pull
           EDITION=local-ce:test \
           docker compose -f docker-compose.yml -f docker-compose.latest.yml rm -f
 
@@ -156,7 +192,7 @@ jobs:
 
       - name: Run integration-test (model)
         run: |
-          make integration-test API_GATEWAY_HOST=localhost API_GATEWAY_PORT=8080
+          make integration-test API_GATEWAY_HOST=localhost API_GATEWAY_PORT=9080
 
       - name: Checkout (mgmt)
         uses: actions/checkout@v3
@@ -170,4 +206,4 @@ jobs:
 
       - name: Run integration-test (mgmt)
         run: |
-          make integration-test API_GATEWAY_HOST=localhost API_GATEWAY_PORT=8080
+          make integration-test API_GATEWAY_HOST=localhost API_GATEWAY_PORT=7080
