@@ -28,9 +28,7 @@
       "stdout": true
     },
     {{ template "opencensus.tmpl" . }},
-    {{ if eq .observe.influxdb_enabled "true" }}
-      {{ template "influxdb_metrics.tmpl" . }},
-    {{ end }}
+    {{ template "influxdb_metrics.tmpl" . }},
     {{ template "cors.tmpl" . }},
   "plugin/http-server": {
       "name": ["grpc-proxy"],
