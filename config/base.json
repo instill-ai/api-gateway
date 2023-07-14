@@ -20,18 +20,16 @@
           "/__health"
         ]
     },
-    {{ if eq .observe.enabled "true" }}
-      "telemetry/logging": {
-        "level": "{{ .observe.log_level }}",
-        "prefix": "[KRAKEND]",
-        "spans": true,
-        "syslog": false,
-        "stdout": true
-      },
-      {{ template "opencensus.tmpl" . }},
-      {{ if eq .observe.influxdb_enabled "true" }}
-        {{ template "influxdb_metrics.tmpl" . }},
-      {{ end }}
+    "telemetry/logging": {
+      "level": "{{ .observe.log_level }}",
+      "prefix": "[KRAKEND]",
+      "spans": true,
+      "syslog": false,
+      "stdout": true
+    },
+    {{ template "opencensus.tmpl" . }},
+    {{ if eq .observe.influxdb_enabled "true" }}
+      {{ template "influxdb_metrics.tmpl" . }},
     {{ end }}
     {{ template "cors.tmpl" . }},
   "plugin/http-server": {

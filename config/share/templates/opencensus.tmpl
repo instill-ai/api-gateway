@@ -7,10 +7,12 @@
     "pipe": true
   },
   "exporters": {
+    {{ if eq .observe.prometheus_enabled "true" }}
     "prometheus": {
       "port": {{ .ports.api_gateway_metrics_port }},
       "namespace": "api_gateway"
     }
+    {{ end }}
     {{ if eq .observe.jaeger_enabled "true" }}
     ,
     "jaeger": {

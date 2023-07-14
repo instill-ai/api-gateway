@@ -1,6 +1,6 @@
 {
-  "enabled": "${OBSERVE_ENABLED}",
   "log_level": "${LOG_LEVEL}",
+  "prometheus_enabled": "${PROMETHEUS_ENABLED}",
   "influxdb_enabled": "${INFLUXDB_ENABLED}",
   "influxdb_host": "${INFLUXDB_HOST}",
   "jaeger_enabled": "${JAEGER_ENABLED}",
