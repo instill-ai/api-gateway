@@ -12,9 +12,9 @@
       "port": {{ .ports.api_gateway_metrics_port }},
       "namespace": "api_gateway"
     }
+    ,
     {{ end }}
     {{ if eq .observe.jaeger_enabled "true" }}
-    ,
     "jaeger": {
       "endpoint": "http://{{ .observe.jaeger_host }}:{{ .ports.jaeger_port }}/api/traces",
       "service_name":"api-gateway",
