@@ -20,19 +20,15 @@
           "/__health"
         ]
     },
-    {{ if eq .observe.enabled "true" }}
-      "telemetry/logging": {
-        "level": "{{ .observe.log_level }}",
-        "prefix": "[KRAKEND]",
-        "spans": true,
-        "syslog": false,
-        "stdout": true
-      },
-      {{ template "opencensus.tmpl" . }},
-      {{ if eq .observe.influxdb_enabled "true" }}
-        {{ template "influxdb_metrics.tmpl" . }},
-      {{ end }}
-    {{ end }}
+    "telemetry/logging": {
+      "level": "{{ .observe.log_level }}",
+      "prefix": "[KRAKEND]",
+      "spans": true,
+      "syslog": false,
+      "stdout": true
+    },
+    {{ template "opencensus.tmpl" . }},
+    {{ template "influxdb_metrics.tmpl" . }},
     {{ template "cors.tmpl" . }},
   "plugin/http-server": {
       "name": ["grpc-proxy"],
