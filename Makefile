@@ -6,6 +6,20 @@
 include .env
 export
 
+ifeq (${PROJECT},base)
+	SERVICE_PORT := 7080
+	STATES_PORT := 7070
+	METRICS_PORT := 7071
+else ifeq (${PROJECT},vdp)
+	SERVICE_PORT := 8080
+	STATES_PORT := 8070
+	METRICS_PORT := 8071
+else ifeq (${PROJECT},model)
+	SERVICE_PORT := 9080
+	STATES_PORT := 9070
+	METRICS_PORT := 9071
+endif
+
 #============================================================================
 
 .PHONY: dev
@@ -18,7 +32,7 @@ dev:							## Run dev container
 		-p ${STATES_PORT}:${STATES_PORT} \
 		-p ${METRICS_PORT}:${METRICS_PORT} \
 		--network instill-network \
-		--name ${SERVICE_NAME} \
+		--name ${SERVICE_NAME}-${PROJECT} \
 		instill/${SERVICE_NAME}:dev >/dev/null 2>&1
 
 .PHONY: logs
