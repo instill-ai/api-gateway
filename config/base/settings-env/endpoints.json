@@ -64,6 +64,17 @@
         ]
       },
       {
+        "endpoint": "/v1alpha/metrics/vdp/pipeline/tables",
+        "url_pattern": "/v1alpha/metrics/vdp/pipeline/tables",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "page_size",
+          "page_token",
+          "filter"
+        ]
+      },
+      {
         "endpoint": "/v1alpha/metrics/vdp/pipeline/charts",
         "url_pattern": "/v1alpha/metrics/vdp/pipeline/charts",
         "method": "GET",
@@ -76,6 +87,17 @@
       {
         "endpoint": "/v1alpha/metrics/vdp/connector/executes",
         "url_pattern": "/v1alpha/metrics/vdp/connector/executes",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "page_size",
+          "page_token",
+          "filter"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/metrics/vdp/connector/tables",
+        "url_pattern": "/v1alpha/metrics/vdp/connector/tables",
         "method": "GET",
         "timeout": "30s",
         "input_query_strings": [
@@ -162,15 +184,26 @@
         "timeout": "30s"
       },
       {
+        "endpoint": "/base.mgmt.v1alpha.MgmtPublicService/ListPipelineTriggerTableRecords",
+        "url_pattern": "/base.mgmt.v1alpha.MgmtPublicService/ListPipelineTriggerTableRecords",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
         "endpoint": "/base.mgmt.v1alpha.MgmtPublicService/ListPipelineTriggerChartRecords",
         "url_pattern": "/base.mgmt.v1alpha.MgmtPublicService/ListPipelineTriggerChartRecords",
         "method": "POST",
         "timeout": "30s"
-      }
-      ,
+      },
       {
         "endpoint": "/base.mgmt.v1alpha.MgmtPublicService/ListConnectorExecuteRecords",
         "url_pattern": "/base.mgmt.v1alpha.MgmtPublicService/ListConnectorExecuteRecords",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/base.mgmt.v1alpha.MgmtPublicService/ListConnectorExecuteTableRecords",
+        "url_pattern": "/base.mgmt.v1alpha.MgmtPublicService/ListConnectorExecuteTableRecords",
         "method": "POST",
         "timeout": "30s"
       },
