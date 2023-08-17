@@ -274,8 +274,8 @@
   "connector": {
     "jwt_auth": [
       {
-        "endpoint": "/v1alpha/connectors",
-        "url_pattern": "/v1alpha/connectors",
+        "endpoint": "/v1alpha/connector-resources",
+        "url_pattern": "/v1alpha/connector-resources",
         "method": "GET",
         "timeout": "30s",
         "input_query_strings": [
@@ -286,15 +286,15 @@
         ]
       },
       {
-        "endpoint": "/v1alpha/connectors",
-        "url_pattern": "/v1alpha/connectors",
+        "endpoint": "/v1alpha/connector-resources",
+        "url_pattern": "/v1alpha/connector-resources",
         "method": "POST",
         "timeout": "360s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/connectors/{id}",
-        "url_pattern": "/v1alpha/connectors/{id}",
+        "endpoint": "/v1alpha/connector-resources/{id}",
+        "url_pattern": "/v1alpha/connector-resources/{id}",
         "method": "GET",
         "timeout": "30s",
         "input_query_strings": [
@@ -302,22 +302,22 @@
         ]
       },
       {
-        "endpoint": "/v1alpha/connectors/{id}",
-        "url_pattern": "/v1alpha/connectors/{id}",
+        "endpoint": "/v1alpha/connector-resources/{id}",
+        "url_pattern": "/v1alpha/connector-resources/{id}",
         "method": "PATCH",
         "timeout": "360s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/connectors/{id}",
-        "url_pattern": "/v1alpha/connectors/{id}",
+        "endpoint": "/v1alpha/connector-resources/{id}",
+        "url_pattern": "/v1alpha/connector-resources/{id}",
         "method": "DELETE",
         "timeout": "30s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/connectors/{id}/lookUp",
-        "url_pattern": "/v1alpha/connectors/{id}/lookUp",
+        "endpoint": "/v1alpha/connector-resources/{id}/lookUp",
+        "url_pattern": "/v1alpha/connector-resources/{id}/lookUp",
         "method": "GET",
         "timeout": "30s",
         "input_query_strings": [
@@ -325,43 +325,43 @@
         ]
       },
       {
-        "endpoint": "/v1alpha/connectors/{id}/watch",
-        "url_pattern": "/v1alpha/connectors/{id}/watch",
+        "endpoint": "/v1alpha/connector-resources/{id}/watch",
+        "url_pattern": "/v1alpha/connector-resources/{id}/watch",
         "method": "GET",
         "timeout": "30s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/connectors/{id}/connect",
-        "url_pattern": "/v1alpha/connectors/{id}/connect",
+        "endpoint": "/v1alpha/connector-resources/{id}/connect",
+        "url_pattern": "/v1alpha/connector-resources/{id}/connect",
         "method": "POST",
         "timeout": "360s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/connectors/{id}/disconnect",
-        "url_pattern": "/v1alpha/connectors/{id}/disconnect",
+        "endpoint": "/v1alpha/connector-resources/{id}/disconnect",
+        "url_pattern": "/v1alpha/connector-resources/{id}/disconnect",
         "method": "POST",
         "timeout": "30s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/connectors/{id}/rename",
-        "url_pattern": "/v1alpha/connectors/{id}/rename",
+        "endpoint": "/v1alpha/connector-resources/{id}/rename",
+        "url_pattern": "/v1alpha/connector-resources/{id}/rename",
         "method": "POST",
         "timeout": "30s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/connectors/{id}/execute",
-        "url_pattern": "/v1alpha/connectors/{id}/execute",
+        "endpoint": "/v1alpha/connector-resources/{id}/execute",
+        "url_pattern": "/v1alpha/connector-resources/{id}/execute",
         "method": "POST",
         "timeout": "360s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/connectors/{id}/testConnection",
-        "url_pattern": "/v1alpha/connectors/{id}/testConnection",
+        "endpoint": "/v1alpha/connector-resources/{id}/testConnection",
+        "url_pattern": "/v1alpha/connector-resources/{id}/testConnection",
         "method": "POST",
         "timeout": "360s",
         "input_query_strings": []
@@ -399,74 +399,74 @@
     ],
     "grpc_auth": [
       {
-        "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/CreateConnector",
-        "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/CreateConnector",
+        "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/CreateConnectorResource",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/CreateConnectorResource",
         "method": "POST",
         "timeout": "360s"
       },
       {
-        "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/ListConnectors",
-        "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/ListConnectors",
+        "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/ListConnectorsResource",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/ListConnectorsResource",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/GetConnector",
-        "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/GetConnector",
+        "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/GetConnectorResource",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/GetConnectorResource",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/UpdateConnector",
-        "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/UpdateConnector",
+        "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/UpdateConnectorResource",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/UpdateConnectorResource",
         "method": "POST",
         "timeout": "360s"
       },
       {
-        "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/DeleteConnector",
-        "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/DeleteConnector",
+        "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/DeleteConnectorResource",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/DeleteConnectorResource",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/LookUpConnector",
-        "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/LookUpConnector",
+        "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/LookUpConnectorResource",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/LookUpConnectorResource",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/WatchConnector",
-        "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/WatchConnector",
+        "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/WatchConnectorResource",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/WatchConnectorResource",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/ConnectConnector",
-        "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/ConnectConnector",
+        "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/ConnectConnectorResource",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/ConnectConnectorResource",
         "method": "POST",
         "timeout": "360s"
       },
       {
-        "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/DisconnectConnector",
-        "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/DisconnectConnector",
+        "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/DisconnectConnectorResource",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/DisconnectConnectorResource",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/RenameConnector",
-        "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/RenameConnector",
+        "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/RenameConnectorResource",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/RenameConnectorResource",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/ExecuteConnector",
-        "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/ExecuteConnector",
+        "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/ExecuteConnectorResource",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/ExecuteConnectorResource",
         "method": "POST",
         "timeout": "360s"
       },
       {
-        "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/TestConnector",
-        "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/TestConnector",
+        "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/TestConnectorResource",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/TestConnectorResource",
         "method": "POST",
         "timeout": "360s"
       }
