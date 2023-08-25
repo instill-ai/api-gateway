@@ -169,8 +169,8 @@
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/users/{user_id}/pipelines/{pipeline_id}/releases/{release_id}/release",
-        "url_pattern": "/v1alpha/users/{user_id}/pipelines/{pipeline_id}/releases/{release_id}/release",
+        "endpoint": "/v1alpha/users/{user_id}/pipelines/{pipeline_id}/releases/{release_id}/rename",
+        "url_pattern": "/v1alpha/users/{user_id}/pipelines/{pipeline_id}/releases/{release_id}/rename",
         "method": "POST",
         "timeout": "30s",
         "input_query_strings": []
