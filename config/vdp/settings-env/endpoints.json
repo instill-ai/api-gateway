@@ -137,14 +137,14 @@
         "endpoint": "/v1alpha/users/{user_id}/pipelines/{pipeline_id}/releases/{release_id}/trigger",
         "url_pattern": "/v1alpha/users/{user_id}/pipelines/{pipeline_id}/releases/{release_id}/trigger",
         "method": "POST",
-        "timeout": "30s",
+        "timeout": "600s",
         "input_query_strings": []
       },
       {
         "endpoint": "/v1alpha/users/{user_id}/pipelines/{pipeline_id}/releases/{release_id}/triggerAsync",
         "url_pattern": "/v1alpha/users/{user_id}/pipelines/{pipeline_id}/releases/{release_id}/triggerAsync",
         "method": "POST",
-        "timeout": "30s",
+        "timeout": "600s",
         "input_query_strings": []
       },
       {
