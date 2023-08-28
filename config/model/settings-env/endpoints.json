@@ -19,8 +19,33 @@
         ]
       },
       {
-        "endpoint": "/v1alpha/models/{model_id}",
-        "url_pattern": "/v1alpha/models/{model_id}",
+        "endpoint": "/v1alpha/users/{user_id}/models",
+        "url_pattern": "/v1alpha/users/{user_id}/models",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view",
+          "page_size",
+          "page_token"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/users/{user_id}/models",
+        "url_pattern": "/v1alpha/users/{user_id}/models",
+        "method": "POST",
+        "timeout": "86400s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/users/{user_id}/models/multipart",
+        "url_pattern": "/v1alpha/users/{user_id}/models/multipart",
+        "method": "POST",
+        "timeout": "86400s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}",
+        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}",
         "method": "GET",
         "timeout": "30s",
         "input_query_strings": [
@@ -28,22 +53,22 @@
         ]
       },
       {
-        "endpoint": "/v1alpha/models/{model_id}",
-        "url_pattern": "/v1alpha/models/{model_id}",
+        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}",
+        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}",
         "method": "PATCH",
         "timeout": "30s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/models/{model_id}",
-        "url_pattern": "/v1alpha/models/{model_id}",
+        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}",
+        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}",
         "method": "DELETE",
         "timeout": "30s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/models/{model_id}/lookUp",
-        "url_pattern": "/v1alpha/models/{model_id}/lookUp",
+        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/lookUp",
+        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/lookUp",
         "method": "GET",
         "timeout": "30s",
         "input_query_strings": [
@@ -51,92 +76,78 @@
         ]
       },
       {
-        "endpoint": "/v1alpha/models/{model_id}/rename",
-        "url_pattern": "/v1alpha/models/{model_id}/rename",
+        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/rename",
+        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/rename",
         "method": "POST",
         "timeout": "30s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/models/{model_id}/publish",
-        "url_pattern": "/v1alpha/models/{model_id}/publish",
+        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/publish",
+        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/publish",
         "method": "POST",
         "timeout": "30s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/models/{model_id}/unpublish",
-        "url_pattern": "/v1alpha/models/{model_id}/unpublish",
+        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/unpublish",
+        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/unpublish",
         "method": "POST",
         "timeout": "30s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/models/{model_id}/readme",
-        "url_pattern": "/v1alpha/models/{model_id}/readme",
+        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/readme",
+        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/readme",
         "method": "GET",
         "timeout": "30s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/models/{model_id}/watch",
-        "url_pattern": "/v1alpha/models/{model_id}/watch",
+        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/watch",
+        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/watch",
         "method": "GET",
         "timeout": "30s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/models",
-        "url_pattern": "/v1alpha/models",
+        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/deploy",
+        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/deploy",
         "method": "POST",
         "timeout": "86400s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/models/multipart",
-        "url_pattern": "/v1alpha/models/multipart",
-        "method": "POST",
-        "timeout": "86400s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/models/{model_id}/deploy",
-        "url_pattern": "/v1alpha/models/{model_id}/deploy",
-        "method": "POST",
-        "timeout": "86400s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/models/{model_id}/undeploy",
-        "url_pattern": "/v1alpha/models/{model_id}/undeploy",
+        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/undeploy",
+        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/undeploy",
         "method": "POST",
         "timeout": "30s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/models/{model_id}/trigger",
-        "url_pattern": "/v1alpha/models/{model_id}/trigger",
+        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/trigger",
+        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/trigger",
         "method": "POST",
         "timeout": "600s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/models/{model_id}/trigger-multipart",
-        "url_pattern": "/v1alpha/models/{model_id}/trigger-multipart",
+        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/trigger-multipart",
+        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/trigger-multipart",
         "method": "POST",
         "timeout": "600s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/models/{model_id}/test",
-        "url_pattern": "/v1alpha/models/{model_id}/test",
+        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/test",
+        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/test",
         "method": "POST",
         "timeout": "600s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/models/{model_id}/test-multipart",
-        "url_pattern": "/v1alpha/models/{model_id}/test-multipart",
+        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/test-multipart",
+        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/test-multipart",
         "method": "POST",
         "timeout": "600s",
         "input_query_strings": []
@@ -191,104 +202,110 @@
         "timeout": "5s"
       },
       {
-        "endpoint": "/model.model.v1alpha.ModelPublicService/CreateModel",
-        "url_pattern": "/model.model.v1alpha.ModelPublicService/CreateModel",
+        "endpoint": "/model.model.v1alpha.ModelPublicService/CreateUserModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/CreateUserModel",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/model.model.v1alpha.ModelPublicService/CreateModelBinaryFileUpload",
-        "url_pattern": "/model.model.v1alpha.ModelPublicService/CreateModelBinaryFileUpload",
+        "endpoint": "/model.model.v1alpha.ModelPublicService/CreateUserModelBinaryFileUpload",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/CreateUserModelBinaryFileUpload",
         "method": "POST",
         "timeout": "86400s"
       },
       {
-        "endpoint": "/model.model.v1alpha.ModelPublicService/GetModel",
-        "url_pattern": "/model.model.v1alpha.ModelPublicService/GetModel",
+        "endpoint": "/model.model.v1alpha.ModelPublicService/ListUserModels",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/ListUserModels",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/model.model.v1alpha.ModelPublicService/UpdateModel",
-        "url_pattern": "/model.model.v1alpha.ModelPublicService/UpdateModel",
+        "endpoint": "/model.model.v1alpha.ModelPublicService/GetUserModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/GetUserModel",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/model.model.v1alpha.ModelPublicService/DeleteModel",
-        "url_pattern": "/model.model.v1alpha.ModelPublicService/DeleteModel",
+        "endpoint": "/model.model.v1alpha.ModelPublicService/UpdateUserModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/UpdateUserModel",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/model.model.v1alpha.ModelPublicService/LookUpModel",
-        "url_pattern": "/model.model.v1alpha.ModelPublicService/LookUpModel",
+        "endpoint": "/model.model.v1alpha.ModelPublicService/DeleteUserModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/DeleteUserModel",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/model.model.v1alpha.ModelPublicService/RenameModel",
-        "url_pattern": "/model.model.v1alpha.ModelPublicService/RenameModel",
+        "endpoint": "/model.model.v1alpha.ModelPublicService/LookUpUserModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/LookUpUserModel",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/model.model.v1alpha.ModelPublicService/PublishModel",
-        "url_pattern": "/model.model.v1alpha.ModelPublicService/PublishModel",
+        "endpoint": "/model.model.v1alpha.ModelPublicService/RenameUserModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/RenameUserModel",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/model.model.v1alpha.ModelPublicService/UnpublishModel",
-        "url_pattern": "/model.model.v1alpha.ModelPublicService/UnpublishModel",
+        "endpoint": "/model.model.v1alpha.ModelPublicService/PublishUserModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/PublishUserModel",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/model.model.v1alpha.ModelPublicService/DeployModel",
-        "url_pattern": "/model.model.v1alpha.ModelPublicService/DeployModel",
+        "endpoint": "/model.model.v1alpha.ModelPublicService/UnpublishUserModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/UnpublishUserModel",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/model.model.v1alpha.ModelPublicService/DeployUserModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/DeployUserModel",
         "method": "POST",
         "timeout": "86400s"
       },
       {
-        "endpoint": "/model.model.v1alpha.ModelPublicService/UndeployModel",
-        "url_pattern": "/model.model.v1alpha.ModelPublicService/UndeployModel",
+        "endpoint": "/model.model.v1alpha.ModelPublicService/UndeployUserModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/UndeployUserModel",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/model.model.v1alpha.ModelPublicService/GetModelCard",
-        "url_pattern": "/model.model.v1alpha.ModelPublicService/GetModelCard",
+        "endpoint": "/model.model.v1alpha.ModelPublicService/GetUserModelCard",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/GetUserModelCard",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/model.model.v1alpha.ModelPublicService/WatchModel",
-        "url_pattern": "/model.model.v1alpha.ModelPublicService/WatchModel",
+        "endpoint": "/model.model.v1alpha.ModelPublicService/WatchUserModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/WatchUserModel",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/model.model.v1alpha.ModelPublicService/TriggerModel",
-        "url_pattern": "/model.model.v1alpha.ModelPublicService/TriggerModel",
+        "endpoint": "/model.model.v1alpha.ModelPublicService/TriggerUserModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/TriggerUserModel",
         "method": "POST",
         "timeout": "600s"
       },
       {
-        "endpoint": "/model.model.v1alpha.ModelPublicService/TriggerModelBinaryFileUpload",
-        "url_pattern": "/model.model.v1alpha.ModelPublicService/TriggerModelBinaryFileUpload",
+        "endpoint": "/model.model.v1alpha.ModelPublicService/TriggerUserModelBinaryFileUpload",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/TriggerUserModelBinaryFileUpload",
         "method": "POST",
         "timeout": "600s"
       },
       {
-        "endpoint": "/model.model.v1alpha.ModelPublicService/TestModel",
-        "url_pattern": "/model.model.v1alpha.ModelPublicService/TestModel",
+        "endpoint": "/model.model.v1alpha.ModelPublicService/TestUserModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/TestUserModel",
         "method": "POST",
         "timeout": "600s"
       },
       {
-        "endpoint": "/model.model.v1alpha.ModelPublicService/TestModelBinaryFileUpload",
-        "url_pattern": "/model.model.v1alpha.ModelPublicService/TestModelBinaryFileUpload",
+        "endpoint": "/model.model.v1alpha.ModelPublicService/TestUserModelBinaryFileUpload",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/TestUserModelBinaryFileUpload",
         "method": "POST",
         "timeout": "600s"
       },
