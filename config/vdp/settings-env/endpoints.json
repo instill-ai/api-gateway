@@ -20,6 +20,15 @@
         ]
       },
       {
+        "endpoint": "/v1alpha/pipelines/{pipeline_id}/lookUp",
+        "url_pattern": "/v1alpha/pipelines/{pipeline_id}/lookUp",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view"
+        ]
+      },
+      {
         "endpoint": "/v1alpha/users/{user_id}/pipelines",
         "url_pattern": "/v1alpha/users/{user_id}/pipelines",
         "method": "POST",
@@ -60,15 +69,6 @@
         "method": "DELETE",
         "timeout": "30s",
         "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/users/{user_id}/pipelines/{pipeline_id}/lookUp",
-        "url_pattern": "/v1alpha/users/{user_id}/pipelines/{pipeline_id}/lookUp",
-        "method": "GET",
-        "timeout": "30s",
-        "input_query_strings": [
-          "view"
-        ]
       },
       {
         "endpoint": "/v1alpha/users/{user_id}/pipelines/{pipeline_id}/rename",
@@ -221,6 +221,12 @@
         "timeout": "5s"
       },
       {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/LookUpPipeline",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/LookUpPipeline",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
         "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/CreateUserPipeline",
         "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/CreateUserPipeline",
         "method": "POST",
@@ -247,12 +253,6 @@
       {
         "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/DeleteUserPipeline",
         "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/DeleteUserPipeline",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/LookUpUserPipeline",
-        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/LookUpUserPipeline",
         "method": "POST",
         "timeout": "5s"
       },
@@ -354,6 +354,15 @@
         "input_query_strings": []
       },
       {
+        "endpoint": "/v1alpha/connector-resources/{id}/lookUp",
+        "url_pattern": "/v1alpha/connector-resources/{id}/lookUp",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view"
+        ]
+      },
+      {
         "endpoint": "/v1alpha/users/{user_id}/connector-resources",
         "url_pattern": "/v1alpha/users/{user_id}/connector-resources",
         "method": "GET",
@@ -394,15 +403,6 @@
         "method": "DELETE",
         "timeout": "30s",
         "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/users/{user_id}/connector-resources/{id}/lookUp",
-        "url_pattern": "/v1alpha/users/{user_id}/connector-resources/{id}/lookUp",
-        "method": "GET",
-        "timeout": "30s",
-        "input_query_strings": [
-          "view"
-        ]
       },
       {
         "endpoint": "/v1alpha/users/{user_id}/connector-resources/{id}/watch",
@@ -485,6 +485,12 @@
         "timeout": "5s"
       },
       {
+        "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/LookUpConnectorResource",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/LookUpConnectorResource",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
         "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/CreateUserConnectorResource",
         "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/CreateUserConnectorResource",
         "method": "POST",
@@ -511,12 +517,6 @@
       {
         "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/DeleteUserConnectorResource",
         "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/DeleteUserConnectorResource",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/LookUpUserConnectorResource",
-        "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/LookUpUserConnectorResource",
         "method": "POST",
         "timeout": "5s"
       },

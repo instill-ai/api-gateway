@@ -19,6 +19,15 @@
         ]
       },
       {
+        "endpoint": "/v1alpha/models/{model_id}/lookUp",
+        "url_pattern": "/v1alpha/models/{model_id}/lookUp",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view"
+        ]
+      },
+      {
         "endpoint": "/v1alpha/users/{user_id}/models",
         "url_pattern": "/v1alpha/users/{user_id}/models",
         "method": "GET",
@@ -65,15 +74,6 @@
         "method": "DELETE",
         "timeout": "30s",
         "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/lookUp",
-        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/lookUp",
-        "method": "GET",
-        "timeout": "30s",
-        "input_query_strings": [
-          "view"
-        ]
       },
       {
         "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/rename",
@@ -202,6 +202,12 @@
         "timeout": "5s"
       },
       {
+        "endpoint": "/model.model.v1alpha.ModelPublicService/LookUpModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/LookUpModel",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
         "endpoint": "/model.model.v1alpha.ModelPublicService/CreateUserModel",
         "url_pattern": "/model.model.v1alpha.ModelPublicService/CreateUserModel",
         "method": "POST",
@@ -234,12 +240,6 @@
       {
         "endpoint": "/model.model.v1alpha.ModelPublicService/DeleteUserModel",
         "url_pattern": "/model.model.v1alpha.ModelPublicService/DeleteUserModel",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/model.model.v1alpha.ModelPublicService/LookUpUserModel",
-        "url_pattern": "/model.model.v1alpha.ModelPublicService/LookUpUserModel",
         "method": "POST",
         "timeout": "5s"
       },
