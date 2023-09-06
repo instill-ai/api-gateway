@@ -15,7 +15,8 @@
         "input_query_strings": [
           "view",
           "page_size",
-          "page_token"
+          "page_token",
+          "show_deleted"
         ]
       },
       {
@@ -35,7 +36,8 @@
         "input_query_strings": [
           "view",
           "page_size",
-          "page_token"
+          "page_token",
+          "show_deleted"
         ]
       },
       {

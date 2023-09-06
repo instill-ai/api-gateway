@@ -16,7 +16,8 @@
           "view",
           "page_size",
           "page_token",
-          "filter"
+          "filter",
+          "show_deleted"
         ]
       },
       {
@@ -44,7 +45,8 @@
           "view",
           "page_size",
           "page_token",
-          "filter"
+          "filter",
+          "show_deleted"
         ]
       },
       {
@@ -73,6 +75,13 @@
       {
         "endpoint": "/v1alpha/users/{user_id}/pipelines/{pipeline_id}/rename",
         "url_pattern": "/v1alpha/users/{user_id}/pipelines/{pipeline_id}/rename",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/users/{user_id}/pipelines/{pipeline_id}/validate",
+        "url_pattern": "/v1alpha/users/{user_id}/pipelines/{pipeline_id}/validate",
         "method": "POST",
         "timeout": "30s",
         "input_query_strings": []
@@ -116,7 +125,8 @@
           "page_size",
           "page_token",
           "view",
-          "filter"
+          "filter",
+          "show_deleted"
         ]
       },
       {
@@ -179,6 +189,12 @@
         "timeout": "5s"
       },
       {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/ValidateUserPipeline",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/ValidateUserPipeline",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
         "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/TriggerUserPipeline",
         "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/TriggerUserPipeline",
         "method": "POST",
@@ -235,7 +251,8 @@
           "view",
           "page_size",
           "page_token",
-          "filter"
+          "filter",
+          "show_deleted"
         ]
       },
       {
@@ -256,7 +273,8 @@
           "view",
           "page_size",
           "page_token",
-          "filter"
+          "filter",
+          "show_deleted"
         ]
       },
       {
@@ -349,7 +367,8 @@
           "page_size",
           "page_token",
           "view",
-          "filter"
+          "filter",
+          "show_deleted"
         ]
       },
       {
