@@ -16,7 +16,8 @@
           "view",
           "page_size",
           "page_token",
-          "filter"
+          "filter",
+          "show_deleted"
         ]
       },
       {
@@ -44,7 +45,8 @@
           "view",
           "page_size",
           "page_token",
-          "filter"
+          "filter",
+          "show_deleted"
         ]
       },
       {
@@ -116,7 +118,8 @@
           "page_size",
           "page_token",
           "view",
-          "filter"
+          "filter",
+          "show_deleted"
         ]
       },
       {
@@ -235,7 +238,8 @@
           "view",
           "page_size",
           "page_token",
-          "filter"
+          "filter",
+          "show_deleted"
         ]
       },
       {
@@ -256,7 +260,8 @@
           "view",
           "page_size",
           "page_token",
-          "filter"
+          "filter",
+          "show_deleted"
         ]
       },
       {
@@ -349,7 +354,8 @@
           "page_size",
           "page_token",
           "view",
-          "filter"
+          "filter",
+          "show_deleted"
         ]
       },
       {
