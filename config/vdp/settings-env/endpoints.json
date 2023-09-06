@@ -80,6 +80,13 @@
         "input_query_strings": []
       },
       {
+        "endpoint": "/v1alpha/users/{user_id}/pipelines/{pipeline_id}/validate",
+        "url_pattern": "/v1alpha/users/{user_id}/pipelines/{pipeline_id}/validate",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
         "endpoint": "/v1alpha/users/{user_id}/pipelines/{pipeline_id}/trigger",
         "url_pattern": "/v1alpha/users/{user_id}/pipelines/{pipeline_id}/trigger",
         "method": "POST",
@@ -178,6 +185,12 @@
       {
         "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/RenameUserPipeline",
         "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/RenameUserPipeline",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/ValidateUserPipeline",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/ValidateUserPipeline",
         "method": "POST",
         "timeout": "5s"
       },
