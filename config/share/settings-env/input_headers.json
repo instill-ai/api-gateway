@@ -7,7 +7,8 @@
     "Backend",
     "X-B3-Sampled",
     "X-B3-Spanid",
-    "X-B3-Traceid"
+    "X-B3-Traceid",
+    "instill-return-traces"
   ],
   "no_auth": [
     "Content-Type",
@@ -17,7 +18,8 @@
     "Backend",
     "X-B3-Sampled",
     "X-B3-Spanid",
-    "X-B3-Traceid"
+    "X-B3-Traceid",
+    "instill-return-traces"
   ],
   "grpc_auth": [
     "Content-Type",
@@ -29,7 +31,8 @@
     "Te",
     "X-B3-Sampled",
     "X-B3-Spanid",
-    "X-B3-Traceid"
+    "X-B3-Traceid",
+    "instill-return-traces"
   ],
   "grpc_no_auth": [
     "Content-Type",
@@ -42,6 +45,7 @@
     "Te",
     "X-B3-Sampled",
     "X-B3-Spanid",
-    "X-B3-Traceid"
+    "X-B3-Traceid",
+    "instill-return-traces"
   ]
 }
