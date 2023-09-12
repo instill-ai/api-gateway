@@ -27,6 +27,8 @@ RUN chown -R nobody:nogroup /go
 ENV GOCACHE /go/.cache/go-build
 ENV GOENV /go/.config/go/env
 
+RUN mkdir -p /usr/local/lib/krakend/plugin && chmod 777 /usr/local/lib/krakend/plugin
+
 USER nobody
 
 ENTRYPOINT ["tail", "-f", "/dev/null"]

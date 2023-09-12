@@ -33,30 +33,18 @@
   "plugin/http-server": {
       "name": ["grpc-proxy"],
       "grpc-proxy": {
-        {{ if eq .project.name "base" }}
-          "mgmt": "{{ .backends.mgmt }}"
-        {{ end }}
-        {{ if eq .project.name "vdp" }}
-          "pipeline": "{{ .backends.pipeline }}",
-          "connector": "{{ .backends.connector }}"
-        {{ end }}
-        {{ if eq .project.name "model" }}
-          "model": "{{ .backends.model }}"
-        {{ end }}
+        "mgmt": "{{ .backends.mgmt }}",
+        "pipeline": "{{ .backends.pipeline }}",
+        "connector": "{{ .backends.connector }}",
+        "model": "{{ .backends.model }}"
       }
     }
   },
   "endpoints": [
-    {{ if eq .project.name "base" }}
-      {{- template "mgmt.tmpl" . }},
-    {{ end }}
-    {{ if eq .project.name "vdp" }}
-      {{- template "pipeline.tmpl" . }},
-      {{- template "connector.tmpl" . }},
-    {{ end }}
-    {{ if eq .project.name "model" }}
-      {{- template "model.tmpl" . }},
-    {{ end }}
+    {{- template "mgmt.tmpl" . }},
+    {{- template "pipeline.tmpl" . }},
+    {{- template "connector.tmpl" . }},
+    {{- template "model.tmpl" . }},
     {{- template "debug.tmpl" . }}
   ]
 }

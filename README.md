@@ -39,12 +39,6 @@ $ make dev
 
 Now, you have the Go project set up in the container, in which you can compile and run the binaries together with the integration test in each container shell.
 
-### Change the project name env variable
-Before you compile the `krakend` config, make sure to update the `PROJECT` variable in `config/.env` to match the project you decided to develop on. It's either `base`, `vdp` or `model`.
-```
-# instill project
-PROJECT=<project-name-here>
-```
 ### Run the api-gateway server
 
 ```bash
@@ -52,7 +46,7 @@ PROJECT=<project-name-here>
 $ docker exec -it api-gateway /bin/bash
 
 # In the api-gateway container
-$ cd plugin && go build -buildmode=plugin -o grpc-proxy.so /api-gateway/plugin/server/grpc && cd .. # compile the KrakenD grpc-proxy plugin
+$ cd plugin && go build -buildmode=plugin -o /usr/local/lib/krakend/plugin/grpc-proxy.so /api-gateway/plugin/server/grpc && cd .. # compile the KrakenD grpc-proxy plugin
 $ make config # generate KrakenD configuration file
 $ krakend run -c krakend.json
 ```
