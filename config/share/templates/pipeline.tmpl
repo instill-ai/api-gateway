@@ -4,7 +4,7 @@
 {{- range $idx, $endpoint := $endpoints.jwt_auth }}
 {{- if $idx -}},{{ end }}
 {
-  "endpoint": "{{ .endpoint }}",
+  "endpoint": "/vdp{{ .endpoint }}",
   "method": "{{ .method }}",
   {{- if len .input_query_strings -}}
   "input_query_strings":
@@ -43,7 +43,7 @@
 {{- range $idx, $endpoint := $endpoints.no_auth }}
 {{- if $idx -}},{{ end }}
 {
-  "endpoint": "{{ .endpoint }}",
+  "endpoint": "/vdp{{ .endpoint }}",
   "method": "{{ .method }}",
   {{- if len .input_query_strings -}}
   "input_query_strings":

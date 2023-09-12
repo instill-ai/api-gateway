@@ -20,4 +20,4 @@ done < <(find ./share/settings-env -type f -print0)
 
 while IFS= read -r -d '' file; do
   envsubst <"$file" >tmpfile && mv tmpfile ./settings/"$(basename -- "${file}")"
-done < <(find ./"${API_GATEWAY_PROJECT}"/settings-env -type f -print0)
+done < <(find ./base/settings-env -type f -print0)
