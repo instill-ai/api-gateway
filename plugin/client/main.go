@@ -91,6 +91,8 @@ func (r registerer) registerClients(_ context.Context, extra map[string]interfac
 				w.Header().Add(k, h)
 			}
 		}
+
+		// We can only get Trailer after reading the body
 		for k, hs := range resp.Trailer {
 			for _, h := range hs {
 				w.Header().Add(k, h)
