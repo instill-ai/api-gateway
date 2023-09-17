@@ -93,7 +93,13 @@
       "host": {{ marshal $host }},
       "sd": "static",
       "method": "{{ .method }}",
-      "disable_host_sanitize": false
+      "disable_host_sanitize": false,
+      "extra_config": {
+        "plugin/http-client": {
+          "name": "grpc-proxy",
+          "grpc-proxy": {}
+        }
+      }
     }
   ]
 }
@@ -113,7 +119,13 @@
       "host": {{ marshal $host }},
       "sd": "static",
       "method": "{{ .method }}",
-      "disable_host_sanitize": false
+      "disable_host_sanitize": false,
+      "extra_config": {
+        "plugin/http-client": {
+          "name": "grpc-proxy",
+          "grpc-proxy": {}
+        }
+      }
     }
   ]
 }
