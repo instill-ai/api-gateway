@@ -631,8 +631,8 @@
         "timeout": "360s"
       },
       {
-        "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/ListUserConnectorsResource",
-        "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/ListUserConnectorsResource",
+        "endpoint": "/vdp.connector.v1alpha.ConnectorPublicService/ListUserConnectorResources",
+        "url_pattern": "/vdp.connector.v1alpha.ConnectorPublicService/ListUserConnectorResources",
         "method": "POST",
         "timeout": "5s"
       },
