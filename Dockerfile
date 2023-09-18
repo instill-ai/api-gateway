@@ -21,10 +21,10 @@ RUN if [[ "$BUILDARCH" = "amd64" && "$TARGETARCH" = "arm64" ]] ; \
     cd plugin && go mod download && \
     CGO_ENABLED=1 ARCH=$TARGETARCH GOARCH=$TARGETARCH GOHOSTARCH=$BUILDARCH \
     CC=aarch64-linux-musl-gcc EXTRA_LDFLAGS='-extld=aarch64-linux-musl-gcc' \
-    go build -buildmode=plugin -o grpc-proxy.so ./server/grpc; \
+    go build -buildmode=plugin -buildvcs=false -o grpc-proxy.so ./client; \
     else \
     cd plugin && go mod download && \
-    CGO_ENABLED=1 go build -buildmode=plugin -o grpc-proxy.so ./server/grpc; fi
+    CGO_ENABLED=1 go build -buildmode=plugin -buildvcs=false -o grpc-proxy.so ./client; fi
 
 FROM devopsfaith/krakend:${KRAKEND_CE_VERSION}
 
