@@ -331,6 +331,90 @@
         "input_query_strings": []
       },
       {
+        "endpoint": "/v1alpha/users/{user_id}/pipelines/{pipeline_id}/releases",
+        "url_pattern": "/v1alpha/users/{user_id}/pipelines/{pipeline_id}/releases",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view",
+          "page_size",
+          "page_token",
+          "filter"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/users/{user_id}/pipelines/{pipeline_id}/releases",
+        "url_pattern": "/v1alpha/users/{user_id}/pipelines/{pipeline_id}/releases",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/users/{user_id}/pipelines/{pipeline_id}/releases/{release_id}",
+        "url_pattern": "/v1alpha/users/{user_id}/pipelines/{pipeline_id}/releases/{release_id}",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/users/{user_id}/pipelines/{pipeline_id}/releases/{release_id}",
+        "url_pattern": "/v1alpha/users/{user_id}/pipelines/{pipeline_id}/releases/{release_id}",
+        "method": "PATCH",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/users/{user_id}/pipelines/{pipeline_id}/releases/{release_id}",
+        "url_pattern": "/v1alpha/users/{user_id}/pipelines/{pipeline_id}/releases/{release_id}",
+        "method": "DELETE",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/users/{user_id}/pipelines/{pipeline_id}/releases/{release_id}/trigger",
+        "url_pattern": "/v1alpha/users/{user_id}/pipelines/{pipeline_id}/releases/{release_id}/trigger",
+        "method": "POST",
+        "timeout": "600s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/users/{user_id}/pipelines/{pipeline_id}/releases/{release_id}/triggerAsync",
+        "url_pattern": "/v1alpha/users/{user_id}/pipelines/{pipeline_id}/releases/{release_id}/triggerAsync",
+        "method": "POST",
+        "timeout": "600s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/users/{user_id}/pipelines/{pipeline_id}/releases/{release_id}/set_default",
+        "url_pattern": "/v1alpha/users/{user_id}/pipelines/{pipeline_id}/releases/{release_id}/set_default",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/users/{user_id}/pipelines/{pipeline_id}/releases/{release_id}/restore",
+        "url_pattern": "/v1alpha/users/{user_id}/pipelines/{pipeline_id}/releases/{release_id}/restore",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/users/{user_id}/pipelines/{pipeline_id}/releases/{release_id}/watch",
+        "url_pattern": "/v1alpha/users/{user_id}/pipelines/{pipeline_id}/releases/{release_id}/watch",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/users/{user_id}/pipelines/{pipeline_id}/releases/{release_id}/rename",
+        "url_pattern": "/v1alpha/users/{user_id}/pipelines/{pipeline_id}/releases/{release_id}/rename",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
         "endpoint": "/v1alpha/operations/{id}",
         "url_pattern": "/v1alpha/operations/{id}",
         "method": "GET",
@@ -433,6 +517,72 @@
       {
         "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/TriggerAsyncUserPipeline",
         "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/TriggerAsyncUserPipeline",
+        "method": "POST",
+        "timeout": "600s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/CreateUserPipelineRelease",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/CreateUserPipelineRelease",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/ListUserPipelineReleases",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/ListUserPipelineReleases",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/GetUserPipelineRelease",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/GetUserPipelineRelease",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/UpdateUserPipelineRelease",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/UpdateUserPipelineRelease",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/DeleteUserPipelineRelease",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/DeleteUserPipelineRelease",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/WatchUserPipelineRelease",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/WatchUserPipelineRelease",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/SetDefaultUserPipelineRelease",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/SetDefaultUserPipelineRelease",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/RestoreUserPipelineRelease",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/RestoreUserPipelineRelease",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/RenameUserPipelineRelease",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/RenameUserPipelineRelease",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/TriggerUserPipelineRelease",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/TriggerUserPipelineRelease",
+        "method": "POST",
+        "timeout": "600s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/TriggerAsyncUserPipelineRelease",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/TriggerAsyncUserPipelineRelease",
         "method": "POST",
         "timeout": "600s"
       },
