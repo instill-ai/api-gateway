@@ -1,6 +1,6 @@
 module plugin
 
-go 1.19
+go 1.20
 
 require (
 	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0
