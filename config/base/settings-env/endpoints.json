@@ -6,7 +6,48 @@
     }
   ],
   "mgmt": {
+    "basic": [
+      {
+        "endpoint": "/v1alpha/auth/login",
+        "url_pattern": "/v1alpha/auth/token_issuer",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": [],
+        "extra_config": {
+          "auth/signer": {
+            "alg": "RS256",
+            "jwk_local_path": "/instill/instill.jwks",
+            "keys_to_sign": [
+              "access_token"
+            ],
+            "kid": "instill",
+            "disable_jwk_security": true
+          }
+        }
+      }
+    ],
     "jwt_auth": [
+      {
+        "endpoint": "/v1alpha/auth/logout",
+        "url_pattern": "/v1alpha/auth/logout",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/auth/validate_access_token",
+        "url_pattern": "/v1alpha/auth/validate_access_token",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/auth/change_password",
+        "url_pattern": "/v1alpha/auth/change_password",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
       {
         "endpoint": "/v1alpha/users/me",
         "url_pattern": "/v1alpha/users/me",

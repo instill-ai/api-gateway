@@ -1,4 +1,15 @@
 {
+  "basic": [
+    "Content-Type",
+    "Content-Length",
+    "X-Forwarded-For",
+    "Request-Id",
+    "Backend",
+    "Authorization",
+    "X-B3-Sampled",
+    "X-B3-Spanid",
+    "X-B3-Traceid"
+  ],
   "jwt_auth": [
     "Content-Type",
     "Content-Length",
@@ -8,6 +19,7 @@
     "X-B3-Sampled",
     "X-B3-Spanid",
     "X-B3-Traceid",
+    "jwt-sub",
     "instill-return-traces"
   ],
   "no_auth": [
@@ -32,6 +44,7 @@
     "X-B3-Sampled",
     "X-B3-Spanid",
     "X-B3-Traceid",
+    "jwt-sub",
     "instill-return-traces"
   ],
   "grpc_no_auth": [

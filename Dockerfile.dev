@@ -28,7 +28,11 @@ ENV GOCACHE /go/.cache/go-build
 ENV GOENV /go/.config/go/env
 
 RUN mkdir -p /usr/local/lib/krakend/plugin && chmod 777 /usr/local/lib/krakend/plugin
+RUN mkdir -p /instill && chmod 777 /instill
 
 USER nobody
+WORKDIR /tmp
+RUN git clone -b v2.0.12 https://github.com/lestrrat-go/jwx.git && cd jwx && make jwx && cd .. && rm -r jwx
 
+WORKDIR /${SERVICE_NAME}
 ENTRYPOINT ["tail", "-f", "/dev/null"]

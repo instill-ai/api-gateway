@@ -5,7 +5,7 @@ FROM --platform=$BUILDPLATFORM golang:${GOLANG_VERSION}-alpine${ALPINE_VERSION} 
 
 ARG SERVICE_NAME
 
-RUN apk --no-cache --virtual .build-deps add tar make gcc musl-dev binutils-gold build-base curl
+RUN apk --no-cache --virtual .build-deps add tar make gcc musl-dev binutils-gold build-base curl git bash
 
 WORKDIR /${SERVICE_NAME}
 
@@ -26,6 +26,8 @@ RUN if [[ "$BUILDARCH" = "amd64" && "$TARGETARCH" = "arm64" ]] ; \
     cd plugin && go mod download && \
     CGO_ENABLED=1 go build -buildmode=plugin -buildvcs=false -o grpc-proxy.so ./client; fi
 
+RUN git clone -b v2.0.12 https://github.com/lestrrat-go/jwx.git && cd jwx && make jwx && cd .. && rm -r jwx
+
 FROM devopsfaith/krakend:${KRAKEND_CE_VERSION}
 
 RUN apk update && apk add make bash gettext jq curl
@@ -35,10 +37,13 @@ ARG SERVICE_NAME
 WORKDIR /${SERVICE_NAME}
 
 COPY --from=build --chown=krakend:nogroup /${SERVICE_NAME}/plugin /usr/local/lib/krakend/plugin
+COPY --from=build --chown=krakend:nogroup /go/bin/jwx /go/bin/jwx
+RUN mkdir -p /instill && chmod 777 /instill
 
 COPY .env .env
 COPY Makefile Makefile
 COPY config config
+COPY scripts scripts
 
 RUN chown krakend:nogroup -R .
 
