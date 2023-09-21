@@ -39,7 +39,7 @@
 }
 {{- end}}
 ,
-{{- range $idx, $endpoint := $endpoints.jwt_auth }}
+{{- range $idx, $endpoint := $endpoints.http_auth }}
 {{- if $idx -}},{{ end }}
 {
   "endpoint": "/base{{ .endpoint }}",
@@ -55,7 +55,42 @@
   {{- end}}
   "timeout": "{{ .timeout }}",
   "output_encoding": "no-op",
-  "input_headers": {{ marshal $input_headers.jwt_auth }},
+  "input_headers": {{ marshal $input_headers.http_auth }},
+  "extra_config": {},
+  "backend": [
+    {
+      "url_pattern": "{{ .url_pattern }}",
+      "host": {{ marshal $host }},
+      "sd": "static",
+      "method": "{{ .method }}",
+      "disable_host_sanitize": false,
+      "extra_config": {
+        "github.com/devopsfaith/krakend-martian": {
+          "header.Modifier": {
+            "scope": ["response"],
+            "name": "Backend",
+            "value": "management"
+          }
+        }
+      }
+    }
+  ]
+},
+{
+  "endpoint": "/internal/base{{ .endpoint }}",
+  "method": "{{ .method }}",
+  {{- if len .input_query_strings -}}
+  "input_query_strings":
+  [
+    {{- range $qidx, $qstring := .input_query_strings }}
+    {{- if $qidx -}},{{ end }}
+    "{{ $qstring }}"
+    {{- end}}
+  ],
+  {{- end}}
+  "timeout": "{{ .timeout }}",
+  "output_encoding": "no-op",
+  "input_headers": {{ marshal $input_headers.http_auth }},
   "extra_config": {
     {{ template "auth_validator.tmpl" . }}
   },
@@ -115,6 +150,40 @@
       }
     }
   ]
+},
+{
+  "endpoint": "/internal/base{{ .endpoint }}",
+  "method": "{{ .method }}",
+  {{- if len .input_query_strings -}}
+  "input_query_strings":
+  [
+    {{- range $qidx, $qstring := .input_query_strings }}
+    {{- if $qidx -}},{{ end }}
+    "{{ $qstring }}"
+    {{- end}}
+  ],
+  {{- end}}
+  "timeout": "{{ .timeout }}",
+  "output_encoding": "no-op",
+  "input_headers": {{ marshal $input_headers.no_auth }},
+  "backend": [
+    {
+      "url_pattern": "{{ .url_pattern }}",
+      "host": {{ marshal $host }},
+      "sd": "static",
+      "method": "{{ .method }}",
+      "disable_host_sanitize": false,
+      "extra_config": {
+        "github.com/devopsfaith/krakend-martian": {
+          "header.Modifier": {
+            "scope": ["response"],
+            "name": "Backend",
+            "value": "management"
+          }
+        }
+      }
+    }
+  ]
 }
 {{- end}}
 ,
@@ -122,6 +191,29 @@
 {{- if $idx -}},{{ end }}
 {
   "endpoint": "{{ .endpoint }}",
+  "method": "{{ .method }}",
+  "timeout": "{{ .timeout }}",
+  "output_encoding": "no-op",
+  "input_headers": {{ marshal $input_headers.grpc_auth }},
+  "extra_config": {},
+  "backend": [
+    {
+      "url_pattern": "{{ .url_pattern }}",
+      "host": {{ marshal $host }},
+      "sd": "static",
+      "method": "{{ .method }}",
+      "disable_host_sanitize": false,
+      "extra_config": {
+        "plugin/http-client": {
+          "name": "grpc-proxy",
+          "grpc-proxy": {}
+        }
+      }
+    }
+  ]
+},
+{
+  "endpoint": "/internal/{{ .endpoint }}",
   "method": "{{ .method }}",
   "timeout": "{{ .timeout }}",
   "output_encoding": "no-op",
@@ -151,6 +243,28 @@
 {{- if $idx -}},{{ end }}
 {
   "endpoint": "{{ .endpoint }}",
+  "method": "{{ .method }}",
+  "timeout": "{{ .timeout }}",
+  "output_encoding": "no-op",
+  "input_headers": {{ marshal $input_headers.grpc_no_auth }},
+  "backend": [
+    {
+      "url_pattern": "{{ .url_pattern }}",
+      "host": {{ marshal $host }},
+      "sd": "static",
+      "method": "{{ .method }}",
+      "disable_host_sanitize": false,
+      "extra_config": {
+        "plugin/http-client": {
+          "name": "grpc-proxy",
+          "grpc-proxy": {}
+        }
+      }
+    }
+  ]
+},
+{
+  "endpoint": "/internal/{{ .endpoint }}",
   "method": "{{ .method }}",
   "timeout": "{{ .timeout }}",
   "output_encoding": "no-op",

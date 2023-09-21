@@ -25,6 +25,18 @@ RUN if [[ "$BUILDARCH" = "amd64" && "$TARGETARCH" = "arm64" ]] ; \
     else \
     cd plugin && go mod download && \
     CGO_ENABLED=1 go build -buildmode=plugin -buildvcs=false -o grpc-proxy.so ./client; fi
+RUN if [[ "$BUILDARCH" = "amd64" && "$TARGETARCH" = "arm64" ]] ; \
+    then \
+    curl -sL http://musl.cc/aarch64-linux-musl-cross.tgz | \
+    tar zx && \
+    export PATH="$PATH:/${SERVICE_NAME}/aarch64-linux-musl-cross/bin" && \
+    cd multi_auth_plugin && go mod download && \
+    CGO_ENABLED=1 ARCH=$TARGETARCH GOARCH=$TARGETARCH GOHOSTARCH=$BUILDARCH \
+    CC=aarch64-linux-musl-gcc EXTRA_LDFLAGS='-extld=aarch64-linux-musl-gcc' \
+    go build -buildmode=plugin -o multi-auth.so ./server; \
+    else \
+    cd multi_auth_plugin && go mod download && \
+    CGO_ENABLED=1 go build -buildmode=plugin -o multi-auth.so ./server; fi
 
 RUN git clone -b v2.0.12 https://github.com/lestrrat-go/jwx.git && cd jwx && make jwx && cd .. && rm -r jwx
 

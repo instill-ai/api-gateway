@@ -10,7 +10,7 @@
     "X-B3-Spanid",
     "X-B3-Traceid"
   ],
-  "jwt_auth": [
+  "http_auth": [
     "Content-Type",
     "Content-Length",
     "X-Forwarded-For",
