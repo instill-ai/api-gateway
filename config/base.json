@@ -35,7 +35,8 @@
       "name": ["multi-auth"],
       "multi-auth":{
         "token_validation_endpoint": "{{ .backends.mgmt }}/v1alpha/validate_token",
-          "mgmt": "{{ .backends.mgmt }}"
+        "token_issuer_endpoint": "{{ .backends.mgmt }}/v1alpha/auth/token_issuer",
+        "mgmt": "{{ .backends.mgmt }}"
       }
     }
   },
