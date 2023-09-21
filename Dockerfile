@@ -9,7 +9,8 @@ RUN apk --no-cache --virtual .build-deps add tar make gcc musl-dev binutils-gold
 
 WORKDIR /${SERVICE_NAME}
 
-COPY plugin plugin
+COPY grpc_proxy_plugin grpc_proxy_plugin
+COPY multi_auth_plugin multi_auth_plugin
 
 ARG TARGETARCH
 ARG BUILDARCH
@@ -18,12 +19,12 @@ RUN if [[ "$BUILDARCH" = "amd64" && "$TARGETARCH" = "arm64" ]] ; \
     curl -sL http://musl.cc/aarch64-linux-musl-cross.tgz | \
     tar zx && \
     export PATH="$PATH:/${SERVICE_NAME}/aarch64-linux-musl-cross/bin" && \
-    cd plugin && go mod download && \
+    cd grpc_proxy_plugin && go mod download && \
     CGO_ENABLED=1 ARCH=$TARGETARCH GOARCH=$TARGETARCH GOHOSTARCH=$BUILDARCH \
     CC=aarch64-linux-musl-gcc EXTRA_LDFLAGS='-extld=aarch64-linux-musl-gcc' \
     go build -buildmode=plugin -buildvcs=false -o grpc-proxy.so ./client; \
     else \
-    cd plugin && go mod download && \
+    cd grpc_proxy_plugin && go mod download && \
     CGO_ENABLED=1 go build -buildmode=plugin -buildvcs=false -o grpc-proxy.so ./client; fi
 RUN if [[ "$BUILDARCH" = "amd64" && "$TARGETARCH" = "arm64" ]] ; \
     then \
