@@ -26,7 +26,7 @@
         }
       }
     ],
-    "jwt_auth": [
+    "http_auth": [
       {
         "endpoint": "/v1alpha/auth/logout",
         "url_pattern": "/v1alpha/auth/logout",
@@ -277,7 +277,7 @@
     ]
   },
   "pipeline": {
-    "jwt_auth": [
+    "http_auth": [
       {
         "endpoint": "/v1alpha/pipelines",
         "url_pattern": "/v1alpha/pipelines",
@@ -662,7 +662,7 @@
     ]
   },
   "connector": {
-    "jwt_auth": [
+    "http_auth": [
       {
         "endpoint": "/v1alpha/connector-resources",
         "url_pattern": "/v1alpha/connector-resources",
@@ -910,7 +910,7 @@
     ]
   },
   "model": {
-    "jwt_auth": [
+    "http_auth": [
       {
         "endpoint": "/v1alpha/models",
         "url_pattern": "/v1alpha/models",

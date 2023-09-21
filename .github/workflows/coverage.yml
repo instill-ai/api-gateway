@@ -22,13 +22,26 @@ jobs:
 
       - name: Generate coverage report
         run: |
-          cd plugin
+          cd multi_auth_plugin
           go mod tidy
-          go test -race ./... -coverprofile=coverage.txt -covermode=atomic
+          go test -race ./... -coverprofile=coverage_multi_auth_plugin.txt -covermode=atomic
 
-      - name: Upload coverage report
+      - name: Generate coverage report
+        run: |
+          cd grpc_proxy_plugin
+          go mod tidy
+          go test -race ./... -coverprofile=coverage_grpc_proxy_plugin.txt -covermode=atomic
+
+      - name: Upload coverage report (multi_auth_plugin)
         uses: codecov/codecov-action@v2
         with:
-          file: ./coverage.txt
+          file: ./coverage_multi_auth_plugin.txt
+          flags: unittests
+          name: codecov-umbrella
+
+      - name: Upload coverage report (grpc_proxy_plugin)
+        uses: codecov/codecov-action@v2
+        with:
+          file: ./coverage_grpc_proxy_plugin.txt
           flags: unittests
           name: codecov-umbrella
