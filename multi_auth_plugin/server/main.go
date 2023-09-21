@@ -1,10 +1,13 @@
 package main
 
 import (
+	"bytes"
 	"context"
+	"encoding/base64"
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io/ioutil"
 	"net/http"
 	"strings"
 
@@ -26,6 +29,17 @@ func (r registerer) RegisterHandlers(f func(
 	handler func(context.Context, map[string]interface{}, http.Handler) (http.Handler, error),
 )) {
 	f(string(r), r.registerHandlers)
+}
+
+type LoginRequest struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
+}
+
+type LoginResponse struct {
+	AccessToken struct {
+		Sub string `json:"sub"`
+	} `json:"access_token"`
 }
 
 type ValidateTokenResp struct {
@@ -69,6 +83,57 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]inter
 				h.ServeHTTP(w, req)
 			} else if req.URL.String() == "/base/v1alpha/auth/login" {
 				h.ServeHTTP(w, req)
+			} else if strings.HasPrefix(authorization, "Basic ") || strings.HasPrefix(authorization, "basic ") {
+				basicAuth := strings.Split(authorization, " ")[1]
+
+				basicAuthDecoded, err := base64.StdEncoding.DecodeString(basicAuth)
+				if err != nil {
+					writeStatusUnauthorized(req, w)
+					return
+				}
+
+				loginRequest := LoginRequest{
+					Username: strings.Split(string(basicAuthDecoded), ":")[0],
+					Password: strings.Split(string(basicAuthDecoded), ":")[1],
+				}
+				loginRequestJson, err := json.Marshal(loginRequest)
+				if err != nil {
+					writeStatusUnauthorized(req, w)
+					return
+				}
+
+				loginReq, err := http.NewRequest("POST", config["token_issuer_endpoint"].(string), bytes.NewBuffer(loginRequestJson))
+				if err != nil {
+					writeStatusUnauthorized(req, w)
+					return
+				}
+
+				client := &http.Client{}
+				loginResponseJson, err := client.Do(loginReq)
+				if err != nil {
+					writeStatusUnauthorized(req, w)
+					return
+				}
+
+				defer loginResponseJson.Body.Close()
+
+				respBody, err := ioutil.ReadAll(loginResponseJson.Body)
+				if err != nil {
+					writeStatusUnauthorized(req, w)
+					return
+				}
+				var loginResponse LoginResponse
+
+				err = json.Unmarshal(respBody, &loginResponse)
+
+				if err != nil {
+					writeStatusUnauthorized(req, w)
+					return
+				}
+
+				req.Header.Set("jwt-sub", loginResponse.AccessToken.Sub)
+				h.ServeHTTP(w, req)
+
 			} else if strings.HasPrefix(authorization, "Bearer instill_sk_") || strings.HasPrefix(authorization, "bearer instill_sk_") {
 				reqValidate, err := http.NewRequest("POST", config["token_validation_endpoint"].(string), nil)
 
