@@ -49,6 +49,7 @@ build:							## Build dev docker image
 .PHONY: config
 config:							## Output the composed KrakenD configuration
 	@bash config/envsubst.sh
+	@bash scripts/generate_jwks.sh
 	@FC_ENABLE=1 \
 		FC_SETTINGS="config/settings" \
 		FC_PARTIALS="config/share/partials" \

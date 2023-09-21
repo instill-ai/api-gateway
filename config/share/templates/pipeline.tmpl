@@ -18,7 +18,9 @@
   "timeout": "{{ .timeout }}",
   "output_encoding": "no-op",
   "input_headers": {{ marshal $input_headers.jwt_auth }},
-  "extra_config": {},
+  "extra_config": {
+    {{ template "auth_validator.tmpl" . }}
+  },
   "backend": [
     {
       "url_pattern": "{{ .url_pattern }}",
@@ -86,7 +88,9 @@
   "timeout": "{{ .timeout }}",
   "output_encoding": "no-op",
   "input_headers": {{ marshal $input_headers.grpc_auth }},
-  "extra_config": {},
+  "extra_config": {
+    {{ template "auth_validator.tmpl" . }}
+  },
   "backend": [
     {
       "url_pattern": "{{ .url_pattern }}",
