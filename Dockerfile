@@ -19,27 +19,41 @@ RUN if [[ "$BUILDARCH" = "amd64" && "$TARGETARCH" = "arm64" ]] ; \
     curl -sL http://musl.cc/aarch64-linux-musl-cross.tgz | \
     tar zx && \
     export PATH="$PATH:/${SERVICE_NAME}/aarch64-linux-musl-cross/bin" && \
-    cd grpc_proxy_plugin && go mod download && \
+    cd /${SERVICE_NAME}/grpc_proxy_plugin && go mod download && \
     CGO_ENABLED=1 ARCH=$TARGETARCH GOARCH=$TARGETARCH GOHOSTARCH=$BUILDARCH \
     CC=aarch64-linux-musl-gcc EXTRA_LDFLAGS='-extld=aarch64-linux-musl-gcc' \
     go build -buildmode=plugin -buildvcs=false -o grpc-proxy.so ./client; \
     else \
-    cd grpc_proxy_plugin && go mod download && \
+    cd /${SERVICE_NAME}/grpc_proxy_plugin && go mod download && \
     CGO_ENABLED=1 go build -buildmode=plugin -buildvcs=false -o grpc-proxy.so ./client; fi
 RUN if [[ "$BUILDARCH" = "amd64" && "$TARGETARCH" = "arm64" ]] ; \
     then \
     curl -sL http://musl.cc/aarch64-linux-musl-cross.tgz | \
     tar zx && \
     export PATH="$PATH:/${SERVICE_NAME}/aarch64-linux-musl-cross/bin" && \
-    cd multi_auth_plugin && go mod download && \
+    cd /${SERVICE_NAME}/multi_auth_plugin && go mod download && \
     CGO_ENABLED=1 ARCH=$TARGETARCH GOARCH=$TARGETARCH GOHOSTARCH=$BUILDARCH \
     CC=aarch64-linux-musl-gcc EXTRA_LDFLAGS='-extld=aarch64-linux-musl-gcc' \
     go build -buildmode=plugin -o multi-auth.so ./server; \
     else \
-    cd multi_auth_plugin && go mod download && \
+    cd /${SERVICE_NAME}/multi_auth_plugin && go mod download && \
     CGO_ENABLED=1 go build -buildmode=plugin -o multi-auth.so ./server; fi
 
-RUN git clone -b v2.0.12 https://github.com/lestrrat-go/jwx.git && cd jwx && make jwx && cd .. && rm -r jwx
+RUN cd /${SERVICE_NAME} && \
+    git clone -b v2.0.12 https://github.com/lestrrat-go/jwx.git && \
+    if [[ "$BUILDARCH" = "amd64" && "$TARGETARCH" = "arm64" ]] ; \
+    then \
+    curl -sL http://musl.cc/aarch64-linux-musl-cross.tgz | \
+    tar zx && \
+    export PATH="$PATH:/${SERVICE_NAME}/aarch64-linux-musl-cross/bin" && \
+    cd /${SERVICE_NAME}/jwx/cmd/jwx && go mod download && \
+    CGO_ENABLED=1 ARCH=$TARGETARCH GOARCH=$TARGETARCH GOHOSTARCH=$BUILDARCH \
+    CC=aarch64-linux-musl-gcc EXTRA_LDFLAGS='-extld=aarch64-linux-musl-gcc' \
+    go build -o /go/bin/jwx . ; \
+    else \
+    cd /${SERVICE_NAME}/jwx/cmd/jwx && go mod download && \
+    go build -o /go/bin/jwx . ; \
+    fi
 
 FROM devopsfaith/krakend:${KRAKEND_CE_VERSION}
 
