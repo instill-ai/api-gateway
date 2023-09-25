@@ -21,7 +21,7 @@
     "X-B3-Traceid",
     "jwt-sub",
     "Instill-Return-Traces",
-    "Instill-Code"
+    "Instill-Share-Code"
   ],
   "no_auth": [
     "Content-Type",
@@ -46,7 +46,7 @@
     "X-B3-Traceid",
     "jwt-sub",
     "Instill-Return-Traces",
-    "Instill-Code"
+    "Instill-Share-Code"
   ],
   "grpc_no_auth": [
     "Content-Type",
