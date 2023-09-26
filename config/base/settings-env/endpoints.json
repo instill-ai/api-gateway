@@ -428,8 +428,8 @@
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/users/{user_id}/pipelines/{pipeline_id}/releases/{release_id}/set_default",
-        "url_pattern": "/v1alpha/users/{user_id}/pipelines/{pipeline_id}/releases/{release_id}/set_default",
+        "endpoint": "/v1alpha/users/{user_id}/pipelines/{pipeline_id}/releases/{release_id}/setDefault",
+        "url_pattern": "/v1alpha/users/{user_id}/pipelines/{pipeline_id}/releases/{release_id}/setDefault",
         "method": "POST",
         "timeout": "30s",
         "input_query_strings": []
