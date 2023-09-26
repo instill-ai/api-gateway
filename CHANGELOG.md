@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.5.0-alpha](https://github.com/instill-ai/api-gateway/compare/v0.4.0-alpha...v0.5.0-alpha) (2023-09-26)
+
+
+### Features
+
+* **auth:** add auth/signer and auth/validator ([#85](https://github.com/instill-ai/api-gateway/issues/85)) ([5e13fc2](https://github.com/instill-ai/api-gateway/commit/5e13fc20b8224e3c9afaf23e7bf09379a4fe22ba))
+* **plugin:** add multi_auth plugin to support `api_token` authentication and basic_auth ([#87](https://github.com/instill-ai/api-gateway/issues/87)) ([a482904](https://github.com/instill-ai/api-gateway/commit/a4829046f3d296f3e00cec1afea4a084ee5f52b5))
+
+
+### Bug Fixes
+
+* **auth:** fix api gateway `jwx` tool failed in arm64 ([#89](https://github.com/instill-ai/api-gateway/issues/89)) ([b76f85f](https://github.com/instill-ai/api-gateway/commit/b76f85f1d118f983b28057b8b9869f6d194e4043))
+* **base:** fix pipeline release `setDefault` endpoint ([#93](https://github.com/instill-ai/api-gateway/issues/93)) ([d1b33cd](https://github.com/instill-ai/api-gateway/commit/d1b33cd599bfda18b6b62f4e5f9fbe8c2197f647))
+
 ## [0.4.0-alpha](https://github.com/instill-ai/api-gateway/compare/v0.3.2-alpha...v0.4.0-alpha) (2023-09-13)
 
 
