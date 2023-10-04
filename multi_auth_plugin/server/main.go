@@ -50,7 +50,9 @@ func writeStatusUnauthorized(req *http.Request, w http.ResponseWriter) {
 
 	if req.ProtoMajor == 2 && strings.Contains(req.Header.Get("Content-Type"), "application/grpc") {
 		w.Header().Set("Content-Type", "application/grpc")
-		w.Header().Set("Trailer", "Grpc-Status, Grpc-Message")
+		w.Header().Set("Trailer", "Grpc-Status")
+		w.Header().Add("Trailer", "Grpc-Message")
+		w.Header().Add("Trailer", "Grpc-Status-Details-Bin")
 		w.Header().Set("Grpc-Status", "16") // UNAUTHENTICATED
 		w.WriteHeader(http.StatusOK)
 	} else {

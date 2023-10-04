@@ -1,4 +1,4 @@
-module plugin
+module grpc_proxy_plugin
 
 go 1.20
 
