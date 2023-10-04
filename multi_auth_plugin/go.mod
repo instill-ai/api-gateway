@@ -1,4 +1,4 @@
-module plugin
+module multi_auth_plugin
 
 go 1.19
 
