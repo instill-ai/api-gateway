@@ -85,9 +85,6 @@ func (r clientRegisterer) registerClients(_ context.Context, extra map[string]in
 		if resp.Body == nil {
 			return
 		}
-		w.Header().Set("Trailer", "Grpc-Status")
-		w.Header().Add("Trailer", "Grpc-Message")
-		w.Header().Add("Trailer", "Grpc-Status-Details-Bin")
 		for k, hs := range resp.Header {
 			for _, h := range hs {
 				w.Header().Add(k, h)

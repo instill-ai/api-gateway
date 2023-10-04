@@ -4,6 +4,9 @@ import (
 	"context"
 	"fmt"
 	"net/http"
+
+	"golang.org/x/net/http2"
+	"golang.org/x/net/http2/h2c"
 )
 
 // HandlerRegisterer is the symbol the plugin loader will try to load. It must implement the Registerer interface
@@ -43,13 +46,25 @@ func (l *responseHijacker) WriteHeader(s int) {
 	l.w.Header().Del("Grpc-Message")
 	l.w.Header().Del("Grpc-Status-Details-Bin")
 
+	l.w.Header().Set("Trailer", "Grpc-Status")
+	if l.grpcMessage != "" {
+		l.w.Header().Add("Trailer", "Grpc-Message")
+	}
+	if l.grpcStatusDetailsBin != "" {
+		l.w.Header().Add("Trailer", "Grpc-Status-Details-Bin")
+	}
+
 	l.w.WriteHeader(s)
 }
 
 func (l *responseHijacker) WriteTrailer() {
 	l.w.Header().Set("Grpc-Status", l.grpcStatus)
-	l.w.Header().Add("Grpc-Message", l.grpcMessage)
-	l.w.Header().Add("Grpc-Status-Details-Bin", l.grpcStatusDetailsBin)
+	if l.grpcMessage != "" {
+		l.w.Header().Set("Grpc-Message", l.grpcMessage)
+	}
+	if l.grpcStatusDetailsBin != "" {
+		l.w.Header().Set("Grpc-Status-Details-Bin", l.grpcStatusDetailsBin)
+	}
 }
 
 func (r handlerRegisterer) RegisterHandlers(f func(
@@ -61,11 +76,11 @@ func (r handlerRegisterer) RegisterHandlers(f func(
 
 func (r handlerRegisterer) registerHandlers(ctx context.Context, extra map[string]interface{}, h http.Handler) (http.Handler, error) {
 
-	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+	return h2c.NewHandler(http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
 		w = NewResponseHijacker(w)
 		h.ServeHTTP(w, req)
 		w.(Trailer).WriteTrailer()
-	}), nil
+	}), &http2.Server{}), nil
 
 }
 
