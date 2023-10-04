@@ -73,6 +73,8 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]inter
 		return h, errors.New("configuration not found")
 	}
 
+	client := &http.Client{}
+
 	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
 		authorization := req.Header.Get("Authorization")
 
@@ -107,7 +109,6 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]inter
 				return
 			}
 
-			client := &http.Client{}
 			loginResponseJson, err := client.Do(loginReq)
 			if err != nil {
 				writeStatusUnauthorized(req, w)
@@ -141,7 +142,7 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]inter
 				return
 			}
 			reqValidate.Header = req.Header
-			resValidate, err := http.DefaultClient.Do(reqValidate)
+			resValidate, err := client.Do(reqValidate)
 
 			if err != nil {
 				writeStatusUnauthorized(req, w)
