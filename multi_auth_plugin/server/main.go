@@ -12,8 +12,6 @@ import (
 	"strings"
 
 	grpc_zap "github.com/grpc-ecosystem/go-grpc-middleware/logging/zap"
-	"golang.org/x/net/http2"
-	"golang.org/x/net/http2/h2c"
 )
 
 // pluginName is the plugin name
@@ -50,9 +48,11 @@ func writeStatusUnauthorized(req *http.Request, w http.ResponseWriter) {
 
 	if req.ProtoMajor == 2 && strings.Contains(req.Header.Get("Content-Type"), "application/grpc") {
 		w.Header().Set("Content-Type", "application/grpc")
-		w.Header().Set("Trailer", "Grpc-Status, Grpc-Message")
-		w.Header().Set("Grpc-Status", "16") // UNAUTHENTICATED
+		w.Header().Set("Trailer", "Grpc-Status")
+		w.Header().Add("Trailer", "Grpc-Message")
 		w.WriteHeader(http.StatusOK)
+		w.Header().Set("Grpc-Status", "16")               // UNAUTHENTICATED
+		w.Header().Set("Grpc-Message", "Unauthenticated") // UNAUTHENTICATED
 	} else {
 		w.WriteHeader(http.StatusUnauthorized)
 		w.Header().Set("Content-Type", "application/json")
@@ -73,98 +73,95 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]inter
 		return h, errors.New("configuration not found")
 	}
 
-	return h2c.NewHandler(
-		http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
-			authorization := req.Header.Get("Authorization")
+	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+		authorization := req.Header.Get("Authorization")
 
-			if req.URL.String() == "/__health" {
-				h.ServeHTTP(w, req)
-			} else if req.URL.String() == "/base/v1alpha/validate_token" {
-				h.ServeHTTP(w, req)
-			} else if req.URL.String() == "/base/v1alpha/auth/login" {
-				h.ServeHTTP(w, req)
-			} else if strings.HasPrefix(authorization, "Basic ") || strings.HasPrefix(authorization, "basic ") {
-				basicAuth := strings.Split(authorization, " ")[1]
+		if req.URL.String() == "/__health" {
+			h.ServeHTTP(w, req)
+		} else if req.URL.String() == "/base/v1alpha/validate_token" {
+			h.ServeHTTP(w, req)
+		} else if req.URL.String() == "/base/v1alpha/auth/login" {
+			h.ServeHTTP(w, req)
+		} else if strings.HasPrefix(authorization, "Basic ") || strings.HasPrefix(authorization, "basic ") {
+			basicAuth := strings.Split(authorization, " ")[1]
 
-				basicAuthDecoded, err := base64.StdEncoding.DecodeString(basicAuth)
-				if err != nil {
-					writeStatusUnauthorized(req, w)
-					return
-				}
-
-				loginRequest := LoginRequest{
-					Username: strings.Split(string(basicAuthDecoded), ":")[0],
-					Password: strings.Split(string(basicAuthDecoded), ":")[1],
-				}
-				loginRequestJson, err := json.Marshal(loginRequest)
-				if err != nil {
-					writeStatusUnauthorized(req, w)
-					return
-				}
-
-				loginReq, err := http.NewRequest("POST", config["token_issuer_endpoint"].(string), bytes.NewBuffer(loginRequestJson))
-				if err != nil {
-					writeStatusUnauthorized(req, w)
-					return
-				}
-
-				client := &http.Client{}
-				loginResponseJson, err := client.Do(loginReq)
-				if err != nil {
-					writeStatusUnauthorized(req, w)
-					return
-				}
-
-				defer loginResponseJson.Body.Close()
-
-				respBody, err := ioutil.ReadAll(loginResponseJson.Body)
-				if err != nil {
-					writeStatusUnauthorized(req, w)
-					return
-				}
-				var loginResponse LoginResponse
-
-				err = json.Unmarshal(respBody, &loginResponse)
-
-				if err != nil {
-					writeStatusUnauthorized(req, w)
-					return
-				}
-
-				req.Header.Set("jwt-sub", loginResponse.AccessToken.Sub)
-				h.ServeHTTP(w, req)
-
-			} else if strings.HasPrefix(authorization, "Bearer instill_sk_") || strings.HasPrefix(authorization, "bearer instill_sk_") {
-				reqValidate, err := http.NewRequest("POST", config["token_validation_endpoint"].(string), nil)
-
-				if err != nil {
-					writeStatusUnauthorized(req, w)
-					return
-				}
-				reqValidate.Header = req.Header
-				resValidate, err := http.DefaultClient.Do(reqValidate)
-
-				if err != nil {
-					writeStatusUnauthorized(req, w)
-					return
-				}
-				defer resValidate.Body.Close()
-				if resValidate.StatusCode == 200 {
-					resValidateStruct := &ValidateTokenResp{}
-					json.NewDecoder(resValidate.Body).Decode(resValidateStruct)
-					req.Header.Set("jwt-sub", resValidateStruct.UserUid)
-					h.ServeHTTP(w, req)
-				} else {
-					writeStatusUnauthorized(req, w)
-				}
-
-			} else {
-				req.URL.Path = "/internal" + req.URL.Path
-				h.ServeHTTP(w, req)
+			basicAuthDecoded, err := base64.StdEncoding.DecodeString(basicAuth)
+			if err != nil {
+				writeStatusUnauthorized(req, w)
+				return
 			}
-		}),
-		&http2.Server{},
-	), nil
+
+			loginRequest := LoginRequest{
+				Username: strings.Split(string(basicAuthDecoded), ":")[0],
+				Password: strings.Split(string(basicAuthDecoded), ":")[1],
+			}
+			loginRequestJson, err := json.Marshal(loginRequest)
+			if err != nil {
+				writeStatusUnauthorized(req, w)
+				return
+			}
+
+			loginReq, err := http.NewRequest("POST", config["token_issuer_endpoint"].(string), bytes.NewBuffer(loginRequestJson))
+			if err != nil {
+				writeStatusUnauthorized(req, w)
+				return
+			}
+
+			client := &http.Client{}
+			loginResponseJson, err := client.Do(loginReq)
+			if err != nil {
+				writeStatusUnauthorized(req, w)
+				return
+			}
+
+			defer loginResponseJson.Body.Close()
+
+			respBody, err := ioutil.ReadAll(loginResponseJson.Body)
+			if err != nil {
+				writeStatusUnauthorized(req, w)
+				return
+			}
+			var loginResponse LoginResponse
+
+			err = json.Unmarshal(respBody, &loginResponse)
+
+			if err != nil {
+				writeStatusUnauthorized(req, w)
+				return
+			}
+
+			req.Header.Set("jwt-sub", loginResponse.AccessToken.Sub)
+			h.ServeHTTP(w, req)
+
+		} else if strings.HasPrefix(authorization, "Bearer instill_sk_") || strings.HasPrefix(authorization, "bearer instill_sk_") {
+			reqValidate, err := http.NewRequest("POST", config["token_validation_endpoint"].(string), nil)
+
+			if err != nil {
+				writeStatusUnauthorized(req, w)
+				return
+			}
+			reqValidate.Header = req.Header
+			resValidate, err := http.DefaultClient.Do(reqValidate)
+
+			if err != nil {
+				writeStatusUnauthorized(req, w)
+				return
+			}
+			defer resValidate.Body.Close()
+			if resValidate.StatusCode == 200 {
+				resValidateStruct := &ValidateTokenResp{}
+				json.NewDecoder(resValidate.Body).Decode(resValidateStruct)
+				req.Header.Set("jwt-sub", resValidateStruct.UserUid)
+				h.ServeHTTP(w, req)
+			} else {
+				writeStatusUnauthorized(req, w)
+			}
+
+		} else {
+			req.URL.Path = "/internal" + req.URL.Path
+			h.ServeHTTP(w, req)
+		}
+	}), nil
 
 }
 

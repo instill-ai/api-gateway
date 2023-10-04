@@ -22,10 +22,11 @@ RUN if [[ "$BUILDARCH" = "amd64" && "$TARGETARCH" = "arm64" ]] ; \
     cd /${SERVICE_NAME}/grpc_proxy_plugin && go mod download && \
     CGO_ENABLED=1 ARCH=$TARGETARCH GOARCH=$TARGETARCH GOHOSTARCH=$BUILDARCH \
     CC=aarch64-linux-musl-gcc EXTRA_LDFLAGS='-extld=aarch64-linux-musl-gcc' \
-    go build -buildmode=plugin -buildvcs=false -o grpc-proxy.so ./client; \
+    go build -buildmode=plugin -buildvcs=false -o grpc-proxy.so ./pkg; \
     else \
     cd /${SERVICE_NAME}/grpc_proxy_plugin && go mod download && \
-    CGO_ENABLED=1 go build -buildmode=plugin -buildvcs=false -o grpc-proxy.so ./client; fi
+    CGO_ENABLED=1 go build -buildmode=plugin -buildvcs=false -o grpc-proxy.so ./pkg; fi
+
 RUN if [[ "$BUILDARCH" = "amd64" && "$TARGETARCH" = "arm64" ]] ; \
     then \
     curl -sL http://musl.cc/aarch64-linux-musl-cross.tgz | \

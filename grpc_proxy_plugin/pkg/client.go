@@ -13,15 +13,15 @@ import (
 
 	grpc_zap "github.com/grpc-ecosystem/go-grpc-middleware/logging/zap"
 
-	"plugin/internal/logger"
+	"grpc_proxy_plugin/internal/logger"
 )
 
 // ClientRegisterer is the symbol the plugin loader will try to load. It must implement the RegisterClient interface
-var ClientRegisterer = registerer("grpc-proxy")
+var ClientRegisterer = clientRegisterer("grpc-proxy-client")
 
-type registerer string
+type clientRegisterer string
 
-func (registerer) RegisterLogger(v interface{}) {
+func (clientRegisterer) RegisterLogger(v interface{}) {
 	logger, _ := logger.GetZapLogger()
 	defer func() {
 		// can't handle the error due to https://github.com/uber-go/zap/issues/880
@@ -31,14 +31,14 @@ func (registerer) RegisterLogger(v interface{}) {
 	logger.Debug(fmt.Sprintf("[PLUGIN: %s] Logger loaded", ClientRegisterer))
 }
 
-func (r registerer) RegisterClients(f func(
+func (r clientRegisterer) RegisterClients(f func(
 	name string,
 	handler func(context.Context, map[string]interface{}) (http.Handler, error),
 )) {
 	f(string(r), r.registerClients)
 }
 
-func (r registerer) registerClients(_ context.Context, extra map[string]interface{}) (http.Handler, error) {
+func (r clientRegisterer) registerClients(_ context.Context, extra map[string]interface{}) (http.Handler, error) {
 
 	logger, _ := logger.GetZapLogger()
 	defer func() {
@@ -85,7 +85,6 @@ func (r registerer) registerClients(_ context.Context, extra map[string]interfac
 		if resp.Body == nil {
 			return
 		}
-		w.Header().Set("Trailer", "Grpc-Status, Grpc-Message")
 		for k, hs := range resp.Header {
 			for _, h := range hs {
 				w.Header().Add(k, h)
@@ -105,4 +104,6 @@ func (r registerer) registerClients(_ context.Context, extra map[string]interfac
 	}), nil
 }
 
-func main() {}
+func init() {
+	fmt.Printf("Plugin: client handler \"%s\" loaded!!!\n", ClientRegisterer)
+}
