@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.1-alpha](https://github.com/instill-ai/api-gateway/compare/v0.5.0-alpha...v0.5.1-alpha) (2023-10-13)
+
+
+### Bug Fixes
+
+* **plugin:** implement KrakenD grpc proxy server plugin to fix HTTP/2 Trailer issue ([#94](https://github.com/instill-ai/api-gateway/issues/94)) ([8c82733](https://github.com/instill-ai/api-gateway/commit/8c8273314719136ffd341ecac8fa7a613ed49eec))
+
 ## [0.5.0-alpha](https://github.com/instill-ai/api-gateway/compare/v0.4.0-alpha...v0.5.0-alpha) (2023-09-26)
 
 
