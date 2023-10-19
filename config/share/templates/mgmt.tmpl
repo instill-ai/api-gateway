@@ -4,7 +4,7 @@
 {{- range $idx, $endpoint := $endpoints.basic }}
 {{- if $idx -}},{{ end }}
 {
-  "endpoint": "/base{{ .endpoint }}",
+  "endpoint": "/core{{ .endpoint }}",
   "method": "{{ .method }}",
   {{- if len .input_query_strings -}}
   "input_query_strings":
@@ -42,7 +42,7 @@
 {{- range $idx, $endpoint := $endpoints.http_auth }}
 {{- if $idx -}},{{ end }}
 {
-  "endpoint": "/base{{ .endpoint }}",
+  "endpoint": "/core{{ .endpoint }}",
   "method": "{{ .method }}",
   {{- if len .input_query_strings -}}
   "input_query_strings":
@@ -77,7 +77,7 @@
   ]
 },
 {
-  "endpoint": "/internal/base{{ .endpoint }}",
+  "endpoint": "/internal/core{{ .endpoint }}",
   "method": "{{ .method }}",
   {{- if len .input_query_strings -}}
   "input_query_strings":
@@ -118,7 +118,7 @@
 {{- range $idx, $endpoint := $endpoints.no_auth }}
 {{- if $idx -}},{{ end }}
 {
-  "endpoint": "/base{{ .endpoint }}",
+  "endpoint": "/core{{ .endpoint }}",
   "method": "{{ .method }}",
   {{- if len .input_query_strings -}}
   "input_query_strings":
@@ -152,7 +152,7 @@
   ]
 },
 {
-  "endpoint": "/internal/base{{ .endpoint }}",
+  "endpoint": "/internal/core{{ .endpoint }}",
   "method": "{{ .method }}",
   {{- if len .input_query_strings -}}
   "input_query_strings":

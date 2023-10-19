@@ -14,15 +14,15 @@ jobs:
     name: Build and push image
     uses: instill-ai/api-gateway/.github/workflows/images.yml@main
     secrets: inherit
-  base:
+  core:
     needs: build-push-image
     if: github.ref == 'refs/heads/main'
-    name: Base Backends
+    name: Core Backends
     strategy:
       fail-fast: false
       matrix:
         component: [mgmt-backend]
-    uses: instill-ai/base/.github/workflows/integration-test-backend.yml@main
+    uses: instill-ai/core/.github/workflows/integration-test-backend.yml@main
     with:
       component: ${{ matrix.component }}
       target: latest
@@ -115,17 +115,17 @@ jobs:
             KRAKEND_CE_VERSION=${{ env.KRAKEND_CE_VERSION }}
           tags: instill/api-gateway:latest
 
-      - name: Checkout repo (base)
+      - name: Checkout repo (core)
         uses: actions/checkout@v3
         with:
-          repository: instill-ai/base
+          repository: instill-ai/core
 
-      - name: Load .env file (base)
+      - name: Load .env file (core)
         uses: cardinalby/export-env-action@v2
         with:
           envFile: .env
 
-      - name: Launch Instill Base (latest)
+      - name: Launch Instill Core (latest)
         run: |
           COMPOSE_PROFILES=all \
           EDITION=local-ce:test \

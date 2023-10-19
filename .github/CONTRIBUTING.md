@@ -16,11 +16,11 @@ Before delving into the details to come up with your first PR, please familiaris
 
 ### Prerequisites
 
-- [Instill Base](https://github.com/instill-ai/base)
+- [Instill Core](https://github.com/instill-ai/core)
 
 ### Local development
 
-On the local machine, clone the desired project repository in your workspace either [base](https://github.com/instill-ai/base), [vdp](https://github.com/instill-ai/vdp) or [model](https://github.com/instill-ai/model), then move to the repository folder, and launch all dependent microservices:
+On the local machine, clone the desired project repository in your workspace either [core](https://github.com/instill-ai/core), [vdp](https://github.com/instill-ai/vdp) or [model](https://github.com/instill-ai/model), then move to the repository folder, and launch all dependent microservices:
 
 ```bash
 $ git clone https://github.com/instill-ai/<project-name-here>.git
