@@ -183,94 +183,94 @@
     ],
     "grpc_auth": [
       {
-        "endpoint": "/base.mgmt.v1alpha.MgmtPublicService/QueryAuthenticatedUser",
-        "url_pattern": "/base.mgmt.v1alpha.MgmtPublicService/QueryAuthenticatedUser",
+        "endpoint": "/core.mgmt.v1alpha.MgmtPublicService/QueryAuthenticatedUser",
+        "url_pattern": "/core.mgmt.v1alpha.MgmtPublicService/QueryAuthenticatedUser",
         "method": "POST",
         "timeout": "30s"
       },
       {
-        "endpoint": "/base.mgmt.v1alpha.MgmtPublicService/PatchAuthenticatedUser",
-        "url_pattern": "/base.mgmt.v1alpha.MgmtPublicService/PatchAuthenticatedUser",
+        "endpoint": "/core.mgmt.v1alpha.MgmtPublicService/PatchAuthenticatedUser",
+        "url_pattern": "/core.mgmt.v1alpha.MgmtPublicService/PatchAuthenticatedUser",
         "method": "POST",
         "timeout": "30s"
       },
       {
-        "endpoint": "/base.mgmt.v1alpha.MgmtPublicService/CreateToken",
-        "url_pattern": "/base.mgmt.v1alpha.MgmtPublicService/CreateToken",
+        "endpoint": "/core.mgmt.v1alpha.MgmtPublicService/CreateToken",
+        "url_pattern": "/core.mgmt.v1alpha.MgmtPublicService/CreateToken",
         "method": "POST",
         "timeout": "30s"
       },
       {
-        "endpoint": "/base.mgmt.v1alpha.MgmtPublicService/ListTokens",
-        "url_pattern": "/base.mgmt.v1alpha.MgmtPublicService/ListTokens",
+        "endpoint": "/core.mgmt.v1alpha.MgmtPublicService/ListTokens",
+        "url_pattern": "/core.mgmt.v1alpha.MgmtPublicService/ListTokens",
         "method": "POST",
         "timeout": "30s"
       },
       {
-        "endpoint": "/base.mgmt.v1alpha.MgmtPublicService/GetToken",
-        "url_pattern": "/base.mgmt.v1alpha.MgmtPublicService/GetToken",
+        "endpoint": "/core.mgmt.v1alpha.MgmtPublicService/GetToken",
+        "url_pattern": "/core.mgmt.v1alpha.MgmtPublicService/GetToken",
         "method": "POST",
         "timeout": "30s"
       },
       {
-        "endpoint": "/base.mgmt.v1alpha.MgmtPublicService/DeleteToken",
-        "url_pattern": "/base.mgmt.v1alpha.MgmtPublicService/DeleteToken",
+        "endpoint": "/core.mgmt.v1alpha.MgmtPublicService/DeleteToken",
+        "url_pattern": "/core.mgmt.v1alpha.MgmtPublicService/DeleteToken",
         "method": "POST",
         "timeout": "30s"
       },
       {
-        "endpoint": "/base.mgmt.v1alpha.MgmtPublicService/ListPipelineTriggerRecords",
-        "url_pattern": "/base.mgmt.v1alpha.MgmtPublicService/ListPipelineTriggerRecords",
+        "endpoint": "/core.mgmt.v1alpha.MgmtPublicService/ListPipelineTriggerRecords",
+        "url_pattern": "/core.mgmt.v1alpha.MgmtPublicService/ListPipelineTriggerRecords",
         "method": "POST",
         "timeout": "30s"
       },
       {
-        "endpoint": "/base.mgmt.v1alpha.MgmtPublicService/ListPipelineTriggerTableRecords",
-        "url_pattern": "/base.mgmt.v1alpha.MgmtPublicService/ListPipelineTriggerTableRecords",
+        "endpoint": "/core.mgmt.v1alpha.MgmtPublicService/ListPipelineTriggerTableRecords",
+        "url_pattern": "/core.mgmt.v1alpha.MgmtPublicService/ListPipelineTriggerTableRecords",
         "method": "POST",
         "timeout": "30s"
       },
       {
-        "endpoint": "/base.mgmt.v1alpha.MgmtPublicService/ListPipelineTriggerChartRecords",
-        "url_pattern": "/base.mgmt.v1alpha.MgmtPublicService/ListPipelineTriggerChartRecords",
+        "endpoint": "/core.mgmt.v1alpha.MgmtPublicService/ListPipelineTriggerChartRecords",
+        "url_pattern": "/core.mgmt.v1alpha.MgmtPublicService/ListPipelineTriggerChartRecords",
         "method": "POST",
         "timeout": "30s"
       },
       {
-        "endpoint": "/base.mgmt.v1alpha.MgmtPublicService/ListConnectorExecuteRecords",
-        "url_pattern": "/base.mgmt.v1alpha.MgmtPublicService/ListConnectorExecuteRecords",
+        "endpoint": "/core.mgmt.v1alpha.MgmtPublicService/ListConnectorExecuteRecords",
+        "url_pattern": "/core.mgmt.v1alpha.MgmtPublicService/ListConnectorExecuteRecords",
         "method": "POST",
         "timeout": "30s"
       },
       {
-        "endpoint": "/base.mgmt.v1alpha.MgmtPublicService/ListConnectorExecuteTableRecords",
-        "url_pattern": "/base.mgmt.v1alpha.MgmtPublicService/ListConnectorExecuteTableRecords",
+        "endpoint": "/core.mgmt.v1alpha.MgmtPublicService/ListConnectorExecuteTableRecords",
+        "url_pattern": "/core.mgmt.v1alpha.MgmtPublicService/ListConnectorExecuteTableRecords",
         "method": "POST",
         "timeout": "30s"
       },
       {
-        "endpoint": "/base.mgmt.v1alpha.MgmtPublicService/ListConnectorExecuteChartRecords",
-        "url_pattern": "/base.mgmt.v1alpha.MgmtPublicService/ListConnectorExecuteChartRecords",
+        "endpoint": "/core.mgmt.v1alpha.MgmtPublicService/ListConnectorExecuteChartRecords",
+        "url_pattern": "/core.mgmt.v1alpha.MgmtPublicService/ListConnectorExecuteChartRecords",
         "method": "POST",
         "timeout": "30s"
       }
     ],
     "grpc_no_auth": [
       {
-        "endpoint": "/base.mgmt.v1alpha.MgmtPublicService/Liveness",
-        "url_pattern": "/base.mgmt.v1alpha.MgmtPublicService/Liveness",
+        "endpoint": "/core.mgmt.v1alpha.MgmtPublicService/Liveness",
+        "url_pattern": "/core.mgmt.v1alpha.MgmtPublicService/Liveness",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/base.mgmt.v1alpha.MgmtPublicService/Readiness",
-        "url_pattern": "/base.mgmt.v1alpha.MgmtPublicService/Readiness",
+        "endpoint": "/core.mgmt.v1alpha.MgmtPublicService/Readiness",
+        "url_pattern": "/core.mgmt.v1alpha.MgmtPublicService/Readiness",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/base.mgmt.v1alpha.MgmtPublicService/ExistUsername",
-        "url_pattern": "/base.mgmt.v1alpha.MgmtPublicService/ExistUsername",
+        "endpoint": "/core.mgmt.v1alpha.MgmtPublicService/ExistUsername",
+        "url_pattern": "/core.mgmt.v1alpha.MgmtPublicService/ExistUsername",
         "method": "POST",
         "timeout": "5s"
       }
