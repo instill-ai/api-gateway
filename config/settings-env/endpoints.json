@@ -1147,7 +1147,7 @@
         "endpoint": "/model.model.v1alpha.ModelPublicService/DeleteUserModel",
         "url_pattern": "/model.model.v1alpha.ModelPublicService/DeleteUserModel",
         "method": "POST",
-        "timeout": "5s"
+        "timeout": "30s"
       },
       {
         "endpoint": "/model.model.v1alpha.ModelPublicService/RenameUserModel",
