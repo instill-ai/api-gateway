@@ -49,8 +49,21 @@
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/users/me",
-        "url_pattern": "/v1alpha/users/me",
+        "endpoint": "/v1alpha/users",
+        "url_pattern": "/v1alpha/users",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view",
+          "page_size",
+          "page_token",
+          "filter",
+          "show_deleted"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/users/{id}",
+        "url_pattern": "/v1alpha/users/{id}",
         "method": "GET",
         "timeout": "30s",
         "input_query_strings": []
@@ -59,6 +72,100 @@
         "endpoint": "/v1alpha/users/me",
         "url_pattern": "/v1alpha/users/me",
         "method": "PATCH",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/users/{id}/memberships",
+        "url_pattern": "/v1alpha/users/{id}/memberships",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/users/{id}/memberships/{membership_id}",
+        "url_pattern": "/v1alpha/users/{id}/memberships/{membership_id}",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/users/{id}/memberships/{membership_id}",
+        "url_pattern": "/v1alpha/users/{id}/memberships/{membership_id}",
+        "method": "PUT",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/users/{id}/memberships/{membership_id}",
+        "url_pattern": "/v1alpha/users/{id}/memberships/{membership_id}",
+        "method": "DELETE",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/organizations",
+        "url_pattern": "/v1alpha/organizations",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/organizations",
+        "url_pattern": "/v1alpha/organizations",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "page_size",
+          "page_token"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/organizations/{id}",
+        "url_pattern": "/v1alpha/organizations/{id}",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/organizations/{id}",
+        "url_pattern": "/v1alpha/organizations/{id}",
+        "method": "PATCH",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/organizations/{id}",
+        "url_pattern": "/v1alpha/organizations/{id}",
+        "method": "DELETE",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/organizations/{id}/memberships",
+        "url_pattern": "/v1alpha/organizations/{id}/memberships",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/organizations/{id}/memberships/{membership_id}",
+        "url_pattern": "/v1alpha/organizations/{id}/memberships/{membership_id}",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/organizations/{id}/memberships/{membership_id}",
+        "url_pattern": "/v1alpha/organizations/{id}/memberships/{membership_id}",
+        "method": "PUT",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/organizations/{id}/memberships/{membership_id}",
+        "url_pattern": "/v1alpha/organizations/{id}/memberships/{membership_id}",
+        "method": "DELETE",
         "timeout": "30s",
         "input_query_strings": []
       },
@@ -183,14 +290,98 @@
     ],
     "grpc_auth": [
       {
-        "endpoint": "/core.mgmt.v1alpha.MgmtPublicService/QueryAuthenticatedUser",
-        "url_pattern": "/core.mgmt.v1alpha.MgmtPublicService/QueryAuthenticatedUser",
+        "endpoint": "/core.mgmt.v1alpha.MgmtPublicService/ListUsers",
+        "url_pattern": "/core.mgmt.v1alpha.MgmtPublicService/ListUsers",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/core.mgmt.v1alpha.MgmtPublicService/GetUser",
+        "url_pattern": "/core.mgmt.v1alpha.MgmtPublicService/GetUser",
         "method": "POST",
         "timeout": "30s"
       },
       {
         "endpoint": "/core.mgmt.v1alpha.MgmtPublicService/PatchAuthenticatedUser",
         "url_pattern": "/core.mgmt.v1alpha.MgmtPublicService/PatchAuthenticatedUser",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/core.mgmt.v1alpha.MgmtPublicService/CreateOrganization",
+        "url_pattern": "/core.mgmt.v1alpha.MgmtPublicService/CreateOrganization",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/core.mgmt.v1alpha.MgmtPublicService/ListOrganizations",
+        "url_pattern": "/core.mgmt.v1alpha.MgmtPublicService/ListOrganizations",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/core.mgmt.v1alpha.MgmtPublicService/GetOrganization",
+        "url_pattern": "/core.mgmt.v1alpha.MgmtPublicService/GetOrganization",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/core.mgmt.v1alpha.MgmtPublicService/UpdateOrganization",
+        "url_pattern": "/core.mgmt.v1alpha.MgmtPublicService/UpdateOrganization",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/core.mgmt.v1alpha.MgmtPublicService/DeleteOrganization",
+        "url_pattern": "/core.mgmt.v1alpha.MgmtPublicService/DeleteOrganization",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/core.mgmt.v1alpha.MgmtPublicService/ListUserMemberships",
+        "url_pattern": "/core.mgmt.v1alpha.MgmtPublicService/ListUserMemberships",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/core.mgmt.v1alpha.MgmtPublicService/GetUserMembership",
+        "url_pattern": "/core.mgmt.v1alpha.MgmtPublicService/GetUserMembership",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/core.mgmt.v1alpha.MgmtPublicService/UpdateUserMembership",
+        "url_pattern": "/core.mgmt.v1alpha.MgmtPublicService/UpdateUserMembership",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/core.mgmt.v1alpha.MgmtPublicService/DeleteUserMembership",
+        "url_pattern": "/core.mgmt.v1alpha.MgmtPublicService/DeleteUserMembership",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/core.mgmt.v1alpha.MgmtPublicService/ListOrganizationMemberships",
+        "url_pattern": "/core.mgmt.v1alpha.MgmtPublicService/ListOrganizationMemberships",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/core.mgmt.v1alpha.MgmtPublicService/GetOrganizationMembership",
+        "url_pattern": "/core.mgmt.v1alpha.MgmtPublicService/GetOrganizationMembership",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/core.mgmt.v1alpha.MgmtPublicService/UpdateOrganizationMembership",
+        "url_pattern": "/core.mgmt.v1alpha.MgmtPublicService/UpdateOrganizationMembership",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/core.mgmt.v1alpha.MgmtPublicService/DeleteOrganizationMembership",
+        "url_pattern": "/core.mgmt.v1alpha.MgmtPublicService/DeleteOrganizationMembership",
         "method": "POST",
         "timeout": "30s"
       },
