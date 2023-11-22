@@ -43,7 +43,6 @@
   "endpoints": [
     {{- template "mgmt.tmpl" . }},
     {{- template "pipeline.tmpl" . }},
-    {{- template "connector.tmpl" . }},
     {{- template "model.tmpl" . }},
     {{- template "debug.tmpl" . }}
   ]
