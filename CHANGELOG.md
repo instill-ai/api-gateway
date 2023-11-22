@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.0-alpha](https://github.com/instill-ai/api-gateway/compare/v0.5.3-alpha...v0.6.0-alpha) (2023-11-22)
+
+
+### Features
+
+* **core:** add organization endpoints ([#109](https://github.com/instill-ai/api-gateway/issues/109)) ([2a7f2a6](https://github.com/instill-ai/api-gateway/commit/2a7f2a604ba1bdc3c70df72ce5ab39f972a7baa1))
+
 ## [0.5.3-alpha](https://github.com/instill-ai/api-gateway/compare/v0.5.2-alpha...v0.5.3-alpha) (2023-11-11)
 
 
