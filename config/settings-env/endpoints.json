@@ -647,6 +647,161 @@
         "input_query_strings": []
       },
       {
+        "endpoint": "/v1alpha/organization/{organization}/pipelines",
+        "url_pattern": "/v1alpha/organization/{organization}/pipelines",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/organization/{organization}/pipelines",
+        "url_pattern": "/v1alpha/organization/{organization}/pipelines",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view",
+          "page_size",
+          "page_token",
+          "filter",
+          "show_deleted"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/organization/{organization}/pipelines/{pipeline_id}",
+        "url_pattern": "/v1alpha/organization/{organization}/pipelines/{pipeline_id}",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/organization/{organization}/pipelines/{pipeline_id}",
+        "url_pattern": "/v1alpha/organization/{organization}/pipelines/{pipeline_id}",
+        "method": "PATCH",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/organization/{organization}/pipelines/{pipeline_id}",
+        "url_pattern": "/v1alpha/organization/{organization}/pipelines/{pipeline_id}",
+        "method": "DELETE",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/organization/{organization}/pipelines/{pipeline_id}/rename",
+        "url_pattern": "/v1alpha/organization/{organization}/pipelines/{pipeline_id}/rename",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/organization/{organization}/pipelines/{pipeline_id}/validate",
+        "url_pattern": "/v1alpha/organization/{organization}/pipelines/{pipeline_id}/validate",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/organization/{organization}/pipelines/{pipeline_id}/trigger",
+        "url_pattern": "/v1alpha/organization/{organization}/pipelines/{pipeline_id}/trigger",
+        "method": "POST",
+        "timeout": "600s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/organization/{organization}/pipelines/{pipeline_id}/triggerAsync",
+        "url_pattern": "/v1alpha/organization/{organization}/pipelines/{pipeline_id}/triggerAsync",
+        "method": "POST",
+        "timeout": "600s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/organization/{organization}/pipelines/{pipeline_id}/releases",
+        "url_pattern": "/v1alpha/organization/{organization}/pipelines/{pipeline_id}/releases",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view",
+          "page_size",
+          "page_token",
+          "filter"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/organization/{organization}/pipelines/{pipeline_id}/releases",
+        "url_pattern": "/v1alpha/organization/{organization}/pipelines/{pipeline_id}/releases",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/organization/{organization}/pipelines/{pipeline_id}/releases/{release_id}",
+        "url_pattern": "/v1alpha/organization/{organization}/pipelines/{pipeline_id}/releases/{release_id}",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/organization/{organization}/pipelines/{pipeline_id}/releases/{release_id}",
+        "url_pattern": "/v1alpha/organization/{organization}/pipelines/{pipeline_id}/releases/{release_id}",
+        "method": "PATCH",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/organization/{organization}/pipelines/{pipeline_id}/releases/{release_id}",
+        "url_pattern": "/v1alpha/organization/{organization}/pipelines/{pipeline_id}/releases/{release_id}",
+        "method": "DELETE",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/organization/{organization}/pipelines/{pipeline_id}/releases/{release_id}/trigger",
+        "url_pattern": "/v1alpha/organization/{organization}/pipelines/{pipeline_id}/releases/{release_id}/trigger",
+        "method": "POST",
+        "timeout": "600s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/organization/{organization}/pipelines/{pipeline_id}/releases/{release_id}/triggerAsync",
+        "url_pattern": "/v1alpha/organization/{organization}/pipelines/{pipeline_id}/releases/{release_id}/triggerAsync",
+        "method": "POST",
+        "timeout": "600s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/organization/{organization}/pipelines/{pipeline_id}/releases/{release_id}/setDefault",
+        "url_pattern": "/v1alpha/organization/{organization}/pipelines/{pipeline_id}/releases/{release_id}/setDefault",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/organization/{organization}/pipelines/{pipeline_id}/releases/{release_id}/restore",
+        "url_pattern": "/v1alpha/organization/{organization}/pipelines/{pipeline_id}/releases/{release_id}/restore",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/organization/{organization}/pipelines/{pipeline_id}/releases/{release_id}/watch",
+        "url_pattern": "/v1alpha/organization/{organization}/pipelines/{pipeline_id}/releases/{release_id}/watch",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/organization/{organization}/pipelines/{pipeline_id}/releases/{release_id}/rename",
+        "url_pattern": "/v1alpha/organization/{organization}/pipelines/{pipeline_id}/releases/{release_id}/rename",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
         "endpoint": "/v1alpha/operations/{id}",
         "url_pattern": "/v1alpha/operations/{id}",
         "method": "GET",
@@ -756,6 +911,91 @@
       {
         "endpoint": "/v1alpha/users/{user_id}/connectors/{id}/testConnection",
         "url_pattern": "/v1alpha/users/{user_id}/connectors/{id}/testConnection",
+        "method": "POST",
+        "timeout": "360s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/organizations/{organization_id}/connectors",
+        "url_pattern": "/v1alpha/organizations/{organization_id}/connectors",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view",
+          "page_size",
+          "page_token",
+          "filter",
+          "show_deleted"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/organizations/{organization_id}/connectors",
+        "url_pattern": "/v1alpha/organizations/{organization_id}/connectors",
+        "method": "POST",
+        "timeout": "360s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/organizations/{organization_id}/connectors/{id}",
+        "url_pattern": "/v1alpha/organizations/{organization_id}/connectors/{id}",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/organizations/{organization_id}/connectors/{id}",
+        "url_pattern": "/v1alpha/organizations/{organization_id}/connectors/{id}",
+        "method": "PATCH",
+        "timeout": "360s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/organizations/{organization_id}/connectors/{id}",
+        "url_pattern": "/v1alpha/organizations/{organization_id}/connectors/{id}",
+        "method": "DELETE",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/organizations/{organization_id}/connectors/{id}/watch",
+        "url_pattern": "/v1alpha/organizations/{organization_id}/connectors/{id}/watch",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/organizations/{organization_id}/connectors/{id}/connect",
+        "url_pattern": "/v1alpha/organizations/{organization_id}/connectors/{id}/connect",
+        "method": "POST",
+        "timeout": "360s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/organizations/{organization_id}/connectors/{id}/disconnect",
+        "url_pattern": "/v1alpha/organizations/{organization_id}/connectors/{id}/disconnect",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/organizations/{organization_id}/connectors/{id}/rename",
+        "url_pattern": "/v1alpha/organizations/{organization_id}/connectors/{id}/rename",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/organizations/{organization_id}/connectors/{id}/execute",
+        "url_pattern": "/v1alpha/organizations/{organization_id}/connectors/{id}/execute",
+        "method": "POST",
+        "timeout": "360s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/organizations/{organization_id}/connectors/{id}/testConnection",
+        "url_pattern": "/v1alpha/organizations/{organization_id}/connectors/{id}/testConnection",
         "method": "POST",
         "timeout": "360s",
         "input_query_strings": []
@@ -947,6 +1187,128 @@
         "method": "POST",
         "timeout": "600s"
       },
+
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/CreateOrganizationPipeline",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/CreateOrganizationPipeline",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/ListOrganizationPipelines",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/ListOrganizationPipelines",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/GetOrganizationPipeline",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/GetOrganizationPipeline",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/UpdateOrganizationPipeline",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/UpdateOrganizationPipeline",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/DeleteOrganizationPipeline",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/DeleteOrganizationPipeline",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/RenameOrganizationPipeline",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/RenameOrganizationPipeline",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/ValidateOrganizationPipeline",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/ValidateOrganizationPipeline",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/TriggerOrganizationPipeline",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/TriggerOrganizationPipeline",
+        "method": "POST",
+        "timeout": "600s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/TriggerAsyncOrganizationPipeline",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/TriggerAsyncOrganizationPipeline",
+        "method": "POST",
+        "timeout": "600s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/CreateOrganizationPipelineRelease",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/CreateOrganizationPipelineRelease",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/ListOrganizationPipelineReleases",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/ListOrganizationPipelineReleases",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/GetOrganizationPipelineRelease",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/GetOrganizationPipelineRelease",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/UpdateOrganizationPipelineRelease",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/UpdateOrganizationPipelineRelease",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/DeleteOrganizationPipelineRelease",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/DeleteOrganizationPipelineRelease",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/WatchOrganizationPipelineRelease",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/WatchOrganizationPipelineRelease",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/SetDefaultOrganizationPipelineRelease",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/SetDefaultOrganizationPipelineRelease",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/RestoreOrganizationPipelineRelease",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/RestoreOrganizationPipelineRelease",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/RenameOrganizationPipelineRelease",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/RenameOrganizationPipelineRelease",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/TriggerOrganizationPipelineRelease",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/TriggerOrganizationPipelineRelease",
+        "method": "POST",
+        "timeout": "600s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/TriggerAsyncOrganizationPipelineRelease",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/TriggerAsyncOrganizationPipelineRelease",
+        "method": "POST",
+        "timeout": "600s"
+      },
+      
       {
         "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/GetOperation",
         "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/GetOperation",
@@ -1028,6 +1390,72 @@
       {
         "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/TestUserConnector",
         "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/TestUserConnector",
+        "method": "POST",
+        "timeout": "360s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/CreateOrganizationConnector",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/CreateOrganizationConnector",
+        "method": "POST",
+        "timeout": "360s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/ListOrganizationConnectors",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/ListOrganizationConnectors",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/GetOrganizationConnector",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/GetOrganizationConnector",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/UpdateOrganizationConnector",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/UpdateOrganizationConnector",
+        "method": "POST",
+        "timeout": "360s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/DeleteOrganizationConnector",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/DeleteOrganizationConnector",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/WatchOrganizationConnector",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/WatchOrganizationConnector",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/ConnectOrganizationConnector",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/ConnectOrganizationConnector",
+        "method": "POST",
+        "timeout": "360s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/DisconnectOrganizationConnector",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/DisconnectOrganizationConnector",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/RenameOrganizationConnector",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/RenameOrganizationConnector",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/ExecuteOrganizationConnector",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/ExecuteOrganizationConnector",
+        "method": "POST",
+        "timeout": "360s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/TestOrganizationConnector",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/TestOrganizationConnector",
         "method": "POST",
         "timeout": "360s"
       }
