@@ -281,9 +281,9 @@
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/users/{id}/exist",
-        "url_pattern": "/v1alpha/users/{id}/exist",
-        "method": "GET",
+        "endpoint": "/v1alpha/check-namespace",
+        "url_pattern": "/v1alpha/check-namespace",
+        "method": "POST",
         "timeout": "30s",
         "input_query_strings": []
       }
@@ -460,8 +460,8 @@
         "timeout": "5s"
       },
       {
-        "endpoint": "/core.mgmt.v1alpha.MgmtPublicService/ExistUsername",
-        "url_pattern": "/core.mgmt.v1alpha.MgmtPublicService/ExistUsername",
+        "endpoint": "/core.mgmt.v1alpha.MgmtPublicService/CheckNamespace",
+        "url_pattern": "/core.mgmt.v1alpha.MgmtPublicService/CheckNamespace",
         "method": "POST",
         "timeout": "5s"
       }
