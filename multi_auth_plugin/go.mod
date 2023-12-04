@@ -3,6 +3,7 @@ module multi_auth_plugin
 go 1.19
 
 require (
+	github.com/gofrs/uuid v4.3.1+incompatible
 	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0
 	go.uber.org/zap v1.19.1
 	google.golang.org/grpc v1.53.0
