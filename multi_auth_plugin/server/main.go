@@ -11,6 +11,8 @@ import (
 	"net/http"
 	"strings"
 
+	"github.com/gofrs/uuid"
+
 	grpc_zap "github.com/grpc-ecosystem/go-grpc-middleware/logging/zap"
 )
 
@@ -157,6 +159,11 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]inter
 			} else {
 				writeStatusUnauthorized(req, w)
 			}
+
+		} else if authorization == "" {
+			visitorID, _ := uuid.NewV4()
+			req.Header.Set("jwt-sub", fmt.Sprintf("visitor:%s", visitorID.String()))
+			h.ServeHTTP(w, req)
 
 		} else {
 			req.URL.Path = "/internal" + req.URL.Path

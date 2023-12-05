@@ -1316,8 +1316,8 @@
         "timeout": "600s"
       },
       {
-        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/ListConnectorsResource",
-        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/ListConnectorsResource",
+        "endpoint": "/vdp.pipeline.v1alpha.PipelinePublicService/ListConnectors",
+        "url_pattern": "/vdp.pipeline.v1alpha.PipelinePublicService/ListConnectors",
         "method": "POST",
         "timeout": "5s"
       },
