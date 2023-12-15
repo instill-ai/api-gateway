@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.7.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.6.0-alpha...v0.7.0-beta) (2023-12-15)
+
+
+### Features
+
+* **core,vdp:** upgrade endpoints version from v1alpha to v1beta ([#116](https://github.com/instill-ai/api-gateway/issues/116)) ([aaa153f](https://github.com/instill-ai/api-gateway/commit/aaa153ff33adc727233aed04938370652c2a1a36))
+* **plugin:** inject visitor id for public endpoints ([#114](https://github.com/instill-ai/api-gateway/issues/114)) ([ea6ebfa](https://github.com/instill-ai/api-gateway/commit/ea6ebfa2af83b6b54fc90ac0685777de68e0f556))
+* **vdp:** add organization pipeline and connector endpoints ([#112](https://github.com/instill-ai/api-gateway/issues/112)) ([aa08892](https://github.com/instill-ai/api-gateway/commit/aa08892575e987fd5555a3908c0d39c00497f5c7))
+
+
+### Miscellaneous Chores
+
+* **release:** release v0.7.0-beta ([a91aa20](https://github.com/instill-ai/api-gateway/commit/a91aa207002c677955c7c247081196e134a53dc4))
+
 ## [0.6.0-alpha](https://github.com/instill-ai/api-gateway/compare/v0.5.3-alpha...v0.6.0-alpha) (2023-11-22)
 
 
