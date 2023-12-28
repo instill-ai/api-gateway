@@ -79,3 +79,7 @@ COPY .env .env
 COPY Makefile Makefile
 COPY config config
 COPY scripts scripts
+
+RUN chown nobody:nogroup -R .
+
+USER nobody:nogroup
