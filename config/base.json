@@ -34,8 +34,7 @@
     "plugin/http-server": {
       "name": ["multi-auth", "grpc-proxy-server"],
       "multi-auth":{
-        "token_validation_endpoint": "{{ .backends.mgmt }}/v1beta/validate_token",
-        "token_issuer_endpoint": "{{ .backends.mgmt }}/v1beta/auth/token_issuer"
+        "grpc_server": "{{ .backends.mgmt_grpc }}"
       },
       "grpc-proxy-server": {}
     }
