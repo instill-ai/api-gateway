@@ -1,19 +1,18 @@
 package main
 
 import (
-	"bytes"
 	"context"
 	"encoding/base64"
-	"encoding/json"
 	"errors"
 	"fmt"
-	"io/ioutil"
 	"net/http"
 	"strings"
 
 	"github.com/gofrs/uuid"
+	"google.golang.org/grpc/metadata"
 
 	grpc_zap "github.com/grpc-ecosystem/go-grpc-middleware/logging/zap"
+	mgmtPB "github.com/instill-ai/protogen-go/core/mgmt/v1beta"
 )
 
 // pluginName is the plugin name
@@ -75,7 +74,7 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]inter
 		return h, errors.New("configuration not found")
 	}
 
-	client := &http.Client{}
+	mgmtClient, _ := InitMgmtPublicServiceClient(context.Background(), config["grpc_server"].(string), "", "")
 
 	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
 		authorization := req.Header.Get("Authorization")
@@ -95,77 +94,39 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]inter
 				return
 			}
 
-			loginRequest := LoginRequest{
+			resp, err := mgmtClient.AuthTokenIssuer(ctx, &mgmtPB.AuthTokenIssuerRequest{
 				Username: strings.Split(string(basicAuthDecoded), ":")[0],
 				Password: strings.Split(string(basicAuthDecoded), ":")[1],
-			}
-			loginRequestJson, err := json.Marshal(loginRequest)
+			})
 			if err != nil {
 				writeStatusUnauthorized(req, w)
 				return
 			}
 
-			loginReq, err := http.NewRequest("POST", config["token_issuer_endpoint"].(string), bytes.NewBuffer(loginRequestJson))
-			if err != nil {
-				writeStatusUnauthorized(req, w)
-				return
-			}
-
-			loginResponseJson, err := client.Do(loginReq)
-			if err != nil {
-				writeStatusUnauthorized(req, w)
-				return
-			}
-
-			defer loginResponseJson.Body.Close()
-
-			respBody, err := ioutil.ReadAll(loginResponseJson.Body)
-			if err != nil {
-				writeStatusUnauthorized(req, w)
-				return
-			}
-			var loginResponse LoginResponse
-
-			err = json.Unmarshal(respBody, &loginResponse)
-
-			if err != nil {
-				writeStatusUnauthorized(req, w)
-				return
-			}
-
-			req.Header.Set("jwt-sub", loginResponse.AccessToken.Sub)
+			req.Header.Set("Instill-Auth-Type", "user")
+			req.Header.Set("Instill-User-Uid", resp.AccessToken.Sub)
 			h.ServeHTTP(w, req)
 
 		} else if strings.HasPrefix(authorization, "Bearer instill_sk_") || strings.HasPrefix(authorization, "bearer instill_sk_") {
-			reqValidate, err := http.NewRequest("POST", config["token_validation_endpoint"].(string), nil)
 
+			ctx = metadata.AppendToOutgoingContext(context.Background(), "Authorization", req.Header.Get("authorization"))
+			resp, err := mgmtClient.ValidateToken(ctx, &mgmtPB.ValidateTokenRequest{})
 			if err != nil {
 				writeStatusUnauthorized(req, w)
 				return
 			}
-			reqValidate.Header = req.Header
-			resValidate, err := client.Do(reqValidate)
-
-			if err != nil {
-				writeStatusUnauthorized(req, w)
-				return
-			}
-			defer resValidate.Body.Close()
-			if resValidate.StatusCode == 200 {
-				resValidateStruct := &ValidateTokenResp{}
-				json.NewDecoder(resValidate.Body).Decode(resValidateStruct)
-				req.Header.Set("jwt-sub", resValidateStruct.UserUid)
-				h.ServeHTTP(w, req)
-			} else {
-				writeStatusUnauthorized(req, w)
-			}
+			req.Header.Set("Instill-Auth-Type", "user")
+			req.Header.Set("Instill-User-Uid", resp.UserUid)
+			h.ServeHTTP(w, req)
 
 		} else if authorization == "" {
 			visitorID, _ := uuid.NewV4()
-			req.Header.Set("jwt-sub", fmt.Sprintf("visitor:%s", visitorID.String()))
+			req.Header.Set("Instill-Auth-Type", "visitor")
+			req.Header.Set("Instill-Visitor-Uid", visitorID.String())
 			h.ServeHTTP(w, req)
 
 		} else {
+			req.Header.Set("Instill-Auth-Type", "user")
 			req.URL.Path = "/internal" + req.URL.Path
 			h.ServeHTTP(w, req)
 		}

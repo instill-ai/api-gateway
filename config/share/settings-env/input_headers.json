@@ -19,7 +19,10 @@
     "X-B3-Sampled",
     "X-B3-Spanid",
     "X-B3-Traceid",
-    "jwt-sub",
+    "Instill-Auth-Type",
+    "Instill-User-Uid",
+    "Instill-User-Id",
+    "Instill-Visitor-Uid",
     "Instill-Return-Traces",
     "Instill-Share-Code"
   ],
@@ -44,7 +47,10 @@
     "X-B3-Sampled",
     "X-B3-Spanid",
     "X-B3-Traceid",
-    "jwt-sub",
+    "Instill-Auth-Type",
+    "Instill-User-Uid",
+    "Instill-User-Id",
+    "Instill-Visitor-Uid",
     "Instill-Return-Traces",
     "Instill-Share-Code"
   ],
