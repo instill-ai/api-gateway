@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.7.1-beta](https://github.com/instill-ai/api-gateway/compare/v0.7.0-beta...v0.7.1-beta) (2023-12-29)
+
+
+### Bug Fixes
+
+* **dockerfile:** build Krakend from source to fix golang vesion mismatch ([#119](https://github.com/instill-ai/api-gateway/issues/119)) ([6c9edc2](https://github.com/instill-ai/api-gateway/commit/6c9edc2eb3a58e812d7d6d86b28776ebecdb742d))
+* **dockerfile:** fix cross compiling issues ([#122](https://github.com/instill-ai/api-gateway/issues/122)) ([558b99e](https://github.com/instill-ai/api-gateway/commit/558b99e186fbd309f83f1252d6cf11a89f6e4b58))
+
 ## [0.7.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.6.0-alpha...v0.7.0-beta) (2023-12-15)
 
 
