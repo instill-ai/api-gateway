@@ -1,6 +1,15 @@
 ARG GOLANG_VERSION
 ARG ALPINE_VERSION
 ARG KRAKEND_CE_VERSION
+
+FROM golang:${GOLANG_VERSION}-alpine${ALPINE_VERSION} as krakend_builder
+
+RUN apk --no-cache --virtual .build-deps add git make gcc musl-dev binutils-gold
+
+ARG KRAKEND_CE_VERSION
+RUN git clone -b v${KRAKEND_CE_VERSION} https://github.com/krakendio/krakend-ce.git /krakend && cd /krakend && make build && cp krakend /usr/bin
+
+
 FROM --platform=$BUILDPLATFORM golang:${GOLANG_VERSION}-alpine${ALPINE_VERSION} AS build
 
 ARG SERVICE_NAME
@@ -14,8 +23,6 @@ COPY multi_auth_plugin multi_auth_plugin
 
 ARG TARGETARCH
 ARG BUILDARCH
-ARG KRAKEND_CE_VERSION
-RUN git clone -b v${KRAKEND_CE_VERSION} https://github.com/krakendio/krakend-ce.git /krakend && cd /krakend && make build && cp krakend /usr/bin
 RUN if [[ "$BUILDARCH" = "amd64" && "$TARGETARCH" = "arm64" ]] ; \
     then \
     curl -sL http://musl.cc/aarch64-linux-musl-cross.tgz | \
@@ -58,10 +65,15 @@ RUN cd /${SERVICE_NAME} && \
     go build -o /go/bin/jwx . ; \
     fi
 
-
 FROM alpine:${ALPINE_VERSION}
 
 RUN apk update && apk add make bash gettext jq curl
+RUN apk add --no-cache ca-certificates tzdata && \
+    adduser -u 1000 -S -D -H krakend && \
+    mkdir /etc/krakend && \
+    echo '{ "version": 3 }' > /etc/krakend/krakend.json
+
+COPY --from=krakend_builder /usr/bin/krakend /usr/bin/krakend
 
 ARG SERVICE_NAME
 
@@ -69,10 +81,9 @@ WORKDIR /${SERVICE_NAME}
 
 RUN mkdir -p /usr/local/lib/krakend/plugin && chmod 777 /usr/local/lib/krakend/plugin
 
-COPY --from=build /usr/bin/krakend /usr/bin
-COPY --from=build /${SERVICE_NAME}/grpc_proxy_plugin/grpc-proxy.so /usr/local/lib/krakend/plugin
-COPY --from=build /${SERVICE_NAME}/multi_auth_plugin/multi-auth.so /usr/local/lib/krakend/plugin
-COPY --from=build /go/bin/jwx /go/bin/jwx
+COPY --from=build --chown=krakend:nogroup /${SERVICE_NAME}/grpc_proxy_plugin/grpc-proxy.so /usr/local/lib/krakend/plugin
+COPY --from=build --chown=krakend:nogroup /${SERVICE_NAME}/multi_auth_plugin/multi-auth.so /usr/local/lib/krakend/plugin
+COPY --from=build --chown=krakend:nogroup /go/bin/jwx /go/bin/jwx
 RUN mkdir -p /instill && chmod 777 /instill
 
 COPY .env .env
@@ -80,6 +91,6 @@ COPY Makefile Makefile
 COPY config config
 COPY scripts scripts
 
-RUN chown nobody:nogroup -R .
+RUN chown krakend:nogroup -R .
 
-USER nobody:nogroup
+USER krakend
