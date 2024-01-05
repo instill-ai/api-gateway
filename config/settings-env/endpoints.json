@@ -476,6 +476,7 @@
         "timeout": "30s",
         "input_query_strings": [
           "view",
+          "visibility",
           "page_size",
           "page_token",
           "filter",
