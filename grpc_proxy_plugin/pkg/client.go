@@ -69,6 +69,7 @@ func (r clientRegisterer) registerClients(_ context.Context, extra map[string]in
 		}
 
 		httpClient := http.Client{Transport: tr}
+		defer httpClient.CloseIdleConnections()
 
 		resp, err := httpClient.Do(req)
 		if err != nil {
