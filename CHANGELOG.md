@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.7.1-beta...v0.8.0-beta) (2024-01-17)
+
+
+### Features
+
+* **vdp:** propagate `visibility` query param for GET /pipelines endpoint ([#124](https://github.com/instill-ai/api-gateway/issues/124)) ([6c3bb64](https://github.com/instill-ai/api-gateway/commit/6c3bb64748d7b43a1d321dc8971b9d41ed960012))
+
 ## [0.7.1-beta](https://github.com/instill-ai/api-gateway/compare/v0.7.0-beta...v0.7.1-beta) (2023-12-29)
 
 
