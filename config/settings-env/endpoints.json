@@ -1690,15 +1690,113 @@
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/test",
-        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/test",
+        "endpoint": "/v1alpha/organizations/{organization_id}/models",
+        "url_pattern": "/v1alpha/organizations/{organization_id}/models",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view",
+          "page_size",
+          "page_token",
+          "show_deleted"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/organizations/{organization_id}/models",
+        "url_pattern": "/v1alpha/organizations/{organization_id}/models",
+        "method": "POST",
+        "timeout": "86400s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/organizations/{organization_id}/models/multipart",
+        "url_pattern": "/v1alpha/organizations/{organization_id}/models/multipart",
+        "method": "POST",
+        "timeout": "86400s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}",
+        "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}",
+        "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}",
+        "method": "PATCH",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}",
+        "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}",
+        "method": "DELETE",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}/rename",
+        "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}/rename",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}/publish",
+        "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}/publish",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}/unpublish",
+        "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}/unpublish",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}/readme",
+        "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}/readme",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}/watch",
+        "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}/watch",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}/deploy",
+        "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}/deploy",
+        "method": "POST",
+        "timeout": "86400s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}/undeploy",
+        "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}/undeploy",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}/trigger",
+        "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}/trigger",
         "method": "POST",
         "timeout": "600s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/test-multipart",
-        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/test-multipart",
+        "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}/trigger-multipart",
+        "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}/trigger-multipart",
         "method": "POST",
         "timeout": "600s",
         "input_query_strings": []
@@ -1849,14 +1947,92 @@
         "timeout": "600s"
       },
       {
-        "endpoint": "/model.model.v1alpha.ModelPublicService/TestUserModel",
-        "url_pattern": "/model.model.v1alpha.ModelPublicService/TestUserModel",
+        "endpoint": "/model.model.v1alpha.ModelPublicService/CreateOrganizationModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/CreateOrganizationModel",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/model.model.v1alpha.ModelPublicService/CreateOrganizationModelBinaryFileUpload",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/CreateOrganizationModelBinaryFileUpload",
+        "method": "POST",
+        "timeout": "86400s"
+      },
+      {
+        "endpoint": "/model.model.v1alpha.ModelPublicService/ListOrganizationModels",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/ListOrganizationModels",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/model.model.v1alpha.ModelPublicService/GetOrganizationModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/GetOrganizationModel",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/model.model.v1alpha.ModelPublicService/UpdateOrganizationModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/UpdateOrganizationModel",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/model.model.v1alpha.ModelPublicService/DeleteOrganizationModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/DeleteOrganizationModel",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/model.model.v1alpha.ModelPublicService/RenameOrganizationModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/RenameOrganizationModel",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/model.model.v1alpha.ModelPublicService/PublishOrganizationModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/PublishOrganizationModel",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/model.model.v1alpha.ModelPublicService/UnpublishOrganizationModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/UnpublishOrganizationModel",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/model.model.v1alpha.ModelPublicService/DeployOrganizationModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/DeployOrganizationModel",
+        "method": "POST",
+        "timeout": "86400s"
+      },
+      {
+        "endpoint": "/model.model.v1alpha.ModelPublicService/UndeployOrganizationModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/UndeployOrganizationModel",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/model.model.v1alpha.ModelPublicService/GetOrganizationModelCard",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/GetOrganizationModelCard",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/model.model.v1alpha.ModelPublicService/WatchOrganizationModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/WatchOrganizationModel",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/model.model.v1alpha.ModelPublicService/TriggerOrganizationModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/TriggerOrganizationModel",
         "method": "POST",
         "timeout": "600s"
       },
       {
-        "endpoint": "/model.model.v1alpha.ModelPublicService/TestUserModelBinaryFileUpload",
-        "url_pattern": "/model.model.v1alpha.ModelPublicService/TestUserModelBinaryFileUpload",
+        "endpoint": "/model.model.v1alpha.ModelPublicService/TriggerOrganizationModelBinaryFileUpload",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/TriggerOrganizationModelBinaryFileUpload",
         "method": "POST",
         "timeout": "600s"
       },
