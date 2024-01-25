@@ -33,7 +33,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        component: [pipeline-backend, controller-vdp]
+        component: [pipeline-backend]
     uses: instill-ai/vdp/.github/workflows/integration-test-backend.yml@main
     with:
       component: ${{ matrix.component }}
@@ -45,7 +45,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        component: [model-backend, controller-model]
+        component: [model-backend]
     uses: instill-ai/model/.github/workflows/integration-test-backend.yml@main
     with:
       component: ${{ matrix.component }}
