@@ -470,6 +470,13 @@
   "pipeline": {
     "http_auth": [
       {
+        "endpoint": "/v1beta/check-name",
+        "url_pattern": "/v1beta/check-name",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
         "endpoint": "/v1beta/pipelines",
         "url_pattern": "/v1beta/pipelines",
         "method": "GET",
@@ -1072,6 +1079,12 @@
       }
     ],
     "grpc_auth": [
+      {
+        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/CheckName",
+        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/CheckName",
+        "method": "POST",
+        "timeout": "5s"
+      },
       {
         "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/ListPipelines",
         "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/ListPipelines",
