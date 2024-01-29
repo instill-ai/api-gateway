@@ -544,6 +544,13 @@
         "input_query_strings": []
       },
       {
+        "endpoint": "/v1beta/users/{user_id}/pipelines/{pipeline_id}/clone",
+        "url_pattern": "/v1beta/users/{user_id}/pipelines/{pipeline_id}/clone",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
         "endpoint": "/v1beta/users/{user_id}/pipelines/{pipeline_id}/validate",
         "url_pattern": "/v1beta/users/{user_id}/pipelines/{pipeline_id}/validate",
         "method": "POST",
@@ -695,6 +702,13 @@
       {
         "endpoint": "/v1beta/organizations/{organization_id}/pipelines/{pipeline_id}/rename",
         "url_pattern": "/v1beta/organizations/{organization_id}/pipelines/{pipeline_id}/rename",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1beta/organizations/{organization_id}/pipelines/{pipeline_id}/clone",
+        "url_pattern": "/v1beta/organizations/{organization_id}/pipelines/{pipeline_id}/clone",
         "method": "POST",
         "timeout": "30s",
         "input_query_strings": []
@@ -1107,6 +1121,12 @@
         "timeout": "5s"
       },
       {
+        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/CloneUserPipeline",
+        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/CloneUserPipeline",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
         "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/ValidateUserPipeline",
         "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/ValidateUserPipeline",
         "method": "POST",
@@ -1224,6 +1244,12 @@
       {
         "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/RenameOrganizationPipeline",
         "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/RenameOrganizationPipeline",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/CloneOrganizationPipeline",
+        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/CloneOrganizationPipeline",
         "method": "POST",
         "timeout": "5s"
       },
