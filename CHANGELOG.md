@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.9.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.8.0-beta...v0.9.0-beta) (2024-01-29)
+
+
+### Features
+
+* **vdp:** add `CheckName` endpoint ([#132](https://github.com/instill-ai/api-gateway/issues/132)) ([e5ad528](https://github.com/instill-ai/api-gateway/commit/e5ad528be29565044566b2dda1ebbad52fdd112a))
+* **vdp:** add `CloneUserPipeline` and `CloneOrganizationPipeline` endpoints ([#131](https://github.com/instill-ai/api-gateway/issues/131)) ([633967f](https://github.com/instill-ai/api-gateway/commit/633967fe67f81a89aeb64d05e7b4d641702607ca))
+* **vdp:** add visibility query param for list pipelines endpoints ([#130](https://github.com/instill-ai/api-gateway/issues/130)) ([d664bc3](https://github.com/instill-ai/api-gateway/commit/d664bc3d4d44d329e408a2afc7a4fdfc9d41953f))
+
 ## [0.8.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.7.1-beta...v0.8.0-beta) (2024-01-17)
 
 
