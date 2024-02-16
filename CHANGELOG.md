@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.10.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.9.0-beta...v0.10.0-beta) (2024-02-05)
+
+
+### Features
+
+* **mgmt:** refactor API for `GET` and `PATCH` authenticated user ([#133](https://github.com/instill-ai/api-gateway/issues/133)) ([d4c3268](https://github.com/instill-ai/api-gateway/commit/d4c3268219e1db7b1956b420517ed14c4b9cf69c))
+* **model:** add model organization endpoints ([#135](https://github.com/instill-ai/api-gateway/issues/135)) ([b653945](https://github.com/instill-ai/api-gateway/commit/b6539454d06bf3fd97300cc9829b91cb41de1fed))
+
 ## [0.9.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.8.0-beta...v0.9.0-beta) (2024-01-29)
 
 
