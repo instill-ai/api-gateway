@@ -1053,7 +1053,7 @@
         "timeout": "30s",
         "input_query_strings": [
           "page_size",
-          "page_token",
+          "page",
           "view",
           "filter"
         ]
