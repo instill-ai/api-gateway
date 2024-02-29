@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.11.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.10.0-beta...v0.11.0-beta) (2024-02-29)
+
+
+### Features
+
+* **vdp:** add component definition list endpoint ([#137](https://github.com/instill-ai/api-gateway/issues/137)) ([8e459b7](https://github.com/instill-ai/api-gateway/commit/8e459b7c3ef862d17c219afbc6064f8ff0c2d45c))
+
+
+### Bug Fixes
+
+* **vdp:** implement offset pagination in component list endpoint ([#139](https://github.com/instill-ai/api-gateway/issues/139)) ([a6b7566](https://github.com/instill-ai/api-gateway/commit/a6b75667a9909341009389421a2adbe0881bf087))
+
 ## [0.10.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.9.0-beta...v0.10.0-beta) (2024-02-05)
 
 
