@@ -32,11 +32,14 @@
     {{ template "influxdb_metrics.tmpl" . }},
     {{ template "cors.tmpl" . }},
     "plugin/http-server": {
-      "name": ["multi-auth", "grpc-proxy-server"],
+      "name": ["multi-auth", "grpc-proxy-server", "registry"],
       "multi-auth":{
-        "grpc_server": "{{ .backends.mgmt_grpc }}"
+        "grpc_server": "{{ .plugins.mgmt_grpc }}"
       },
-      "grpc-proxy-server": {}
+      "grpc-proxy-server": {},
+      "registry": {
+        "hostport": "{{ .plugins.registry_hostport }}"
+      }
     }
   },
   "endpoints": [

@@ -1,0 +1,4 @@
+{
+    "mgmt_grpc": "${MGMT_BACKEND_HOST}:${MGMT_BACKEND_PUBLICPORT}",
+    "registry_hostport": "${REGISTRY_HOST}:${REGISTRY_PORT}"
+}
