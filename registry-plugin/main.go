@@ -35,31 +35,31 @@ func (r registerer) registerHandlers(_ context.Context, extra map[string]interfa
 
 	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
 
-		// If the URL path contains /v2/, indicating a request to Distribution Registry HTTP API V2,
-		// the traffic is hijacked and directed to the registry
-		if strings.Contains(req.URL.Path, "/v2/") {
-			req.URL.Scheme = "http"
-			req.URL.Host = hostport
-			req.RequestURI = ""
-
-			resp, err := http.DefaultClient.Do(req)
-			if err != nil {
-				http.Error(w, err.Error(), http.StatusInternalServerError)
-				return
-			}
-
-			// Copy headers, status codes, and body from the backend to the response writer
-			for k, hs := range resp.Header {
-				for _, h := range hs {
-					w.Header().Add(k, h)
-				}
-			}
-			w.WriteHeader(resp.StatusCode)
-			io.Copy(w, resp.Body)
-			resp.Body.Close()
-		} else {
+		if !strings.Contains(req.URL.Path, "/v2/") {
 			h.ServeHTTP(w, req)
 		}
+
+		// If the URL path contains /v2/, indicating a request to Distribution Registry HTTP API V2,
+		// the traffic is hijacked and directed to the registry
+		req.URL.Scheme = "http"
+		req.URL.Host = hostport
+		req.RequestURI = ""
+
+		resp, err := http.DefaultClient.Do(req)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		// Copy headers, status codes, and body from the backend to the response writer
+		for k, hs := range resp.Header {
+			for _, h := range hs {
+				w.Header().Add(k, h)
+			}
+		}
+		w.WriteHeader(resp.StatusCode)
+		io.Copy(w, resp.Body)
+		resp.Body.Close()
 
 	}), nil
 }
