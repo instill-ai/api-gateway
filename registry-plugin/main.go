@@ -32,22 +32,31 @@ func (r registerer) registerHandlers(_ context.Context, extra map[string]interfa
 	}
 
 	hostport, _ := config["hostport"].(string)
+	prefix, _ := config["prefix"].(string)
 
 	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
 
-		if !strings.Contains(req.URL.Path, "/v2/") {
+		// If the URL path starts with "/v2/" (indicating the first handshake request to confirm registry V2 API),
+		// "/v2/prefix/" (before the registry prefix is applied), or "/prefix/v2/" (after the registry prefix is applied),
+		// it means that the request is intended for the Instill Artifact registry. In this case, the traffic is hijacked
+		// and directly relayed to the registry. Otherwise, if the URL path does not match any of these patterns,
+		// the traffic is passed through to the next handler.
+		if req.URL.Path != "/v2/" &&
+			!strings.HasPrefix(req.URL.Path, fmt.Sprintf("/v2%s", prefix)) &&
+			!strings.HasPrefix(req.URL.Path, fmt.Sprintf("%sv2/", prefix)) {
 			h.ServeHTTP(w, req)
+			return
 		}
 
-		// If the URL path contains /v2/, indicating a request to Distribution Registry HTTP API V2,
-		// the traffic is hijacked and directed to the registry
 		req.URL.Scheme = "http"
 		req.URL.Host = hostport
+		req.URL.Path = strings.TrimSuffix(prefix, "/") + strings.Replace(req.URL.Path, prefix, "/", 1)
 		req.RequestURI = ""
 
 		resp, err := http.DefaultClient.Do(req)
 		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
+			logger.Error(err.Error())
+			w.WriteHeader(http.StatusInternalServerError)
 			return
 		}
 
@@ -75,7 +84,7 @@ func (registerer) RegisterLogger(v interface{}) {
 		return
 	}
 	logger = l
-	logger.Debug(fmt.Sprintf("[PLUGIN: %s] Logger loaded", HandlerRegisterer))
+	logger.Info(fmt.Sprintf("[PLUGIN: %s] Logger loaded", HandlerRegisterer))
 }
 
 // Logger is an interface for logging functionality.

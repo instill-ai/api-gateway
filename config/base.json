@@ -38,7 +38,8 @@
       },
       "grpc-proxy-server": {},
       "registry": {
-        "hostport": "{{ .plugins.registry_hostport }}"
+        "hostport": "{{ .plugins.registry_hostport }}",
+        "prefix": "{{ .plugins.registry_prefix }}"
       }
     }
   },
