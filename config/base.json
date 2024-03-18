@@ -34,12 +34,13 @@
     "plugin/http-server": {
       "name": ["multi-auth", "grpc-proxy-server", "registry"],
       "multi-auth":{
-        "grpc_server": "{{ .plugins.mgmt_grpc }}"
+        "grpc_server": "{{ .plugins.mgmt_public_hostport }}"
       },
       "grpc-proxy-server": {},
       "registry": {
         "hostport": "{{ .plugins.registry_hostport }}",
-        "prefix": "{{ .plugins.registry_prefix }}"
+        "mgmt_public_hostport": "{{ .plugins.mgmt_public_hostport }}",
+        "mgmt_private_hostport": "{{ .plugins.mgmt_private_hostport }}"
       }
     }
   },
