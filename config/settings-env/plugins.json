@@ -1,0 +1,5 @@
+{
+    "mgmt_public_hostport": "${MGMT_BACKEND_HOST}:${MGMT_BACKEND_PUBLICPORT}",
+    "mgmt_private_hostport": "${MGMT_BACKEND_HOST}:${MGMT_BACKEND_PRIVATEPORT}",
+    "registry_hostport": "${REGISTRY_HOST}:${REGISTRY_PORT}"
+}

@@ -1248,7 +1248,6 @@
         "method": "POST",
         "timeout": "600s"
       },
-
       {
         "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/CreateOrganizationPipeline",
         "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/CreateOrganizationPipeline",
@@ -1375,7 +1374,6 @@
         "method": "POST",
         "timeout": "600s"
       },
-      
       {
         "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/GetOperation",
         "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/GetOperation",
