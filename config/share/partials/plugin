@@ -1,4 +1,4 @@
 "plugin": {
     "pattern": ".so",
-    "folder": "/usr/local/lib/krakend/plugin"
+    "folder": "/usr/local/lib/krakend/plugins"
 }

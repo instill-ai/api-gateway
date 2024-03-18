@@ -17,34 +17,47 @@ jobs:
       - name: Load .env file
         uses: cardinalby/export-env-action@v2
         with:
-          envFile: .env          
+          envFile: .env
 
       - uses: actions/setup-go@v3
         with:
           go-version: ${{ env.GOLANG_VERSION }}
 
-      - name: Generate coverage report
+      - name: Generate coverage report (multi-auth)
         run: |
-          cd multi_auth_plugin
+          cd plugins/multi-auth
           go mod tidy
-          go test -race ./... -coverprofile=coverage_multi_auth_plugin.txt -covermode=atomic
+          go test -race ./... -coverprofile=coverage-multi-auth-plugin.txt -covermode=atomic
 
-      - name: Generate coverage report
+      - name: Generate coverage report (grpc-proxy)
         run: |
-          cd grpc_proxy_plugin
+          cd plugins/grpc-proxy
           go mod tidy
-          go test -race ./... -coverprofile=coverage_grpc_proxy_plugin.txt -covermode=atomic
+          go test -race ./... -coverprofile=coverage-grpc-proxy-plugin.txt -covermode=atomic
 
-      - name: Upload coverage report (multi_auth_plugin)
+      - name: Generate coverage report (registry)
+        run: |
+          cd plugins/registry
+          go mod tidy
+          go test -race ./... -coverprofile=coverage-registry-plugin.txt -covermode=atomic
+
+      - name: Upload coverage report (multi-auth)
         uses: codecov/codecov-action@v2
         with:
-          file: ./coverage_multi_auth_plugin.txt
+          file: ./coverage-multi-auth-plugin.txt
           flags: unittests
           name: codecov-umbrella
 
-      - name: Upload coverage report (grpc_proxy_plugin)
+      - name: Upload coverage report (grpc-proxy)
         uses: codecov/codecov-action@v2
         with:
-          file: ./coverage_grpc_proxy_plugin.txt
+          file: ./coverage-grpc-proxy-plugin.txt
+          flags: unittests
+          name: codecov-umbrella
+
+      - name: Upload coverage report (registry)
+        uses: codecov/codecov-action@v2
+        with:
+          file: ./coverage-registry-plugin.txt
           flags: unittests
           name: codecov-umbrella
