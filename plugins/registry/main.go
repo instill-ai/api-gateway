@@ -70,36 +70,36 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]inter
 			}
 
 			ctx := metadata.AppendToOutgoingContext(ctx, "Authorization", fmt.Sprintf("Bearer %s", password))
-			if resp, err := mgmtPublicClient.ValidateToken(
+			tokenValidation, err := mgmtPublicClient.ValidateToken(
 				ctx,
 				&mgmtPB.ValidateTokenRequest{},
-			); err == nil {
-				userUID := resp.UserUid
-				// Check if the login username is the same with the user id retrieved from the token validation response
-				if resp, err := mgmtPrivateClient.LookUpUserAdmin(
-					ctx,
-					&mgmtPB.LookUpUserAdminRequest{
-						Permalink: "users/" + userUID,
-					},
-				); err == nil {
-					if resp.User.Id != username {
-						fmt.Println(1)
-						writeStatusUnauthorized(req, w, "Instill AI user authentication failed")
-						return
-					}
-				} else {
-					logger.Error(err.Error())
-					writeStatusInternalError(req, w)
-					return
-				}
-
-				// To this point, if the req.URL.Path is "/v2/", return 200 OK to the client for login success
-				writeStatusOK(req, w)
+			)
+			if err != nil {
+				writeStatusInternalError(req, w)
 				return
 			}
 
-			fmt.Println(2)
-			writeStatusUnauthorized(req, w, "Instill AI user authentication failed")
+			userUID := tokenValidation.UserUid
+			// Check if the login username is the same with the user id retrieved from the token validation response
+			userLookup, err := mgmtPrivateClient.LookUpUserAdmin(
+				ctx,
+				&mgmtPB.LookUpUserAdminRequest{
+					Permalink: "users/" + userUID,
+				},
+			)
+			if err != nil {
+				logger.Error(err.Error())
+				writeStatusInternalError(req, w)
+				return
+			}
+
+			if userLookup.User.Id != username {
+				writeStatusUnauthorized(req, w, "Instill AI user authentication failed")
+				return
+			}
+
+			// To this point, if the req.URL.Path is "/v2/", return 200 OK to the client for login success
+			writeStatusOK(req, w)
 			return
 		}
 
@@ -127,7 +127,6 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]inter
 					Parent: fmt.Sprintf("users/%s", username),
 				})
 			if err != nil {
-				fmt.Println(3)
 				writeStatusUnauthorized(req, w, "Instill AI user authentication failed")
 				return
 			}
@@ -139,7 +138,6 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]inter
 				}
 			}
 			if !isValid {
-				fmt.Println(4)
 				writeStatusUnauthorized(req, w, "Instill AI user authentication failed")
 				return
 			}
