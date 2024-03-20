@@ -9,6 +9,7 @@ import (
 	"regexp"
 	"strings"
 
+	"github.com/luraproject/lura/logging"
 	"google.golang.org/grpc/metadata"
 
 	mgmtPB "github.com/instill-ai/protogen-go/core/mgmt/v1beta"
@@ -212,33 +213,13 @@ func writeStatusOK(req *http.Request, w http.ResponseWriter) {
 func main() {}
 
 // This logger is replaced by the RegisterLogger method to load the one from KrakenD
-var logger Logger = noopLogger{}
+var logger = logging.NoOp
 
 func (registerer) RegisterLogger(v interface{}) {
-	l, ok := v.(Logger)
+	l, ok := v.(logging.Logger)
 	if !ok {
 		return
 	}
 	logger = l
 	logger.Info(fmt.Sprintf("[PLUGIN: %s] Logger loaded", HandlerRegisterer))
 }
-
-// Logger is an interface for logging functionality.
-type Logger interface {
-	Debug(v ...interface{})
-	Info(v ...interface{})
-	Warning(v ...interface{})
-	Error(v ...interface{})
-	Critical(v ...interface{})
-	Fatal(v ...interface{})
-}
-
-// Empty logger implementation
-type noopLogger struct{}
-
-func (n noopLogger) Debug(_ ...interface{})    {}
-func (n noopLogger) Info(_ ...interface{})     {}
-func (n noopLogger) Warning(_ ...interface{})  {}
-func (n noopLogger) Error(_ ...interface{})    {}
-func (n noopLogger) Critical(_ ...interface{}) {}
-func (n noopLogger) Fatal(_ ...interface{})    {}

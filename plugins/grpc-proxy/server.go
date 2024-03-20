@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/luraproject/lura/logging"
 	"golang.org/x/net/http2"
 	"golang.org/x/net/http2/h2c"
 )
@@ -88,7 +89,7 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]inter
 }
 
 func (registerer) RegisterLogger(v interface{}) {
-	l, ok := v.(Logger)
+	l, ok := v.(logging.Logger)
 	if !ok {
 		return
 	}
