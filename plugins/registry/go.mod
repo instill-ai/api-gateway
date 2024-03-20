@@ -5,8 +5,8 @@ go 1.21
 toolchain go1.21.3
 
 require (
-	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0
 	github.com/instill-ai/protogen-go v0.3.3-alpha.0.20240308151517-4b0523c184d1
+	github.com/luraproject/lura v1.4.1
 	google.golang.org/grpc v1.56.3
 )
 

@@ -93,7 +93,7 @@ ARG SERVICE_NAME
 
 WORKDIR /${SERVICE_NAME}
 
-RUN mkdir -p /usr/local/lib/krakend/plugin && chmod 777 /usr/local/lib/krakend/plugin
+RUN mkdir -p /usr/local/lib/krakend/plugins && chmod 777 /usr/local/lib/krakend/plugins
 
 COPY --from=build --chown=krakend:nogroup /${SERVICE_NAME}/plugins/grpc-proxy/grpc-proxy.so /usr/local/lib/krakend/plugins
 COPY --from=build --chown=krakend:nogroup /${SERVICE_NAME}/plugins/multi-auth/multi-auth.so /usr/local/lib/krakend/plugins

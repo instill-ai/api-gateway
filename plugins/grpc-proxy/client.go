@@ -9,6 +9,7 @@ import (
 	"net"
 	"net/http"
 
+	"github.com/luraproject/lura/logging"
 	"golang.org/x/net/http2"
 )
 
@@ -85,7 +86,7 @@ func (r clientRegisterer) registerClients(_ context.Context, extra map[string]in
 }
 
 func (clientRegisterer) RegisterLogger(v interface{}) {
-	l, ok := v.(Logger)
+	l, ok := v.(logging.Logger)
 	if !ok {
 		return
 	}
