@@ -121,7 +121,7 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]inter
 
 		// If the username and the namespace is not the same,
 		// check if the namespace is an organisation name where the user has the membership
-		if username != "" && namespace != username {
+		if namespace != username {
 			resp, err := mgmtPublicClient.ListUserMemberships(
 				ctx,
 				&mgmtPB.ListUserMembershipsRequest{
