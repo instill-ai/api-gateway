@@ -5,14 +5,18 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/luraproject/lura/logging"
 	"golang.org/x/net/http2"
 	"golang.org/x/net/http2/h2c"
 )
 
-// HandlerRegisterer is the symbol the plugin loader will try to load. It must implement the Registerer interface
-var HandlerRegisterer = handlerRegisterer("grpc-proxy-server")
+// pluginName is the plugin name
+var pluginName = "grpc-proxy-server"
 
-type handlerRegisterer string
+// HandlerRegisterer is the symbol the plugin loader will try to load. It must implement the Registerer interface
+var HandlerRegisterer = registerer(pluginName)
+
+type registerer string
 
 type responseHijacker struct {
 	w                    http.ResponseWriter
@@ -67,14 +71,14 @@ func (l *responseHijacker) WriteTrailer() {
 	}
 }
 
-func (r handlerRegisterer) RegisterHandlers(f func(
+func (r registerer) RegisterHandlers(f func(
 	name string,
 	handler func(context.Context, map[string]interface{}, http.Handler) (http.Handler, error),
 )) {
 	f(string(r), r.registerHandlers)
 }
 
-func (r handlerRegisterer) registerHandlers(ctx context.Context, extra map[string]interface{}, h http.Handler) (http.Handler, error) {
+func (r registerer) registerHandlers(ctx context.Context, extra map[string]interface{}, h http.Handler) (http.Handler, error) {
 
 	return h2c.NewHandler(http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
 		w = NewResponseHijacker(w)
@@ -84,6 +88,11 @@ func (r handlerRegisterer) registerHandlers(ctx context.Context, extra map[strin
 
 }
 
-func init() {
-	fmt.Printf("Plugin: router handler \"%s\" loaded!!!\n", HandlerRegisterer)
+func (registerer) RegisterLogger(v interface{}) {
+	l, ok := v.(logging.Logger)
+	if !ok {
+		return
+	}
+	logger = l
+	logger.Info(fmt.Sprintf("[PLUGIN: %s] Logger loaded", HandlerRegisterer))
 }

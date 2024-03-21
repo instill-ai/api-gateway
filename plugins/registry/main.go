@@ -9,6 +9,7 @@ import (
 	"regexp"
 	"strings"
 
+	"github.com/luraproject/lura/logging"
 	"google.golang.org/grpc/metadata"
 
 	mgmtPB "github.com/instill-ai/protogen-go/core/mgmt/v1beta"
@@ -70,36 +71,36 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]inter
 			}
 
 			ctx := metadata.AppendToOutgoingContext(ctx, "Authorization", fmt.Sprintf("Bearer %s", password))
-			if resp, err := mgmtPublicClient.ValidateToken(
+			tokenValidation, err := mgmtPublicClient.ValidateToken(
 				ctx,
 				&mgmtPB.ValidateTokenRequest{},
-			); err == nil {
-				userUID := resp.UserUid
-				// Check if the login username is the same with the user id retrieved from the token validation response
-				if resp, err := mgmtPrivateClient.LookUpUserAdmin(
-					ctx,
-					&mgmtPB.LookUpUserAdminRequest{
-						Permalink: "users/" + userUID,
-					},
-				); err == nil {
-					if resp.User.Id != username {
-						fmt.Println(1)
-						writeStatusUnauthorized(req, w, "Instill AI user authentication failed")
-						return
-					}
-				} else {
-					logger.Error(err.Error())
-					writeStatusInternalError(req, w)
-					return
-				}
-
-				// To this point, if the req.URL.Path is "/v2/", return 200 OK to the client for login success
-				writeStatusOK(req, w)
+			)
+			if err != nil {
+				writeStatusInternalError(req, w)
 				return
 			}
 
-			fmt.Println(2)
-			writeStatusUnauthorized(req, w, "Instill AI user authentication failed")
+			userUID := tokenValidation.UserUid
+			// Check if the login username is the same with the user id retrieved from the token validation response
+			userLookup, err := mgmtPrivateClient.LookUpUserAdmin(
+				ctx,
+				&mgmtPB.LookUpUserAdminRequest{
+					Permalink: "users/" + userUID,
+				},
+			)
+			if err != nil {
+				logger.Error(err.Error())
+				writeStatusInternalError(req, w)
+				return
+			}
+
+			if userLookup.User.Id != username {
+				writeStatusUnauthorized(req, w, "Instill AI user authentication failed")
+				return
+			}
+
+			// To this point, if the req.URL.Path is "/v2/", return 200 OK to the client for login success
+			writeStatusOK(req, w)
 			return
 		}
 
@@ -120,14 +121,13 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]inter
 
 		// If the username and the namespace is not the same,
 		// check if the namespace is an organisation name where the user has the membership
-		if username != "" && namespace != username {
+		if namespace != username {
 			resp, err := mgmtPublicClient.ListUserMemberships(
 				ctx,
 				&mgmtPB.ListUserMembershipsRequest{
 					Parent: fmt.Sprintf("users/%s", username),
 				})
 			if err != nil {
-				fmt.Println(3)
 				writeStatusUnauthorized(req, w, "Instill AI user authentication failed")
 				return
 			}
@@ -139,7 +139,6 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]inter
 				}
 			}
 			if !isValid {
-				fmt.Println(4)
 				writeStatusUnauthorized(req, w, "Instill AI user authentication failed")
 				return
 			}
@@ -214,33 +213,13 @@ func writeStatusOK(req *http.Request, w http.ResponseWriter) {
 func main() {}
 
 // This logger is replaced by the RegisterLogger method to load the one from KrakenD
-var logger Logger = noopLogger{}
+var logger = logging.NoOp
 
 func (registerer) RegisterLogger(v interface{}) {
-	l, ok := v.(Logger)
+	l, ok := v.(logging.Logger)
 	if !ok {
 		return
 	}
 	logger = l
 	logger.Info(fmt.Sprintf("[PLUGIN: %s] Logger loaded", HandlerRegisterer))
 }
-
-// Logger is an interface for logging functionality.
-type Logger interface {
-	Debug(v ...interface{})
-	Info(v ...interface{})
-	Warning(v ...interface{})
-	Error(v ...interface{})
-	Critical(v ...interface{})
-	Fatal(v ...interface{})
-}
-
-// Empty logger implementation
-type noopLogger struct{}
-
-func (n noopLogger) Debug(_ ...interface{})    {}
-func (n noopLogger) Info(_ ...interface{})     {}
-func (n noopLogger) Warning(_ ...interface{})  {}
-func (n noopLogger) Error(_ ...interface{})    {}
-func (n noopLogger) Critical(_ ...interface{}) {}
-func (n noopLogger) Fatal(_ ...interface{})    {}

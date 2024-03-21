@@ -9,9 +9,9 @@ import (
 	"strings"
 
 	"github.com/gofrs/uuid"
+	"github.com/luraproject/lura/logging"
 	"google.golang.org/grpc/metadata"
 
-	grpc_zap "github.com/grpc-ecosystem/go-grpc-middleware/logging/zap"
 	mgmtPB "github.com/instill-ai/protogen-go/core/mgmt/v1beta"
 )
 
@@ -30,21 +30,6 @@ func (r registerer) RegisterHandlers(f func(
 	f(string(r), r.registerHandlers)
 }
 
-type LoginRequest struct {
-	Username string `json:"username"`
-	Password string `json:"password"`
-}
-
-type LoginResponse struct {
-	AccessToken struct {
-		Sub string `json:"sub"`
-	} `json:"access_token"`
-}
-
-type ValidateTokenResp struct {
-	UserUid string `json:"user_uid"`
-}
-
 func writeStatusUnauthorized(req *http.Request, w http.ResponseWriter) {
 
 	if req.ProtoMajor == 2 && strings.Contains(req.Header.Get("Content-Type"), "application/grpc") {
@@ -61,13 +46,6 @@ func writeStatusUnauthorized(req *http.Request, w http.ResponseWriter) {
 }
 
 func (r registerer) registerHandlers(ctx context.Context, extra map[string]interface{}, h http.Handler) (http.Handler, error) {
-
-	logger, _ := GetZapLogger()
-	defer func() {
-		// can't handle the error due to https://github.com/uber-go/zap/issues/880
-		_ = logger.Sync()
-	}()
-	grpc_zap.ReplaceGrpcLoggerV2(logger)
 
 	config, ok := extra[pluginName].(map[string]interface{})
 	if !ok {
@@ -134,8 +112,16 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]inter
 
 }
 
-func init() {
-	fmt.Printf("Plugin: router handler \"%s\" loaded!!!\n", HandlerRegisterer)
-}
-
 func main() {}
+
+// This logger is replaced by the RegisterLogger method to load the one from KrakenD
+var logger = logging.NoOp
+
+func (registerer) RegisterLogger(v interface{}) {
+	l, ok := v.(logging.Logger)
+	if !ok {
+		return
+	}
+	logger = l
+	logger.Info(fmt.Sprintf("[PLUGIN: %s] Logger loaded", HandlerRegisterer))
+}

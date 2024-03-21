@@ -5,31 +5,18 @@ import (
 	"crypto/tls"
 	"errors"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net"
 	"net/http"
 
+	"github.com/luraproject/lura/logging"
 	"golang.org/x/net/http2"
-
-	grpc_zap "github.com/grpc-ecosystem/go-grpc-middleware/logging/zap"
-
-	"grpc_proxy_plugin/internal/logger"
 )
 
 // ClientRegisterer is the symbol the plugin loader will try to load. It must implement the RegisterClient interface
 var ClientRegisterer = clientRegisterer("grpc-proxy-client")
 
 type clientRegisterer string
-
-func (clientRegisterer) RegisterLogger(v interface{}) {
-	logger, _ := logger.GetZapLogger()
-	defer func() {
-		// can't handle the error due to https://github.com/uber-go/zap/issues/880
-		_ = logger.Sync()
-	}()
-
-	logger.Debug(fmt.Sprintf("[PLUGIN: %s] Logger loaded", ClientRegisterer))
-}
 
 func (r clientRegisterer) RegisterClients(f func(
 	name string,
@@ -39,13 +26,6 @@ func (r clientRegisterer) RegisterClients(f func(
 }
 
 func (r clientRegisterer) registerClients(_ context.Context, extra map[string]interface{}) (http.Handler, error) {
-
-	logger, _ := logger.GetZapLogger()
-	defer func() {
-		// can't handle the error due to https://github.com/uber-go/zap/issues/880
-		_ = logger.Sync()
-	}()
-	grpc_zap.ReplaceGrpcLoggerV2(logger)
 
 	// check the passed configuration and initialize the plugin
 	name, ok := extra["name"].(string)
@@ -77,9 +57,9 @@ func (r clientRegisterer) registerClients(_ context.Context, extra map[string]in
 			return
 		}
 
-		respBytes, err := ioutil.ReadAll(resp.Body)
+		respBytes, err := io.ReadAll(resp.Body)
 		if err != nil {
-			logger.Warn(err.Error())
+			logger.Warning(err.Error())
 		}
 		defer resp.Body.Close()
 
@@ -105,6 +85,11 @@ func (r clientRegisterer) registerClients(_ context.Context, extra map[string]in
 	}), nil
 }
 
-func init() {
-	fmt.Printf("Plugin: client handler \"%s\" loaded!!!\n", ClientRegisterer)
+func (clientRegisterer) RegisterLogger(v interface{}) {
+	l, ok := v.(logging.Logger)
+	if !ok {
+		return
+	}
+	logger = l
+	logger.Debug(fmt.Sprintf("[PLUGIN: %s] Logger loaded", ClientRegisterer))
 }
