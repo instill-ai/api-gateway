@@ -32,10 +32,10 @@ RUN if [[ "$BUILDARCH" = "amd64" && "$TARGETARCH" = "arm64" ]] ; \
     cd /${SERVICE_NAME}/plugins/grpc-proxy && go mod download && \
     CGO_ENABLED=1 ARCH=$TARGETARCH GOARCH=$TARGETARCH GOHOSTARCH=$BUILDARCH \
     CC=aarch64-linux-musl-gcc EXTRA_LDFLAGS='-extld=aarch64-linux-musl-gcc' \
-    go build -buildmode=plugin -buildvcs=false -o grpc-proxy.so ./pkg; \
+    go build -buildmode=plugin -buildvcs=false -o grpc-proxy.so ./ ; \
     else \
     cd /${SERVICE_NAME}/plugins/grpc-proxy && go mod download && \
-    CGO_ENABLED=1 go build -buildmode=plugin -buildvcs=false -o grpc-proxy.so ./pkg; fi
+    CGO_ENABLED=1 go build -buildmode=plugin -buildvcs=false -o grpc-proxy.so ./ ; fi
 
 RUN if [[ "$BUILDARCH" = "amd64" && "$TARGETARCH" = "arm64" ]] ; \
     then \
@@ -45,10 +45,10 @@ RUN if [[ "$BUILDARCH" = "amd64" && "$TARGETARCH" = "arm64" ]] ; \
     cd /${SERVICE_NAME}/plugins/multi-auth && go mod download && \
     CGO_ENABLED=1 ARCH=$TARGETARCH GOARCH=$TARGETARCH GOHOSTARCH=$BUILDARCH \
     CC=aarch64-linux-musl-gcc EXTRA_LDFLAGS='-extld=aarch64-linux-musl-gcc' \
-    go build -buildmode=plugin -buildvcs=false -o multi-auth.so ./server; \
+    go build -buildmode=plugin -buildvcs=false -o multi-auth.so ./; \
     else \
     cd /${SERVICE_NAME}/plugins/multi-auth && go mod download && \
-    CGO_ENABLED=1 go build -buildmode=plugin -buildvcs=false -o multi-auth.so ./server; fi
+    CGO_ENABLED=1 go build -buildmode=plugin -buildvcs=false -o multi-auth.so ./ ; fi
 
 RUN if [[ "$BUILDARCH" = "amd64" && "$TARGETARCH" = "arm64" ]] ; \
     then \
@@ -58,10 +58,10 @@ RUN if [[ "$BUILDARCH" = "amd64" && "$TARGETARCH" = "arm64" ]] ; \
     cd /${SERVICE_NAME}/plugins/registry && go mod download && \
     CGO_ENABLED=1 ARCH=$TARGETARCH GOARCH=$TARGETARCH GOHOSTARCH=$BUILDARCH \
     CC=aarch64-linux-musl-gcc EXTRA_LDFLAGS='-extld=aarch64-linux-musl-gcc' \
-    go build -buildmode=plugin -buildvcs=false -o multi-auth.so ./server; \
+    go build -buildmode=plugin -buildvcs=false -o registry.so ./ ; \
     else \
     cd /${SERVICE_NAME}/plugins/registry && go mod download && \
-    CGO_ENABLED=1 go build -buildmode=plugin -buildvcs=false -o multi-auth.so ./server; fi
+    CGO_ENABLED=1 go build -buildmode=plugin -buildvcs=false -o registry.so ./ ; fi
 
 RUN cd /${SERVICE_NAME} && \
     git clone -b v2.0.12 https://github.com/lestrrat-go/jwx.git && \
