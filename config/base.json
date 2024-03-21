@@ -5,7 +5,9 @@
   {{ if and .tls.public_key .tls.private_key }}
   "tls": {
     "public_key": "{{ .tls.public_key }}",
-    "private_key": "{{ .tls.private_key }}"
+    "private_key": "{{ .tls.private_key }}",
+    "min_version": "TLS10",
+    "max_version": "TLS13"
   },
   {{ end }}
   "client_tls": {
