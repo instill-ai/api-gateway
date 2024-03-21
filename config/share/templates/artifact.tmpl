@@ -1,0 +1,122 @@
+{{ $host := .backends.artifact }}
+{{ $input_headers := .input_headers }}
+{{ $endpoints := .endpoints.artifact }}
+{{- range $idx, $endpoint := $endpoints.no_auth }}
+{{- if $idx -}},{{ end }}
+{
+  "endpoint": "/artifact{{ .endpoint }}",
+  "method": "{{ .method }}",
+  {{- if len .input_query_strings -}}
+  "input_query_strings":
+  [
+    {{- range $qidx, $qstring := .input_query_strings }}
+    {{- if $qidx -}},{{ end }}
+    "{{ $qstring }}"
+    {{- end}}
+  ],
+  {{- end}}
+  "timeout": "{{ .timeout }}",
+  "output_encoding": "no-op",
+  "input_headers": {{ marshal $input_headers.no_auth }},
+  "backend": [
+    {
+      "url_pattern": "{{ .url_pattern }}",
+      "host": {{ marshal $host }},
+      "sd": "static",
+      "method": "{{ .method }}",
+      "disable_host_sanitize": false,
+      "extra_config": {
+        "github.com/devopsfaith/krakend-martian": {
+          "header.Modifier": {
+            "scope": ["response"],
+            "name": "Backend",
+            "value": "artifact"
+          }
+        }
+      }
+    }
+  ]
+},
+{
+  "endpoint": "/internal/artifact{{ .endpoint }}",
+  "method": "{{ .method }}",
+  {{- if len .input_query_strings -}}
+  "input_query_strings":
+  [
+    {{- range $qidx, $qstring := .input_query_strings }}
+    {{- if $qidx -}},{{ end }}
+    "{{ $qstring }}"
+    {{- end}}
+  ],
+  {{- end}}
+  "timeout": "{{ .timeout }}",
+  "output_encoding": "no-op",
+  "input_headers": {{ marshal $input_headers.no_auth }},
+  "backend": [
+    {
+      "url_pattern": "{{ .url_pattern }}",
+      "host": {{ marshal $host }},
+      "sd": "static",
+      "method": "{{ .method }}",
+      "disable_host_sanitize": false,
+      "extra_config": {
+        "github.com/devopsfaith/krakend-martian": {
+          "header.Modifier": {
+            "scope": ["response"],
+            "name": "Backend",
+            "value": "artifact"
+          }
+        }
+      }
+    }
+  ]
+}
+{{- end}}
+,
+{{- range $idx, $endpoint := $endpoints.grpc_no_auth }}
+{{- if $idx -}},{{ end }}
+{
+  "endpoint": "{{ .endpoint }}",
+  "method": "{{ .method }}",
+  "timeout": "{{ .timeout }}",
+  "output_encoding": "no-op",
+  "input_headers": {{ marshal $input_headers.grpc_no_auth }},
+  "backend": [
+    {
+      "url_pattern": "{{ .url_pattern }}",
+      "host": {{ marshal $host }},
+      "sd": "static",
+      "method": "{{ .method }}",
+      "disable_host_sanitize": false,
+      "extra_config": {
+        "plugin/http-client": {
+          "name": "grpc-proxy-client",
+          "grpc-proxy-client": {}
+        }
+      }
+    }
+  ]
+},
+{
+  "endpoint": "/internal/{{ .endpoint }}",
+  "method": "{{ .method }}",
+  "timeout": "{{ .timeout }}",
+  "output_encoding": "no-op",
+  "input_headers": {{ marshal $input_headers.grpc_no_auth }},
+  "backend": [
+    {
+      "url_pattern": "{{ .url_pattern }}",
+      "host": {{ marshal $host }},
+      "sd": "static",
+      "method": "{{ .method }}",
+      "disable_host_sanitize": false,
+      "extra_config": {
+        "plugin/http-client": {
+          "name": "grpc-proxy-client",
+          "grpc-proxy-client": {}
+        }
+      }
+    }
+  ]
+}
+{{- end }}
