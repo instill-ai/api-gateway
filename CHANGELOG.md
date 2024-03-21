@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.12.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.11.0-beta...v0.12.0-beta) (2024-03-21)
+
+
+### Features
+
+* **registry:** add registry proxy plugin ([#143](https://github.com/instill-ai/api-gateway/issues/143)) ([97c280c](https://github.com/instill-ai/api-gateway/commit/97c280cbdcb615c71ab29a90c502f7f97d26426e))
+
 ## [0.11.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.10.0-beta...v0.11.0-beta) (2024-02-29)
 
 
