@@ -108,7 +108,7 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]inter
 		// [registry]/[namespace]/[repository path]:[image tag]
 		// The namespace is the user uid or the organization uid
 		var namespace string
-		matches := regexp.MustCompile(`/v2/([^/]+).*`).FindStringSubmatch(req.URL.Path)
+		matches := regexp.MustCompile(`/v2/([A-Za-z0-9\_]+)/([^/]+)/(blobs|manifests)/.*`).FindStringSubmatch(req.URL.Path)
 		if len(matches) >= 2 {
 			namespace = matches[1]
 		} else {
@@ -121,7 +121,7 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]inter
 
 		// If the username and the namespace is not the same,
 		// check if the namespace is an organisation name where the user has the membership
-		if namespace != username {
+		if username != "" && namespace != username {
 			resp, err := mgmtPublicClient.ListUserMemberships(
 				ctx,
 				&mgmtPB.ListUserMembershipsRequest{
