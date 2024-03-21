@@ -9,6 +9,13 @@ on:
       - main
 
 jobs:
+  build-push-image:
+    needs: backend
+    if: github.ref == 'refs/heads/main'
+    name: Build and push image
+    uses: instill-ai/api-gateway/.github/workflows/images.yml@main
+    secrets: inherit
+
   backend:
     strategy:
       fail-fast: false
@@ -19,10 +26,3 @@ jobs:
     with:
       component: ${{ matrix.component }}
       target: latest
-
-  build-push-image:
-    needs: backend
-    if: github.ref == 'refs/heads/main'
-    name: Build and push image
-    uses: instill-ai/api-gateway/.github/workflows/images.yml@main
-    secrets: inherit
