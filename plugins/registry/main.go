@@ -49,14 +49,15 @@ func (r registerer) RegisterHandlers(f func(
 }
 
 func (r registerer) registerHandlers(ctx context.Context, extra map[string]interface{}, h http.Handler) (http.Handler, error) {
-	config, ok := extra[pluginName].(map[string]interface{})
+	config, ok := extra[pluginName].(map[string]any)
 	if !ok {
-		return h, fmt.Errorf("configuration not found")
+		return nil, fmt.Errorf("configuration not found")
 	}
 
-	hostport, _ := config["hostport"].(string)
-	mgmtPublicClient, _ := initMgmtPublicServiceClient(ctx, config["mgmt_public_hostport"].(string), "", "")
-	mgmtPrivateClient, _ := initMgmtPrivateServiceClient(ctx, config["mgmt_private_hostport"].(string), "", "")
+	registryHandler, err := newRegistryHandler(config)
+	if err != nil {
+		return nil, fmt.Errorf("failed to configure handler: %w", err)
+	}
 
 	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
 		url := req.URL
@@ -89,7 +90,7 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]inter
 			}
 
 			ctx := metadata.AppendToOutgoingContext(ctx, "Authorization", fmt.Sprintf("Bearer %s", password))
-			tokenValidation, err := mgmtPublicClient.ValidateToken(
+			tokenValidation, err := registryHandler.mgmtPublicClient.ValidateToken(
 				ctx,
 				&mgmtPB.ValidateTokenRequest{},
 			)
@@ -100,7 +101,7 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]inter
 
 			userUID := tokenValidation.UserUid
 			// Check if the login username is the same with the user id retrieved from the token validation response
-			userLookup, err := mgmtPrivateClient.LookUpUserAdmin(
+			userLookup, err := registryHandler.mgmtPrivateClient.LookUpUserAdmin(
 				ctx,
 				&mgmtPB.LookUpUserAdminRequest{
 					Permalink: "users/" + userUID,
@@ -144,7 +145,7 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]inter
 		// namespace is an organisation name where the user has the membership.
 		if namespace != username {
 			parent := fmt.Sprintf("users/%s", username)
-			resp, err := mgmtPublicClient.ListUserMemberships(ctx, &mgmtPB.ListUserMembershipsRequest{Parent: parent})
+			resp, err := registryHandler.mgmtPublicClient.ListUserMemberships(ctx, &mgmtPB.ListUserMembershipsRequest{Parent: parent})
 			if err != nil {
 				writeStatusUnauthorized(req, w, "Instill AI user authentication failed")
 				return
@@ -165,7 +166,7 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]inter
 		}
 
 		url.Scheme = "http"
-		url.Host = hostport
+		url.Host = registryHandler.registryAddr
 		req.RequestURI = ""
 
 		resp, err := http.DefaultClient.Do(req)
