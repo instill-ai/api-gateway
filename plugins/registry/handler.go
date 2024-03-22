@@ -169,7 +169,7 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 		parent := fmt.Sprintf("users/%s", p.username)
 		resp, err := rh.mgmtPublicClient.ListUserMemberships(ctx, &mgmtPB.ListUserMembershipsRequest{Parent: parent})
 		if err != nil {
-			writeStatusUnauthorized(req, w, "Instill AI user authentication failed")
+			writeStatusInternalError(req, w)
 			return
 		}
 
