@@ -10,10 +10,9 @@ import (
 	mgmtPB "github.com/instill-ai/protogen-go/core/mgmt/v1beta"
 )
 
-const MaxPayloadSize = 1024 * 1024 * 32
+const maxPayloadSize = 1024 * 1024 * 32
 
-func InitMgmtPublicServiceClient(ctx context.Context, server string, cert string, key string) (mgmtPB.MgmtPublicServiceClient, *grpc.ClientConn) {
-
+func initMgmtPublicServiceClient(_ context.Context, server string, cert string, key string) (mgmtPB.MgmtPublicServiceClient, *grpc.ClientConn) {
 	var clientDialOpts grpc.DialOption
 	if cert != "" && key != "" {
 		creds, err := credentials.NewServerTLSFromFile(cert, key)
@@ -25,7 +24,7 @@ func InitMgmtPublicServiceClient(ctx context.Context, server string, cert string
 		clientDialOpts = grpc.WithTransportCredentials(insecure.NewCredentials())
 	}
 
-	clientConn, err := grpc.Dial(server, clientDialOpts, grpc.WithDefaultCallOptions(grpc.MaxCallRecvMsgSize(MaxPayloadSize), grpc.MaxCallSendMsgSize(MaxPayloadSize)))
+	clientConn, err := grpc.Dial(server, clientDialOpts, grpc.WithDefaultCallOptions(grpc.MaxCallRecvMsgSize(maxPayloadSize), grpc.MaxCallSendMsgSize(maxPayloadSize)))
 	if err != nil {
 		return nil, nil
 	}
@@ -33,8 +32,7 @@ func InitMgmtPublicServiceClient(ctx context.Context, server string, cert string
 	return mgmtPB.NewMgmtPublicServiceClient(clientConn), clientConn
 }
 
-func InitMgmtPrivateServiceClient(ctx context.Context, server string, cert string, key string) (mgmtPB.MgmtPrivateServiceClient, *grpc.ClientConn) {
-
+func initMgmtPrivateServiceClient(_ context.Context, server string, cert string, key string) (mgmtPB.MgmtPrivateServiceClient, *grpc.ClientConn) {
 	var clientDialOpts grpc.DialOption
 	if cert != "" && key != "" {
 		creds, err := credentials.NewServerTLSFromFile(cert, key)
@@ -46,7 +44,7 @@ func InitMgmtPrivateServiceClient(ctx context.Context, server string, cert strin
 		clientDialOpts = grpc.WithTransportCredentials(insecure.NewCredentials())
 	}
 
-	clientConn, err := grpc.Dial(server, clientDialOpts, grpc.WithDefaultCallOptions(grpc.MaxCallRecvMsgSize(MaxPayloadSize), grpc.MaxCallSendMsgSize(MaxPayloadSize)))
+	clientConn, err := grpc.Dial(server, clientDialOpts, grpc.WithDefaultCallOptions(grpc.MaxCallRecvMsgSize(maxPayloadSize), grpc.MaxCallSendMsgSize(maxPayloadSize)))
 	if err != nil {
 		return nil, nil
 	}
