@@ -58,7 +58,6 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]inter
 	mgmtPublicClient, _ := initMgmtPublicServiceClient(ctx, config["mgmt_public_hostport"].(string), "", "")
 	mgmtPrivateClient, _ := initMgmtPrivateServiceClient(ctx, config["mgmt_private_hostport"].(string), "", "")
 
-	// TODO extract handler function
 	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
 		url := req.URL
 
@@ -73,31 +72,16 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]inter
 			return
 		}
 
-		{
-			// // Authenticate the user via docker login
-			// username, password, ok := req.BasicAuth()
-			// if !ok {
-			// 	// Challenge the user for basic authentication
-			// 	w.Header().Set("WWW-Authenticate", `Basic realm="Restricted"`)
-			// 	writeStatusUnauthorized(req, w, "Instill AI user authentication failed")
-			// 	return
-			// }
-			// {
-			// 	logger.Info("logged as", username)
-			// }
+		// Authenticate the user via docker login
+		username, password, ok := req.BasicAuth()
+		if !ok {
+			// Challenge the user for basic authentication
+			w.Header().Set("WWW-Authenticate", `Basic realm="Restricted"`)
+			writeStatusUnauthorized(req, w, "Instill AI user authentication failed")
+			return
 		}
 
-		// Authenticate the user via docker login
-		var username, password string
 		if url.Path == "/v2/" {
-			username, password, ok = req.BasicAuth()
-			if !ok {
-				// Challenge the user for basic authentication
-				w.Header().Set("WWW-Authenticate", `Basic realm="Restricted"`)
-				writeStatusUnauthorized(req, w, "Instill AI user authentication failed")
-				return
-			}
-
 			// Validate the api key and the namespace authorization
 			if !strings.HasPrefix(password, "instill_sk_") {
 				writeStatusUnauthorized(req, w, "Instill AI user authentication failed")
@@ -158,7 +142,7 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]inter
 
 		// If the username and the namespace is not the same, check if the
 		// namespace is an organisation name where the user has the membership.
-		if username != "" && namespace != username {
+		if namespace != username {
 			parent := fmt.Sprintf("users/%s", username)
 			resp, err := mgmtPublicClient.ListUserMemberships(ctx, &mgmtPB.ListUserMembershipsRequest{Parent: parent})
 			if err != nil {
