@@ -8,8 +8,10 @@ import (
 	"regexp"
 	"strings"
 
-	mgmtPB "github.com/instill-ai/protogen-go/core/mgmt/v1beta"
 	"google.golang.org/grpc/metadata"
+
+	mgmtPB "github.com/instill-ai/protogen-go/core/mgmt/v1beta"
+	modelPB "github.com/instill-ai/protogen-go/model/model/v1alpha"
 )
 
 // urlRegexp will be aplied to the paths involved in pushing an image. It
@@ -33,12 +35,13 @@ var urlRegexp = regexp.MustCompile(`/v2/(([^/]+)/([^/]+))/(blobs|manifests)/(.*)
 type registryHandler struct {
 	mgmtPublicClient  mgmtPB.MgmtPublicServiceClient
 	mgmtPrivateClient mgmtPB.MgmtPrivateServiceClient
+	modelPublicClient modelPB.ModelPublicServiceClient
 
 	registryAddr string
 }
 
 func newRegistryHandler(config map[string]any) (*registryHandler, error) {
-	var mgmtPublicAddr, mgmtPrivateAddr string
+	var mgmtPublicAddr, mgmtPrivateAddr, modelPublicAddr string
 	var ok bool
 	var rh registryHandler
 
@@ -51,6 +54,9 @@ func newRegistryHandler(config map[string]any) (*registryHandler, error) {
 	if mgmtPrivateAddr, ok = config["mgmt_private_hostport"].(string); !ok {
 		return nil, fmt.Errorf("invalid mgmt private address")
 	}
+	if modelPublicAddr, ok = config["model_public_hostport"].(string); !ok {
+		return nil, fmt.Errorf("invalid model public address")
+	}
 
 	mgmtPublicConn, err := newGRPCConn(mgmtPublicAddr, "", "")
 	if err != nil {
@@ -60,18 +66,23 @@ func newRegistryHandler(config map[string]any) (*registryHandler, error) {
 	if err != nil {
 		return nil, fmt.Errorf("failed to connect with mgmt-backend: %w", err)
 	}
+	modelPublicConn, err := newGRPCConn(modelPublicAddr, "", "")
+	if err != nil {
+		return nil, fmt.Errorf("failed to connect with model-backend: %w", err)
+	}
 
 	rh.mgmtPublicClient = mgmtPB.NewMgmtPublicServiceClient(mgmtPublicConn)
 	rh.mgmtPrivateClient = mgmtPB.NewMgmtPrivateServiceClient(mgmtPrivateConn)
+	rh.modelPublicClient = modelPB.NewModelPublicServiceClient(modelPublicConn)
 
 	return &rh, nil
 }
 
 type registryHandlerParams struct {
-	writer   http.ResponseWriter
-	req      *http.Request
-	username string
-	password string
+	writer  http.ResponseWriter
+	req     *http.Request
+	userID  string
+	userUID string
 }
 
 func (rh *registryHandler) handler(ctx context.Context) http.HandlerFunc {
@@ -85,11 +96,24 @@ func (rh *registryHandler) handler(ctx context.Context) http.HandlerFunc {
 			return
 		}
 
+		// Validate the api key and the namespace authorization
+		if !strings.HasPrefix(password, "instill_sk_") {
+			writeStatusUnauthorized(req, w, "Instill AI user authentication failed")
+			return
+		}
+
+		ctx = withBearerAuth(ctx, password)
+		tokenValidation, err := rh.mgmtPublicClient.ValidateToken(ctx, &mgmtPB.ValidateTokenRequest{})
+		if err != nil {
+			writeStatusInternalError(req, w)
+			return
+		}
+
 		params := registryHandlerParams{
-			writer:   w,
-			req:      req,
-			username: username,
-			password: password,
+			writer:  w,
+			req:     req,
+			userID:  username,
+			userUID: tokenValidation.UserUid,
 		}
 
 		if req.URL.Path == "/v2/" {
@@ -105,25 +129,11 @@ func (rh *registryHandler) login(ctx context.Context, p registryHandlerParams) {
 	req := p.req
 	w := p.writer
 
-	// Validate the api key and the namespace authorization
-	if !strings.HasPrefix(p.password, "instill_sk_") {
-		writeStatusUnauthorized(req, w, "Instill AI user authentication failed")
-		return
-	}
-
-	ctxWithBearer := metadata.AppendToOutgoingContext(ctx, "Authorization", fmt.Sprintf("Bearer %s", p.password))
-	tokenValidation, err := rh.mgmtPublicClient.ValidateToken(ctxWithBearer, &mgmtPB.ValidateTokenRequest{})
-	if err != nil {
-		writeStatusInternalError(req, w)
-		return
-	}
-
-	userUID := tokenValidation.UserUid
 	// Check if the login username is the same with the user id retrieved from the token validation response
 	userLookup, err := rh.mgmtPrivateClient.LookUpUserAdmin(
 		ctx,
 		&mgmtPB.LookUpUserAdminRequest{
-			Permalink: "users/" + userUID,
+			Permalink: "users/" + p.userUID,
 		},
 	)
 	if err != nil {
@@ -132,7 +142,7 @@ func (rh *registryHandler) login(ctx context.Context, p registryHandlerParams) {
 		return
 	}
 
-	if userLookup.User.Id != p.username {
+	if userLookup.User.Id != p.userID {
 		writeStatusUnauthorized(req, w, "Instill AI user authentication failed")
 		return
 	}
@@ -148,7 +158,6 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 	// Docker image tag format:
 	// [registry]/[namespace]/[repository path]:[image tag]
 	// The namespace is the user uid or the organization uid
-	var namespace string
 	matches := urlRegexp.FindStringSubmatch(req.URL.Path)
 	if len(matches) == 0 {
 		errStr := "Namespace is not found in the image name. " +
@@ -159,14 +168,18 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 		return
 	}
 
-	namespace = matches[2]
+	repository := matches[1]
+	namespace := matches[2]
 	resourceType := matches[4]
 	resourceID := matches[5]
 
 	// If the username and the namespace is not the same, check if the
 	// namespace is an organisation name where the user has the membership.
-	if namespace != p.username {
-		parent := fmt.Sprintf("users/%s", p.username)
+	isOrganizationRepository := false
+	if namespace != p.userID {
+		isOrganizationRepository = true
+
+		parent := fmt.Sprintf("users/%s", p.userID)
 		resp, err := rh.mgmtPublicClient.ListUserMemberships(ctx, &mgmtPB.ListUserMembershipsRequest{Parent: parent})
 		if err != nil {
 			writeStatusInternalError(req, w)
@@ -198,14 +211,34 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 		return
 	}
 
-	if req.Method == http.MethodPut && resourceType == "manifests" {
-		logger.Info("tag:", resourceID)
-		logger.Info("model ID:", matches[1])
-		// DIGEST AT dockerContentDigest := resp.Header.Get("Docker-Content-Digest")
-		// CREATION TIME createdAt := time.Now()
+	if req.Method == http.MethodPut && resourceType == "manifests" && resp.StatusCode == http.StatusCreated {
+		// TODO Call create tag endpoint in artifact-backend.
 
-		// 1. Call create tag endpoint in artifact-backend (should be idempotent)
-		// 2. Call model for deployment
+		// Deploy model.The previous operations are idempotent so it should be
+		// safe to repeat them if we fail here.
+		//
+		// TODO in the future the registry will handle more than model images,
+		// so this operation won't always be necessary. A much better pattern
+		// is publishing the push operation success as an event and let the
+		// clients to consume and act upon it (artifact to register the tag
+		// creation time, model to deploy the image...).
+		ctx := withUserUIDAuth(ctx, p.userUID)
+		var err error
+		if isOrganizationRepository {
+			modelName := fmt.Sprintf("organizations/%s/models/%s:%s", namespace, repository, resourceID)
+			_, err = rh.modelPublicClient.DeployOrganizationModel(ctx,
+				&modelPB.DeployOrganizationModelRequest{Name: modelName},
+			)
+		} else {
+			modelName := fmt.Sprintf("users/%s/models/%s:%s", namespace, repository, resourceID)
+			_, err = rh.modelPublicClient.DeployUserModel(ctx,
+				&modelPB.DeployUserModelRequest{Name: modelName},
+			)
+		}
+		if err != nil {
+			writeStatusInternalError(req, w)
+			return
+		}
 	}
 
 	// Copy headers, status codes, and body from the backend to the response writer
@@ -220,6 +253,7 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 	io.Copy(w, resp.Body)
 	resp.Body.Close()
 }
+
 func writeStatusUnauthorized(req *http.Request, w http.ResponseWriter, error string) {
 	if req.ProtoMajor == 2 && strings.Contains(req.Header.Get("Content-Type"), "application/grpc") {
 		w.Header().Set("Content-Type", "application/grpc")
@@ -259,4 +293,15 @@ func writeStatusOK(req *http.Request, w http.ResponseWriter) {
 		w.WriteHeader(http.StatusOK)
 		w.Header().Set("Content-Type", "application/json")
 	}
+}
+
+func withBearerAuth(ctx context.Context, bearer string) context.Context {
+	return metadata.AppendToOutgoingContext(ctx, "Authorization", fmt.Sprintf("Bearer %s", bearer))
+}
+
+func withUserUIDAuth(ctx context.Context, uid string) context.Context {
+	return metadata.AppendToOutgoingContext(ctx,
+		"Instill-Auth-Type", "user",
+		"Instill-User-Uid", uid,
+	)
 }
