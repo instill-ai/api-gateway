@@ -50,6 +50,7 @@
     {{- template "mgmt.tmpl" . }},
     {{- template "pipeline.tmpl" . }},
     {{- template "model.tmpl" . }},
+    {{- template "artifact.tmpl" . }},
     {{- template "debug.tmpl" . }}
   ]
 }
