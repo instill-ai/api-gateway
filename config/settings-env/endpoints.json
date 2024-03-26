@@ -1609,14 +1609,14 @@
         "endpoint": "/v1alpha/users/{user_id}/models",
         "url_pattern": "/v1alpha/users/{user_id}/models",
         "method": "POST",
-        "timeout": "86400s",
+        "timeout": "30s",
         "input_query_strings": []
       },
       {
         "endpoint": "/v1alpha/users/{user_id}/models/multipart",
         "url_pattern": "/v1alpha/users/{user_id}/models/multipart",
         "method": "POST",
-        "timeout": "86400s",
+        "timeout": "30s",
         "input_query_strings": []
       },
       {
@@ -1671,36 +1671,22 @@
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/watch",
-        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/watch",
+        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/{version_id}/watch",
+        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/{version_id}/watch",
         "method": "GET",
         "timeout": "30s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/deploy",
-        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/deploy",
-        "method": "POST",
-        "timeout": "86400s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/undeploy",
-        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/undeploy",
-        "method": "POST",
-        "timeout": "30s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/trigger",
-        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/trigger",
+        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/{version_id}/trigger",
+        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/{version_id}/trigger",
         "method": "POST",
         "timeout": "600s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/trigger-multipart",
-        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/trigger-multipart",
+        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/{version_id}/trigger-multipart",
+        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/{version_id}/trigger-multipart",
         "method": "POST",
         "timeout": "600s",
         "input_query_strings": []
@@ -1721,14 +1707,14 @@
         "endpoint": "/v1alpha/organizations/{organization_id}/models",
         "url_pattern": "/v1alpha/organizations/{organization_id}/models",
         "method": "POST",
-        "timeout": "86400s",
+        "timeout": "30s",
         "input_query_strings": []
       },
       {
         "endpoint": "/v1alpha/organizations/{organization_id}/models/multipart",
         "url_pattern": "/v1alpha/organizations/{organization_id}/models/multipart",
         "method": "POST",
-        "timeout": "86400s",
+        "timeout": "30s",
         "input_query_strings": []
       },
       {
@@ -1783,36 +1769,22 @@
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}/watch",
-        "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}/watch",
+        "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}/{version_id}/watch",
+        "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}/{version_id}/watch",
         "method": "GET",
         "timeout": "30s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}/deploy",
-        "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}/deploy",
-        "method": "POST",
-        "timeout": "86400s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}/undeploy",
-        "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}/undeploy",
-        "method": "POST",
-        "timeout": "30s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}/trigger",
-        "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}/trigger",
+        "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}/{version_id}/trigger",
+        "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}/{version_id}/trigger",
         "method": "POST",
         "timeout": "600s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}/trigger-multipart",
-        "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}/trigger-multipart",
+        "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}/{version_id}/trigger-multipart",
+        "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}/{version_id}/trigger-multipart",
         "method": "POST",
         "timeout": "600s",
         "input_query_strings": []
@@ -1927,18 +1899,6 @@
         "timeout": "5s"
       },
       {
-        "endpoint": "/model.model.v1alpha.ModelPublicService/DeployUserModel",
-        "url_pattern": "/model.model.v1alpha.ModelPublicService/DeployUserModel",
-        "method": "POST",
-        "timeout": "86400s"
-      },
-      {
-        "endpoint": "/model.model.v1alpha.ModelPublicService/UndeployUserModel",
-        "url_pattern": "/model.model.v1alpha.ModelPublicService/UndeployUserModel",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
         "endpoint": "/model.model.v1alpha.ModelPublicService/GetUserModelCard",
         "url_pattern": "/model.model.v1alpha.ModelPublicService/GetUserModelCard",
         "method": "POST",
@@ -2013,18 +1973,6 @@
       {
         "endpoint": "/model.model.v1alpha.ModelPublicService/UnpublishOrganizationModel",
         "url_pattern": "/model.model.v1alpha.ModelPublicService/UnpublishOrganizationModel",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/model.model.v1alpha.ModelPublicService/DeployOrganizationModel",
-        "url_pattern": "/model.model.v1alpha.ModelPublicService/DeployOrganizationModel",
-        "method": "POST",
-        "timeout": "86400s"
-      },
-      {
-        "endpoint": "/model.model.v1alpha.ModelPublicService/UndeployOrganizationModel",
-        "url_pattern": "/model.model.v1alpha.ModelPublicService/UndeployOrganizationModel",
         "method": "POST",
         "timeout": "5s"
       },
