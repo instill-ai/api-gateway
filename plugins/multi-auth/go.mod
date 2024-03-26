@@ -6,7 +6,7 @@ toolchain go1.21.3
 
 require (
 	github.com/gofrs/uuid v4.3.1+incompatible
-	github.com/instill-ai/protogen-go v0.3.3-alpha.0.20240308151517-4b0523c184d1
+	github.com/instill-ai/protogen-go v0.3.3-alpha.0.20240326174102-6be99d973473
 	github.com/luraproject/lura v1.4.1
 	google.golang.org/grpc v1.56.3
 )

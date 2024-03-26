@@ -33,15 +33,15 @@ import (
 var urlRegexp = regexp.MustCompile(`/v2/(([^/]+)/([^/]+))/(blobs|manifests)/(.*)`)
 
 type registryHandler struct {
-	mgmtPublicClient  mgmtPB.MgmtPublicServiceClient
-	mgmtPrivateClient mgmtPB.MgmtPrivateServiceClient
-	modelPublicClient modelPB.ModelPublicServiceClient
+	mgmtPublicClient   mgmtPB.MgmtPublicServiceClient
+	mgmtPrivateClient  mgmtPB.MgmtPrivateServiceClient
+	modelPrivateClient modelPB.ModelPrivateServiceClient
 
 	registryAddr string
 }
 
 func newRegistryHandler(config map[string]any) (*registryHandler, error) {
-	var mgmtPublicAddr, mgmtPrivateAddr, modelPublicAddr string
+	var mgmtPublicAddr, mgmtPrivateAddr, modelPrivateAddr string
 	var ok bool
 	var rh registryHandler
 
@@ -54,8 +54,8 @@ func newRegistryHandler(config map[string]any) (*registryHandler, error) {
 	if mgmtPrivateAddr, ok = config["mgmt_private_hostport"].(string); !ok {
 		return nil, fmt.Errorf("invalid mgmt private address")
 	}
-	if modelPublicAddr, ok = config["model_public_hostport"].(string); !ok {
-		return nil, fmt.Errorf("invalid model public address")
+	if modelPrivateAddr, ok = config["model_private_hostport"].(string); !ok {
+		return nil, fmt.Errorf("invalid model private address")
 	}
 
 	mgmtPublicConn, err := newGRPCConn(mgmtPublicAddr, "", "")
@@ -66,14 +66,14 @@ func newRegistryHandler(config map[string]any) (*registryHandler, error) {
 	if err != nil {
 		return nil, fmt.Errorf("failed to connect with mgmt-backend: %w", err)
 	}
-	modelPublicConn, err := newGRPCConn(modelPublicAddr, "", "")
+	modelPrivateConn, err := newGRPCConn(modelPrivateAddr, "", "")
 	if err != nil {
 		return nil, fmt.Errorf("failed to connect with model-backend: %w", err)
 	}
 
 	rh.mgmtPublicClient = mgmtPB.NewMgmtPublicServiceClient(mgmtPublicConn)
 	rh.mgmtPrivateClient = mgmtPB.NewMgmtPrivateServiceClient(mgmtPrivateConn)
-	rh.modelPublicClient = modelPB.NewModelPublicServiceClient(modelPublicConn)
+	rh.modelPrivateClient = modelPB.NewModelPrivateServiceClient(modelPrivateConn)
 
 	return &rh, nil
 }
@@ -168,8 +168,8 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 		return
 	}
 
-	repository := matches[1]
 	namespace := matches[2]
+	contentID := matches[3]
 	resourceType := matches[4]
 	resourceID := matches[5]
 
@@ -212,6 +212,8 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 	}
 
 	if req.Method == http.MethodPut && resourceType == "manifests" && resp.StatusCode == http.StatusCreated {
+		digest := resp.Header.Get("Docker-Content-Digest")
+
 		// TODO Call create tag endpoint in artifact-backend.
 
 		// Deploy model.The previous operations are idempotent so it should be
@@ -223,19 +225,17 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 		// clients to consume and act upon it (artifact to register the tag
 		// creation time, model to deploy the image...).
 		ctx := withUserUIDAuth(ctx, p.userUID)
-		var err error
+		prefix := "users"
 		if isOrganizationRepository {
-			modelName := fmt.Sprintf("organizations/%s/models/%s:%s", namespace, repository, resourceID)
-			_, err = rh.modelPublicClient.DeployOrganizationModel(ctx,
-				&modelPB.DeployOrganizationModelRequest{Name: modelName},
-			)
-		} else {
-			modelName := fmt.Sprintf("users/%s/models/%s:%s", namespace, repository, resourceID)
-			_, err = rh.modelPublicClient.DeployUserModel(ctx,
-				&modelPB.DeployUserModelRequest{Name: modelName},
-			)
+			prefix = "organizations"
 		}
-		if err != nil {
+		deployReq := &modelPB.DeployModelAdminRequest{
+			Name:    fmt.Sprintf("%s/%s/models/%s", prefix, namespace, contentID),
+			Version: resourceID,
+			Digest:  digest,
+		}
+		if _, err := rh.modelPrivateClient.DeployModelAdmin(ctx, deployReq); err != nil {
+			logger.Error(err.Error())
 			writeStatusInternalError(req, w)
 			return
 		}
