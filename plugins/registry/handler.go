@@ -224,7 +224,6 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 		// is publishing the push operation success as an event and let the
 		// clients to consume and act upon it (artifact to register the tag
 		// creation time, model to deploy the image...).
-		ctx := withUserUIDAuth(ctx, p.userUID)
 		prefix := "users"
 		if isOrganizationRepository {
 			prefix = "organizations"
@@ -297,11 +296,4 @@ func writeStatusOK(req *http.Request, w http.ResponseWriter) {
 
 func withBearerAuth(ctx context.Context, bearer string) context.Context {
 	return metadata.AppendToOutgoingContext(ctx, "Authorization", fmt.Sprintf("Bearer %s", bearer))
-}
-
-func withUserUIDAuth(ctx context.Context, uid string) context.Context {
-	return metadata.AppendToOutgoingContext(ctx,
-		"Instill-Auth-Type", "user",
-		"Instill-User-Uid", uid,
-	)
 }
