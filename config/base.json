@@ -44,7 +44,8 @@
         "mgmt_public_hostport": "{{ .plugins.mgmt_public_hostport }}",
         "mgmt_private_hostport": "{{ .plugins.mgmt_private_hostport }}",
         "model_public_hostport": "{{ .plugins.model_public_hostport }}",
-        "model_private_hostport": "{{ .plugins.model_private_hostport }}"
+        "model_private_hostport": "{{ .plugins.model_private_hostport }}",
+        "artifact_private_hostport": "{{ .plugins.artifact_private_hostport }}"
       }
     }
   },
