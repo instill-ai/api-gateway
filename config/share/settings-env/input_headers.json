@@ -11,6 +11,7 @@
     "X-B3-Traceid"
   ],
   "http_auth": [
+    "Authorization",
     "Content-Type",
     "Content-Length",
     "X-Forwarded-For",
@@ -38,6 +39,7 @@
     "X-B3-Traceid"
   ],
   "grpc_auth": [
+    "Authorization",
     "Content-Type",
     "Content-Length",
     "X-Forwarded-For",
