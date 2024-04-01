@@ -35,13 +35,14 @@ var urlRegexp = regexp.MustCompile(`/v2/(([^/]+)/([^/]+))/(blobs|manifests)/(.*)
 type registryHandler struct {
 	mgmtPublicClient   mgmtPB.MgmtPublicServiceClient
 	mgmtPrivateClient  mgmtPB.MgmtPrivateServiceClient
+	modelPublicClient  modelPB.ModelPublicServiceClient
 	modelPrivateClient modelPB.ModelPrivateServiceClient
 
 	registryAddr string
 }
 
 func newRegistryHandler(config map[string]any) (*registryHandler, error) {
-	var mgmtPublicAddr, mgmtPrivateAddr, modelPrivateAddr string
+	var mgmtPublicAddr, mgmtPrivateAddr, modelPublicAddr, modelPrivateAddr string
 	var ok bool
 	var rh registryHandler
 
@@ -53,6 +54,9 @@ func newRegistryHandler(config map[string]any) (*registryHandler, error) {
 	}
 	if mgmtPrivateAddr, ok = config["mgmt_private_hostport"].(string); !ok {
 		return nil, fmt.Errorf("invalid mgmt private address")
+	}
+	if modelPublicAddr, ok = config["model_public_hostport"].(string); !ok {
+		return nil, fmt.Errorf("invalid model public address")
 	}
 	if modelPrivateAddr, ok = config["model_private_hostport"].(string); !ok {
 		return nil, fmt.Errorf("invalid model private address")
@@ -66,6 +70,10 @@ func newRegistryHandler(config map[string]any) (*registryHandler, error) {
 	if err != nil {
 		return nil, fmt.Errorf("failed to connect with mgmt-backend: %w", err)
 	}
+	modelPublicConn, err := newGRPCConn(modelPublicAddr, "", "")
+	if err != nil {
+		return nil, fmt.Errorf("failed to connect with model-backend: %w", err)
+	}
 	modelPrivateConn, err := newGRPCConn(modelPrivateAddr, "", "")
 	if err != nil {
 		return nil, fmt.Errorf("failed to connect with model-backend: %w", err)
@@ -73,6 +81,7 @@ func newRegistryHandler(config map[string]any) (*registryHandler, error) {
 
 	rh.mgmtPublicClient = mgmtPB.NewMgmtPublicServiceClient(mgmtPublicConn)
 	rh.mgmtPrivateClient = mgmtPB.NewMgmtPrivateServiceClient(mgmtPrivateConn)
+	rh.modelPublicClient = modelPB.NewModelPublicServiceClient(modelPublicConn)
 	rh.modelPrivateClient = modelPB.NewModelPrivateServiceClient(modelPrivateConn)
 
 	return &rh, nil
@@ -200,6 +209,28 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 		}
 	}
 
+	// reject the push request if the model namespace does not already exist in model-backend
+	ctx = withUserUIDAuth(ctx, p.userUID)
+	if isOrganizationRepository {
+		name := fmt.Sprintf("organizations/%s/models/%s", namespace, contentID)
+		if _, err := rh.modelPublicClient.GetOrganizationModel(ctx, &modelPB.GetOrganizationModelRequest{
+			Name: name,
+			View: modelPB.View_VIEW_BASIC.Enum(),
+		}); err != nil {
+			writeStatusNotFoundError(req, w, "Resource namespace not found")
+			return
+		}
+	} else {
+		name := fmt.Sprintf("users/%s/models/%s", namespace, contentID)
+		if _, err := rh.modelPublicClient.GetUserModel(ctx, &modelPB.GetUserModelRequest{
+			Name: name,
+			View: modelPB.View_VIEW_BASIC.Enum(),
+		}); err != nil {
+			writeStatusNotFoundError(req, w, "Resource namespace not found")
+			return
+		}
+	}
+
 	req.URL.Scheme = "http"
 	req.URL.Host = rh.registryAddr
 	req.RequestURI = ""
@@ -224,7 +255,6 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 		// is publishing the push operation success as an event and let the
 		// clients to consume and act upon it (artifact to register the tag
 		// creation time, model to deploy the image...).
-		ctx := withUserUIDAuth(ctx, p.userUID)
 		prefix := "users"
 		if isOrganizationRepository {
 			prefix = "organizations"
@@ -280,6 +310,21 @@ func writeStatusInternalError(req *http.Request, w http.ResponseWriter) {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Header().Set("Content-Type", "application/json")
 	}
+}
+
+func writeStatusNotFoundError(req *http.Request, w http.ResponseWriter, error string) {
+	if req.ProtoMajor == 2 && strings.Contains(req.Header.Get("Content-Type"), "application/grpc") {
+		w.Header().Set("Content-Type", "application/grpc")
+		w.Header().Set("Trailer", "Grpc-Status")
+		w.Header().Add("Trailer", "Grpc-Message")
+		w.Header().Set("Grpc-Status", "5")
+		w.Header().Set("Grpc-Message", "NOT_FOUND")
+	} else {
+		w.WriteHeader(http.StatusNotFound)
+		w.Header().Set("Content-Type", "application/json")
+	}
+
+	fmt.Fprintln(w, error)
 }
 
 func writeStatusOK(req *http.Request, w http.ResponseWriter) {
