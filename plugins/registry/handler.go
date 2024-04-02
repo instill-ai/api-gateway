@@ -101,20 +101,20 @@ func (rh *registryHandler) handler(ctx context.Context) http.HandlerFunc {
 		if !ok {
 			// Challenge the user for basic authentication
 			w.Header().Set("WWW-Authenticate", `Basic realm="Restricted"`)
-			writeStatus(req, w, "16", "Unauthenticated", "Instill AI user authentication failed")
+			writeStatus(req, w, http.StatusUnauthorized, "Unauthenticated", "Instill AI user authentication failed")
 			return
 		}
 
 		// Validate the api key and the namespace authorization
 		if !strings.HasPrefix(password, "instill_sk_") {
-			writeStatus(req, w, "16", "Unauthenticated", "Instill AI user authentication failed")
+			writeStatus(req, w, http.StatusUnauthorized, "Unauthenticated", "Instill AI user authentication failed")
 			return
 		}
 
 		ctx = withBearerAuth(ctx, password)
 		tokenValidation, err := rh.mgmtPublicClient.ValidateToken(ctx, &mgmtPB.ValidateTokenRequest{})
 		if err != nil {
-			writeStatus(req, w, "13", "INTERNAL", "")
+			writeStatus(req, w, http.StatusInternalServerError, "INTERNAL", "")
 			return
 		}
 
@@ -147,17 +147,17 @@ func (rh *registryHandler) login(ctx context.Context, p registryHandlerParams) {
 	)
 	if err != nil {
 		logger.Error(err.Error())
-		writeStatus(req, w, "13", "INTERNAL", "")
+		writeStatus(req, w, http.StatusInternalServerError, "INTERNAL", "")
 		return
 	}
 
 	if userLookup.User.Id != p.userID {
-		writeStatus(req, w, "16", "Unauthenticated", "Instill AI user authentication failed")
+		writeStatus(req, w, http.StatusUnauthorized, "Unauthenticated", "Instill AI user authentication failed")
 		return
 	}
 
 	// To this point, if the url.Path is "/v2/", return 200 OK to the client for login success
-	writeStatus(p.req, p.writer, "0", "OK", "")
+	writeStatus(p.req, p.writer, http.StatusOK, "OK", "")
 }
 
 func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
@@ -173,7 +173,7 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 			"Docker registry hosted in Instill Artifact has a format " +
 			"[registry]/[namespace]/[repository path]:[image tag]. " +
 			"A namespace can be a user or organization ID."
-		writeStatus(req, w, "16", "Unauthenticated", errStr)
+		writeStatus(req, w, http.StatusUnauthorized, "Unauthenticated", errStr)
 		return
 	}
 
@@ -191,7 +191,7 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 		parent := fmt.Sprintf("users/%s", p.userID)
 		resp, err := rh.mgmtPublicClient.ListUserMemberships(ctx, &mgmtPB.ListUserMembershipsRequest{Parent: parent})
 		if err != nil {
-			writeStatus(req, w, "13", "INTERNAL", "")
+			writeStatus(req, w, http.StatusInternalServerError, "INTERNAL", "")
 			return
 		}
 
@@ -204,7 +204,7 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 		}
 
 		if !isValid {
-			writeStatus(req, w, "16", "Unauthenticated", "Instill AI user authentication failed")
+			writeStatus(req, w, http.StatusUnauthorized, "Unauthenticated", "Instill AI user authentication failed")
 			return
 		}
 	}
@@ -227,7 +227,7 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 			})
 		}
 		if err != nil {
-			writeStatus(req, w, "9", "FAILED_PRECONDITION", "Resource namespace does not exist")
+			writeStatus(req, w, http.StatusPreconditionFailed, "FAILED_PRECONDITION", "Resource namespace does not exist")
 			return
 		}
 	}
@@ -239,7 +239,7 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
 		logger.Error(err.Error())
-		writeStatus(req, w, "13", "INTERNAL", "")
+		writeStatus(req, w, http.StatusInternalServerError, "INTERNAL", "")
 		return
 	}
 
@@ -267,7 +267,7 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 		}
 		if _, err := rh.modelPrivateClient.DeployModelAdmin(ctx, deployReq); err != nil {
 			logger.Error(err.Error())
-			writeStatus(req, w, "13", "INTERNAL", "")
+			writeStatus(req, w, http.StatusInternalServerError, "INTERNAL", "")
 			return
 		}
 	}
@@ -285,53 +285,28 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 	resp.Body.Close()
 }
 
-func writeStatus(req *http.Request, w http.ResponseWriter, statusCode string, message string, err string) {
+func writeStatus(req *http.Request, w http.ResponseWriter, statusCode int, message string, err string) {
 	if req.ProtoMajor == 2 && strings.Contains(req.Header.Get("Content-Type"), "application/grpc") {
+		var grpcStatus string
+		switch statusCode {
+		case http.StatusOK:
+			grpcStatus = "0"
+		case http.StatusPreconditionFailed:
+			grpcStatus = "9"
+		case http.StatusInternalServerError:
+			grpcStatus = "13"
+		case http.StatusUnauthorized:
+			grpcStatus = "16"
+		default:
+			grpcStatus = "13"
+		}
 		w.Header().Set("Content-Type", "application/grpc")
 		w.Header().Set("Trailer", "Grpc-Status")
 		w.Header().Add("Trailer", "Grpc-Message")
-		w.Header().Set("Grpc-Status", statusCode)
+		w.Header().Set("Grpc-Status", grpcStatus)
 		w.Header().Set("Grpc-Message", message)
 	} else {
-		switch statusCode {
-		case "0":
-			w.WriteHeader(http.StatusOK)
-		case "1":
-			w.WriteHeader(http.StatusRequestTimeout)
-		case "2":
-			w.WriteHeader(http.StatusInternalServerError)
-		case "3":
-			w.WriteHeader(http.StatusBadRequest)
-		case "4":
-			w.WriteHeader(http.StatusGatewayTimeout)
-		case "5":
-			w.WriteHeader(http.StatusNotFound)
-		case "6":
-			w.WriteHeader(http.StatusConflict)
-		case "7":
-			w.WriteHeader(http.StatusForbidden)
-		case "8":
-			w.WriteHeader(http.StatusTooManyRequests)
-		case "9":
-			w.WriteHeader(http.StatusPreconditionFailed)
-		case "10":
-			w.WriteHeader(http.StatusConflict)
-		case "11":
-			w.WriteHeader(http.StatusBadRequest)
-		case "12":
-			w.WriteHeader(http.StatusNotImplemented)
-		case "13":
-			w.WriteHeader(http.StatusInternalServerError)
-		case "14":
-			w.WriteHeader(http.StatusServiceUnavailable)
-		case "15":
-			w.WriteHeader(http.StatusInternalServerError)
-		case "16":
-			w.WriteHeader(http.StatusUnauthorized)
-		default:
-			w.WriteHeader(http.StatusInternalServerError)
-		}
-
+		w.WriteHeader(statusCode)
 		w.Header().Set("Content-Type", "application/json")
 	}
 
