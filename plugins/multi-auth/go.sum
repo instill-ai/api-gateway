@@ -19,8 +19,10 @@ github.com/gorilla/context v0.0.0-20160226214623-1ea25387ff6f/go.mod h1:kBGZzfjB
 github.com/gorilla/mux v1.6.1/go.mod h1:1lud6UwP+6orDFRuTfBEV8e9/aOM/c4fVVCaMa2zaAs=
 github.com/grpc-ecosystem/grpc-gateway/v2 v2.11.3 h1:lLT7ZLSzGLI08vc9cpd+tYmNWjdKDqyr/2L+f6U12Fk=
 github.com/grpc-ecosystem/grpc-gateway/v2 v2.11.3/go.mod h1:o//XUCC/F+yRGJoPO/VU0GSB0f8Nhgmxx0VIRUvaC0w=
-github.com/instill-ai/protogen-go v0.3.3-alpha.0.20240308151517-4b0523c184d1 h1:8bhIcJZcUMKvZas2L0uyaVt/V+Tzw0OSR8GtdcFflMo=
-github.com/instill-ai/protogen-go v0.3.3-alpha.0.20240308151517-4b0523c184d1/go.mod h1:jhEL0SauySMoPLVvx105DWyThju9sYTbsXIySVCArmM=
+github.com/instill-ai/protogen-go v0.3.3-alpha.0.20240326163205-f2a46f62fe36 h1:dODBaCKMHwBI9s/ciehsOU1k6M09D5MOBc9+MPNG9i8=
+github.com/instill-ai/protogen-go v0.3.3-alpha.0.20240326163205-f2a46f62fe36/go.mod h1:jhEL0SauySMoPLVvx105DWyThju9sYTbsXIySVCArmM=
+github.com/instill-ai/protogen-go v0.3.3-alpha.0.20240326174102-6be99d973473 h1:jt7KJJqfaJVRXjpjKepFkluSw6Y+bn1ujhBQY9NsosI=
+github.com/instill-ai/protogen-go v0.3.3-alpha.0.20240326174102-6be99d973473/go.mod h1:jhEL0SauySMoPLVvx105DWyThju9sYTbsXIySVCArmM=
 github.com/luraproject/lura v1.4.1 h1:zNzLYMzM13EaSrb9bfaPICD4bXtNqMCdyi42R1eBgro=
 github.com/luraproject/lura v1.4.1/go.mod h1:KIo1/+nsRZVxIO04Hkbth0GXSSzypvkFpF5KaIoLvlo=
 github.com/mattn/go-isatty v0.0.3/go.mod h1:M+lRXTBqGeGNdLjl/ufCoiOlB5xdOkqRJdNxMWT7Zi4=
