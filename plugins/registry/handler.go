@@ -35,13 +35,14 @@ var urlRegexp = regexp.MustCompile(`/v2/(([^/]+)/([^/]+))/(blobs|manifests)/(.*)
 type registryHandler struct {
 	mgmtPublicClient   mgmtPB.MgmtPublicServiceClient
 	mgmtPrivateClient  mgmtPB.MgmtPrivateServiceClient
+	modelPublicClient  modelPB.ModelPublicServiceClient
 	modelPrivateClient modelPB.ModelPrivateServiceClient
 
 	registryAddr string
 }
 
 func newRegistryHandler(config map[string]any) (*registryHandler, error) {
-	var mgmtPublicAddr, mgmtPrivateAddr, modelPrivateAddr string
+	var mgmtPublicAddr, mgmtPrivateAddr, modelPublicAddr, modelPrivateAddr string
 	var ok bool
 	var rh registryHandler
 
@@ -53,6 +54,9 @@ func newRegistryHandler(config map[string]any) (*registryHandler, error) {
 	}
 	if mgmtPrivateAddr, ok = config["mgmt_private_hostport"].(string); !ok {
 		return nil, fmt.Errorf("invalid mgmt private address")
+	}
+	if modelPublicAddr, ok = config["model_public_hostport"].(string); !ok {
+		return nil, fmt.Errorf("invalid model public address")
 	}
 	if modelPrivateAddr, ok = config["model_private_hostport"].(string); !ok {
 		return nil, fmt.Errorf("invalid model private address")
@@ -66,6 +70,10 @@ func newRegistryHandler(config map[string]any) (*registryHandler, error) {
 	if err != nil {
 		return nil, fmt.Errorf("failed to connect with mgmt-backend: %w", err)
 	}
+	modelPublicConn, err := newGRPCConn(modelPublicAddr, "", "")
+	if err != nil {
+		return nil, fmt.Errorf("failed to connect with model-backend: %w", err)
+	}
 	modelPrivateConn, err := newGRPCConn(modelPrivateAddr, "", "")
 	if err != nil {
 		return nil, fmt.Errorf("failed to connect with model-backend: %w", err)
@@ -73,6 +81,7 @@ func newRegistryHandler(config map[string]any) (*registryHandler, error) {
 
 	rh.mgmtPublicClient = mgmtPB.NewMgmtPublicServiceClient(mgmtPublicConn)
 	rh.mgmtPrivateClient = mgmtPB.NewMgmtPrivateServiceClient(mgmtPrivateConn)
+	rh.modelPublicClient = modelPB.NewModelPublicServiceClient(modelPublicConn)
 	rh.modelPrivateClient = modelPB.NewModelPrivateServiceClient(modelPrivateConn)
 
 	return &rh, nil
@@ -92,20 +101,20 @@ func (rh *registryHandler) handler(ctx context.Context) http.HandlerFunc {
 		if !ok {
 			// Challenge the user for basic authentication
 			w.Header().Set("WWW-Authenticate", `Basic realm="Restricted"`)
-			writeStatusUnauthorized(req, w, "Instill AI user authentication failed")
+			writeStatus(req, w, http.StatusUnauthorized, "Unauthenticated", "Instill AI user authentication failed")
 			return
 		}
 
 		// Validate the api key and the namespace authorization
 		if !strings.HasPrefix(password, "instill_sk_") {
-			writeStatusUnauthorized(req, w, "Instill AI user authentication failed")
+			writeStatus(req, w, http.StatusUnauthorized, "Unauthenticated", "Instill AI user authentication failed")
 			return
 		}
 
 		ctx = withBearerAuth(ctx, password)
 		tokenValidation, err := rh.mgmtPublicClient.ValidateToken(ctx, &mgmtPB.ValidateTokenRequest{})
 		if err != nil {
-			writeStatusInternalError(req, w)
+			writeStatus(req, w, http.StatusInternalServerError, "INTERNAL", "")
 			return
 		}
 
@@ -138,17 +147,17 @@ func (rh *registryHandler) login(ctx context.Context, p registryHandlerParams) {
 	)
 	if err != nil {
 		logger.Error(err.Error())
-		writeStatusInternalError(req, w)
+		writeStatus(req, w, http.StatusInternalServerError, "INTERNAL", "")
 		return
 	}
 
 	if userLookup.User.Id != p.userID {
-		writeStatusUnauthorized(req, w, "Instill AI user authentication failed")
+		writeStatus(req, w, http.StatusUnauthorized, "Unauthenticated", "Instill AI user authentication failed")
 		return
 	}
 
 	// To this point, if the url.Path is "/v2/", return 200 OK to the client for login success
-	writeStatusOK(p.req, p.writer)
+	writeStatus(p.req, p.writer, http.StatusOK, "OK", "")
 }
 
 func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
@@ -164,7 +173,7 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 			"Docker registry hosted in Instill Artifact has a format " +
 			"[registry]/[namespace]/[repository path]:[image tag]. " +
 			"A namespace can be a user or organization ID."
-		writeStatusUnauthorized(req, w, errStr)
+		writeStatus(req, w, http.StatusUnauthorized, "Unauthenticated", errStr)
 		return
 	}
 
@@ -182,7 +191,7 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 		parent := fmt.Sprintf("users/%s", p.userID)
 		resp, err := rh.mgmtPublicClient.ListUserMemberships(ctx, &mgmtPB.ListUserMembershipsRequest{Parent: parent})
 		if err != nil {
-			writeStatusInternalError(req, w)
+			writeStatus(req, w, http.StatusInternalServerError, "INTERNAL", "")
 			return
 		}
 
@@ -195,7 +204,30 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 		}
 
 		if !isValid {
-			writeStatusUnauthorized(req, w, "Instill AI user authentication failed")
+			writeStatus(req, w, http.StatusUnauthorized, "Unauthenticated", "Instill AI user authentication failed")
+			return
+		}
+	}
+
+	// Check the existence of the model namespace before continuing with the push.
+	ctx = withUserUIDAuth(ctx, p.userUID)
+	if req.Method == http.MethodHead {
+		var err error
+		if isOrganizationRepository {
+			name := fmt.Sprintf("organizations/%s/models/%s", namespace, contentID)
+			_, err = rh.modelPublicClient.GetOrganizationModel(ctx, &modelPB.GetOrganizationModelRequest{
+				Name: name,
+				View: modelPB.View_VIEW_BASIC.Enum(),
+			})
+		} else {
+			name := fmt.Sprintf("users/%s/models/%s", namespace, contentID)
+			_, err = rh.modelPublicClient.GetUserModel(ctx, &modelPB.GetUserModelRequest{
+				Name: name,
+				View: modelPB.View_VIEW_BASIC.Enum(),
+			})
+		}
+		if err != nil {
+			writeStatus(req, w, http.StatusPreconditionFailed, "FAILED_PRECONDITION", "Resource namespace does not exist")
 			return
 		}
 	}
@@ -207,7 +239,7 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
 		logger.Error(err.Error())
-		writeStatusInternalError(req, w)
+		writeStatus(req, w, http.StatusInternalServerError, "INTERNAL", "")
 		return
 	}
 
@@ -224,7 +256,6 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 		// is publishing the push operation success as an event and let the
 		// clients to consume and act upon it (artifact to register the tag
 		// creation time, model to deploy the image...).
-		ctx := withUserUIDAuth(ctx, p.userUID)
 		prefix := "users"
 		if isOrganizationRepository {
 			prefix = "organizations"
@@ -236,7 +267,7 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 		}
 		if _, err := rh.modelPrivateClient.DeployModelAdmin(ctx, deployReq); err != nil {
 			logger.Error(err.Error())
-			writeStatusInternalError(req, w)
+			writeStatus(req, w, http.StatusInternalServerError, "INTERNAL", "")
 			return
 		}
 	}
@@ -254,44 +285,33 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 	resp.Body.Close()
 }
 
-func writeStatusUnauthorized(req *http.Request, w http.ResponseWriter, error string) {
+func writeStatus(req *http.Request, w http.ResponseWriter, statusCode int, message string, err string) {
 	if req.ProtoMajor == 2 && strings.Contains(req.Header.Get("Content-Type"), "application/grpc") {
+		var grpcStatus string
+		switch statusCode {
+		case http.StatusOK:
+			grpcStatus = "0"
+		case http.StatusPreconditionFailed:
+			grpcStatus = "9"
+		case http.StatusInternalServerError:
+			grpcStatus = "13"
+		case http.StatusUnauthorized:
+			grpcStatus = "16"
+		default:
+			grpcStatus = "13"
+		}
 		w.Header().Set("Content-Type", "application/grpc")
 		w.Header().Set("Trailer", "Grpc-Status")
 		w.Header().Add("Trailer", "Grpc-Message")
-		w.Header().Set("Grpc-Status", "16")
-		w.Header().Set("Grpc-Message", "Unauthenticated")
+		w.Header().Set("Grpc-Status", grpcStatus)
+		w.Header().Set("Grpc-Message", message)
 	} else {
-		w.WriteHeader(http.StatusUnauthorized)
+		w.WriteHeader(statusCode)
 		w.Header().Set("Content-Type", "application/json")
 	}
 
-	fmt.Fprintln(w, error)
-}
-
-func writeStatusInternalError(req *http.Request, w http.ResponseWriter) {
-	if req.ProtoMajor == 2 && strings.Contains(req.Header.Get("Content-Type"), "application/grpc") {
-		w.Header().Set("Content-Type", "application/grpc")
-		w.Header().Set("Trailer", "Grpc-Status")
-		w.Header().Add("Trailer", "Grpc-Message")
-		w.Header().Set("Grpc-Status", "13")
-		w.Header().Set("Grpc-Message", "INTERNAL")
-	} else {
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Header().Set("Content-Type", "application/json")
-	}
-}
-
-func writeStatusOK(req *http.Request, w http.ResponseWriter) {
-	if req.ProtoMajor == 2 && strings.Contains(req.Header.Get("Content-Type"), "application/grpc") {
-		w.Header().Set("Content-Type", "application/grpc")
-		w.Header().Set("Trailer", "Grpc-Status")
-		w.Header().Add("Trailer", "Grpc-Message")
-		w.Header().Set("Grpc-Status", "0")
-		w.Header().Set("Grpc-Message", "OK")
-	} else {
-		w.WriteHeader(http.StatusOK)
-		w.Header().Set("Content-Type", "application/json")
+	if err != "" {
+		fmt.Fprintln(w, err)
 	}
 }
 
