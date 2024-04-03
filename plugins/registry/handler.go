@@ -13,8 +13,9 @@ import (
 	"google.golang.org/grpc/metadata"
 	grpcstatus "google.golang.org/grpc/status"
 
-	mgmtPB "github.com/instill-ai/protogen-go/core/mgmt/v1beta"
-	modelPB "github.com/instill-ai/protogen-go/model/model/v1alpha"
+	artifactpb "github.com/instill-ai/protogen-go/artifact/artifact/v1alpha"
+	mgmtpb "github.com/instill-ai/protogen-go/core/mgmt/v1beta"
+	modelpb "github.com/instill-ai/protogen-go/model/model/v1alpha"
 )
 
 // urlRegexp will be aplied to the paths involved in pushing an image. It
@@ -36,16 +37,23 @@ import (
 var urlRegexp = regexp.MustCompile(`/v2/(([^/]+)/([^/]+))/(blobs|manifests)/(.*)`)
 
 type registryHandler struct {
-	mgmtPublicClient   mgmtPB.MgmtPublicServiceClient
-	mgmtPrivateClient  mgmtPB.MgmtPrivateServiceClient
-	modelPublicClient  modelPB.ModelPublicServiceClient
-	modelPrivateClient modelPB.ModelPrivateServiceClient
+	mgmtPublicClient      mgmtpb.MgmtPublicServiceClient
+	mgmtPrivateClient     mgmtpb.MgmtPrivateServiceClient
+	modelPublicClient     modelpb.ModelPublicServiceClient
+	modelPrivateClient    modelpb.ModelPrivateServiceClient
+	artifactPrivateClient artifactpb.ArtifactPrivateServiceClient
 
 	registryAddr string
 }
 
 func newRegistryHandler(config map[string]any) (*registryHandler, error) {
-	var mgmtPublicAddr, mgmtPrivateAddr, modelPublicAddr, modelPrivateAddr string
+	var (
+		mgmtPublicAddr      string
+		mgmtPrivateAddr     string
+		modelPublicAddr     string
+		modelPrivateAddr    string
+		artifactPrivateAddr string
+	)
 	var ok bool
 	var rh registryHandler
 
@@ -64,6 +72,9 @@ func newRegistryHandler(config map[string]any) (*registryHandler, error) {
 	if modelPrivateAddr, ok = config["model_private_hostport"].(string); !ok {
 		return nil, fmt.Errorf("invalid model private address")
 	}
+	if artifactPrivateAddr, ok = config["artifact_private_hostport"].(string); !ok {
+		return nil, fmt.Errorf("invalid artifact private address")
+	}
 
 	mgmtPublicConn, err := newGRPCConn(mgmtPublicAddr, "", "")
 	if err != nil {
@@ -81,11 +92,16 @@ func newRegistryHandler(config map[string]any) (*registryHandler, error) {
 	if err != nil {
 		return nil, fmt.Errorf("failed to connect with model-backend: %w", err)
 	}
+	artifactPrivateConn, err := newGRPCConn(artifactPrivateAddr, "", "")
+	if err != nil {
+		return nil, fmt.Errorf("failed to connect with artifact-backend: %w", err)
+	}
 
-	rh.mgmtPublicClient = mgmtPB.NewMgmtPublicServiceClient(mgmtPublicConn)
-	rh.mgmtPrivateClient = mgmtPB.NewMgmtPrivateServiceClient(mgmtPrivateConn)
-	rh.modelPublicClient = modelPB.NewModelPublicServiceClient(modelPublicConn)
-	rh.modelPrivateClient = modelPB.NewModelPrivateServiceClient(modelPrivateConn)
+	rh.mgmtPublicClient = mgmtpb.NewMgmtPublicServiceClient(mgmtPublicConn)
+	rh.mgmtPrivateClient = mgmtpb.NewMgmtPrivateServiceClient(mgmtPrivateConn)
+	rh.modelPublicClient = modelpb.NewModelPublicServiceClient(modelPublicConn)
+	rh.modelPrivateClient = modelpb.NewModelPrivateServiceClient(modelPrivateConn)
+	rh.artifactPrivateClient = artifactpb.NewArtifactPrivateServiceClient(artifactPrivateConn)
 
 	return &rh, nil
 }
@@ -115,7 +131,7 @@ func (rh *registryHandler) handler(ctx context.Context) http.HandlerFunc {
 		}
 
 		ctx = withBearerAuth(ctx, password)
-		tokenValidation, err := rh.mgmtPublicClient.ValidateToken(ctx, &mgmtPB.ValidateTokenRequest{})
+		tokenValidation, err := rh.mgmtPublicClient.ValidateToken(ctx, &mgmtpb.ValidateTokenRequest{})
 		if err != nil {
 			switch grpcstatus.Convert(err).Code() {
 			case grpccodes.Unauthenticated:
@@ -149,7 +165,7 @@ func (rh *registryHandler) login(ctx context.Context, p registryHandlerParams) {
 	w := p.writer
 
 	// Check if the login username is the same with the user id retrieved from the token validation response
-	lookupReq := &mgmtPB.LookUpUserAdminRequest{Permalink: "users/" + p.userUID}
+	lookupReq := &mgmtpb.LookUpUserAdminRequest{Permalink: "users/" + p.userUID}
 	userLookup, err := rh.mgmtPrivateClient.LookUpUserAdmin(ctx, lookupReq)
 	if err != nil {
 		logger.Error(req.URL.Path, "failed to lookup user", err)
@@ -179,6 +195,7 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 		return
 	}
 
+	repository := matches[1]
 	namespace := matches[2]
 	contentID := matches[3]
 	resourceType := matches[4]
@@ -191,7 +208,7 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 		isOrganizationRepository = true
 
 		parent := fmt.Sprintf("users/%s", p.userID)
-		resp, err := rh.mgmtPublicClient.ListUserMemberships(ctx, &mgmtPB.ListUserMembershipsRequest{Parent: parent})
+		resp, err := rh.mgmtPublicClient.ListUserMemberships(ctx, &mgmtpb.ListUserMembershipsRequest{Parent: parent})
 		if err != nil {
 			logger.Error(req.URL.Path, "failed to check organization", err)
 			rh.handleError(req, w, err)
@@ -200,7 +217,7 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 
 		isValid := false
 		for _, membership := range resp.Memberships {
-			if namespace == membership.Organization.Name && membership.State == mgmtPB.MembershipState_MEMBERSHIP_STATE_ACTIVE {
+			if namespace == membership.Organization.Name && membership.State == mgmtpb.MembershipState_MEMBERSHIP_STATE_ACTIVE {
 				isValid = true
 				break
 			}
@@ -213,21 +230,21 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 	}
 
 	// Check the existence of the model namespace before continuing with the push.
-	ctx = withUserUIDAuth(ctx, p.userUID)
 	if req.Method == http.MethodHead {
+		ctx := withUserUIDAuth(ctx, p.userUID)
 		var err error
 		switch {
 		case isOrganizationRepository:
 			name := fmt.Sprintf("organizations/%s/models/%s", namespace, contentID)
-			_, err = rh.modelPublicClient.GetOrganizationModel(ctx, &modelPB.GetOrganizationModelRequest{
+			_, err = rh.modelPublicClient.GetOrganizationModel(ctx, &modelpb.GetOrganizationModelRequest{
 				Name: name,
-				View: modelPB.View_VIEW_BASIC.Enum(),
+				View: modelpb.View_VIEW_BASIC.Enum(),
 			})
 		default:
 			name := fmt.Sprintf("users/%s/models/%s", namespace, contentID)
-			_, err = rh.modelPublicClient.GetUserModel(ctx, &modelPB.GetUserModelRequest{
+			_, err = rh.modelPublicClient.GetUserModel(ctx, &modelpb.GetUserModelRequest{
 				Name: name,
-				View: modelPB.View_VIEW_BASIC.Enum(),
+				View: modelpb.View_VIEW_BASIC.Enum(),
 			})
 		}
 		if err != nil {
@@ -256,7 +273,18 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 	if req.Method == http.MethodPut && resourceType == "manifests" && resp.StatusCode == http.StatusCreated {
 		digest := resp.Header.Get("Docker-Content-Digest")
 
-		// TODO Call create tag endpoint in artifact-backend.
+		createTagReq := &artifactpb.CreateRepositoryTagRequest{
+			Tag: &artifactpb.RepositoryTag{
+				Digest: digest,
+				Name:   fmt.Sprintf("repositories/%s/tags/%s", repository, resourceID),
+				Id:     resourceID,
+			},
+		}
+		if _, err := rh.artifactPrivateClient.CreateRepositoryTag(ctx, createTagReq); err != nil {
+			logger.Error(req.URL.Path, "failed to create tag", err)
+			rh.handleError(req, w, err)
+			return
+		}
 
 		// Deploy model.The previous operations are idempotent so it should be
 		// safe to repeat them if we fail here.
@@ -270,7 +298,7 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 		if isOrganizationRepository {
 			prefix = "organizations"
 		}
-		deployReq := &modelPB.DeployModelAdminRequest{
+		deployReq := &modelpb.DeployModelAdminRequest{
 			Name:    fmt.Sprintf("%s/%s/models/%s", prefix, namespace, contentID),
 			Version: resourceID,
 			Digest:  digest,
