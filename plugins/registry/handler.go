@@ -249,7 +249,7 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 		}
 		if err != nil {
 			switch grpcstatus.Convert(err).Code() {
-			case grpccodes.Unavailable:
+			case grpccodes.NotFound:
 				rh.handleNameUnknown(w, "model doesn't exist")
 			default:
 				logger.Error(req.URL.Path, "failed to validate namespace", err)
