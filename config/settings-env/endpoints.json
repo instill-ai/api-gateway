@@ -1671,29 +1671,39 @@
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/{version_id}/watch",
-        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/{version_id}/watch",
+        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/versions",
+        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/versions",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "page_size",
+          "page"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/versions/{version_id}/watch",
+        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/versions/{version_id}/watch",
         "method": "GET",
         "timeout": "30s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/{version_id}/trigger",
-        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/{version_id}/trigger",
+        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/versions/{version_id}/trigger",
+        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/versions/{version_id}/trigger",
         "method": "POST",
         "timeout": "600s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/{version_id}/triggerAsync",
-        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/{version_id}/triggerAsync",
+        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/versions/{version_id}/triggerAsync",
+        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/versions/{version_id}/triggerAsync",
         "method": "POST",
         "timeout": "30s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/{version_id}/trigger-multipart",
-        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/{version_id}/trigger-multipart",
+        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/versions/{version_id}/trigger-multipart",
+        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/versions/{version_id}/trigger-multipart",
         "method": "POST",
         "timeout": "600s",
         "input_query_strings": []
@@ -1776,29 +1786,39 @@
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}/{version_id}/watch",
-        "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}/{version_id}/watch",
+        "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}/versions",
+        "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}/versions",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "page_size",
+          "page"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}/versions/{version_id}/watch",
+        "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}/versions/{version_id}/watch",
         "method": "GET",
         "timeout": "30s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}/{version_id}/trigger",
-        "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}/{version_id}/trigger",
+        "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}/versions/{version_id}/trigger",
+        "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}/versions/{version_id}/trigger",
         "method": "POST",
         "timeout": "600s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}/{version_id}/triggerAsync",
-        "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}/{version_id}/triggerAsync",
+        "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}/versions/{version_id}/triggerAsync",
+        "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}/versions/{version_id}/triggerAsync",
         "method": "POST",
         "timeout": "30s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}/{version_id}/trigger-multipart",
-        "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}/{version_id}/trigger-multipart",
+        "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}/versions/{version_id}/trigger-multipart",
+        "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}/versions/{version_id}/trigger-multipart",
         "method": "POST",
         "timeout": "600s",
         "input_query_strings": []
@@ -1873,6 +1893,12 @@
       {
         "endpoint": "/model.model.v1alpha.ModelPublicService/ListUserModels",
         "url_pattern": "/model.model.v1alpha.ModelPublicService/ListUserModels",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/model.model.v1alpha.ModelPublicService/ListUserModelVersions",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/ListUserModelVersions",
         "method": "POST",
         "timeout": "5s"
       },
@@ -1957,6 +1983,12 @@
       {
         "endpoint": "/model.model.v1alpha.ModelPublicService/ListOrganizationModels",
         "url_pattern": "/model.model.v1alpha.ModelPublicService/ListOrganizationModels",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/model.model.v1alpha.ModelPublicService/ListOrganizationModelVersions",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/ListOrganizationModelVersions",
         "method": "POST",
         "timeout": "5s"
       },
