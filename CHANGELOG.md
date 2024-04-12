@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.13.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.12.0-beta...v0.13.0-beta) (2024-04-11)
+
+
+### Features
+
+* **artifact:** create tag on successful push ([#153](https://github.com/instill-ai/api-gateway/issues/153)) ([2bfe85a](https://github.com/instill-ai/api-gateway/commit/2bfe85ad8b1dc71ef2cad8d41093fba47709e285))
+* **artifact:** deploy model on push completion ([#152](https://github.com/instill-ai/api-gateway/issues/152)) ([19abc68](https://github.com/instill-ai/api-gateway/commit/19abc680968caa3ff9a066f33cbe198e2a5b9170))
+* **artifact:** expose public Artifact endpoints ([#149](https://github.com/instill-ai/api-gateway/issues/149)) ([02ac5c5](https://github.com/instill-ai/api-gateway/commit/02ac5c5d4fa71bb40bd85120a477720cc774923d))
+* **mgmt:** add endpoints for user and organization avatars ([#162](https://github.com/instill-ai/api-gateway/issues/162)) ([bbcd8c8](https://github.com/instill-ai/api-gateway/commit/bbcd8c8115022f83d0ef157fefab9f258ed2d827))
+* **model:** add model async trigger ([#159](https://github.com/instill-ai/api-gateway/issues/159)) ([35f3165](https://github.com/instill-ai/api-gateway/commit/35f3165f36798a307d2bcc1f3cb8bb632db05f8d))
+* **model:** add namespace check and adopt latest protobuf ([#156](https://github.com/instill-ai/api-gateway/issues/156)) ([64fcd6e](https://github.com/instill-ai/api-gateway/commit/64fcd6e31cda47ed6c7f8c60fbdcdb9dd76a37ed))
+
+
+### Bug Fixes
+
+* **registry:** capture NotFound response in namespace check ([#160](https://github.com/instill-ai/api-gateway/issues/160)) ([7ed29dd](https://github.com/instill-ai/api-gateway/commit/7ed29ddcc1cae946cb0eab3b1f0e3193d10057ee))
+* **registry:** handle errors complying with the V2 API ([#158](https://github.com/instill-ai/api-gateway/issues/158)) ([3fb5532](https://github.com/instill-ai/api-gateway/commit/3fb5532c7de170d0ace28a78d8ae78e758b7daed))
+
 ## [0.12.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.11.0-beta...v0.12.0-beta) (2024-03-30)
 
 
