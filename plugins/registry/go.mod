@@ -1,8 +1,6 @@
 module registry-plugin
 
-go 1.21
-
-toolchain go1.21.3
+go 1.22.2
 
 require (
 	github.com/distribution/distribution v2.8.3+incompatible

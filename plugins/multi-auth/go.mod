@@ -1,8 +1,6 @@
 module multi_auth_plugin
 
-go 1.21
-
-toolchain go1.21.3
+go 1.22.2
 
 require (
 	github.com/gofrs/uuid v4.3.1+incompatible
