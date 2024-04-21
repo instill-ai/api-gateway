@@ -1052,15 +1052,15 @@
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1beta/user/secrets",
-        "url_pattern": "/v1beta/user/secrets",
+        "endpoint": "/v1beta/users/{user_id}/secrets",
+        "url_pattern": "/v1beta/users/{user_id}/secrets",
         "method": "POST",
         "timeout": "30s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1beta/user/secrets",
-        "url_pattern": "/v1beta/user/secrets",
+        "endpoint": "/v1beta/users/{user_id}/secrets",
+        "url_pattern": "/v1beta/users/{user_id}/secrets",
         "method": "GET",
         "timeout": "30s",
         "input_query_strings": [
@@ -1070,22 +1070,22 @@
         ]
       },
       {
-        "endpoint": "/v1beta/user/secrets/{secret_id}",
-        "url_pattern": "/v1beta/user/secrets/{secret_id}",
+        "endpoint": "/v1beta/users/{user_id}/secrets/{secret_id}",
+        "url_pattern": "/v1beta/users/{user_id}/secrets/{secret_id}",
         "method": "GET",
         "timeout": "30s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1beta/user/secrets/{secret_id}",
-        "url_pattern": "/v1beta/user/secrets/{secret_id}",
+        "endpoint": "/v1beta/users/{user_id}/secrets/{secret_id}",
+        "url_pattern": "/v1beta/users/{user_id}/secrets/{secret_id}",
         "method": "PATCH",
         "timeout": "30s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1beta/user/secrets/{secret_id}",
-        "url_pattern": "/v1beta/user/secrets/{secret_id}",
+        "endpoint": "/v1beta/users/{user_id}/secrets/{secret_id}",
+        "url_pattern": "/v1beta/users/{user_id}/secrets/{secret_id}",
         "method": "DELETE",
         "timeout": "30s",
         "input_query_strings": []
