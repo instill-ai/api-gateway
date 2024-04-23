@@ -810,7 +810,6 @@
         "input_query_strings": []
       },
       {
-      {
         "endpoint": "/v1beta/users/{user_id}/secrets",
         "url_pattern": "/v1beta/users/{user_id}/secrets",
         "method": "POST",
