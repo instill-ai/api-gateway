@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.14.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.13.0-beta...v0.14.0-beta) (2024-04-24)
+
+
+### Features
+
+* **mgmt:** add credit public endpoints ([#168](https://github.com/instill-ai/api-gateway/issues/168)) ([8643c26](https://github.com/instill-ai/api-gateway/commit/8643c26a220524bf99e6f8eddef4c23b7e12dcb4))
+* **vdp:** adjust user secrets endpoint ([#172](https://github.com/instill-ai/api-gateway/issues/172)) ([f76992b](https://github.com/instill-ai/api-gateway/commit/f76992b00453ec1dd8f952d89228808ff8158d24))
+* **vdp:** expose pipeline secrets endpoints ([#164](https://github.com/instill-ai/api-gateway/issues/164)) ([0ade2f8](https://github.com/instill-ai/api-gateway/commit/0ade2f88789a73da15094bc1939e8464db54bb3a))
+* **vdp:** move connector/operator definition endpoints to auth section ([#174](https://github.com/instill-ai/api-gateway/issues/174)) ([0f5e0d1](https://github.com/instill-ai/api-gateway/commit/0f5e0d1f8958e713f3b46848e9356ddc21bbc5d9))
+
 ## [0.13.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.12.0-beta...v0.13.0-beta) (2024-04-11)
 
 
