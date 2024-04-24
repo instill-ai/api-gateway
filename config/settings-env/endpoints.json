@@ -886,15 +886,6 @@
         "method": "DELETE",
         "timeout": "30s",
         "input_query_strings": []
-      }
-    ],
-    "no_auth": [
-      {
-        "endpoint": "/v1beta/health/pipeline",
-        "url_pattern": "/v1beta/health/pipeline",
-        "method": "GET",
-        "timeout": "5s",
-        "input_query_strings": []
       },
       {
         "endpoint": "/v1beta/component-definitions",
@@ -951,6 +942,15 @@
         "input_query_strings": [
           "view"
         ]
+      }
+    ],
+    "no_auth": [
+      {
+        "endpoint": "/v1beta/health/pipeline",
+        "url_pattern": "/v1beta/health/pipeline",
+        "method": "GET",
+        "timeout": "5s",
+        "input_query_strings": []
       }
     ],
     "grpc_auth": [
@@ -1229,20 +1229,6 @@
         "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/GetOperation",
         "method": "POST",
         "timeout": "600s"
-      }
-    ],
-    "grpc_no_auth": [
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/Liveness",
-        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/Liveness",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/Readiness",
-        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/Readiness",
-        "method": "POST",
-        "timeout": "5s"
       },
       {
         "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/ListComponentDefinitions",
@@ -1331,6 +1317,20 @@
       {
         "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/DeleteOrganizationSecret",
         "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/DeleteOrganizationSecret",
+        "method": "POST",
+        "timeout": "5s"
+      }
+    ],
+    "grpc_no_auth": [
+      {
+        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/Liveness",
+        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/Liveness",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/Readiness",
+        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/Readiness",
         "method": "POST",
         "timeout": "5s"
       }
