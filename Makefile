@@ -65,6 +65,10 @@ config:							## Output the composed KrakenD configuration
 	@jq . config/out.json > krakend.json
 	@rm config/out.json && rm -rf config/settings
 
+.PHONY: run
+run:
+	@krakend run -c krakend.json
+
 help:       					## Show this help.
 	@echo "\nMake Application using Docker-Compose files."
 	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m (default: help)\n\nTargets:\n"} /^[a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-12s\033[0m %s\n", $$1, $$2 }' $(MAKEFILE_LIST)
