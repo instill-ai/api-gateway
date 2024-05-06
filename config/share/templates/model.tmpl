@@ -4,7 +4,7 @@
 {{- range $idx, $endpoint := $endpoints.http_auth }}
 {{- if $idx -}},{{ end }}
 {
-  "endpoint": "/model{{ .endpoint }}",
+  "endpoint": "{{ .endpoint }}",
   "method": "{{ .method }}",
   {{- if len .input_query_strings -}}
   "input_query_strings":
@@ -39,7 +39,7 @@
   ]
 },
 {
-  "endpoint": "/internal/model{{ .endpoint }}",
+  "endpoint": "/internal{{ .endpoint }}",
   "method": "{{ .method }}",
   {{- if len .input_query_strings -}}
   "input_query_strings":
@@ -80,7 +80,7 @@
 {{- range $idx, $endpoint := $endpoints.no_auth }}
 {{- if $idx -}},{{ end }}
 {
-  "endpoint": "/model{{ .endpoint }}",
+  "endpoint": "{{ .endpoint }}",
   "method": "{{ .method }}",
   {{- if len .input_query_strings -}}
   "input_query_strings":
@@ -114,7 +114,7 @@
   ]
 },
 {
-  "endpoint": "/internal/model{{ .endpoint }}",
+  "endpoint": "/internal{{ .endpoint }}",
   "method": "{{ .method }}",
   {{- if len .input_query_strings -}}
   "input_query_strings":

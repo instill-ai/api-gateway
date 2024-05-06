@@ -1,10 +1,10 @@
-{{ $host := .backends.artifact }}
+{{ $host := .backends.pipeline }}
 {{ $input_headers := .input_headers }}
-{{ $endpoints := .endpoints.artifact }}
+{{ $endpoints := .endpoints.pipeline }}
 {{- range $idx, $endpoint := $endpoints.http_auth }}
 {{- if $idx -}},{{ end }}
 {
-  "endpoint": "{{ .endpoint }}",
+  "endpoint": "/vdp{{ .endpoint }}",
   "method": "{{ .method }}",
   {{- if len .input_query_strings -}}
   "input_query_strings":
@@ -32,7 +32,7 @@
           "header.Modifier": {
             "scope": ["response"],
             "name": "Backend",
-            "value": "artifact"
+            "value": "pipeline"
           }
         }
       }
@@ -40,7 +40,7 @@
   ]
 },
 {
-  "endpoint": "/internal{{ .endpoint }}",
+  "endpoint": "/internal/vdp{{ .endpoint }}",
   "method": "{{ .method }}",
   {{- if len .input_query_strings -}}
   "input_query_strings":
@@ -69,7 +69,7 @@
           "header.Modifier": {
             "scope": ["response"],
             "name": "Backend",
-            "value": "artifact"
+            "value": "pipeline"
           }
         }
       }
@@ -81,7 +81,7 @@
 {{- range $idx, $endpoint := $endpoints.no_auth }}
 {{- if $idx -}},{{ end }}
 {
-  "endpoint": "{{ .endpoint }}",
+  "endpoint": "/vdp{{ .endpoint }}",
   "method": "{{ .method }}",
   {{- if len .input_query_strings -}}
   "input_query_strings":
@@ -107,7 +107,7 @@
           "header.Modifier": {
             "scope": ["response"],
             "name": "Backend",
-            "value": "artifact"
+            "value": "pipeline"
           }
         }
       }
@@ -115,7 +115,7 @@
   ]
 },
 {
-  "endpoint": "/internal{{ .endpoint }}",
+  "endpoint": "/internal/vdp{{ .endpoint }}",
   "method": "{{ .method }}",
   {{- if len .input_query_strings -}}
   "input_query_strings":
@@ -141,7 +141,7 @@
           "header.Modifier": {
             "scope": ["response"],
             "name": "Backend",
-            "value": "artifact"
+            "value": "pipeline"
           }
         }
       }
@@ -149,51 +149,3 @@
   ]
 }
 {{- end}}
-,
-{{- range $idx, $endpoint := $endpoints.grpc_no_auth }}
-{{- if $idx -}},{{ end }}
-{
-  "endpoint": "{{ .endpoint }}",
-  "method": "{{ .method }}",
-  "timeout": "{{ .timeout }}",
-  "output_encoding": "no-op",
-  "input_headers": {{ marshal $input_headers.grpc_no_auth }},
-  "backend": [
-    {
-      "url_pattern": "{{ .url_pattern }}",
-      "host": {{ marshal $host }},
-      "sd": "static",
-      "method": "{{ .method }}",
-      "disable_host_sanitize": false,
-      "extra_config": {
-        "plugin/http-client": {
-          "name": "grpc-proxy-client",
-          "grpc-proxy-client": {}
-        }
-      }
-    }
-  ]
-},
-{
-  "endpoint": "/internal/{{ .endpoint }}",
-  "method": "{{ .method }}",
-  "timeout": "{{ .timeout }}",
-  "output_encoding": "no-op",
-  "input_headers": {{ marshal $input_headers.grpc_no_auth }},
-  "backend": [
-    {
-      "url_pattern": "{{ .url_pattern }}",
-      "host": {{ marshal $host }},
-      "sd": "static",
-      "method": "{{ .method }}",
-      "disable_host_sanitize": false,
-      "extra_config": {
-        "plugin/http-client": {
-          "name": "grpc-proxy-client",
-          "grpc-proxy-client": {}
-        }
-      }
-    }
-  ]
-}
-{{- end }}

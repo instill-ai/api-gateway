@@ -51,9 +51,13 @@
   },
   "endpoints": [
     {{- template "mgmt.tmpl" . }},
+    {{- template "mgmt_deprecate.tmpl" . }},
     {{- template "pipeline.tmpl" . }},
+    {{- template "pipeline_deprecate.tmpl" . }},
     {{- template "model.tmpl" . }},
+    {{- template "model_deprecate.tmpl" . }},
     {{- template "artifact.tmpl" . }},
+    {{- template "artifact_deprecate.tmpl" . }},
     {{- template "debug.tmpl" . }}
   ]
 }
