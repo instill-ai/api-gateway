@@ -1347,6 +1347,8 @@
           "view",
           "page_size",
           "page_token",
+          "visibility",
+          "filter",
           "show_deleted"
         ]
       },
@@ -1368,6 +1370,8 @@
           "view",
           "page_size",
           "page_token",
+          "visibility",
+          "filter",
           "show_deleted"
         ]
       },
@@ -1518,6 +1522,8 @@
           "view",
           "page_size",
           "page_token",
+          "visibility",
+          "filter",
           "show_deleted"
         ]
       },
