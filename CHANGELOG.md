@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.15.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.14.0-beta...v0.15.0-beta) (2024-05-07)
+
+
+### Features
+
+* **core:** remove basePath for core, vdp, model and artifact endpoints ([#175](https://github.com/instill-ai/api-gateway/issues/175)) ([8766224](https://github.com/instill-ai/api-gateway/commit/876622497f4779a185d5b78e3564762669d2a447))
+
 ## [0.14.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.13.0-beta...v0.14.0-beta) (2024-04-24)
 
 
