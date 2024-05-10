@@ -1689,6 +1689,13 @@
         "input_query_strings": []
       },
       {
+        "endpoint": "/v1alpha/available-regions",
+        "url_pattern": "/v1alpha/available-regions",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
         "endpoint": "/v1alpha/model-definitions",
         "url_pattern": "/v1alpha/model-definitions",
         "method": "GET",
@@ -1941,6 +1948,12 @@
       {
         "endpoint": "/model.model.v1alpha.ModelPublicService/Readiness",
         "url_pattern": "/model.model.v1alpha.ModelPublicService/Readiness",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/model.model.v1alpha.ModelPublicService/ListAvailableRegions",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/ListAvailableRegions",
         "method": "POST",
         "timeout": "5s"
       },
