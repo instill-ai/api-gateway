@@ -1712,6 +1712,20 @@
         "method": "GET",
         "timeout": "30s",
         "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/image",
+        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/image",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}/image",
+        "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}/image",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": []
       }
     ],
     "grpc_auth": [
