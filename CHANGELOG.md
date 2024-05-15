@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.16.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.15.0-beta...v0.16.0-beta) (2024-05-15)
+
+
+### Features
+
+* **model:** support listing available regions for model deployment ([#178](https://github.com/instill-ai/api-gateway/issues/178)) ([37333d1](https://github.com/instill-ai/api-gateway/commit/37333d1e644d405887de1f83b5d76ed388c5185b))
+* **pipeline:** add order_by param for pipeline endpoints ([#181](https://github.com/instill-ai/api-gateway/issues/181)) ([c66b67d](https://github.com/instill-ai/api-gateway/commit/c66b67dfdad0b8a1a1efc8a8face476c43f3df90))
+
 ## [0.15.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.14.0-beta...v0.15.0-beta) (2024-05-07)
 
 
