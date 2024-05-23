@@ -21,8 +21,6 @@ github.com/grpc-ecosystem/grpc-gateway/v2 v2.19.1 h1:/c3QmbOGMGTOumP2iT/rCwB7b0Q
 github.com/grpc-ecosystem/grpc-gateway/v2 v2.19.1/go.mod h1:5SN9VR2LTsRFsrEC6FHgRbTWrTHu6tqPeKxEQv15giM=
 github.com/instill-ai/protogen-go v0.3.3-alpha.0.20240327112131-e593145f363a h1:k4tq5qQQABKiQ7uuEN2K54jnx3eVaW/PQpZXBU/SGdQ=
 github.com/instill-ai/protogen-go v0.3.3-alpha.0.20240327112131-e593145f363a/go.mod h1:jhEL0SauySMoPLVvx105DWyThju9sYTbsXIySVCArmM=
-github.com/instill-ai/protogen-go v0.3.3-alpha.0.20240522171446-6efac14a674e h1:RIAH7ibosC8H6yC6MutFvjVdFyvSsV2gFwqQWlrqzmM=
-github.com/instill-ai/protogen-go v0.3.3-alpha.0.20240522171446-6efac14a674e/go.mod h1:2blmpUwiTwxIDnrjIqT6FhR5ewshZZF554wzjXFvKpQ=
 github.com/kr/pretty v0.3.1 h1:flRD4NNwYAUpkphVc1HcthR4KEIFJ65n8Mw5qdRn3LE=
 github.com/kr/pretty v0.3.1/go.mod h1:hoEshYVHaxMs3cyo3Yncou5ZscifuDolrwPKZanG3xk=
 github.com/kr/text v0.2.0 h1:5Nx0Ya0ZqY2ygV366QzturHI13Jq95ApcVaJBhpS+AY=
