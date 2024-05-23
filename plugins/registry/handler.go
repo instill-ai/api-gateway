@@ -205,6 +205,7 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 	// namespace is an organisation name where the user has the membership.
 	isOrganizationRepository := false
 	if namespace != p.userID {
+		ctx := withUserUIDAuth(ctx, p.userUID)
 		isOrganizationRepository = true
 
 		parent := fmt.Sprintf("users/%s", p.userID)
