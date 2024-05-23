@@ -1472,6 +1472,13 @@
         "input_query_strings": []
       },
       {
+        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/triggerAsync",
+        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/triggerAsync",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
         "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/trigger-multipart",
         "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/trigger-multipart",
         "method": "POST",
@@ -1621,6 +1628,13 @@
         "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}/trigger",
         "method": "POST",
         "timeout": "600s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}/triggerAsync",
+        "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}/triggerAsync",
+        "method": "POST",
+        "timeout": "30s",
         "input_query_strings": []
       },
       {
@@ -1841,6 +1855,18 @@
         "timeout": "30s"
       },
       {
+        "endpoint": "/model.model.v1alpha.ModelPublicService/TriggerUserLatestModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/TriggerUserLatestModel",
+        "method": "POST",
+        "timeout": "600s"
+      },
+      {
+        "endpoint": "/model.model.v1alpha.ModelPublicService/TriggerAsyncUserLatestModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/TriggerAsyncUserLatestModel",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
         "endpoint": "/model.model.v1alpha.ModelPublicService/TriggerUserModelBinaryFileUpload",
         "url_pattern": "/model.model.v1alpha.ModelPublicService/TriggerUserModelBinaryFileUpload",
         "method": "POST",
@@ -1939,6 +1965,18 @@
       {
         "endpoint": "/model.model.v1alpha.ModelPublicService/TriggerAsyncOrganizationModel",
         "url_pattern": "/model.model.v1alpha.ModelPublicService/TriggerAsyncOrganizationModel",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/model.model.v1alpha.ModelPublicService/TriggerOrganizationLatestModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/TriggerOrganizationLatestModel",
+        "method": "POST",
+        "timeout": "600s"
+      },
+      {
+        "endpoint": "/model.model.v1alpha.ModelPublicService/TriggerAsyncOrganizationLatestModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/TriggerAsyncOrganizationLatestModel",
         "method": "POST",
         "timeout": "30s"
       },
