@@ -1352,6 +1352,7 @@
           "page_token",
           "visibility",
           "filter",
+          "order_by",
           "show_deleted"
         ]
       },
@@ -1375,6 +1376,7 @@
           "page_token",
           "visibility",
           "filter",
+          "order_by",
           "show_deleted"
         ]
       },
@@ -1534,6 +1536,7 @@
           "page_token",
           "visibility",
           "filter",
+          "order_by",
           "show_deleted"
         ]
       },
@@ -1843,6 +1846,12 @@
         "timeout": "5s"
       },
       {
+        "endpoint": "/model.model.v1alpha.ModelPublicService/WatchUserLatestModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/WatchUserLatestModel",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
         "endpoint": "/model.model.v1alpha.ModelPublicService/TriggerUserModel",
         "url_pattern": "/model.model.v1alpha.ModelPublicService/TriggerUserModel",
         "method": "POST",
@@ -1953,6 +1962,12 @@
       {
         "endpoint": "/model.model.v1alpha.ModelPublicService/WatchOrganizationModel",
         "url_pattern": "/model.model.v1alpha.ModelPublicService/WatchOrganizationModel",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/model.model.v1alpha.ModelPublicService/WatchOrganizationLatestModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/WatchOrganizationLatestModel",
         "method": "POST",
         "timeout": "5s"
       },
