@@ -2077,8 +2077,8 @@
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/users/{uid}/knowledge-base",
-        "url_pattern": "/v1alpha/users/{uid}/knowledge-base",
+        "endpoint": "/v1alpha/users/{user_id}/knowledge-base",
+        "url_pattern": "/v1alpha/users/{user_id}/knowledge-base",
         "method": "GET",
         "timeout": "10s",
         "input_query_strings": []
