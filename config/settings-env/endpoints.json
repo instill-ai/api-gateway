@@ -2068,6 +2068,56 @@
           "page_size",
           "page"
         ]
+      },
+      {
+        "endpoint": "/v1alpha/knowledge-base",
+        "url_pattern": "/v1alpha/knowledge-base",
+        "method": "POST",
+        "timeout": "10s"
+      },
+      {
+        "endpoint": "/v1alpha/users/{uid}/knowledge-base",
+        "url_pattern": "/v1alpha/users/{uid}/knowledge-base",
+        "method": "GET",
+        "timeout": "10s"
+      },
+      {
+        "endpoint": "/v1alpha/knowledge-base/{id}",
+        "url_pattern": "/v1alpha/knowledge-base/{id}",
+        "method": "PUT",
+        "timeout": "10s"
+      },
+      {
+        "endpoint": "/v1alpha/knowledge-base/{id}",
+        "url_pattern": "/v1alpha/knowledge-base/{id}",
+        "method": "DELETE",
+        "timeout": "10s"
+      }
+    ],
+    "grpc_auth": [
+      {
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/CreateKnowledgeBase",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/CreateKnowledgeBase",
+        "method": "POST",
+        "timeout": "10s"
+      },
+      {
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/ListKnowledgeBases",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/ListKnowledgeBases",
+        "method": "POST",
+        "timeout": "10s"
+      },
+      {
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/UpdateKnowledgeBase",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/UpdateKnowledgeBase",
+        "method": "POST",
+        "timeout": "10s"
+      },
+      {
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/DeleteKnowledgeBase",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/DeleteKnowledgeBase",
+        "method": "POST",
+        "timeout": "10s"
       }
     ],
     "grpc_no_auth": [
