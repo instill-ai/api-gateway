@@ -2089,19 +2089,19 @@
       {
         "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/ListKnowledgeBases",
         "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/ListKnowledgeBases",
-        "method": "GET",
+        "method": "POST",
         "timeout": "10s"
       },
       {
         "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/UpdateKnowledgeBase",
         "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/UpdateKnowledgeBase",
-        "method": "PUT",
+        "method": "POST",
         "timeout": "10s"
       },
       {
         "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/DeleteKnowledgeBase",
         "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/DeleteKnowledgeBase",
-        "method": "DELETE",
+        "method": "POST",
         "timeout": "10s"
       }
     ],
