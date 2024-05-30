@@ -2053,6 +2053,30 @@
           "page_size",
           "page"
         ]
+      },
+      {
+        "endpoint": "/v1alpha/knowledge-base",
+        "url_pattern": "/v1alpha/knowledge-base",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/v1alpha/users/{uid}/knowledge-base",
+        "url_pattern": "/v1alpha/users/{uid}/knowledge-base",
+        "method": "GET",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/v1alpha/knowledge-base/{id}",
+        "url_pattern": "/v1alpha/knowledge-base/{id}",
+        "method": "PUT",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/v1alpha/knowledge-base/{id}",
+        "url_pattern": "/v1alpha/knowledge-base/{id}",
+        "method": "DELETE",
+        "timeout": "30s"
       }
     ],
     "grpc_no_auth": [
