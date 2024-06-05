@@ -48,9 +48,9 @@ build:							## Build dev docker image
 
 .PHONY: plugin
 plugin:							# Compile the KrakenD plugins and copy them to /usr/local/lib/krakend/plugins
-	@bash -c "cd plugins/grpc-proxy && go build -buildmode=plugin -buildvcs=false -o /usr/local/lib/krakend/plugins/grpc-proxy.so /api-gateway/plugins/grpc-proxy"
-	@bash -c "cd plugins/multi-auth && go build -buildmode=plugin -buildvcs=false -o /usr/local/lib/krakend/plugins/multi-auth.so /api-gateway/plugins/multi-auth"
-	@bash -c "cd plugins/registry && go build -buildmode=plugin -buildvcs=false -o /usr/local/lib/krakend/plugins/registry.so /api-gateway/plugins/registry"
+	@bash -c "cd plugins/grpc-proxy && go build -buildmode=plugin -buildvcs=false -o /usr/local/lib/krakend/plugins/grpc-proxy.so ./..."
+	@bash -c "cd plugins/multi-auth && go build -buildmode=plugin -buildvcs=false -o /usr/local/lib/krakend/plugins/multi-auth.so ./..."
+	@bash -c "cd plugins/registry && go build -buildmode=plugin -buildvcs=false -o /usr/local/lib/krakend/plugins/registry.so ./..."
 
 .PHONY: config
 config:							## Output the composed KrakenD configuration
