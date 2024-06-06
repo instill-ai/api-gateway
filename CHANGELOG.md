@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.17.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.16.0-beta...v0.17.0-beta) (2024-06-06)
+
+
+### Features
+
+* **model:** add order_by field for list model endpoints ([#186](https://github.com/instill-ai/api-gateway/issues/186)) ([7486703](https://github.com/instill-ai/api-gateway/commit/748670372e6180028f6a68d519ed9c9589061719))
+* **model:** support trigger latest model version ([#185](https://github.com/instill-ai/api-gateway/issues/185)) ([bbf250d](https://github.com/instill-ai/api-gateway/commit/bbf250d009c1422c5c034afa49747c01bcfe54f9))
+
+
+### Bug Fixes
+
+* **kb:** endpoint conflict ([#189](https://github.com/instill-ai/api-gateway/issues/189)) ([5051f09](https://github.com/instill-ai/api-gateway/commit/5051f09e2a25835e18ef52e6a3265cc31b8eeb17))
+* **registry:** fix org membership check in registry plugin ([#182](https://github.com/instill-ai/api-gateway/issues/182)) ([5370041](https://github.com/instill-ai/api-gateway/commit/53700418e56451641c60838b97276899580412d4))
+
 ## [0.16.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.15.0-beta...v0.16.0-beta) (2024-05-15)
 
 
