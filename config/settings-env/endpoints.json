@@ -551,6 +551,20 @@
         "input_query_strings": []
       },
       {
+        "endpoint": "/v1beta/users/{user_id}/pipelines/{pipeline_id}/trigger:stream",
+        "url_pattern": "/v1beta/users/{user_id}/pipelines/{pipeline_id}/trigger:stream",
+        "method": "POST",
+        "timeout": "600s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1beta/sse",
+        "url_pattern": "/v1beta/sse",
+        "method": "GET",
+        "timeout": "600s",
+        "input_query_strings": []
+      },
+      {
         "endpoint": "/v1beta/users/{user_id}/pipelines/{pipeline_id}/triggerAsync",
         "url_pattern": "/v1beta/users/{user_id}/pipelines/{pipeline_id}/triggerAsync",
         "method": "POST",
@@ -1026,6 +1040,12 @@
       {
         "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerUserPipeline",
         "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerUserPipeline",
+        "method": "POST",
+        "timeout": "600s"
+      },
+       {
+        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerUserPipelineWithStream",
+        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerUserPipelineWithStream",
         "method": "POST",
         "timeout": "600s"
       },
