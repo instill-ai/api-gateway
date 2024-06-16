@@ -115,6 +115,8 @@ type registryHandlerParams struct {
 
 func (rh *registryHandler) handler(ctx context.Context) http.HandlerFunc {
 	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+		logger.Info(req.Method + " " + req.URL.Path)
+
 		// Authenticate the user via docker login
 		username, password, ok := req.BasicAuth()
 		if !ok {
@@ -233,16 +235,18 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 	// Check the existence of the model namespace before continuing with the push.
 	if req.Method == http.MethodHead {
 		ctx := withUserUIDAuth(ctx, p.userUID)
+
+		var name string
 		var err error
 		switch {
 		case isOrganizationRepository:
-			name := fmt.Sprintf("organizations/%s/models/%s", namespace, contentID)
+			name = fmt.Sprintf("organizations/%s/models/%s", namespace, contentID)
 			_, err = rh.modelPublicClient.GetOrganizationModel(ctx, &modelpb.GetOrganizationModelRequest{
 				Name: name,
 				View: modelpb.View_VIEW_BASIC.Enum(),
 			})
 		default:
-			name := fmt.Sprintf("users/%s/models/%s", namespace, contentID)
+			name = fmt.Sprintf("users/%s/models/%s", namespace, contentID)
 			_, err = rh.modelPublicClient.GetUserModel(ctx, &modelpb.GetUserModelRequest{
 				Name: name,
 				View: modelpb.View_VIEW_BASIC.Enum(),
@@ -251,7 +255,8 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 		if err != nil {
 			switch grpcstatus.Convert(err).Code() {
 			case grpccodes.NotFound:
-				rh.handleNameUnknown(w, "model doesn't exist")
+				logger.Warning(req.URL.Path, "model", name, "doesn't exist: ", err)
+				rh.handleNameUnknown(w, "model "+name+" doesn't exist")
 			default:
 				logger.Error(req.URL.Path, "failed to validate namespace", err)
 				rh.handleError(req, w, err)
@@ -340,6 +345,8 @@ var (
 )
 
 func (rh *registryHandler) handleError(req *http.Request, w http.ResponseWriter, e error) {
+	logger.Warning(req.URL.Path, e)
+
 	if err := errcode.ServeJSON(w, e); err != nil {
 		logger.Error(req.URL.Path, "failed to handle error", e)
 	}
