@@ -17,7 +17,7 @@
           "auth/signer": {
             "alg": "RS256",
             "jwk_local_path": "/instill/instill.jwks",
-            "keys_to_sign": ["access_token"],
+            "keys_to_sign": ["accessToken"],
             "kid": "instill",
             "disable_jwk_security": true
           }
