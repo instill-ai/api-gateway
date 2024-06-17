@@ -4,7 +4,7 @@ go 1.22.2
 
 require (
 	github.com/gofrs/uuid v4.3.1+incompatible
-	github.com/instill-ai/protogen-go v0.3.3-alpha.0.20240327112131-e593145f363a
+	github.com/instill-ai/protogen-go v0.3.3-alpha.0.20240614102540-80a2963307ba
 	github.com/luraproject/lura v1.4.1
 	google.golang.org/grpc v1.63.2
 )

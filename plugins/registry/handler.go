@@ -300,19 +300,30 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 		// is publishing the push operation success as an event and let the
 		// clients to consume and act upon it (artifact to register the tag
 		// creation time, model to deploy the image...).
-		prefix := "users"
 		if isOrganizationRepository {
-			prefix = "organizations"
-		}
-		deployReq := &modelpb.DeployModelAdminRequest{
-			Name:    fmt.Sprintf("%s/%s/models/%s", prefix, namespace, contentID),
-			Version: resourceID,
-			Digest:  digest,
-		}
-		if _, err := rh.modelPrivateClient.DeployModelAdmin(ctx, deployReq); err != nil {
-			logger.Error(req.URL.Path, "failed to deploy model", err)
-			rh.handleError(req, w, err)
-			return
+			prefix := "organizations"
+			deployReq := &modelpb.DeployOrganizationModelAdminRequest{
+				Name:    fmt.Sprintf("%s/%s/models/%s", prefix, namespace, contentID),
+				Version: resourceID,
+				Digest:  digest,
+			}
+			if _, err := rh.modelPrivateClient.DeployOrganizationModelAdmin(ctx, deployReq); err != nil {
+				logger.Error(req.URL.Path, "failed to deploy organization model", err)
+				rh.handleError(req, w, err)
+				return
+			}
+		} else {
+			prefix := "users"
+			deployReq := &modelpb.DeployUserModelAdminRequest{
+				Name:    fmt.Sprintf("%s/%s/models/%s", prefix, namespace, contentID),
+				Version: resourceID,
+				Digest:  digest,
+			}
+			if _, err := rh.modelPrivateClient.DeployUserModelAdmin(ctx, deployReq); err != nil {
+				logger.Error(req.URL.Path, "failed to deploy user model", err)
+				rh.handleError(req, w, err)
+				return
+			}
 		}
 	}
 
