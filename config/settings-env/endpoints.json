@@ -17,9 +17,7 @@
           "auth/signer": {
             "alg": "RS256",
             "jwk_local_path": "/instill/instill.jwks",
-            "keys_to_sign": [
-              "access_token"
-            ],
+            "keys_to_sign": ["accessToken"],
             "kid": "instill",
             "disable_jwk_security": true
           }
@@ -55,10 +53,10 @@
         "timeout": "30s",
         "input_query_strings": [
           "view",
-          "page_size",
-          "page_token",
+          "pageSize",
+          "pageToken",
           "filter",
-          "show_deleted"
+          "showDeleted"
         ]
       },
       {
@@ -122,10 +120,7 @@
         "url_pattern": "/v1beta/organizations",
         "method": "GET",
         "timeout": "30s",
-        "input_query_strings": [
-          "page_size",
-          "page_token"
-        ]
+        "input_query_strings": ["pageSize", "pageToken"]
       },
       {
         "endpoint": "/v1beta/organizations/{organization_id}",
@@ -188,10 +183,7 @@
         "url_pattern": "/v1beta/tokens",
         "method": "GET",
         "timeout": "30s",
-        "input_query_strings": [
-          "page_size",
-          "page_token"
-        ]
+        "input_query_strings": ["pageSize", "pageToken"]
       },
       {
         "endpoint": "/v1beta/tokens/{id}",
@@ -212,32 +204,21 @@
         "url_pattern": "/v1beta/metrics/vdp/pipeline/triggers",
         "method": "GET",
         "timeout": "30s",
-        "input_query_strings": [
-          "page_size",
-          "page_token",
-          "filter"
-        ]
+        "input_query_strings": ["pageSize", "pageToken", "filter"]
       },
       {
         "endpoint": "/v1beta/metrics/vdp/pipeline/tables",
         "url_pattern": "/v1beta/metrics/vdp/pipeline/tables",
         "method": "GET",
         "timeout": "30s",
-        "input_query_strings": [
-          "page_size",
-          "page_token",
-          "filter"
-        ]
+        "input_query_strings": ["pageSize", "pageToken", "filter"]
       },
       {
         "endpoint": "/v1beta/metrics/vdp/pipeline/charts",
         "url_pattern": "/v1beta/metrics/vdp/pipeline/charts",
         "method": "GET",
         "timeout": "30s",
-        "input_query_strings": [
-          "aggregation_window",
-          "filter"
-        ]
+        "input_query_strings": ["aggregationWindow", "filter"]
       }
     ],
     "no_auth": [
@@ -461,11 +442,11 @@
         "input_query_strings": [
           "view",
           "visibility",
-          "page_size",
-          "page_token",
+          "pageSize",
+          "pageToken",
           "filter",
-          "order_by",
-          "show_deleted"
+          "orderBy",
+          "showDeleted"
         ]
       },
       {
@@ -473,9 +454,7 @@
         "url_pattern": "/v1beta/pipelines/{pipeline_id}/lookUp",
         "method": "GET",
         "timeout": "30s",
-        "input_query_strings": [
-          "view"
-        ]
+        "input_query_strings": ["view"]
       },
       {
         "endpoint": "/v1beta/users/{user_id}/pipelines",
@@ -492,11 +471,11 @@
         "input_query_strings": [
           "view",
           "visibility",
-          "page_size",
-          "page_token",
+          "pageSize",
+          "pageToken",
           "filter",
-          "order_by",
-          "show_deleted"
+          "orderBy",
+          "showDeleted"
         ]
       },
       {
@@ -504,9 +483,7 @@
         "url_pattern": "/v1beta/users/{user_id}/pipelines/{pipeline_id}",
         "method": "GET",
         "timeout": "30s",
-        "input_query_strings": [
-          "view"
-        ]
+        "input_query_strings": ["view"]
       },
       {
         "endpoint": "/v1beta/users/{user_id}/pipelines/{pipeline_id}",
@@ -576,12 +553,7 @@
         "url_pattern": "/v1beta/users/{user_id}/pipelines/{pipeline_id}/releases",
         "method": "GET",
         "timeout": "30s",
-        "input_query_strings": [
-          "view",
-          "page_size",
-          "page_token",
-          "filter"
-        ]
+        "input_query_strings": ["view", "pageSize", "pageToken", "filter"]
       },
       {
         "endpoint": "/v1beta/users/{user_id}/pipelines/{pipeline_id}/releases",
@@ -595,9 +567,7 @@
         "url_pattern": "/v1beta/users/{user_id}/pipelines/{pipeline_id}/releases/{release_id}",
         "method": "GET",
         "timeout": "30s",
-        "input_query_strings": [
-          "view"
-        ]
+        "input_query_strings": ["view"]
       },
       {
         "endpoint": "/v1beta/users/{user_id}/pipelines/{pipeline_id}/releases/{release_id}",
@@ -670,11 +640,11 @@
         "input_query_strings": [
           "view",
           "visibility",
-          "page_size",
-          "page_token",
+          "pageSize",
+          "pageToken",
           "filter",
-          "order_by",
-          "show_deleted"
+          "orderBy",
+          "showDeleted"
         ]
       },
       {
@@ -682,9 +652,7 @@
         "url_pattern": "/v1beta/organizations/{organization_id}/pipelines/{pipeline_id}",
         "method": "GET",
         "timeout": "30s",
-        "input_query_strings": [
-          "view"
-        ]
+        "input_query_strings": ["view"]
       },
       {
         "endpoint": "/v1beta/organizations/{organization_id}/pipelines/{pipeline_id}",
@@ -740,12 +708,7 @@
         "url_pattern": "/v1beta/organizations/{organization_id}/pipelines/{pipeline_id}/releases",
         "method": "GET",
         "timeout": "30s",
-        "input_query_strings": [
-          "view",
-          "page_size",
-          "page_token",
-          "filter"
-        ]
+        "input_query_strings": ["view", "pageSize", "pageToken", "filter"]
       },
       {
         "endpoint": "/v1beta/organizations/{organization_id}/pipelines/{pipeline_id}/releases",
@@ -759,9 +722,7 @@
         "url_pattern": "/v1beta/organizations/{organization_id}/pipelines/{pipeline_id}/releases/{release_id}",
         "method": "GET",
         "timeout": "30s",
-        "input_query_strings": [
-          "view"
-        ]
+        "input_query_strings": ["view"]
       },
       {
         "endpoint": "/v1beta/organizations/{organization_id}/pipelines/{pipeline_id}/releases/{release_id}",
@@ -838,11 +799,7 @@
         "url_pattern": "/v1beta/users/{user_id}/secrets",
         "method": "GET",
         "timeout": "30s",
-        "input_query_strings": [
-          "page_size",
-          "page_token",
-          "filter"
-        ]
+        "input_query_strings": ["pageSize", "pageToken", "filter"]
       },
       {
         "endpoint": "/v1beta/users/{user_id}/secrets/{secret_id}",
@@ -877,11 +834,7 @@
         "url_pattern": "/v1beta/organizations/{organization_id}/secrets",
         "method": "GET",
         "timeout": "30s",
-        "input_query_strings": [
-          "page_size",
-          "page_token",
-          "filter"
-        ]
+        "input_query_strings": ["pageSize", "pageToken", "filter"]
       },
       {
         "endpoint": "/v1beta/organizations/{organization_id}/secrets/{secret_id}",
@@ -909,12 +862,7 @@
         "url_pattern": "/v1beta/component-definitions",
         "method": "GET",
         "timeout": "30s",
-        "input_query_strings": [
-          "page_size",
-          "page",
-          "view",
-          "filter"
-        ]
+        "input_query_strings": ["pageSize", "page", "view", "filter"]
       },
       {
         "endpoint": "/v1beta/operator-definitions",
@@ -922,11 +870,11 @@
         "method": "GET",
         "timeout": "30s",
         "input_query_strings": [
-          "page_size",
-          "page_token",
+          "pageSize",
+          "pageToken",
           "view",
           "filter",
-          "show_deleted"
+          "showDeleted"
         ]
       },
       {
@@ -934,9 +882,7 @@
         "url_pattern": "/v1beta/operator-definitions/{id}",
         "method": "GET",
         "timeout": "30s",
-        "input_query_strings": [
-          "view"
-        ]
+        "input_query_strings": ["view"]
       },
       {
         "endpoint": "/v1beta/connector-definitions",
@@ -944,11 +890,11 @@
         "method": "GET",
         "timeout": "30s",
         "input_query_strings": [
-          "page_size",
-          "page_token",
+          "pageSize",
+          "pageToken",
           "view",
           "filter",
-          "show_deleted"
+          "showDeleted"
         ]
       },
       {
@@ -956,9 +902,7 @@
         "url_pattern": "/v1beta/connector-definitions/{id}",
         "method": "GET",
         "timeout": "30s",
-        "input_query_strings": [
-          "view"
-        ]
+        "input_query_strings": ["view"]
       }
     ],
     "no_auth": [
@@ -1368,12 +1312,12 @@
         "timeout": "30s",
         "input_query_strings": [
           "view",
-          "page_size",
-          "page_token",
+          "pageSize",
+          "pageToken",
           "visibility",
           "filter",
-          "order_by",
-          "show_deleted"
+          "orderBy",
+          "showDeleted"
         ]
       },
       {
@@ -1381,9 +1325,7 @@
         "url_pattern": "/v1alpha/models/{model_id}/lookUp",
         "method": "GET",
         "timeout": "30s",
-        "input_query_strings": [
-          "view"
-        ]
+        "input_query_strings": ["view"]
       },
       {
         "endpoint": "/v1alpha/users/{user_id}/models",
@@ -1392,12 +1334,12 @@
         "timeout": "30s",
         "input_query_strings": [
           "view",
-          "page_size",
-          "page_token",
+          "pageSize",
+          "pageToken",
           "visibility",
           "filter",
-          "order_by",
-          "show_deleted"
+          "orderBy",
+          "showDeleted"
         ]
       },
       {
@@ -1419,9 +1361,7 @@
         "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}",
         "method": "GET",
         "timeout": "30s",
-        "input_query_strings": [
-          "view"
-        ]
+        "input_query_strings": ["view"]
       },
       {
         "endpoint": "/v1alpha/users/{user_id}/models/{model_id}",
@@ -1512,10 +1452,7 @@
         "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/versions",
         "method": "GET",
         "timeout": "30s",
-        "input_query_strings": [
-          "page_size",
-          "page"
-        ]
+        "input_query_strings": ["pageSize", "page"]
       },
       {
         "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/versions/{version_id}/watch",
@@ -1552,12 +1489,12 @@
         "timeout": "30s",
         "input_query_strings": [
           "view",
-          "page_size",
-          "page_token",
+          "pageSize",
+          "pageToken",
           "visibility",
           "filter",
-          "order_by",
-          "show_deleted"
+          "orderBy",
+          "showDeleted"
         ]
       },
       {
@@ -1579,9 +1516,7 @@
         "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}",
         "method": "GET",
         "timeout": "30s",
-        "input_query_strings": [
-          "view"
-        ]
+        "input_query_strings": ["view"]
       },
       {
         "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}",
@@ -1672,10 +1607,7 @@
         "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}/versions",
         "method": "GET",
         "timeout": "30s",
-        "input_query_strings": [
-          "page_size",
-          "page"
-        ]
+        "input_query_strings": ["pageSize", "page"]
       },
       {
         "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}/versions/{version_id}/watch",
@@ -1717,18 +1649,14 @@
         "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/operation",
         "method": "GET",
         "timeout": "30s",
-        "input_query_strings": [
-          "view"
-        ]
+        "input_query_strings": ["view"]
       },
       {
         "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}/operation",
         "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}/operation",
         "method": "GET",
         "timeout": "30s",
-        "input_query_strings": [
-          "view"
-        ]
+        "input_query_strings": ["view"]
       }
     ],
     "no_auth": [
@@ -1758,11 +1686,7 @@
         "url_pattern": "/v1alpha/model-definitions",
         "method": "GET",
         "timeout": "30s",
-        "input_query_strings": [
-          "view",
-          "page_size",
-          "page_token"
-        ]
+        "input_query_strings": ["view", "pageSize", "pageToken"]
       },
       {
         "endpoint": "/v1alpha/model-definitions/{definition_name}",
@@ -2114,10 +2038,7 @@
         "url_pattern": "/v1alpha/repositories/{namespace}/{id}/tags",
         "method": "GET",
         "timeout": "30s",
-        "input_query_strings": [
-          "page_size",
-          "page"
-        ]
+        "input_query_strings": ["pageSize", "page"]
       },
       {
         "endpoint": "/v1alpha/knowledge-base",
@@ -2146,6 +2067,34 @@
         "method": "DELETE",
         "timeout": "10s",
         "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/owners/{owner_id}/knowledge-bases/{kb_id}/files",
+        "url_pattern": "/v1alpha/owners/{owner_id}/knowledge-bases/{kb_id}/files",
+        "method": "POST",
+        "timeout": "10s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/owners/{owner_id}/knowledge-bases/{kb_id}/files",
+        "url_pattern": "/v1alpha/owners/{owner_id}/knowledge-bases/{kb_id}/files",
+        "method": "GET",
+        "timeout": "10s",
+        "input_query_strings": ["pageSize", "pageToken", "filter.fileUids"]
+      },
+      {
+        "endpoint": "/v1alpha/knowledge-bases/files",
+        "url_pattern": "/v1alpha/knowledge-bases/files",
+        "method": "DELETE",
+        "timeout": "10s",
+        "input_query_strings": ["fileUid"]
+      },
+      {
+        "endpoint": "/v1alpha/knowledge-bases/files/processAsync",
+        "url_pattern": "/v1alpha/knowledge-bases/files/processAsync",
+        "method": "POST",
+        "timeout": "10s",
+        "input_query_strings": []
       }
     ],
     "grpc_auth": [
@@ -2170,6 +2119,30 @@
       {
         "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/DeleteKnowledgeBase",
         "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/DeleteKnowledgeBase",
+        "method": "POST",
+        "timeout": "10s"
+      },
+      {
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/UploadKnowledgeBaseFile",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/UploadKnowledgeBaseFile",
+        "method": "POST",
+        "timeout": "10s"
+      },
+      {
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/DeleteKnowledgeBaseFile",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/DeleteKnowledgeBaseFile",
+        "method": "POST",
+        "timeout": "10s"
+      },
+      {
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/ProcessKnowledgeBaseFiles",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/ProcessKnowledgeBaseFiles",
+        "method": "POST",
+        "timeout": "10s"
+      },
+      {
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/ListKnowledgeBaseFiles",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/ListKnowledgeBaseFiles",
         "method": "POST",
         "timeout": "10s"
       }

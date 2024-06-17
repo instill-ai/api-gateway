@@ -16,12 +16,90 @@ jobs:
     secrets: inherit
 
   backend:
+    needs: build-push-image
+    if: github.ref == 'refs/heads/main'
+    name: Backends
     strategy:
       fail-fast: false
       matrix:
         component:
-          [mgmt-backend, pipeline-backend, model-backend, controller-model]
+          [mgmt-backend, pipeline-backend, model-backend, artifact-backend]
     uses: instill-ai/instill-core/.github/workflows/integration-test-backend.yml@main
     with:
       component: ${{ matrix.component }}
       target: latest
+
+  pr-head:
+    if: github.event_name == 'pull_request'
+    name: PR head branch
+    strategy:
+      fail-fast: false
+      matrix:
+        component:
+          [mgmt-backend, pipeline-backend, model-backend, artifact-backend]
+    runs-on: ubuntu-latest
+    steps:
+      # mono occupies port 8084 which conflicts with mgmt-backend
+      - name: Stop mono service
+        run: |
+          sudo kill -9 `sudo lsof -t -i:8084`
+          sudo lsof -i -P -n | grep LISTEN
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Load .env file
+        uses: cardinalby/export-env-action@v2
+        with:
+          envFile: .env
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          load: true
+          build-args: |
+            SERVICE_NAME=api-gateway
+            GOLANG_VERSION=${{ env.GOLANG_VERSION }}
+            ALPINE_VERSION=${{ env.ALPINE_VERSION }}
+            KRAKEND_CE_VERSION=${{ env.KRAKEND_CE_VERSION }}
+          tags: instill/api-gateway:latest
+
+      - name: Checkout repo (instill-core)
+        uses: actions/checkout@v4
+        with:
+          repository: instill-ai/instill-core
+
+      - name: Load .env file (instill-core)
+        uses: cardinalby/export-env-action@v2
+        with:
+          envFile: .env
+
+      - name: Launch Instill Core (latest)
+        run: |
+          COMPOSE_PROFILES=all \
+          EDITION=local-ce:test \
+          RAY_LATEST_TAG=latest \
+          docker compose -f docker-compose.yml -f docker-compose-latest.yml up -d --quiet-pull
+          COMPOSE_PROFILES=all \
+          EDITION=local-ce:test \
+          docker compose -f docker-compose.yml -f docker-compose-latest.yml rm -f
+
+      - name: Install k6
+        run: |
+          curl https://github.com/grafana/k6/releases/download/v${{ env.K6_VERSION }}/k6-v${{ env.K6_VERSION }}-linux-amd64.tar.gz -L | tar xvz --strip-components 1 && sudo cp k6 /usr/bin
+
+      - name: Run ${{ matrix.component }} integration test (latest)
+        run: |
+          git clone https://github.com/instill-ai/${{ matrix.component }}.git
+          cd ${{ matrix.component }}
+          make integration-test API_GATEWAY_URL=localhost:${API_GATEWAY_PORT}
+
+      - name: Make down Instill Core
+        run: |
+          make down
