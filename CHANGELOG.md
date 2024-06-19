@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.18.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.17.0-beta...v0.18.0-beta) (2024-06-17)
+
+
+### Features
+
+* **endpoints:** use camelCase for query strings ([#199](https://github.com/instill-ai/api-gateway/issues/199)) ([bb3a943](https://github.com/instill-ai/api-gateway/commit/bb3a943cfd0ca1f8eb9e88245239c84fee76ef4b))
+* **kb:** support knowledge base file related api ([#194](https://github.com/instill-ai/api-gateway/issues/194)) ([832c55f](https://github.com/instill-ai/api-gateway/commit/832c55f3e9c07a414997b4ea26e7f22ee329e436))
+* **plugin:** adopt multi-auth plugin to adopt the changes in /login endpoint ([#197](https://github.com/instill-ai/api-gateway/issues/197)) ([b4d1897](https://github.com/instill-ai/api-gateway/commit/b4d1897b01b185244d85b57004a0be33bff0b382))
+
 ## [0.17.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.16.0-beta...v0.17.0-beta) (2024-06-06)
 
 
