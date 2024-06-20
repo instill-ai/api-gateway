@@ -10,6 +10,7 @@
 
 # Local History for Visual Studio Code
 .history/
+.DS_Store
 
 #### Python
 # Byte-compiled / optimized / DLL files
