@@ -2021,29 +2021,29 @@
         "input_query_strings": ["pageSize", "page"]
       },
       {
-        "endpoint": "/v1alpha/knowledge-base",
-        "url_pattern": "/v1alpha/knowledge-base",
+        "endpoint": "/v1alpha/owners/{owner_id}/knowledge-bases",
+        "url_pattern": "/v1alpha/owners/{owner_id}/knowledge-bases",
         "method": "POST",
         "timeout": "10s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/users/{user_id}/knowledge-base",
-        "url_pattern": "/v1alpha/users/{user_id}/knowledge-base",
+        "endpoint": "/v1alpha/owners/{owner_id}/knowledge-bases",
+        "url_pattern": "/v1alpha/owners/{owner_id}/knowledge-bases",
         "method": "GET",
         "timeout": "10s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/knowledge-base/{id}",
-        "url_pattern": "/v1alpha/knowledge-base/{id}",
+        "endpoint": "/v1alpha/owners/{owner_id}/knowledge-bases/{kb_id}",
+        "url_pattern": "/v1alpha/owners/{owner_id}/knowledge-bases/{kb_id}",
         "method": "PUT",
         "timeout": "10s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/knowledge-base/{id}",
-        "url_pattern": "/v1alpha/knowledge-base/{id}",
+        "endpoint": "/v1alpha/owners/{owner_id}/knowledge-bases/{kb_id}",
+        "url_pattern": "/v1alpha/owners/{owner_id}/knowledge-bases/{kb_id}",
         "method": "DELETE",
         "timeout": "10s",
         "input_query_strings": []
