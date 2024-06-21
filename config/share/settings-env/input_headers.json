@@ -26,7 +26,8 @@
     "Instill-User-Id",
     "Instill-Visitor-Uid",
     "Instill-Return-Traces",
-    "Instill-Share-Code"
+    "Instill-Share-Code",
+    "X-Use-SSE"
   ],
   "no_auth": [
     "Content-Type",
