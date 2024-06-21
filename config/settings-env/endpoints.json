@@ -528,6 +528,13 @@
         "input_query_strings": []
       },
       {
+        "endpoint": "/v1beta/users/{user_id}/pipelines/{pipeline_id}/trigger-stream",
+        "url_pattern": "/v1beta/users/{user_id}/pipelines/{pipeline_id}/trigger-stream",
+        "method": "POST",
+        "timeout": "600s",
+        "input_query_strings": []
+      },
+      {
         "endpoint": "/v1beta/users/{user_id}/pipelines/{pipeline_id}/triggerAsync",
         "url_pattern": "/v1beta/users/{user_id}/pipelines/{pipeline_id}/triggerAsync",
         "method": "POST",
@@ -678,6 +685,13 @@
       {
         "endpoint": "/v1beta/organizations/{organization_id}/pipelines/{pipeline_id}/trigger",
         "url_pattern": "/v1beta/organizations/{organization_id}/pipelines/{pipeline_id}/trigger",
+        "method": "POST",
+        "timeout": "600s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1beta/organizations/{organization_id}/pipelines/{pipeline_id}/trigger-stream",
+        "url_pattern": "/v1beta/organizations/{organization_id}/pipelines/{pipeline_id}/trigger-stream",
         "method": "POST",
         "timeout": "600s",
         "input_query_strings": []
