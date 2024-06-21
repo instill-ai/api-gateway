@@ -52,7 +52,7 @@
          "backend_url_pattern": "/sse/{id}",
          "backend_host": "{{ .plugins.pipeline_public_hostport }}"
       }
-    },
+    }
   },
   "endpoints": [
     {{- template "mgmt.tmpl" . }},
