@@ -642,6 +642,13 @@
         "input_query_strings": []
       },
       {
+        "endpoint": "/v1beta/users/{user_id}/pipelines/{pipeline_id}/releases/{release_id}/clone",
+        "url_pattern": "/v1beta/users/{user_id}/pipelines/{pipeline_id}/releases/{release_id}/clone",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
         "endpoint": "/v1beta/organizations/{organization_id}/pipelines",
         "url_pattern": "/v1beta/organizations/{organization_id}/pipelines",
         "method": "POST",
@@ -801,6 +808,13 @@
       {
         "endpoint": "/v1beta/organizations/{organization_id}/pipelines/{pipeline_id}/releases/{release_id}/rename",
         "url_pattern": "/v1beta/organizations/{organization_id}/pipelines/{pipeline_id}/releases/{release_id}/rename",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1beta/organizations/{organization_id}/pipelines/{pipeline_id}/releases/{release_id}/clone",
+        "url_pattern": "/v1beta/organizations/{organization_id}/pipelines/{pipeline_id}/releases/{release_id}/clone",
         "method": "POST",
         "timeout": "30s",
         "input_query_strings": []
@@ -1090,6 +1104,12 @@
         "timeout": "5s"
       },
       {
+        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/CloneUserPipelineRelease",
+        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/CloneUserPipelineRelease",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
         "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerUserPipelineRelease",
         "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerUserPipelineRelease",
         "method": "POST",
@@ -1212,6 +1232,12 @@
       {
         "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/RenameOrganizationPipelineRelease",
         "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/RenameOrganizationPipelineRelease",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/CloneOrganizationPipelineRelease",
+        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/CloneOrganizationPipelineRelease",
         "method": "POST",
         "timeout": "5s"
       },
