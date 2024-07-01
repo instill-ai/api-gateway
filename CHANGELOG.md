@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.19.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.18.0-beta...v0.19.0-beta) (2024-07-01)
+
+
+### Features
+
+* **model:** add model version deletion endpoints ([#203](https://github.com/instill-ai/api-gateway/issues/203)) ([77714f4](https://github.com/instill-ai/api-gateway/commit/77714f42990e3d762fffb473aa2ecb7506f9e764))
+* **pipeline:** add requester header to CORS ([#207](https://github.com/instill-ai/api-gateway/issues/207)) ([9cbe156](https://github.com/instill-ai/api-gateway/commit/9cbe156e16d5deff6064b8a52cb72fbbf5fa3b00))
+* **pipeline:** add requester UID header ([#205](https://github.com/instill-ai/api-gateway/issues/205)) ([f56379e](https://github.com/instill-ai/api-gateway/commit/f56379ef126387e3d824d68db1f156551b4f2c74))
+* **vdp:** expose endpoints for cloning pipeline release ([#206](https://github.com/instill-ai/api-gateway/issues/206)) ([d813ad6](https://github.com/instill-ai/api-gateway/commit/d813ad6a2d0c2c2bb3c35e15036a1f91f5ddc097))
+
 ## [0.18.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.17.0-beta...v0.18.0-beta) (2024-06-17)
 
 
