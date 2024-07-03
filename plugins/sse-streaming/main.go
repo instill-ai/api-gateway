@@ -89,7 +89,7 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]inter
 		}
 
 		// Construct serverURL using the extracted ID
-		serverURL := fmt.Sprintf("%s%s", backendHost, strings.Replace(backendURLPattern, "{id}", id, 1))
+		serverURL := fmt.Sprintf("http://%s%s", backendHost, strings.Replace(backendURLPattern, "{id}", id, 1))
 		// Call proxyHandler if the path matches
 		proxyHandler(w, req, serverURL)
 	}), nil
