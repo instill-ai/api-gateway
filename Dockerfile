@@ -21,6 +21,7 @@ WORKDIR /${SERVICE_NAME}
 COPY plugins/grpc-proxy plugins/grpc-proxy
 COPY plugins/multi-auth plugins/multi-auth
 COPY plugins/registry plugins/registry
+COPY plugins/sse-streaming plugins/sse-streaming
 
 ARG TARGETARCH
 ARG BUILDARCH
@@ -63,6 +64,19 @@ RUN if [[ "$BUILDARCH" = "amd64" && "$TARGETARCH" = "arm64" ]] ; \
     cd /${SERVICE_NAME}/plugins/registry && go mod download && \
     CGO_ENABLED=1 go build -buildmode=plugin -buildvcs=false -o registry.so ./ ; fi
 
+RUN if [[ "$BUILDARCH" = "amd64" && "$TARGETARCH" = "arm64" ]] ; \
+    then \
+    curl -sL http://musl.cc/aarch64-linux-musl-cross.tgz | \
+    tar zx && \
+    export PATH="$PATH:/${SERVICE_NAME}/aarch64-linux-musl-cross/bin" && \
+    cd /${SERVICE_NAME}/plugins/sse-streaming && go mod download && \
+    CGO_ENABLED=1 ARCH=$TARGETARCH GOARCH=$TARGETARCH GOHOSTARCH=$BUILDARCH \
+    CC=aarch64-linux-musl-gcc EXTRA_LDFLAGS='-extld=aarch64-linux-musl-gcc' \
+    go build -buildmode=plugin -buildvcs=false -o sse-streaming.so ./ ; \
+    else \
+    cd /${SERVICE_NAME}/plugins/sse-streaming && go mod download && \
+    CGO_ENABLED=1 go build -buildmode=plugin -buildvcs=false -o sse-streaming.so ./ ; fi
+
 RUN cd /${SERVICE_NAME} && \
     git clone -b v2.0.12 https://github.com/lestrrat-go/jwx.git && \
     if [[ "$BUILDARCH" = "amd64" && "$TARGETARCH" = "arm64" ]] ; \
@@ -98,6 +112,7 @@ RUN mkdir -p /usr/local/lib/krakend/plugins && chmod 777 /usr/local/lib/krakend/
 COPY --from=build --chown=krakend:nogroup /${SERVICE_NAME}/plugins/grpc-proxy/grpc-proxy.so /usr/local/lib/krakend/plugins
 COPY --from=build --chown=krakend:nogroup /${SERVICE_NAME}/plugins/multi-auth/multi-auth.so /usr/local/lib/krakend/plugins
 COPY --from=build --chown=krakend:nogroup /${SERVICE_NAME}/plugins/registry/registry.so /usr/local/lib/krakend/plugins
+COPY --from=build --chown=krakend:nogroup /${SERVICE_NAME}/plugins/sse-streaming/sse-streaming.so /usr/local/lib/krakend/plugins
 COPY --from=build --chown=krakend:nogroup /go/bin/jwx /go/bin/jwx
 RUN mkdir -p /instill && chmod 777 /instill
 
