@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.20.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.19.0-beta...v0.20.0-beta) (2024-07-15)
+
+
+### Features
+
+* **cors:** allow Instill-Use-SSE header ([#209](https://github.com/instill-ai/api-gateway/issues/209)) ([296740f](https://github.com/instill-ai/api-gateway/commit/296740f3c5d5bb8cce6903364d24aac64e788c62))
+* **vdp:** add server plugin to enable SSE streaming and enable endpoints and configuration ([#202](https://github.com/instill-ai/api-gateway/issues/202)) ([7d41024](https://github.com/instill-ai/api-gateway/commit/7d4102485b3a96e6b4ddb9c563133a375ca31c76))
+* **vdp:** expose pipeline profile image endpoint ([#211](https://github.com/instill-ai/api-gateway/issues/211)) ([006f016](https://github.com/instill-ai/api-gateway/commit/006f016148db732892485737c2705473591d9b46))
+
 ## [0.19.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.18.0-beta...v0.19.0-beta) (2024-07-01)
 
 
