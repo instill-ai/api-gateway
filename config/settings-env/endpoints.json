@@ -2101,43 +2101,43 @@
         "input_query_strings": ["pageSize", "page"]
       },
       {
-        "endpoint": "/v1alpha/owners/{owner_id}/knowledge-bases",
-        "url_pattern": "/v1alpha/owners/{owner_id}/knowledge-bases",
+        "endpoint": "/v1alpha/namespaces/{owner_id}/knowledge-bases",
+        "url_pattern": "/v1alpha/namespaces/{owner_id}/knowledge-bases",
         "method": "POST",
         "timeout": "10s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/owners/{owner_id}/knowledge-bases",
-        "url_pattern": "/v1alpha/owners/{owner_id}/knowledge-bases",
+        "endpoint": "/v1alpha/namespaces/{owner_id}/knowledge-bases",
+        "url_pattern": "/v1alpha/namespaces/{owner_id}/knowledge-bases",
         "method": "GET",
         "timeout": "10s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/owners/{owner_id}/knowledge-bases/{kb_id}",
-        "url_pattern": "/v1alpha/owners/{owner_id}/knowledge-bases/{kb_id}",
+        "endpoint": "/v1alpha/namespaces/{owner_id}/knowledge-bases/{kb_id}",
+        "url_pattern": "/v1alpha/namespaces/{owner_id}/knowledge-bases/{kb_id}",
         "method": "PUT",
         "timeout": "10s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/owners/{owner_id}/knowledge-bases/{kb_id}",
-        "url_pattern": "/v1alpha/owners/{owner_id}/knowledge-bases/{kb_id}",
+        "endpoint": "/v1alpha/namespaces/{owner_id}/knowledge-bases/{kb_id}",
+        "url_pattern": "/v1alpha/namespaces/{owner_id}/knowledge-bases/{kb_id}",
         "method": "DELETE",
         "timeout": "10s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/owners/{owner_id}/knowledge-bases/{kb_id}/files",
-        "url_pattern": "/v1alpha/owners/{owner_id}/knowledge-bases/{kb_id}/files",
+        "endpoint": "/v1alpha/namespaces/{owner_id}/knowledge-bases/{kb_id}/files",
+        "url_pattern": "/v1alpha/namespaces/{owner_id}/knowledge-bases/{kb_id}/files",
         "method": "POST",
         "timeout": "10s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/owners/{owner_id}/knowledge-bases/{kb_id}/files",
-        "url_pattern": "/v1alpha/owners/{owner_id}/knowledge-bases/{kb_id}/files",
+        "endpoint": "/v1alpha/namespaces/{owner_id}/knowledge-bases/{kb_id}/files",
+        "url_pattern": "/v1alpha/namespaces/{owner_id}/knowledge-bases/{kb_id}/files",
         "method": "GET",
         "timeout": "10s",
         "input_query_strings": ["pageSize", "pageToken", "filter.fileUids"]
@@ -2157,15 +2157,15 @@
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/owners/{owner_id}/knowledge-bases/{kb_id}/chunks",
-        "url_pattern": "/v1alpha/owners/{owner_id}/knowledge-bases/{kb_id}/chunks",
+        "endpoint": "/v1alpha/namespaces/{owner_id}/knowledge-bases/{kb_id}/chunks",
+        "url_pattern": "/v1alpha/namespaces/{owner_id}/knowledge-bases/{kb_id}/chunks",
         "method": "GET",
         "timeout": "10s",
         "input_query_strings": ["fileUid"]
       },
       {
-        "endpoint": "/v1alpha/owners/{owner_id}/knowledge-bases/{kb_id}/files/{file_uid}/source",
-        "url_pattern": "/v1alpha/owners/{owner_id}/knowledge-bases/{kb_id}/files/{file_uid}/source",
+        "endpoint": "/v1alpha/namespaces/{owner_id}/knowledge-bases/{kb_id}/files/{file_uid}/source",
+        "url_pattern": "/v1alpha/namespaces/{owner_id}/knowledge-bases/{kb_id}/files/{file_uid}/source",
         "method": "GET",
         "timeout": "10s",
         "input_query_strings": []
@@ -2173,6 +2173,13 @@
       {
         "endpoint": "/v1alpha/chunks/{chunk_uid}",
         "url_pattern": "/v1alpha/chunks/{chunk_uid}",
+        "method": "POST",
+        "timeout": "10s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{owner_id}/knowledge-bases/{kb_id}/chunks/similarity",
+        "url_pattern": "/v1alpha/namespaces/{owner_id}/knowledge-bases/{kb_id}/chunks/similarity",
         "method": "POST",
         "timeout": "10s",
         "input_query_strings": []
@@ -2242,6 +2249,12 @@
       {
         "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/UpdateChunk",
         "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/UpdateChunk",
+        "method": "POST",
+        "timeout": "10s"
+      },
+      {
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/SimilarityChunksSearch",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/SimilarityChunksSearch",
         "method": "POST",
         "timeout": "10s"
       }
