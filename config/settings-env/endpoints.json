@@ -88,22 +88,22 @@
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1beta/users/{user_id}/memberships/{membership_id}",
-        "url_pattern": "/v1beta/users/{user_id}/memberships/{membership_id}",
+        "endpoint": "/v1beta/users/{user_id}/memberships/{organization_id}",
+        "url_pattern": "/v1beta/users/{user_id}/memberships/{organization_id}",
         "method": "GET",
         "timeout": "30s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1beta/users/{user_id}/memberships/{membership_id}",
-        "url_pattern": "/v1beta/users/{user_id}/memberships/{membership_id}",
+        "endpoint": "/v1beta/users/{user_id}/memberships/{organization_id}",
+        "url_pattern": "/v1beta/users/{user_id}/memberships/{organization_id}",
         "method": "PUT",
         "timeout": "30s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1beta/users/{user_id}/memberships/{membership_id}",
-        "url_pattern": "/v1beta/users/{user_id}/memberships/{membership_id}",
+        "endpoint": "/v1beta/users/{user_id}/memberships/{organization_id}",
+        "url_pattern": "/v1beta/users/{user_id}/memberships/{organization_id}",
         "method": "DELETE",
         "timeout": "30s",
         "input_query_strings": []
@@ -151,22 +151,22 @@
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1beta/organizations/{organization_id}/memberships/{membership_id}",
-        "url_pattern": "/v1beta/organizations/{organization_id}/memberships/{membership_id}",
+        "endpoint": "/v1beta/organizations/{organization_id}/memberships/{user_id}",
+        "url_pattern": "/v1beta/organizations/{organization_id}/memberships/{user_id}",
         "method": "GET",
         "timeout": "30s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1beta/organizations/{organization_id}/memberships/{membership_id}",
-        "url_pattern": "/v1beta/organizations/{organization_id}/memberships/{membership_id}",
+        "endpoint": "/v1beta/organizations/{organization_id}/memberships/{user_id}",
+        "url_pattern": "/v1beta/organizations/{organization_id}/memberships/{user_id}",
         "method": "PUT",
         "timeout": "30s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1beta/organizations/{organization_id}/memberships/{membership_id}",
-        "url_pattern": "/v1beta/organizations/{organization_id}/memberships/{membership_id}",
+        "endpoint": "/v1beta/organizations/{organization_id}/memberships/{user_id}",
+        "url_pattern": "/v1beta/organizations/{organization_id}/memberships/{user_id}",
         "method": "DELETE",
         "timeout": "30s",
         "input_query_strings": []
@@ -186,15 +186,15 @@
         "input_query_strings": ["pageSize", "pageToken"]
       },
       {
-        "endpoint": "/v1beta/tokens/{id}",
-        "url_pattern": "/v1beta/tokens/{id}",
+        "endpoint": "/v1beta/tokens/{token_id}",
+        "url_pattern": "/v1beta/tokens/{token_id}",
         "method": "GET",
         "timeout": "30s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1beta/tokens/{id}",
-        "url_pattern": "/v1beta/tokens/{id}",
+        "endpoint": "/v1beta/tokens/{token_id}",
+        "url_pattern": "/v1beta/tokens/{token_id}",
         "method": "DELETE",
         "timeout": "30s",
         "input_query_strings": []
@@ -455,6 +455,223 @@
         "method": "GET",
         "timeout": "30s",
         "input_query_strings": ["view"]
+      },
+      {
+        "endpoint": "/v1beta/namespaces/{namespace_id}/pipelines",
+        "url_pattern": "/v1beta/namespaces/{namespace_id}/pipelines",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1beta/namespaces/{namespace_id}/pipelines",
+        "url_pattern": "/v1beta/namespaces/{namespace_id}/pipelines",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view",
+          "visibility",
+          "pageSize",
+          "pageToken",
+          "filter",
+          "orderBy",
+          "showDeleted"
+        ]
+      },
+      {
+        "endpoint": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}",
+        "url_pattern": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view"
+        ]
+      },
+      {
+        "endpoint": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}",
+        "url_pattern": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}",
+        "method": "PATCH",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}",
+        "url_pattern": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}",
+        "method": "DELETE",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/rename",
+        "url_pattern": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/rename",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/clone",
+        "url_pattern": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/clone",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/validate",
+        "url_pattern": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/validate",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/trigger",
+        "url_pattern": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/trigger",
+        "method": "POST",
+        "timeout": "600s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/trigger-stream",
+        "url_pattern": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/trigger-stream",
+        "method": "POST",
+        "timeout": "600s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/triggerAsync",
+        "url_pattern": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/triggerAsync",
+        "method": "POST",
+        "timeout": "600s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/releases",
+        "url_pattern": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/releases",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view",
+          "pageSize",
+          "pageToken",
+          "filter"
+        ]
+      },
+      {
+        "endpoint": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/releases",
+        "url_pattern": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/releases",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/releases/{release_id}",
+        "url_pattern": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/releases/{release_id}",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view"
+        ]
+      },
+      {
+        "endpoint": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/releases/{release_id}",
+        "url_pattern": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/releases/{release_id}",
+        "method": "PATCH",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/releases/{release_id}",
+        "url_pattern": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/releases/{release_id}",
+        "method": "DELETE",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/releases/{release_id}/trigger",
+        "url_pattern": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/releases/{release_id}/trigger",
+        "method": "POST",
+        "timeout": "600s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/releases/{release_id}/triggerAsync",
+        "url_pattern": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/releases/{release_id}/triggerAsync",
+        "method": "POST",
+        "timeout": "600s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/releases/{release_id}/setDefault",
+        "url_pattern": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/releases/{release_id}/setDefault",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/releases/{release_id}/restore",
+        "url_pattern": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/releases/{release_id}/restore",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/releases/{release_id}/watch",
+        "url_pattern": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/releases/{release_id}/watch",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/releases/{release_id}/rename",
+        "url_pattern": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/releases/{release_id}/rename",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/releases/{release_id}/clone",
+        "url_pattern": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/releases/{release_id}/clone",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1beta/namespaces/{namespace_id}/secrets",
+        "url_pattern": "/v1beta/namespaces/{namespace_id}/secrets",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1beta/namespaces/{namespace_id}/secrets",
+        "url_pattern": "/v1beta/namespaces/{namespace_id}/secrets",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "pageSize",
+          "pageToken",
+          "filter"
+        ]
+      },
+      {
+        "endpoint": "/v1beta/namespaces/{namespace_id}/secrets/{secret_id}",
+        "url_pattern": "/v1beta/namespaces/{namespace_id}/secrets/{secret_id}",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1beta/namespaces/{namespace_id}/secrets/{secret_id}",
+        "url_pattern": "/v1beta/namespaces/{namespace_id}/secrets/{secret_id}",
+        "method": "PATCH",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1beta/namespaces/{namespace_id}/secrets/{secret_id}",
+        "url_pattern": "/v1beta/namespaces/{namespace_id}/secrets/{secret_id}",
+        "method": "DELETE",
+        "timeout": "30s",
+        "input_query_strings": []
       },
       {
         "endpoint": "/v1beta/users/{user_id}/pipelines",
@@ -928,6 +1145,13 @@
         "input_query_strings": []
       },
       {
+        "endpoint": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/image",
+        "url_pattern": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/image",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
         "endpoint": "/v1beta/users/{user_id}/pipelines/{pipeline_id}/image",
         "url_pattern": "/v1beta/users/{user_id}/pipelines/{pipeline_id}/image",
         "method": "GET",
@@ -960,6 +1184,138 @@
         "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/LookUpPipeline",
         "method": "POST",
         "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/CreateNamespacePipeline",
+        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/CreateNamespacePipeline",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/ListNamespacePipelines",
+        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/ListNamespacePipelines",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/GetNamespacePipeline",
+        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/GetNamespacePipeline",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/UpdateNamespacePipeline",
+        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/UpdateNamespacePipeline",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/DeleteNamespacePipeline",
+        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/DeleteNamespacePipeline",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/RenameNamespacePipeline",
+        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/RenameNamespacePipeline",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/CloneNamespacePipeline",
+        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/CloneNamespacePipeline",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/ValidateNamespacePipeline",
+        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/ValidateNamespacePipeline",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerNamespacePipeline",
+        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerNamespacePipeline",
+        "method": "POST",
+        "timeout": "600s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerAsyncNamespacePipeline",
+        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerAsyncNamespacePipeline",
+        "method": "POST",
+        "timeout": "600s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/CreateNamespacePipelineRelease",
+        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/CreateNamespacePipelineRelease",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/ListNamespacePipelineReleases",
+        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/ListNamespacePipelineReleases",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/GetNamespacePipelineRelease",
+        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/GetNamespacePipelineRelease",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/UpdateNamespacePipelineRelease",
+        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/UpdateNamespacePipelineRelease",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/DeleteNamespacePipelineRelease",
+        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/DeleteNamespacePipelineRelease",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/WatchNamespacePipelineRelease",
+        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/WatchNamespacePipelineRelease",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/SetDefaultNamespacePipelineRelease",
+        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/SetDefaultNamespacePipelineRelease",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/RestoreNamespacePipelineRelease",
+        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/RestoreNamespacePipelineRelease",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/RenameNamespacePipelineRelease",
+        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/RenameNamespacePipelineRelease",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/CloneNamespacePipelineRelease",
+        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/CloneNamespacePipelineRelease",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerNamespacePipelineRelease",
+        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerNamespacePipelineRelease",
+        "method": "POST",
+        "timeout": "600s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerAsyncNamespacePipelineRelease",
+        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerAsyncNamespacePipelineRelease",
+        "method": "POST",
+        "timeout": "600s"
       },
       {
         "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/CreateUserPipeline",
@@ -1262,6 +1618,36 @@
         "timeout": "5s"
       },
       {
+        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/CreateNamespaceSecret",
+        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/CreateNamespaceSecret",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/ListNamespaceSecrets",
+        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/ListNamespaceSecrets",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/GetNamespaceSecret",
+        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/GetNamespaceSecret",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/UpdateNamespaceSecret",
+        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/UpdateNamespaceSecret",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/DeleteNamespaceSecret",
+        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/DeleteNamespaceSecret",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
         "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/CreateUserSecret",
         "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/CreateUserSecret",
         "method": "POST",
@@ -1360,6 +1746,173 @@
         "method": "GET",
         "timeout": "30s",
         "input_query_strings": ["view"]
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/models",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/models",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view",
+          "pageSize",
+          "pageToken",
+          "visibility",
+          "filter",
+          "orderBy",
+          "showDeleted"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/models",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/models",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/models/multipart",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/models/multipart",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/models/{model_id}",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/models/{model_id}",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/models/{model_id}",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/models/{model_id}",
+        "method": "PATCH",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/models/{model_id}",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/models/{model_id}",
+        "method": "DELETE",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/rename",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/rename",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/publish",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/publish",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/unpublish",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/unpublish",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/readme",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/readme",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/watch",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/watch",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/deploy",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/deploy",
+        "method": "POST",
+        "timeout": "86400s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/undeploy",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/undeploy",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/trigger",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/trigger",
+        "method": "POST",
+        "timeout": "600s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/triggerAsync",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/triggerAsync",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/trigger-multipart",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/trigger-multipart",
+        "method": "POST",
+        "timeout": "600s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/versions",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/versions",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "pageSize",
+          "page"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/versions/{version_id}",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/versions/{version_id}",
+        "method": "DELETE",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/versions/{version_id}/watch",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/versions/{version_id}/watch",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/versions/{version_id}/trigger",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/versions/{version_id}/trigger",
+        "method": "POST",
+        "timeout": "600s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/versions/{version_id}/triggerAsync",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/versions/{version_id}/triggerAsync",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/versions/{version_id}/trigger-multipart",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/versions/{version_id}/trigger-multipart",
+        "method": "POST",
+        "timeout": "600s",
+        "input_query_strings": []
       },
       {
         "endpoint": "/v1alpha/users/{user_id}/models",
@@ -1693,6 +2246,15 @@
         "input_query_strings": []
       },
       {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/operation",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/operation",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view"
+        ]
+      },
+      {
         "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/operation",
         "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/operation",
         "method": "GET",
@@ -1744,6 +2306,13 @@
         "input_query_strings": []
       },
       {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/image",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/image",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
         "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/image",
         "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/image",
         "method": "GET",
@@ -1770,6 +2339,132 @@
         "url_pattern": "/model.model.v1alpha.ModelPublicService/LookUpModel",
         "method": "POST",
         "timeout": "5s"
+      },
+      {
+        "endpoint": "/model.model.v1alpha.ModelPublicService/CreateNamespaceModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/CreateNamespaceModel",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/model.model.v1alpha.ModelPublicService/CreateNamespaceModelBinaryFileUpload",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/CreateNamespaceModelBinaryFileUpload",
+        "method": "POST",
+        "timeout": "86400s"
+      },
+      {
+        "endpoint": "/model.model.v1alpha.ModelPublicService/ListNamespaceModels",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/ListNamespaceModels",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/model.model.v1alpha.ModelPublicService/ListNamespaceModelVersions",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/ListNamespaceModelVersions",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/model.model.v1alpha.ModelPublicService/DeleteNamespaceModelVersion",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/DeleteNamespaceModelVersion",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/model.model.v1alpha.ModelPublicService/GetNamespaceModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/GetNamespaceModel",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/model.model.v1alpha.ModelPublicService/UpdateNamespaceModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/UpdateNamespaceModel",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/model.model.v1alpha.ModelPublicService/DeleteNamespaceModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/DeleteNamespaceModel",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/model.model.v1alpha.ModelPublicService/RenameNamespaceModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/RenameNamespaceModel",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/model.model.v1alpha.ModelPublicService/PublishNamespaceModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/PublishNamespaceModel",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/model.model.v1alpha.ModelPublicService/UnpublishNamespaceModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/UnpublishNamespaceModel",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/model.model.v1alpha.ModelPublicService/DeployNamespaceModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/DeployNamespaceModel",
+        "method": "POST",
+        "timeout": "86400s"
+      },
+      {
+        "endpoint": "/model.model.v1alpha.ModelPublicService/UndeployNamespaceModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/UndeployNamespaceModel",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/model.model.v1alpha.ModelPublicService/GetNamespaceModelCard",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/GetNamespaceModelCard",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/model.model.v1alpha.ModelPublicService/WatchNamespaceModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/WatchNamespaceModel",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/model.model.v1alpha.ModelPublicService/WatchNamespaceLatestModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/WatchNamespaceLatestModel",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/model.model.v1alpha.ModelPublicService/TriggerNamespaceModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/TriggerNamespaceModel",
+        "method": "POST",
+        "timeout": "600s"
+      },
+      {
+        "endpoint": "/model.model.v1alpha.ModelPublicService/TriggerAsyncNamespaceModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/TriggerAsyncNamespaceModel",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/model.model.v1alpha.ModelPublicService/TriggerNamespaceLatestModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/TriggerNamespaceLatestModel",
+        "method": "POST",
+        "timeout": "600s"
+      },
+      {
+        "endpoint": "/model.model.v1alpha.ModelPublicService/TriggerAsyncNamespaceLatestModel",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/TriggerAsyncNamespaceLatestModel",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/model.model.v1alpha.ModelPublicService/TriggerNamespaceModelBinaryFileUpload",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/TriggerNamespaceModelBinaryFileUpload",
+        "method": "POST",
+        "timeout": "600s"
       },
       {
         "endpoint": "/model.model.v1alpha.ModelPublicService/CreateUserModel",
@@ -2024,6 +2719,12 @@
         "timeout": "600s"
       },
       {
+        "endpoint": "/model.model.v1alpha.ModelPublicService/GetNamespaceLatestModelOperation",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/GetNamespaceLatestModelOperation",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
         "endpoint": "/model.model.v1alpha.ModelPublicService/GetUserLatestModelOperation",
         "url_pattern": "/model.model.v1alpha.ModelPublicService/GetUserLatestModelOperation",
         "method": "POST",
@@ -2101,43 +2802,43 @@
         "input_query_strings": ["pageSize", "page"]
       },
       {
-        "endpoint": "/v1alpha/namespaces/{owner_id}/knowledge-bases",
-        "url_pattern": "/v1alpha/namespaces/{owner_id}/knowledge-bases",
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/knowledge-bases",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/knowledge-bases",
         "method": "POST",
         "timeout": "10s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/namespaces/{owner_id}/knowledge-bases",
-        "url_pattern": "/v1alpha/namespaces/{owner_id}/knowledge-bases",
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/knowledge-bases",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/knowledge-bases",
         "method": "GET",
         "timeout": "10s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/namespaces/{owner_id}/knowledge-bases/{kb_id}",
-        "url_pattern": "/v1alpha/namespaces/{owner_id}/knowledge-bases/{kb_id}",
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{kb_id}",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{kb_id}",
         "method": "PUT",
         "timeout": "10s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/namespaces/{owner_id}/knowledge-bases/{kb_id}",
-        "url_pattern": "/v1alpha/namespaces/{owner_id}/knowledge-bases/{kb_id}",
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{kb_id}",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{kb_id}",
         "method": "DELETE",
         "timeout": "10s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/namespaces/{owner_id}/knowledge-bases/{kb_id}/files",
-        "url_pattern": "/v1alpha/namespaces/{owner_id}/knowledge-bases/{kb_id}/files",
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{kb_id}/files",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{kb_id}/files",
         "method": "POST",
         "timeout": "10s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/namespaces/{owner_id}/knowledge-bases/{kb_id}/files",
-        "url_pattern": "/v1alpha/namespaces/{owner_id}/knowledge-bases/{kb_id}/files",
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{kb_id}/files",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{kb_id}/files",
         "method": "GET",
         "timeout": "10s",
         "input_query_strings": ["pageSize", "pageToken", "filter.fileUids"]
@@ -2157,15 +2858,15 @@
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/namespaces/{owner_id}/knowledge-bases/{kb_id}/chunks",
-        "url_pattern": "/v1alpha/namespaces/{owner_id}/knowledge-bases/{kb_id}/chunks",
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{kb_id}/chunks",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{kb_id}/chunks",
         "method": "GET",
         "timeout": "10s",
         "input_query_strings": ["fileUid"]
       },
       {
-        "endpoint": "/v1alpha/namespaces/{owner_id}/knowledge-bases/{kb_id}/files/{file_uid}/source",
-        "url_pattern": "/v1alpha/namespaces/{owner_id}/knowledge-bases/{kb_id}/files/{file_uid}/source",
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{kb_id}/files/{file_uid}/source",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{kb_id}/files/{file_uid}/source",
         "method": "GET",
         "timeout": "10s",
         "input_query_strings": []
@@ -2178,8 +2879,8 @@
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/namespaces/{owner_id}/knowledge-bases/{kb_id}/chunks/similarity",
-        "url_pattern": "/v1alpha/namespaces/{owner_id}/knowledge-bases/{kb_id}/chunks/similarity",
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{kb_id}/chunks/similarity",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{kb_id}/chunks/similarity",
         "method": "POST",
         "timeout": "10s",
         "input_query_strings": []
