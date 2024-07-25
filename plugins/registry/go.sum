@@ -23,6 +23,8 @@ github.com/instill-ai/protogen-go v0.3.3-alpha.0.20240327112131-e593145f363a h1:
 github.com/instill-ai/protogen-go v0.3.3-alpha.0.20240327112131-e593145f363a/go.mod h1:jhEL0SauySMoPLVvx105DWyThju9sYTbsXIySVCArmM=
 github.com/instill-ai/protogen-go v0.3.3-alpha.0.20240614102540-80a2963307ba h1:EJd2eHk3H+nXcSxHjvjeWRaJ5EhMOP/8ZcfuM9wE2T4=
 github.com/instill-ai/protogen-go v0.3.3-alpha.0.20240614102540-80a2963307ba/go.mod h1:2blmpUwiTwxIDnrjIqT6FhR5ewshZZF554wzjXFvKpQ=
+github.com/instill-ai/protogen-go v0.3.3-alpha.0.20240725184849-7098e99ffbb1 h1:pmuTg0xaE55jZG50bTS40LfbL+d4NtmX2WiSfX269gk=
+github.com/instill-ai/protogen-go v0.3.3-alpha.0.20240725184849-7098e99ffbb1/go.mod h1:2blmpUwiTwxIDnrjIqT6FhR5ewshZZF554wzjXFvKpQ=
 github.com/kr/pretty v0.3.1 h1:flRD4NNwYAUpkphVc1HcthR4KEIFJ65n8Mw5qdRn3LE=
 github.com/kr/pretty v0.3.1/go.mod h1:hoEshYVHaxMs3cyo3Yncou5ZscifuDolrwPKZanG3xk=
 github.com/kr/text v0.2.0 h1:5Nx0Ya0ZqY2ygV366QzturHI13Jq95ApcVaJBhpS+AY=
