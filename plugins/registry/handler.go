@@ -167,7 +167,7 @@ func (rh *registryHandler) login(ctx context.Context, p registryHandlerParams) {
 	w := p.writer
 
 	// Check if the login username is the same with the user id retrieved from the token validation response
-	lookupReq := &mgmtpb.LookUpUserAdminRequest{Permalink: "users/" + p.userUID}
+	lookupReq := &mgmtpb.LookUpUserAdminRequest{UserUid: p.userUID}
 	userLookup, err := rh.mgmtPrivateClient.LookUpUserAdmin(ctx, lookupReq)
 	if err != nil {
 		logger.Error(req.URL.Path, "failed to lookup user", err)
@@ -205,13 +205,10 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 
 	// If the username and the namespace is not the same, check if the
 	// namespace is an organisation name where the user has the membership.
-	isOrganizationRepository := false
 	if namespace != p.userID {
 		ctx := withUserUIDAuth(ctx, p.userUID)
-		isOrganizationRepository = true
 
-		parent := fmt.Sprintf("users/%s", p.userID)
-		resp, err := rh.mgmtPublicClient.ListUserMemberships(ctx, &mgmtpb.ListUserMembershipsRequest{Parent: parent})
+		resp, err := rh.mgmtPublicClient.ListUserMemberships(ctx, &mgmtpb.ListUserMembershipsRequest{UserId: p.userID})
 		if err != nil {
 			logger.Error(req.URL.Path, "failed to check organization", err)
 			rh.handleError(req, w, err)
@@ -238,20 +235,11 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 
 		var name string
 		var err error
-		switch {
-		case isOrganizationRepository:
-			name = fmt.Sprintf("organizations/%s/models/%s", namespace, contentID)
-			_, err = rh.modelPublicClient.GetOrganizationModel(ctx, &modelpb.GetOrganizationModelRequest{
-				Name: name,
-				View: modelpb.View_VIEW_BASIC.Enum(),
-			})
-		default:
-			name = fmt.Sprintf("users/%s/models/%s", namespace, contentID)
-			_, err = rh.modelPublicClient.GetUserModel(ctx, &modelpb.GetUserModelRequest{
-				Name: name,
-				View: modelpb.View_VIEW_BASIC.Enum(),
-			})
-		}
+
+		_, err = rh.modelPublicClient.GetNamespaceModel(ctx, &modelpb.GetNamespaceModelRequest{
+			NamespaceId: namespace,
+			ModelId:     contentID,
+		})
 		if err != nil {
 			switch grpcstatus.Convert(err).Code() {
 			case grpccodes.NotFound:
@@ -300,30 +288,16 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 		// is publishing the push operation success as an event and let the
 		// clients to consume and act upon it (artifact to register the tag
 		// creation time, model to deploy the image...).
-		if isOrganizationRepository {
-			prefix := "organizations"
-			deployReq := &modelpb.DeployOrganizationModelAdminRequest{
-				Name:    fmt.Sprintf("%s/%s/models/%s", prefix, namespace, contentID),
-				Version: resourceID,
-				Digest:  digest,
-			}
-			if _, err := rh.modelPrivateClient.DeployOrganizationModelAdmin(ctx, deployReq); err != nil {
-				logger.Error(req.URL.Path, "failed to deploy organization model", err)
-				rh.handleError(req, w, err)
-				return
-			}
-		} else {
-			prefix := "users"
-			deployReq := &modelpb.DeployUserModelAdminRequest{
-				Name:    fmt.Sprintf("%s/%s/models/%s", prefix, namespace, contentID),
-				Version: resourceID,
-				Digest:  digest,
-			}
-			if _, err := rh.modelPrivateClient.DeployUserModelAdmin(ctx, deployReq); err != nil {
-				logger.Error(req.URL.Path, "failed to deploy user model", err)
-				rh.handleError(req, w, err)
-				return
-			}
+
+		if _, err := rh.modelPrivateClient.DeployNamespaceModelAdmin(ctx, &modelpb.DeployNamespaceModelAdminRequest{
+			NamespaceId: namespace,
+			ModelId:     contentID,
+			Version:     resourceID,
+			Digest:      digest,
+		}); err != nil {
+			logger.Error(req.URL.Path, "failed to deploy model", err)
+			rh.handleError(req, w, err)
+			return
 		}
 	}
 
