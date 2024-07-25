@@ -200,6 +200,13 @@
         "input_query_strings": []
       },
       {
+        "endpoint": "/v1beta/metrics/vdp/pipeline/trigger-count",
+        "url_pattern": "/v1beta/metrics/vdp/pipeline/trigger-count",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": ["namespaceId", "start", "stop"]
+      },
+      {
         "endpoint": "/v1beta/metrics/vdp/pipeline/charts",
         "url_pattern": "/v1beta/metrics/vdp/pipeline/charts",
         "method": "GET",
@@ -368,6 +375,12 @@
       {
         "endpoint": "/core.mgmt.v1beta.MgmtPublicService/DeleteToken",
         "url_pattern": "/core.mgmt.v1beta.MgmtPublicService/DeleteToken",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/core.mgmt.v1beta.MgmtPublicService/GetPipelineTriggerCount",
+        "url_pattern": "/core.mgmt.v1beta.MgmtPublicService/GetPipelineTriggerCount",
         "method": "POST",
         "timeout": "30s"
       },
