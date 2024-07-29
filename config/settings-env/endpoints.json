@@ -1153,6 +1153,22 @@
         "input_query_strings": []
       }
     ],
+    "webhook":[
+      {
+        "endpoint": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/events",
+        "url_pattern": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/events",
+        "method": "POST",
+        "timeout": "600s",
+        "input_query_strings": ["event", "code"]
+      },
+      {
+        "endpoint": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/releases/{release_id}/events",
+        "url_pattern": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/releases/{release_id}/events",
+        "method": "POST",
+        "timeout": "600s",
+        "input_query_strings": ["event", "code"]
+      }
+    ],
     "grpc_auth": [
       {
         "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/CheckName",
