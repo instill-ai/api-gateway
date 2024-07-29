@@ -31,6 +31,9 @@
     "Instill-Share-Code",
     "Instill-Use-SSE"
   ],
+  "webhook": [
+    "*"
+  ],
   "no_auth": [
     "Content-Type",
     "Content-Length",

@@ -150,6 +150,44 @@
 }
 {{- end}}
 ,
+{{- range $idx, $endpoint := $endpoints.webhook }}
+{{- if $idx -}},{{ end }}
+{
+  "endpoint": "{{ .endpoint }}",
+  "method": "{{ .method }}",
+  {{- if len .input_query_strings -}}
+  "input_query_strings":
+  [
+    {{- range $qidx, $qstring := .input_query_strings }}
+    {{- if $qidx -}},{{ end }}
+    "{{ $qstring }}"
+    {{- end}}
+  ],
+  {{- end}}
+  "timeout": "{{ .timeout }}",
+  "output_encoding": "no-op",
+  "input_headers": {{ marshal $input_headers.webhook }},
+  "backend": [
+    {
+      "url_pattern": "{{ .url_pattern }}",
+      "host": {{ marshal $host }},
+      "sd": "static",
+      "method": "{{ .method }}",
+      "disable_host_sanitize": false,
+      "extra_config": {
+        "github.com/devopsfaith/krakend-martian": {
+          "header.Modifier": {
+            "scope": ["response"],
+            "name": "Backend",
+            "value": "pipeline"
+          }
+        }
+      }
+    }
+  ]
+}
+{{- end }}
+,
 {{- range $idx, $endpoint := $endpoints.grpc_auth }}
 {{- if $idx -}},{{ end }}
 {
