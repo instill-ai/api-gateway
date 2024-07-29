@@ -2915,13 +2915,13 @@
         "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/UploadKnowledgeBaseFile",
         "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/UploadKnowledgeBaseFile",
         "method": "POST",
-        "timeout": "10s"
+        "timeout": "60s"
       },
       {
         "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/DeleteKnowledgeBaseFile",
         "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/DeleteKnowledgeBaseFile",
         "method": "POST",
-        "timeout": "10s"
+        "timeout": "60s"
       },
       {
         "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/ProcessKnowledgeBaseFiles",
