@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.21.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.20.0-beta...v0.21.0-beta) (2024-07-30)
+
+
+### Features
+
+* **artifact:** use namespace and add similary search api ([#214](https://github.com/instill-ai/api-gateway/issues/214)) ([97074e8](https://github.com/instill-ai/api-gateway/commit/97074e8e7ac263689f2312f96db3be30e8318d55))
+* **mgmt:** use unified dashboard endpoints ([#218](https://github.com/instill-ai/api-gateway/issues/218)) ([f3522ac](https://github.com/instill-ai/api-gateway/commit/f3522ac61eacbac50fcb31e9dea373785eade57e))
+* **registry:** adopt namespace endpoint ([#219](https://github.com/instill-ai/api-gateway/issues/219)) ([ac2ce07](https://github.com/instill-ai/api-gateway/commit/ac2ce07f750558145b50552a057eb03f845e5093))
+* **vdp,model:** expose namespace endpoints ([#217](https://github.com/instill-ai/api-gateway/issues/217)) ([386dc58](https://github.com/instill-ai/api-gateway/commit/386dc58eaa7cf312307e989cf9cafd18e1e98b3f))
+* **vdp:** expose run-on-event endpoints ([#221](https://github.com/instill-ai/api-gateway/issues/221)) ([55d8cab](https://github.com/instill-ai/api-gateway/commit/55d8cab5462f7aa3ac1a53c7b31627ccca879b58))
+
+
+### Bug Fixes
+
+* **artifact:** fix gRPC endpoints not correctly exposed ([#223](https://github.com/instill-ai/api-gateway/issues/223)) ([a32a1e0](https://github.com/instill-ai/api-gateway/commit/a32a1e0c7800b8252019834d910a36cbe5b7c54c))
+* **kb:** upload file timeout ([#222](https://github.com/instill-ai/api-gateway/issues/222)) ([48ba2f5](https://github.com/instill-ai/api-gateway/commit/48ba2f560148f46ac011cdc6c797bdbe3647cfdd))
+* **mgmt:** restore pipeline dashboard enpoints ([#220](https://github.com/instill-ai/api-gateway/issues/220)) ([82e79bb](https://github.com/instill-ai/api-gateway/commit/82e79bb56d9cd2ab828b9804db1b105ae3918efe))
+
 ## [0.20.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.19.0-beta...v0.20.0-beta) (2024-07-15)
 
 
