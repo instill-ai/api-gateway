@@ -150,6 +150,59 @@
 }
 {{- end}}
 ,
+{{- range $idx, $endpoint := $endpoints.grpc_auth }}
+{{- if $idx -}},{{ end }}
+{
+  "endpoint": "{{ .endpoint }}",
+  "method": "{{ .method }}",
+  "timeout": "{{ .timeout }}",
+  "output_encoding": "no-op",
+  "input_headers": {{ marshal $input_headers.grpc_auth }},
+  "extra_config": {
+  },
+  "backend": [
+    {
+      "url_pattern": "{{ .url_pattern }}",
+      "host": {{ marshal $host }},
+      "sd": "static",
+      "method": "{{ .method }}",
+      "disable_host_sanitize": false,
+      "extra_config": {
+        "plugin/http-client": {
+          "name": "grpc-proxy-client",
+          "grpc-proxy-client": {}
+        }
+      }
+    }
+  ]
+},
+{
+  "endpoint": "/internal/{{ .endpoint }}",
+  "method": "{{ .method }}",
+  "timeout": "{{ .timeout }}",
+  "output_encoding": "no-op",
+  "input_headers": {{ marshal $input_headers.grpc_auth }},
+  "extra_config": {
+    {{ template "auth_validator.tmpl" . }}
+  },
+  "backend": [
+    {
+      "url_pattern": "{{ .url_pattern }}",
+      "host": {{ marshal $host }},
+      "sd": "static",
+      "method": "{{ .method }}",
+      "disable_host_sanitize": false,
+      "extra_config": {
+        "plugin/http-client": {
+          "name": "grpc-proxy-client",
+          "grpc-proxy-client": {}
+        }
+      }
+    }
+  ]
+}
+{{- end }}
+,
 {{- range $idx, $endpoint := $endpoints.grpc_no_auth }}
 {{- if $idx -}},{{ end }}
 {
