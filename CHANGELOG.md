@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.22.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.21.0-beta...v0.22.0-beta) (2024-08-01)
+
+
+### Features
+
+* **catalog:** rename endpoint from kb to catalog ([#224](https://github.com/instill-ai/api-gateway/issues/224)) ([71e7775](https://github.com/instill-ai/api-gateway/commit/71e77755c795c72561ee7c74df6a2718e00e7d2d))
+
 ## [0.21.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.20.0-beta...v0.21.0-beta) (2024-07-30)
 
 
