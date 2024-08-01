@@ -4,8 +4,12 @@
   "port": {{ .ports.api_gateway_port }},
   {{ if and .tls.public_key .tls.private_key }}
   "tls": {
-    "public_key": "{{ .tls.public_key }}",
-    "private_key": "{{ .tls.private_key }}",
+    "keys": [
+      {
+        "public_key": "{{ .tls.public_key }}",
+        "private_key": "{{ .tls.private_key }}"
+      }
+    ],
     "min_version": "TLS10",
     "max_version": "TLS13"
   },
