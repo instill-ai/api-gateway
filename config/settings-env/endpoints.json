@@ -2818,71 +2818,71 @@
         "input_query_strings": ["pageSize", "page"]
       },
       {
-        "endpoint": "/v1alpha/namespaces/{namespace_id}/knowledge-bases",
-        "url_pattern": "/v1alpha/namespaces/{namespace_id}/knowledge-bases",
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs",
         "method": "POST",
         "timeout": "10s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/namespaces/{namespace_id}/knowledge-bases",
-        "url_pattern": "/v1alpha/namespaces/{namespace_id}/knowledge-bases",
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs",
         "method": "GET",
         "timeout": "10s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{kb_id}",
-        "url_pattern": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{kb_id}",
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}",
         "method": "PUT",
         "timeout": "10s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{kb_id}",
-        "url_pattern": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{kb_id}",
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}",
         "method": "DELETE",
         "timeout": "10s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{kb_id}/files",
-        "url_pattern": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{kb_id}/files",
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/files",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/files",
         "method": "POST",
         "timeout": "10s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{kb_id}/files",
-        "url_pattern": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{kb_id}/files",
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/files",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/files",
         "method": "GET",
         "timeout": "10s",
         "input_query_strings": ["pageSize", "pageToken", "filter.fileUids"]
       },
       {
-        "endpoint": "/v1alpha/knowledge-bases/files",
-        "url_pattern": "/v1alpha/knowledge-bases/files",
+        "endpoint": "/v1alpha/catalogs/files",
+        "url_pattern": "/v1alpha/catalogs/files",
         "method": "DELETE",
         "timeout": "10s",
         "input_query_strings": ["fileUid"]
       },
       {
-        "endpoint": "/v1alpha/knowledge-bases/files/processAsync",
-        "url_pattern": "/v1alpha/knowledge-bases/files/processAsync",
+        "endpoint": "/v1alpha/catalogs/files/processAsync",
+        "url_pattern": "/v1alpha/catalogs/files/processAsync",
         "method": "POST",
         "timeout": "10s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{kb_id}/chunks",
-        "url_pattern": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{kb_id}/chunks",
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/chunks",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/chunks",
         "method": "GET",
         "timeout": "10s",
         "input_query_strings": ["fileUid"]
       },
       {
-        "endpoint": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{kb_id}/files/{file_uid}/source",
-        "url_pattern": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{kb_id}/files/{file_uid}/source",
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/files/{file_uid}/source",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/files/{file_uid}/source",
         "method": "GET",
         "timeout": "10s",
         "input_query_strings": []
@@ -2895,8 +2895,8 @@
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{kb_id}/chunks/similarity",
-        "url_pattern": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{kb_id}/chunks/similarity",
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/chunks/similarity",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/chunks/similarity",
         "method": "POST",
         "timeout": "10s",
         "input_query_strings": []
@@ -2904,50 +2904,50 @@
     ],
     "grpc_auth": [
       {
-        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/CreateKnowledgeBase",
-        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/CreateKnowledgeBase",
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/CreateCatalog",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/CreateCatalog",
         "method": "POST",
         "timeout": "10s"
       },
       {
-        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/ListKnowledgeBases",
-        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/ListKnowledgeBases",
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/ListCatalogs",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/ListCatalogs",
         "method": "POST",
         "timeout": "10s"
       },
       {
-        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/UpdateKnowledgeBase",
-        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/UpdateKnowledgeBase",
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/UpdateCatalog",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/UpdateCatalog",
         "method": "POST",
         "timeout": "10s"
       },
       {
-        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/DeleteKnowledgeBase",
-        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/DeleteKnowledgeBase",
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/DeleteCatalog",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/DeleteCatalog",
         "method": "POST",
         "timeout": "10s"
       },
       {
-        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/UploadKnowledgeBaseFile",
-        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/UploadKnowledgeBaseFile",
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/UploadCatalogFile",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/UploadCatalogFile",
         "method": "POST",
         "timeout": "60s"
       },
       {
-        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/DeleteKnowledgeBaseFile",
-        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/DeleteKnowledgeBaseFile",
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/DeleteCatalogFile",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/DeleteCatalogFile",
         "method": "POST",
         "timeout": "60s"
       },
       {
-        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/ProcessKnowledgeBaseFiles",
-        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/ProcessKnowledgeBaseFiles",
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/ProcessCatalogFiles",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/ProcessCatalogFiles",
         "method": "POST",
         "timeout": "10s"
       },
       {
-        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/ListKnowledgeBaseFiles",
-        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/ListKnowledgeBaseFiles",
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/ListCatalogFiles",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/ListCatalogFiles",
         "method": "POST",
         "timeout": "10s"
       },
