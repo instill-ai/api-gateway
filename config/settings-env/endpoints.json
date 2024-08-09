@@ -483,9 +483,7 @@
         "url_pattern": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}",
         "method": "GET",
         "timeout": "30s",
-        "input_query_strings": [
-          "view"
-        ]
+        "input_query_strings": ["view"]
       },
       {
         "endpoint": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}",
@@ -548,12 +546,7 @@
         "url_pattern": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/releases",
         "method": "GET",
         "timeout": "30s",
-        "input_query_strings": [
-          "view",
-          "pageSize",
-          "pageToken",
-          "filter"
-        ]
+        "input_query_strings": ["view", "pageSize", "pageToken", "filter"]
       },
       {
         "endpoint": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/releases",
@@ -567,9 +560,7 @@
         "url_pattern": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/releases/{release_id}",
         "method": "GET",
         "timeout": "30s",
-        "input_query_strings": [
-          "view"
-        ]
+        "input_query_strings": ["view"]
       },
       {
         "endpoint": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/releases/{release_id}",
@@ -646,11 +637,7 @@
         "url_pattern": "/v1beta/namespaces/{namespace_id}/secrets",
         "method": "GET",
         "timeout": "30s",
-        "input_query_strings": [
-          "pageSize",
-          "pageToken",
-          "filter"
-        ]
+        "input_query_strings": ["pageSize", "pageToken", "filter"]
       },
       {
         "endpoint": "/v1beta/namespaces/{namespace_id}/secrets/{secret_id}",
@@ -1166,7 +1153,7 @@
         "input_query_strings": []
       }
     ],
-    "webhook":[
+    "webhook": [
       {
         "endpoint": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/events",
         "url_pattern": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/events",
@@ -1797,9 +1784,7 @@
         "url_pattern": "/v1alpha/namespaces/{namespace_id}/models/{model_id}",
         "method": "GET",
         "timeout": "30s",
-        "input_query_strings": [
-          "view"
-        ]
+        "input_query_strings": ["view"]
       },
       {
         "endpoint": "/v1alpha/namespaces/{namespace_id}/models/{model_id}",
@@ -1890,10 +1875,7 @@
         "url_pattern": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/versions",
         "method": "GET",
         "timeout": "30s",
-        "input_query_strings": [
-          "pageSize",
-          "page"
-        ]
+        "input_query_strings": ["pageSize", "page"]
       },
       {
         "endpoint": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/versions/{version_id}",
@@ -2266,9 +2248,7 @@
         "url_pattern": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/operation",
         "method": "GET",
         "timeout": "30s",
-        "input_query_strings": [
-          "view"
-        ]
+        "input_query_strings": ["view"]
       },
       {
         "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/operation",
@@ -2898,8 +2878,22 @@
         "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/chunks/similarity",
         "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/chunks/similarity",
         "method": "POST",
-        "timeout": "10s",
+        "timeout": "30s",
         "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/qa",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/qa",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/file-catlog",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/file-catalog",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": ["fileId","fileUid"]
       }
     ],
     "grpc_auth": [
@@ -2973,7 +2967,19 @@
         "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/SimilarityChunksSearch",
         "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/SimilarityChunksSearch",
         "method": "POST",
-        "timeout": "10s"
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/QuestionAnswering",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/QuestionAnswering",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/GetFileCatalog",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/GetFileCatalog",
+        "method": "POST",
+        "timeout": "30s"
       }
     ],
     "grpc_no_auth": [
