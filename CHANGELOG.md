@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.23.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.22.0-beta...v0.23.0-beta) (2024-08-09)
+
+
+### Features
+
+* **catalog:** add file catalog and question answering endpoint ([#226](https://github.com/instill-ai/api-gateway/issues/226)) ([a5c85dc](https://github.com/instill-ai/api-gateway/commit/a5c85dc24221613404f25472949c6187fdbd4f6a))
+
 ## [0.22.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.21.0-beta...v0.22.0-beta) (2024-08-01)
 
 
