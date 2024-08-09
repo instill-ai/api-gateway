@@ -2887,6 +2887,13 @@
         "method": "POST",
         "timeout": "30s",
         "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/file-catlog",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/file-catalog",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": ["fileId","fileUid"]
       }
     ],
     "grpc_auth": [
@@ -2965,6 +2972,12 @@
       {
         "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/QuestionAnswering",
         "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/QuestionAnswering",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/GetFileCatalog",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/GetFileCatalog",
         "method": "POST",
         "timeout": "30s"
       }
