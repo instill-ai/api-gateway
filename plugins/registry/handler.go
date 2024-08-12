@@ -217,7 +217,7 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 
 		isValid := false
 		for _, membership := range resp.Memberships {
-			if namespace == membership.Organization.Name && membership.State == mgmtpb.MembershipState_MEMBERSHIP_STATE_ACTIVE {
+			if namespace == membership.Organization.Id && membership.State == mgmtpb.MembershipState_MEMBERSHIP_STATE_ACTIVE {
 				isValid = true
 				break
 			}
