@@ -2889,7 +2889,7 @@
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/file-catlog",
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/file-catalog",
         "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/file-catalog",
         "method": "GET",
         "timeout": "30s",
