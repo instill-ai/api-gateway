@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.23.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.22.0-beta...v0.23.0-beta) (2024-08-13)
+
+
+### Features
+
+* **catalog:** add file catalog and question answering endpoint ([#226](https://github.com/instill-ai/api-gateway/issues/226)) ([a5c85dc](https://github.com/instill-ai/api-gateway/commit/a5c85dc24221613404f25472949c6187fdbd4f6a))
+* **env:** update KrakenD to v2.7.0 ([#230](https://github.com/instill-ai/api-gateway/issues/230)) ([4c6144b](https://github.com/instill-ai/api-gateway/commit/4c6144b1c76388919d3568958b64bd13faaa8cbc))
+
+
+### Bug Fixes
+
+* **catalog:** fix typo in file catalog api ([#229](https://github.com/instill-ai/api-gateway/issues/229)) ([05fea14](https://github.com/instill-ai/api-gateway/commit/05fea144447d82aa2b482fce13655f4e0e237b3d))
+* **registry:** fix wrong namespace format comparison ([#228](https://github.com/instill-ai/api-gateway/issues/228)) ([dbe1818](https://github.com/instill-ai/api-gateway/commit/dbe18186b1478fe7593ab50b27bacb7c4f09d4e2))
+
 ## [0.22.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.21.0-beta...v0.22.0-beta) (2024-08-01)
 
 
