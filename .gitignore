@@ -108,3 +108,4 @@ krakend.json
 # air related files and folders
 .air.toml
 tmp
+.idea
