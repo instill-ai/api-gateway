@@ -1,5 +1,4 @@
-ARG GOLANG_VERSION
-FROM golang:${GOLANG_VERSION}
+FROM golang:1.22.6
 
 ARG SERVICE_NAME
 
@@ -19,8 +18,7 @@ RUN apt-get update && apt-get install -y \
     jq \
     && rm -rf /var/lib/apt/lists/*
 
-ARG KRAKEND_CE_VERSION
-RUN git clone -b v${KRAKEND_CE_VERSION} https://github.com/krakendio/krakend-ce.git /krakend && cd /krakend && make build && cp krakend /usr/bin
+RUN git clone -b v2.7.0 https://github.com/krakendio/krakend-ce.git /krakend && cd /krakend && make build && cp krakend /usr/bin
 
 # -- set up Go
 RUN chown -R nobody:nogroup /go

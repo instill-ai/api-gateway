@@ -1,6 +1,6 @@
 package main
 
-import "github.com/luraproject/lura/logging"
+import "github.com/luraproject/lura/v2/logging"
 
 func main() {}
 

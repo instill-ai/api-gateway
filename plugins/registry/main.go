@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/luraproject/lura/logging"
+	"github.com/luraproject/lura/v2/logging"
 )
 
 var pluginName = "registry"
@@ -58,7 +58,7 @@ var HandlerRegisterer = registerer(pluginName)
 var logger = logging.NoOp
 
 func (registerer) RegisterLogger(v interface{}) {
-	l, ok := v.(logging.Logger)
+	l, ok := v.(logging.BasicLogger)
 	if !ok {
 		return
 	}

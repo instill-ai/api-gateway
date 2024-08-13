@@ -65,9 +65,6 @@ jobs:
           load: true
           build-args: |
             SERVICE_NAME=api-gateway
-            GOLANG_VERSION=${{ env.GOLANG_VERSION }}
-            ALPINE_VERSION=${{ env.ALPINE_VERSION }}
-            KRAKEND_CE_VERSION=${{ env.KRAKEND_CE_VERSION }}
           tags: instill/api-gateway:latest
 
       - name: Checkout repo (instill-core)
