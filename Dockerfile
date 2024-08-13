@@ -1,16 +1,11 @@
-ARG GOLANG_VERSION
-ARG ALPINE_VERSION
-ARG KRAKEND_CE_VERSION
-
-FROM golang:${GOLANG_VERSION}-alpine${ALPINE_VERSION} as krakend_builder
+FROM golang:1.22.6-alpine3.20 as krakend_builder
 
 RUN apk --no-cache --virtual .build-deps add git make gcc musl-dev binutils-gold
 
-ARG KRAKEND_CE_VERSION
-RUN git clone -b v${KRAKEND_CE_VERSION} https://github.com/krakendio/krakend-ce.git /krakend && cd /krakend && make build && cp krakend /usr/bin
+RUN git clone -b v2.7.0 https://github.com/krakendio/krakend-ce.git /krakend && cd /krakend && make build && cp krakend /usr/bin
 
 
-FROM --platform=$BUILDPLATFORM golang:${GOLANG_VERSION}-alpine${ALPINE_VERSION} AS build
+FROM --platform=$BUILDPLATFORM golang:1.22.6-alpine3.20 AS build
 
 ARG SERVICE_NAME
 
@@ -93,7 +88,7 @@ RUN cd /${SERVICE_NAME} && \
     go build -o /go/bin/jwx . ; \
     fi
 
-FROM alpine:${ALPINE_VERSION}
+FROM alpine:3.20
 
 RUN apk update && apk add make bash gettext jq curl
 RUN apk add --no-cache ca-certificates tzdata && \

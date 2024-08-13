@@ -9,7 +9,7 @@ import (
 	"strings"
 
 	"github.com/gofrs/uuid"
-	"github.com/luraproject/lura/logging"
+	"github.com/luraproject/lura/v2/logging"
 	"google.golang.org/grpc/metadata"
 
 	mgmtPB "github.com/instill-ai/protogen-go/core/mgmt/v1beta"
@@ -118,7 +118,7 @@ func main() {}
 var logger = logging.NoOp
 
 func (registerer) RegisterLogger(v interface{}) {
-	l, ok := v.(logging.Logger)
+	l, ok := v.(logging.BasicLogger)
 	if !ok {
 		return
 	}
