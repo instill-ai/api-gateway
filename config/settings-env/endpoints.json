@@ -1920,7 +1920,7 @@
         "input_query_strings": [
           "view",
           "pageSize",
-          "pageToken",
+          "page",
           "filter",
           "orderBy"
         ]
