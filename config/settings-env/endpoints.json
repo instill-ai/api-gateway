@@ -2932,13 +2932,6 @@
       {
         "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/conversations/{conversation_id}",
         "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/conversations/{conversation_id}",
-        "method": "PUT",
-        "timeout": "30s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/conversations/{conversation_id}",
-        "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/conversations/{conversation_id}",
         "method": "DELETE",
         "timeout": "30s",
         "input_query_strings": []
