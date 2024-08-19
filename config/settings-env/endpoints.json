@@ -1913,8 +1913,8 @@
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1beta/namespaces/{namespace_id}/models/{model_id}/runs",
-        "url_pattern": "/v1beta/namespaces/{namespace_id}/models/{model_id}/runs",
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/runs",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/runs",
         "method": "GET",
         "timeout": "30s",
         "input_query_strings": [
@@ -2748,6 +2748,12 @@
       {
         "endpoint": "/model.model.v1alpha.ModelPublicService/GetModelOperation",
         "url_pattern": "/model.model.v1alpha.ModelPublicService/GetModelOperation",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/model.model.v1alpha.ModelPublicService/ListModelRuns",
+        "url_pattern": "/model.model.v1alpha.ModelPublicService/ListModelRuns",
         "method": "POST",
         "timeout": "5s"
       }
