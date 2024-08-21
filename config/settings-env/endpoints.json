@@ -1121,6 +1121,32 @@
         "method": "GET",
         "timeout": "30s",
         "input_query_strings": ["view"]
+      },
+      {
+        "endpoint": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/runs",
+        "url_pattern": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/runs",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view",
+          "pageSize",
+          "page",
+          "filter",
+          "orderBy"
+        ]
+      },
+      {
+        "endpoint": "/v1beta/pipeline-runs/{pipeline_run_id}/component-runs",
+        "url_pattern": "/v1beta/pipeline-runs/{pipeline_run_id}/component-runs",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "view",
+          "pageSize",
+          "page",
+          "filter",
+          "orderBy"
+        ]
       }
     ],
     "no_auth": [
