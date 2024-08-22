@@ -2920,25 +2920,86 @@
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/chunks/similarity",
-        "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/chunks/similarity",
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/chunks/retrieve",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/chunks/retrieve",
         "method": "POST",
         "timeout": "30s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/qa",
-        "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/qa",
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/ask",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/ask",
         "method": "POST",
         "timeout": "30s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/file-catalog",
-        "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/file-catalog",
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}",
         "method": "GET",
         "timeout": "30s",
-        "input_query_strings": ["fileId","fileUid"]
+        "input_query_strings": ["fileId", "fileUid"]
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/conversations",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/conversations",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/conversations",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/conversations",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": ["pageSize", "pageToken"]
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/conversations/{conversation_id}",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/conversations/{conversation_id}",
+        "method": "PUT",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/conversations/{conversation_id}",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/conversations/{conversation_id}",
+        "method": "DELETE",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/conversations/{conversation_id}/messages",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/conversations/{conversation_id}/messages",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/conversations/{conversation_id}/messages",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/conversations/{conversation_id}/messages",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "latestK",
+          "pageSize",
+          "pageToken",
+          "includeSystemMessages"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/conversations/{conversation_id}/messages/{message_uid}",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/conversations/{conversation_id}/messages/{message_uid}",
+        "method": "PUT",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/conversations/{conversation_id}/messages/{message_uid}",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/conversations/{conversation_id}/messages/{message_uid}",
+        "method": "DELETE",
+        "timeout": "30s",
+        "input_query_strings": []
       }
     ],
     "grpc_auth": [
@@ -3023,6 +3084,54 @@
       {
         "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/GetFileCatalog",
         "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/GetFileCatalog",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/CreateConversation",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/CreateConversation",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/ListConversations",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/ListConversations",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/UpdateConversation",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/UpdateConversation",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/DeleteConversation",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/DeleteConversation",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/CreateMessage",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/CreateMessage",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/ListMessages",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/ListMessages",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/UpdateMessage",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/UpdateMessage",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/DeleteMessage",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/DeleteMessage",
         "method": "POST",
         "timeout": "30s"
       }
