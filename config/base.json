@@ -48,8 +48,6 @@
         "artifact_private_hostport": "{{ .plugins.artifact_private_hostport }}"
       },
       "sse-streaming": {
-         "endpoint": "/v1beta/sse/{id}",
-         "backend_url_pattern": "/sse/{id}",
          "backend_host": "{{ .plugins.pipeline_public_hostport }}"
       }
     }

@@ -3,8 +3,10 @@ package main
 import (
 	"context"
 	"encoding/base64"
+	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
 	"strings"
 
@@ -54,6 +56,8 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]inter
 
 	mgmtClient, _ := InitMgmtPublicServiceClient(context.Background(), config["grpc_server"].(string), "", "")
 
+	httpClient := http.Client{Transport: http.DefaultTransport}
+
 	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
 		authorization := req.Header.Get("Authorization")
 
@@ -101,6 +105,51 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]inter
 			visitorID, _ := uuid.NewV4()
 			req.Header.Set("Instill-Auth-Type", "visitor")
 			req.Header.Set("Instill-Visitor-Uid", visitorID.String())
+			h.ServeHTTP(w, req)
+
+		} else if req.Header.Get("instill-use-sse") == "true" {
+			// Currently, KrakenD doesn’t support event-stream. To make
+			// authentication work, we send a request to the management API
+			// first for verification.
+			r, err := http.NewRequest("GET", "http://localhost:8080/v1beta/user", nil)
+			r.Header = req.Header
+			r.Header.Del("instill-use-sse")
+			if err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
+
+			resp, err := httpClient.Do(r)
+			if err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
+			if resp.StatusCode == 401 {
+				writeStatusUnauthorized(req, w)
+				return
+			}
+			type user struct {
+				User struct {
+					UID string `json:"uid"`
+				} `json:"user"`
+			}
+			respBytes, err := io.ReadAll(resp.Body)
+			if err != nil {
+				writeStatusUnauthorized(req, w)
+				return
+			}
+			defer resp.Body.Close()
+
+			u := user{}
+			err = json.Unmarshal(respBytes, &u)
+			if err != nil {
+				writeStatusUnauthorized(req, w)
+				return
+			}
+
+			req.Header.Set("Instill-Auth-Type", "user")
+			req.Header.Set("Instill-User-Uid", u.User.UID)
+			req.Header.Set("instill-Use-SSE", "true")
 			h.ServeHTTP(w, req)
 
 		} else {
