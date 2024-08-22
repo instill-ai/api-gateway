@@ -112,12 +112,12 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]inter
 			// authentication work, we send a request to the management API
 			// first for verification.
 			r, err := http.NewRequest("GET", "http://localhost:8080/v1beta/user", nil)
-			r.Header = req.Header
-			r.Header.Del("instill-use-sse")
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 				return
 			}
+			r.Header = req.Header
+			r.Header.Del("instill-use-sse")
 
 			resp, err := httpClient.Do(r)
 			if err != nil {
