@@ -73,7 +73,7 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]inter
 		httpClient := http.Client{Transport: http.DefaultTransport}
 
 		// This is a quick solution since we only support sse for pipeline trigger endpoint
-		if req.Header.Get("instill-use-sse") == "true" {
+		if req.Header.Get("Accept") == "text/event-stream" {
 			proxyHandler(w, req, httpClient, backendHost)
 		} else {
 			h.ServeHTTP(w, req)

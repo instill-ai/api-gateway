@@ -81,7 +81,7 @@ func (r registerer) RegisterHandlers(f func(
 func (r registerer) registerHandlers(ctx context.Context, extra map[string]interface{}, h http.Handler) (http.Handler, error) {
 
 	return h2c.NewHandler(http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
-		if req.Header.Get("instill-use-sse") == "true" {
+		if req.Header.Get("Accept") == "text/event-stream" {
 			// For SSE, we need to skip this plugin.
 			h.ServeHTTP(w, req)
 		} else {

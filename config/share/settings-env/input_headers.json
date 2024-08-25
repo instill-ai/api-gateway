@@ -11,6 +11,7 @@
     "X-B3-Traceid"
   ],
   "http_auth": [
+    "Accept",
     "Authorization",
     "Content-Type",
     "Content-Length",
@@ -29,8 +30,7 @@
     "Instill-Share-Code",
     "Instill-Requester-Uid",
     "Instill-Share-Code",
-    "Instill-User-Agent",
-    "Instill-Use-SSE"
+    "Instill-User-Agent"
   ],
   "webhook": [
     "*"
