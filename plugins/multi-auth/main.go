@@ -107,7 +107,7 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]inter
 			req.Header.Set("Instill-Visitor-Uid", visitorID.String())
 			h.ServeHTTP(w, req)
 
-		} else if req.Header.Get("instill-use-sse") == "true" {
+		} else if req.Header.Get("Accept") == "text/event-stream" {
 			// Currently, KrakenD doesn’t support event-stream. To make
 			// authentication work, we send a request to the management API
 			// first for verification.
@@ -117,7 +117,7 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]inter
 				return
 			}
 			r.Header = req.Header
-			r.Header.Del("instill-use-sse")
+			r.Header["Accept"][0] = "*/*"
 
 			resp, err := httpClient.Do(r)
 			if err != nil {
@@ -149,7 +149,7 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]inter
 
 			req.Header.Set("Instill-Auth-Type", "user")
 			req.Header.Set("Instill-User-Uid", u.User.UID)
-			req.Header.Set("instill-Use-SSE", "true")
+			req.Header.Set("Accept", "text/event-stream")
 			h.ServeHTTP(w, req)
 
 		} else {
