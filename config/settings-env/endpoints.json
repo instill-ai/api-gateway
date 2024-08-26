@@ -558,8 +558,8 @@
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/triggerAsync",
-        "url_pattern": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/triggerAsync",
+        "endpoint": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/trigger-async",
+        "url_pattern": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/trigger-async",
         "method": "POST",
         "timeout": "600s",
         "input_query_strings": []
@@ -614,8 +614,8 @@
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/releases/{release_id}/triggerAsync",
-        "url_pattern": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/releases/{release_id}/triggerAsync",
+        "endpoint": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/releases/{release_id}/trigger-async",
+        "url_pattern": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/releases/{release_id}/trigger-async",
         "method": "POST",
         "timeout": "600s",
         "input_query_strings": []
@@ -1920,8 +1920,8 @@
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/triggerAsync",
-        "url_pattern": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/triggerAsync",
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/trigger-async",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/trigger-async",
         "method": "POST",
         "timeout": "30s",
         "input_query_strings": []
@@ -1965,8 +1965,8 @@
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/versions/{version_id}/triggerAsync",
-        "url_pattern": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/versions/{version_id}/triggerAsync",
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/versions/{version_id}/trigger-async",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/versions/{version_id}/trigger-async",
         "method": "POST",
         "timeout": "30s",
         "input_query_strings": []
