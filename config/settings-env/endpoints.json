@@ -1216,6 +1216,24 @@
           "filter",
           "orderBy"
         ]
+      },
+      {
+        "endpoint": "/v1beta/integrations",
+        "url_pattern": "/v1beta/integrations",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "pageSize",
+          "pageToken",
+          "filter"
+        ]
+      },
+      {
+        "endpoint": "/v1beta/integrations/{id}",
+        "url_pattern": "/v1beta/integrations/{id}",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": ["view"]
       }
     ],
     "no_auth": [
@@ -1808,6 +1826,18 @@
       {
         "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/DeleteOrganizationSecret",
         "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/DeleteOrganizationSecret",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/GetIntegration",
+        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/GetIntegration",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/ListIntegrations",
+        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/ListIntegrations",
         "method": "POST",
         "timeout": "5s"
       }
