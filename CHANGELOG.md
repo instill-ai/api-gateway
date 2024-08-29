@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.24.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.23.0-beta...v0.24.0-beta) (2024-08-26)
+
+
+### Features
+
+* **catalog:** add conversations and messages endpoints ([#234](https://github.com/instill-ai/api-gateway/issues/234)) ([7734662](https://github.com/instill-ai/api-gateway/commit/7734662665fd2b9d2519ce9606c2f51ca934178d))
+* **model:** added model run logging endpoint ([#231](https://github.com/instill-ai/api-gateway/issues/231)) ([e7c3232](https://github.com/instill-ai/api-gateway/commit/e7c323247e23ab782062d318fa4a62ca521f687f))
+* **model:** fixed model run logging endpoint prefix ([#235](https://github.com/instill-ai/api-gateway/issues/235)) ([1051b64](https://github.com/instill-ai/api-gateway/commit/1051b6489054d89fabf14bfee5e277fc0d639750))
+* **model:** fixed model run logging endpoint query param ([#233](https://github.com/instill-ai/api-gateway/issues/233)) ([2d11f99](https://github.com/instill-ai/api-gateway/commit/2d11f997a708ba95b520a6060bd068082058fba6))
+* **vdp:** added pipeline run logging endpoints ([#237](https://github.com/instill-ai/api-gateway/issues/237)) ([c0a52d9](https://github.com/instill-ai/api-gateway/commit/c0a52d9e494d276bf1e2bb70bcdc7a512587c9e6))
+* **vdp:** support authentication for streaming API ([#238](https://github.com/instill-ai/api-gateway/issues/238)) ([a99d723](https://github.com/instill-ai/api-gateway/commit/a99d7230caa12cc2c1ee8867dad867190cde85cc))
+* **vdp:** use the `Accept` header to identify and handle `text/event-stream` ([#242](https://github.com/instill-ai/api-gateway/issues/242)) ([3891071](https://github.com/instill-ai/api-gateway/commit/389107180eb5930dea2c8db964b1c4f69260c70c))
+
+
+### Bug Fixes
+
+* **model:** fix wrong version and add missing grpc endpoint ([#236](https://github.com/instill-ai/api-gateway/issues/236)) ([78cb564](https://github.com/instill-ai/api-gateway/commit/78cb5645b2144014d3295d6f2b4d30998afea89c))
+
 ## [0.23.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.22.0-beta...v0.23.0-beta) (2024-08-13)
 
 
