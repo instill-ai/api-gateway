@@ -1866,6 +1866,18 @@
         "url_pattern": "/vdp.pipeline.v1beta.ConnectionPublicService/GetNamespaceConnection",
         "method": "POST",
         "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/ListPipelineRuns",
+        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/ListPipelineRuns",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/ListComponentRuns",
+        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/ListComponentRuns",
+        "method": "POST",
+        "timeout": "30s"
       }
     ],
     "grpc_no_auth": [
@@ -2738,7 +2750,7 @@
         "endpoint": "/model.model.v1alpha.ModelPublicService/ListModelRuns",
         "url_pattern": "/model.model.v1alpha.ModelPublicService/ListModelRuns",
         "method": "POST",
-        "timeout": "5s"
+        "timeout": "30s"
       }
     ],
     "grpc_no_auth": [
