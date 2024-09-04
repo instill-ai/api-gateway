@@ -1245,6 +1245,49 @@
       {
         "endpoint": "/v1beta/namespaces/{namespace_id}/connections/{connection_id}",
         "url_pattern": "/v1beta/namespaces/{namespace_id}/connections/{connection_id}",
+        "method": "PATCH",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1beta/namespaces/{namespace_id}/connections/{connection_id}",
+        "url_pattern": "/v1beta/namespaces/{namespace_id}/connections/{connection_id}",
+        "method": "DELETE",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1beta/namespaces/{namespace_id}/connections/{connection_id}/test",
+        "url_pattern": "/v1beta/namespaces/{namespace_id}/connections/{connection_id}/test",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1beta/namespaces/{namespace_id}/connections/{connection_id}/referenced-pipelines",
+        "url_pattern": "/v1beta/namespaces/{namespace_id}/connections/{connection_id}/referenced-pipelines",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "pageSize",
+          "pageToken",
+          "filter"
+        ]
+      },
+      {
+        "endpoint": "/v1beta/namespaces/{namespace_id}/connections",
+        "url_pattern": "/v1beta/namespaces/{namespace_id}/connections",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "pageSize",
+          "pageToken",
+          "filter"
+        ]
+      },
+      {
+        "endpoint": "/v1beta/namespaces/{namespace_id}/connections/{connection_id}",
+        "url_pattern": "/v1beta/namespaces/{namespace_id}/connections/{connection_id}",
         "method": "GET",
         "timeout": "30s",
         "input_query_strings": ["view"]
@@ -1858,6 +1901,36 @@
       {
         "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/CreateNamespaceConnection",
         "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/CreateNamespaceConnection",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/UpdateNamespaceConnection",
+        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/UpdateNamespaceConnection",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/DeleteNamespaceConnection",
+        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/DeleteNamespaceConnection",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/TestNamespaceConnection",
+        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/TestNamespaceConnection",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/ListPipelineIDsByConnectionID",
+        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/ListPipelineIDsByConnectionID",
+        "method": "POST",
+        "timeout": "5s"
+      },
+      {
+        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/ListNamespaceConnections",
+        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/ListNamespaceConnections",
         "method": "POST",
         "timeout": "5s"
       },
