@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.25.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.24.0-beta...v0.25.0-beta) (2024-09-10)
+
+
+### Features
+
+* **pipeline:** add connection create and get endpoints ([#246](https://github.com/instill-ai/api-gateway/issues/246)) ([28e7cdc](https://github.com/instill-ai/api-gateway/commit/28e7cdc8f16ff13f758b9f62a05f72e0c6259bcf))
+* **pipeline:** add integration read endpoints ([#244](https://github.com/instill-ai/api-gateway/issues/244)) ([2e4d8fa](https://github.com/instill-ai/api-gateway/commit/2e4d8fa401e2d394dd371475a001c05e12195506))
+* **pipeline:** expose integration endpoints ([#248](https://github.com/instill-ai/api-gateway/issues/248)) ([b02ec58](https://github.com/instill-ai/api-gateway/commit/b02ec5896a93c3b338e6db15a90dd55df83359f8))
+* **vdp:** add grpc pipeline run logging endpoints ([#247](https://github.com/instill-ai/api-gateway/issues/247)) ([795aeb0](https://github.com/instill-ai/api-gateway/commit/795aeb003f68772b0849c2dd983680b32a419b92))
+
 ## [0.24.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.23.0-beta...v0.24.0-beta) (2024-08-26)
 
 
