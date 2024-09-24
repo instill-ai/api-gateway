@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.26.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.25.0-beta...v0.26.0-beta) (2024-09-24)
+
+
+### Miscellaneous Chores
+
+* release v0.26.0-beta ([5a85791](https://github.com/instill-ai/api-gateway/commit/5a8579159ade275da94f1b9b1e37814ffcab0cc1))
+
 ## [0.25.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.24.0-beta...v0.25.0-beta) (2024-09-10)
 
 
