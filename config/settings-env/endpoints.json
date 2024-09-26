@@ -2955,7 +2955,8 @@
         "method": "GET",
         "timeout": "10s",
         "input_query_strings": [
-          "fileUid"
+          "fileUid",
+          "chunkUids"
         ]
       },
       {
