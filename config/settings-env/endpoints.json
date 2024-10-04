@@ -547,21 +547,21 @@
         "endpoint": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/trigger",
         "url_pattern": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/trigger",
         "method": "POST",
-        "timeout": "600s",
+        "timeout": "3600s",
         "input_query_strings": []
       },
       {
         "endpoint": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/trigger-stream",
         "url_pattern": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/trigger-stream",
         "method": "POST",
-        "timeout": "600s",
+        "timeout": "3600s",
         "input_query_strings": []
       },
       {
         "endpoint": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/trigger-async",
         "url_pattern": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/trigger-async",
         "method": "POST",
-        "timeout": "600s",
+        "timeout": "3600s",
         "input_query_strings": []
       },
       {
@@ -610,14 +610,14 @@
         "endpoint": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/releases/{release_id}/trigger",
         "url_pattern": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/releases/{release_id}/trigger",
         "method": "POST",
-        "timeout": "600s",
+        "timeout": "3600s",
         "input_query_strings": []
       },
       {
         "endpoint": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/releases/{release_id}/trigger-async",
         "url_pattern": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/releases/{release_id}/trigger-async",
         "method": "POST",
-        "timeout": "600s",
+        "timeout": "3600s",
         "input_query_strings": []
       },
       {
@@ -764,21 +764,21 @@
         "endpoint": "/v1beta/users/{user_id}/pipelines/{pipeline_id}/trigger",
         "url_pattern": "/v1beta/users/{user_id}/pipelines/{pipeline_id}/trigger",
         "method": "POST",
-        "timeout": "600s",
+        "timeout": "3600s",
         "input_query_strings": []
       },
       {
         "endpoint": "/v1beta/users/{user_id}/pipelines/{pipeline_id}/trigger-stream",
         "url_pattern": "/v1beta/users/{user_id}/pipelines/{pipeline_id}/trigger-stream",
         "method": "POST",
-        "timeout": "600s",
+        "timeout": "3600s",
         "input_query_strings": []
       },
       {
         "endpoint": "/v1beta/users/{user_id}/pipelines/{pipeline_id}/triggerAsync",
         "url_pattern": "/v1beta/users/{user_id}/pipelines/{pipeline_id}/triggerAsync",
         "method": "POST",
-        "timeout": "600s",
+        "timeout": "3600s",
         "input_query_strings": []
       },
       {
@@ -827,14 +827,14 @@
         "endpoint": "/v1beta/users/{user_id}/pipelines/{pipeline_id}/releases/{release_id}/trigger",
         "url_pattern": "/v1beta/users/{user_id}/pipelines/{pipeline_id}/releases/{release_id}/trigger",
         "method": "POST",
-        "timeout": "600s",
+        "timeout": "3600s",
         "input_query_strings": []
       },
       {
         "endpoint": "/v1beta/users/{user_id}/pipelines/{pipeline_id}/releases/{release_id}/triggerAsync",
         "url_pattern": "/v1beta/users/{user_id}/pipelines/{pipeline_id}/releases/{release_id}/triggerAsync",
         "method": "POST",
-        "timeout": "600s",
+        "timeout": "3600s",
         "input_query_strings": []
       },
       {
@@ -942,21 +942,21 @@
         "endpoint": "/v1beta/organizations/{organization_id}/pipelines/{pipeline_id}/trigger",
         "url_pattern": "/v1beta/organizations/{organization_id}/pipelines/{pipeline_id}/trigger",
         "method": "POST",
-        "timeout": "600s",
+        "timeout": "3600s",
         "input_query_strings": []
       },
       {
         "endpoint": "/v1beta/organizations/{organization_id}/pipelines/{pipeline_id}/trigger-stream",
         "url_pattern": "/v1beta/organizations/{organization_id}/pipelines/{pipeline_id}/trigger-stream",
         "method": "POST",
-        "timeout": "600s",
+        "timeout": "3600s",
         "input_query_strings": []
       },
       {
         "endpoint": "/v1beta/organizations/{organization_id}/pipelines/{pipeline_id}/triggerAsync",
         "url_pattern": "/v1beta/organizations/{organization_id}/pipelines/{pipeline_id}/triggerAsync",
         "method": "POST",
-        "timeout": "600s",
+        "timeout": "3600s",
         "input_query_strings": []
       },
       {
@@ -1005,14 +1005,14 @@
         "endpoint": "/v1beta/organizations/{organization_id}/pipelines/{pipeline_id}/releases/{release_id}/trigger",
         "url_pattern": "/v1beta/organizations/{organization_id}/pipelines/{pipeline_id}/releases/{release_id}/trigger",
         "method": "POST",
-        "timeout": "600s",
+        "timeout": "3600s",
         "input_query_strings": []
       },
       {
         "endpoint": "/v1beta/organizations/{organization_id}/pipelines/{pipeline_id}/releases/{release_id}/triggerAsync",
         "url_pattern": "/v1beta/organizations/{organization_id}/pipelines/{pipeline_id}/releases/{release_id}/triggerAsync",
         "method": "POST",
-        "timeout": "600s",
+        "timeout": "3600s",
         "input_query_strings": []
       },
       {
@@ -1054,7 +1054,7 @@
         "endpoint": "/v1beta/operations/{id}",
         "url_pattern": "/v1beta/operations/{id}",
         "method": "GET",
-        "timeout": "600s",
+        "timeout": "3600s",
         "input_query_strings": []
       },
       {
@@ -1328,7 +1328,7 @@
         "endpoint": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/events",
         "url_pattern": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/events",
         "method": "POST",
-        "timeout": "600s",
+        "timeout": "3600s",
         "input_query_strings": [
           "event",
           "code"
@@ -1338,7 +1338,7 @@
         "endpoint": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/releases/{release_id}/events",
         "url_pattern": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/releases/{release_id}/events",
         "method": "POST",
-        "timeout": "600s",
+        "timeout": "3600s",
         "input_query_strings": [
           "event",
           "code"
@@ -1416,13 +1416,13 @@
         "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerNamespacePipeline",
         "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerNamespacePipeline",
         "method": "POST",
-        "timeout": "600s"
+        "timeout": "3600s"
       },
       {
         "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerAsyncNamespacePipeline",
         "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerAsyncNamespacePipeline",
         "method": "POST",
-        "timeout": "600s"
+        "timeout": "3600s"
       },
       {
         "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/CreateNamespacePipelineRelease",
@@ -1488,13 +1488,13 @@
         "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerNamespacePipelineRelease",
         "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerNamespacePipelineRelease",
         "method": "POST",
-        "timeout": "600s"
+        "timeout": "3600s"
       },
       {
         "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerAsyncNamespacePipelineRelease",
         "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerAsyncNamespacePipelineRelease",
         "method": "POST",
-        "timeout": "600s"
+        "timeout": "3600s"
       },
       {
         "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/CreateUserPipeline",
@@ -1548,13 +1548,13 @@
         "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerUserPipeline",
         "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerUserPipeline",
         "method": "POST",
-        "timeout": "600s"
+        "timeout": "3600s"
       },
       {
         "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerAsyncUserPipeline",
         "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerAsyncUserPipeline",
         "method": "POST",
-        "timeout": "600s"
+        "timeout": "3600s"
       },
       {
         "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/CreateUserPipelineRelease",
@@ -1620,13 +1620,13 @@
         "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerUserPipelineRelease",
         "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerUserPipelineRelease",
         "method": "POST",
-        "timeout": "600s"
+        "timeout": "3600s"
       },
       {
         "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerAsyncUserPipelineRelease",
         "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerAsyncUserPipelineRelease",
         "method": "POST",
-        "timeout": "600s"
+        "timeout": "3600s"
       },
       {
         "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/CreateOrganizationPipeline",
@@ -1680,13 +1680,13 @@
         "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerOrganizationPipeline",
         "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerOrganizationPipeline",
         "method": "POST",
-        "timeout": "600s"
+        "timeout": "3600s"
       },
       {
         "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerAsyncOrganizationPipeline",
         "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerAsyncOrganizationPipeline",
         "method": "POST",
-        "timeout": "600s"
+        "timeout": "3600s"
       },
       {
         "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/CreateOrganizationPipelineRelease",
@@ -1752,19 +1752,19 @@
         "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerOrganizationPipelineRelease",
         "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerOrganizationPipelineRelease",
         "method": "POST",
-        "timeout": "600s"
+        "timeout": "3600s"
       },
       {
         "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerAsyncOrganizationPipelineRelease",
         "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerAsyncOrganizationPipelineRelease",
         "method": "POST",
-        "timeout": "600s"
+        "timeout": "3600s"
       },
       {
         "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/GetOperation",
         "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/GetOperation",
         "method": "POST",
-        "timeout": "600s"
+        "timeout": "3600s"
       },
       {
         "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/ListComponentDefinitions",
