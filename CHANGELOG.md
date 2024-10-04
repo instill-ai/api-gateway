@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.27.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.26.0-beta...v0.27.0-beta) (2024-10-04)
+
+
+### Features
+
+* **artifact:** add chunk uid in query string ([#252](https://github.com/instill-ai/api-gateway/issues/252)) ([0180e75](https://github.com/instill-ai/api-gateway/commit/0180e758c5d16c45ef411ead9646dd25720a9e32))
+
 ## [0.26.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.25.0-beta...v0.26.0-beta) (2024-09-24)
 
 
