@@ -2996,6 +2996,20 @@
           "fileId",
           "fileUid"
         ]
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/object-upload-url",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/object-upload-url",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": ["objectName", "urlExpireDays","lastModifiedTime","contentType","objectExpireDays"]
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/object-download-url",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/object-download-url",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": ["objectUid","objectName","urlExpireDays"]
       }
     ],
     "grpc_auth": [
@@ -3080,6 +3094,18 @@
       {
         "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/GetFileCatalog",
         "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/GetFileCatalog",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/GetObjectUploadURL",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/GetObjectUploadURL",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/GetObjectDownloadURL",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/GetObjectDownloadURL",
         "method": "POST",
         "timeout": "30s"
       }
