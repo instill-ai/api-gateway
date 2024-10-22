@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.28.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.27.0-beta...v0.28.0-beta) (2024-10-22)
+
+
+### Features
+
+* **blob:** add blob endpoint ([#255](https://github.com/instill-ai/api-gateway/issues/255)) ([7734452](https://github.com/instill-ai/api-gateway/commit/7734452b36743a0b5f6485442a5ca4e0f8a44e7e))
+
+
+### Bug Fixes
+
+* **connection:** fix GetNamespaceConnection route ([#257](https://github.com/instill-ai/api-gateway/issues/257)) ([7f18715](https://github.com/instill-ai/api-gateway/commit/7f18715d4a378a0fede773633c5542b237fd64db))
+
 ## [0.27.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.26.0-beta...v0.27.0-beta) (2024-10-04)
 
 
