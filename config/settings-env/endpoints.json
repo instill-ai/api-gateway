@@ -1935,8 +1935,8 @@
         "timeout": "5s"
       },
       {
-        "endpoint": "/vdp.pipeline.v1beta.ConnectionPublicService/GetNamespaceConnection",
-        "url_pattern": "/vdp.pipeline.v1beta.ConnectionPublicService/GetNamespaceConnection",
+        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/GetNamespaceConnection",
+        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/GetNamespaceConnection",
         "method": "POST",
         "timeout": "5s"
       },
