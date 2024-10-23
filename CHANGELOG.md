@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.28.1-beta](https://github.com/instill-ai/api-gateway/compare/v0.28.0-beta...v0.28.1-beta) (2024-10-23)
+
+
+### Bug Fixes
+
+* **metric:** reintroduce /metrics/vdp/pipeline/triggers endpoint ([#259](https://github.com/instill-ai/api-gateway/issues/259)) ([6624dcd](https://github.com/instill-ai/api-gateway/commit/6624dcd48c2337081d4c5efed9c8d2031e7878d9))
+
 ## [0.28.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.27.0-beta...v0.28.0-beta) (2024-10-22)
 
 
