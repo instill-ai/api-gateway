@@ -1,9 +1,10 @@
 {
-    "mgmt_public_hostport": "${MGMT_BACKEND_HOST}:${MGMT_BACKEND_PUBLICPORT}",
-    "mgmt_private_hostport": "${MGMT_BACKEND_HOST}:${MGMT_BACKEND_PRIVATEPORT}",
-    "model_public_hostport": "${MODEL_BACKEND_HOST}:${MODEL_BACKEND_PUBLICPORT}",
-    "model_private_hostport": "${MODEL_BACKEND_HOST}:${MODEL_BACKEND_PRIVATEPORT}",
-    "artifact_private_hostport": "${ARTIFACT_BACKEND_HOST}:${ARTIFACT_BACKEND_PRIVATEPORT}",
-    "registry_hostport": "${REGISTRY_HOST}:${REGISTRY_PORT}",
-    "pipeline_public_hostport": "${PIPELINE_BACKEND_HOST}:${PIPELINE_BACKEND_PUBLICPORT}"
+  "mgmt_public_hostport": "${MGMT_BACKEND_HOST}:${MGMT_BACKEND_PUBLICPORT}",
+  "mgmt_private_hostport": "${MGMT_BACKEND_HOST}:${MGMT_BACKEND_PRIVATEPORT}",
+  "model_public_hostport": "${MODEL_BACKEND_HOST}:${MODEL_BACKEND_PUBLICPORT}",
+  "model_private_hostport": "${MODEL_BACKEND_HOST}:${MODEL_BACKEND_PRIVATEPORT}",
+  "artifact_private_hostport": "${ARTIFACT_BACKEND_HOST}:${ARTIFACT_BACKEND_PRIVATEPORT}",
+  "registry_hostport": "${REGISTRY_HOST}:${REGISTRY_PORT}",
+  "minio_hostport": "${MINIO_HOST}:${MINIO_PORT}",
+  "pipeline_public_hostport": "${PIPELINE_BACKEND_HOST}:${PIPELINE_BACKEND_PUBLICPORT}"
 }

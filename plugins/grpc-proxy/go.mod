@@ -7,4 +7,7 @@ require (
 	golang.org/x/net v0.26.0
 )
 
-require golang.org/x/text v0.16.0 // indirect
+require (
+	github.com/instill-ai/protogen-go v0.3.3-alpha.0.20241024152819-5ed9f53b5c8a // indirect
+	golang.org/x/text v0.16.0 // indirect
+)

@@ -5,7 +5,7 @@ go 1.22.6
 require (
 	github.com/distribution/distribution v2.8.3+incompatible
 	github.com/frankban/quicktest v1.14.6
-	github.com/instill-ai/protogen-go v0.3.3-alpha.0.20240725184849-7098e99ffbb1
+	github.com/instill-ai/protogen-go v0.3.3-alpha.0.20241024152819-5ed9f53b5c8a
 	github.com/luraproject/lura/v2 v2.7.0
 	google.golang.org/grpc v1.63.2
 )
