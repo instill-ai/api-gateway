@@ -81,14 +81,16 @@ func (rh *blobHandler) handler(ctx context.Context) http.HandlerFunc {
 	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
 		Info(req.Method+" "+req.URL.Path, " start relaying request to blob backend")
 
-		// userUID := req.Header.Get("Instill-User-Uid")
+		userUID := req.Header.Get("Instill-User-Uid")
 
-		// // check if the userUID is a valid uuid
-		// if _, err := uuid.FromString(userUID); err != nil {
-		// 	Error(req.URL.Path, " authorization failed ", err)
-		// 	rh.handleError(req, w, err)
-		// 	return
-		// }
+		// check if the userUID is a valid uuid
+		if _, err := uuid.FromString(userUID); err != nil {
+			Error(req.URL.Path, " authorization failed ", err)
+			rh.handleError(req, w, err)
+			return
+		}
+
+		// TODO: check if user uuid is member of the namespace or user self
 
 		// NOTE: the object url uid is the last part of the request path
 		parts := strings.Split(req.URL.Path, "/")
@@ -108,11 +110,12 @@ func (rh *blobHandler) handler(ctx context.Context) http.HandlerFunc {
 			return
 		}
 
+		// Note: first milestone will not check if the object url is expired
 		// check if the object url is expired
-		if objectURLInfo.ObjectUrl.GetUrlExpireAt().AsTime().Before(time.Now()) {
-			rh.handleError(req, w, fmt.Errorf(" object url expired "))
-			return
-		}
+		// if objectURLInfo.ObjectUrl.GetUrlExpireAt().AsTime().Before(time.Now()) {
+		// 	rh.handleError(req, w, fmt.Errorf(" object url expired "))
+		// 	return
+		// }
 
 		// get object info
 		object, err := rh.artifactPrivateClient.GetObject(ctx, &artifactpb.GetObjectRequest{
