@@ -40,6 +40,11 @@ jobs:
           cd plugins/registry
           go mod tidy
           go test -race ./... -coverprofile=coverage-registry-plugin.txt -covermode=atomic
+      - name: Generate coverage report (blob)
+        run: |
+          cd plugins/blob
+          go mod tidy
+          go test -race ./... -coverprofile=coverage-blob-plugin.txt -covermode=atomic
 
       - name: Upload coverage report (multi-auth)
         uses: codecov/codecov-action@v2
@@ -59,5 +64,12 @@ jobs:
         uses: codecov/codecov-action@v2
         with:
           file: ./coverage-registry-plugin.txt
+          flags: unittests
+          name: codecov-umbrella
+
+      - name: Upload coverage report (blob)
+        uses: codecov/codecov-action@v2
+        with:
+          file: ./coverage-blob-plugin.txt
           flags: unittests
           name: codecov-umbrella
