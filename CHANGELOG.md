@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.29.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.28.1-beta...v0.29.0-beta) (2024-11-05)
+
+
+### Features
+
+* **blob:** relay file download and upload to minio ([#261](https://github.com/instill-ai/api-gateway/issues/261)) ([ec27223](https://github.com/instill-ai/api-gateway/commit/ec2722362f8db304032581040969a08405750295))
+* **run:** pipeline/model runs and metrics APIs ([#265](https://github.com/instill-ai/api-gateway/issues/265)) ([c5f1a8d](https://github.com/instill-ai/api-gateway/commit/c5f1a8d765384493865ea7eacef5c36a227ac65b))
+
+
+### Bug Fixes
+
+* **blob:** build the blob plugin in image ([#263](https://github.com/instill-ai/api-gateway/issues/263)) ([24fc718](https://github.com/instill-ai/api-gateway/commit/24fc718aabcffe63b9194fff256ae2db1a370b08))
+
 ## [0.28.1-beta](https://github.com/instill-ai/api-gateway/compare/v0.28.0-beta...v0.28.1-beta) (2024-10-23)
 
 
