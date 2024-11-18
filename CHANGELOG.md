@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.30.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.29.0-beta...v0.30.0-beta) (2024-11-18)
+
+
+### Features
+
+* **vdp:** expose webhook dispatcher endpoint ([#266](https://github.com/instill-ai/api-gateway/issues/266)) ([f00deed](https://github.com/instill-ai/api-gateway/commit/f00deedc9f9213d31c0d404bf315218425ba87be))
+
+
+### Bug Fixes
+
+* **blob:** blob support authn by jwt token ([#267](https://github.com/instill-ai/api-gateway/issues/267)) ([9fac68c](https://github.com/instill-ai/api-gateway/commit/9fac68cf5b52b06205726dc2ae201298b3dfe835))
+
 ## [0.29.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.28.1-beta...v0.29.0-beta) (2024-11-05)
 
 
