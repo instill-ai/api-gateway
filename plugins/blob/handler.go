@@ -85,7 +85,7 @@ func (rh *blobHandler) handler(ctx context.Context) http.HandlerFunc {
 
 		// check if the userUID is a valid uuid
 		if _, err := uuid.FromString(userUID); err != nil {
-			Error(req.URL.Path, " authorization failed ", err)
+			Error(req.URL.Path, " authorization failed. ", err)
 			rh.handleError(req, w, err)
 			return
 		}
