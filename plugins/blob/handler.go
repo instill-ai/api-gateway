@@ -213,8 +213,9 @@ func upload(ctx context.Context, req *http.Request, w http.ResponseWriter, rh *b
 	}
 	newResp, err := client.Do(newReq)
 	if err != nil {
-		Error(req.URL.Path, "failed to upload file", err)
-		rh.handleError(req, w, err)
+		body, _ := io.ReadAll(newResp.Body)
+		Error(req.URL.Path, "upload failed: "+string(body))
+		rh.handleError(req, w, fmt.Errorf("upload failed: %s", body))
 		return err
 	}
 	defer newResp.Body.Close()
