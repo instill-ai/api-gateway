@@ -251,6 +251,18 @@
         ]
       },
       {
+        "endpoint": "/v1beta/pipeline-runs/query-charts",
+        "url_pattern": "/v1beta/pipeline-runs/query-charts",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "requesterId",
+          "aggregationWindow",
+          "start",
+          "stop"
+        ]
+      },
+      {
         "endpoint": "/v1beta/model-runs/count",
         "url_pattern": "/v1beta/model-runs/count",
         "method": "GET",
@@ -447,6 +459,12 @@
       {
         "endpoint": "/core.mgmt.v1beta.MgmtPublicService/ListPipelineTriggerRecords",
         "url_pattern": "/core.mgmt.v1beta.MgmtPublicService/ListPipelineTriggerRecords",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/core.mgmt.v1beta.MgmtPublicService/ListPipelineTriggerChartRecordsV0",
+        "url_pattern": "/core.mgmt.v1beta.MgmtPublicService/ListPipelineTriggerChartRecordsV0",
         "method": "POST",
         "timeout": "30s"
       },
