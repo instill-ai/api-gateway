@@ -152,49 +152,6 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]inter
 			req.Header.Set("Accept", "text/event-stream")
 			h.ServeHTTP(w, req)
 
-		} else if strings.Contains(req.URL.Path, "/v1alpha/namespaces/") && strings.Contains(req.URL.Path, "/blob-urls/") {
-			// To make authentication work in blob plugin, we send a request to the management API
-			// first for verification.
-			r, err := http.NewRequest("GET", "http://localhost:8080/v1beta/user", nil)
-			if err != nil {
-				http.Error(w, err.Error(), http.StatusInternalServerError)
-				return
-			}
-			r.Header = req.Header
-			r.Header["Accept"][0] = "*/*"
-
-			resp, err := httpClient.Do(r)
-			if err != nil {
-				http.Error(w, err.Error(), http.StatusInternalServerError)
-				return
-			}
-			if resp.StatusCode == 401 {
-				writeStatusUnauthorized(req, w)
-				return
-			}
-			type user struct {
-				User struct {
-					UID string `json:"uid"`
-				} `json:"user"`
-			}
-			respBytes, err := io.ReadAll(resp.Body)
-			if err != nil {
-				writeStatusUnauthorized(req, w)
-				return
-			}
-			defer resp.Body.Close()
-
-			u := user{}
-			err = json.Unmarshal(respBytes, &u)
-			if err != nil {
-				writeStatusUnauthorized(req, w)
-				return
-			}
-
-			req.Header.Set("Instill-Auth-Type", "user")
-			req.Header.Set("Instill-User-Uid", u.User.UID)
-			h.ServeHTTP(w, req)
-
 		} else {
 			req.Header.Set("Instill-Auth-Type", "user")
 			req.URL.Path = "/internal" + req.URL.Path
