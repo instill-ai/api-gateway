@@ -208,12 +208,12 @@
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1beta/metrics/vdp/pipeline/trigger-count",
-        "url_pattern": "/v1beta/metrics/vdp/pipeline/trigger-count",
+        "endpoint": "/v1beta/pipeline-runs/count",
+        "url_pattern": "/v1beta/pipeline-runs/count",
         "method": "GET",
         "timeout": "30s",
         "input_query_strings": [
-          "namespaceId",
+          "requesterId",
           "start",
           "stop"
         ]
@@ -248,6 +248,18 @@
         "input_query_strings": [
           "aggregationWindow",
           "filter"
+        ]
+      },
+      {
+        "endpoint": "/v1beta/pipeline-runs/query-charts",
+        "url_pattern": "/v1beta/pipeline-runs/query-charts",
+        "method": "GET",
+        "timeout": "30s",
+        "input_query_strings": [
+          "requesterId",
+          "aggregationWindow",
+          "start",
+          "stop"
         ]
       },
       {
@@ -447,6 +459,12 @@
       {
         "endpoint": "/core.mgmt.v1beta.MgmtPublicService/ListPipelineTriggerRecords",
         "url_pattern": "/core.mgmt.v1beta.MgmtPublicService/ListPipelineTriggerRecords",
+        "method": "POST",
+        "timeout": "30s"
+      },
+      {
+        "endpoint": "/core.mgmt.v1beta.MgmtPublicService/ListPipelineTriggerChartRecordsV0",
+        "url_pattern": "/core.mgmt.v1beta.MgmtPublicService/ListPipelineTriggerChartRecordsV0",
         "method": "POST",
         "timeout": "30s"
       },
