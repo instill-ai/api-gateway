@@ -1200,50 +1200,6 @@
         ]
       },
       {
-        "endpoint": "/v1beta/operator-definitions",
-        "url_pattern": "/v1beta/operator-definitions",
-        "method": "GET",
-        "timeout": "30s",
-        "input_query_strings": [
-          "pageSize",
-          "pageToken",
-          "view",
-          "filter",
-          "showDeleted"
-        ]
-      },
-      {
-        "endpoint": "/v1beta/operator-definitions/{id}",
-        "url_pattern": "/v1beta/operator-definitions/{id}",
-        "method": "GET",
-        "timeout": "30s",
-        "input_query_strings": [
-          "view"
-        ]
-      },
-      {
-        "endpoint": "/v1beta/connector-definitions",
-        "url_pattern": "/v1beta/connector-definitions",
-        "method": "GET",
-        "timeout": "30s",
-        "input_query_strings": [
-          "pageSize",
-          "pageToken",
-          "view",
-          "filter",
-          "showDeleted"
-        ]
-      },
-      {
-        "endpoint": "/v1beta/connector-definitions/{id}",
-        "url_pattern": "/v1beta/connector-definitions/{id}",
-        "method": "GET",
-        "timeout": "30s",
-        "input_query_strings": [
-          "view"
-        ]
-      },
-      {
         "endpoint": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/runs",
         "url_pattern": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/runs",
         "method": "GET",
@@ -1843,30 +1799,6 @@
       {
         "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/ListComponentDefinitions",
         "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/ListComponentDefinitions",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/ListOperatorDefinitions",
-        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/ListOperatorDefinitions",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/GetOperatorDefinition",
-        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/GetOperatorDefinition",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/ListConnectorDefinitions",
-        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/ListConnectorDefinitions",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/GetConnectorDefinition",
-        "url_pattern": "/vdp.pipeline.v1beta.PipelinePublicService/GetConnectorDefinition",
         "method": "POST",
         "timeout": "5s"
       },
