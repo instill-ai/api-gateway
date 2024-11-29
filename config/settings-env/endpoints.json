@@ -3231,8 +3231,8 @@
         "timeout": "10s"
       },
       {
-        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/SearchSourceFile",
-        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/SearchSourceFile",
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/SearchSourceFiles",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/SearchSourceFiles",
         "method": "POST",
         "timeout": "10s"
       }
