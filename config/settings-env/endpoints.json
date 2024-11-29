@@ -1366,31 +1366,11 @@
     ],
     "webhook": [
       {
-        "endpoint": "/v1beta/pipeline-webhooks/{webhook_id}",
-        "url_pattern": "/v1beta/pipeline-webhooks/{webhook_id}",
+        "endpoint": "/v1beta/pipeline-webhooks/{webhook_type}",
+        "url_pattern": "/v1beta/pipeline-webhooks/{webhook_type}",
         "method": "POST",
         "timeout": "3600s",
         "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/events",
-        "url_pattern": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/events",
-        "method": "POST",
-        "timeout": "3600s",
-        "input_query_strings": [
-          "event",
-          "code"
-        ]
-      },
-      {
-        "endpoint": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/releases/{release_id}/events",
-        "url_pattern": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/releases/{release_id}/events",
-        "method": "POST",
-        "timeout": "3600s",
-        "input_query_strings": [
-          "event",
-          "code"
-        ]
       }
     ],
     "grpc_auth": [
