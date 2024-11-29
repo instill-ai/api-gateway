@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.31.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.30.0-beta...v0.31.0-beta) (2024-11-29)
+
+
+### Features
+
+* **artifact:** support search chunk & source ([#272](https://github.com/instill-ai/api-gateway/issues/272)) ([48b7573](https://github.com/instill-ai/api-gateway/commit/48b7573e5d6f4dcfd0fb1e23caf1f3c065775ab1))
+* **mgmt:** use unified dashboard endpoints ([#239](https://github.com/instill-ai/api-gateway/issues/239)) ([1f223b1](https://github.com/instill-ai/api-gateway/commit/1f223b15d0c1ee82bf4dd9ba88b2350a20a43fb5))
+
+
+### Bug Fixes
+
+* **blob:** remove auth for using upload and download url ([#269](https://github.com/instill-ai/api-gateway/issues/269)) ([e262b10](https://github.com/instill-ai/api-gateway/commit/e262b1049394bc194b16a67e42526a6aa0c98e3c))
+
 ## [0.30.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.29.0-beta...v0.30.0-beta) (2024-11-18)
 
 
