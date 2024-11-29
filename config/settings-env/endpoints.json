@@ -3223,6 +3223,18 @@
         "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/GetObjectDownloadURL",
         "method": "POST",
         "timeout": "30s"
+      },
+      {
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/SearchChunks",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/SearchChunks",
+        "method": "POST",
+        "timeout": "10s"
+      },
+      {
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/SearchSourceFile",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/SearchSourceFile",
+        "method": "POST",
+        "timeout": "10s"
       }
     ],
     "grpc_no_auth": [
