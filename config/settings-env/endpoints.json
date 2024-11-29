@@ -3011,11 +3011,25 @@
         ]
       },
       {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/chunks",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/chunks",
+        "method": "GET",
+        "timeout": "10s",
+        "input_query_strings": ["chunkUids"]
+      },
+      {
         "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/files/{file_uid}/source",
         "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/files/{file_uid}/source",
         "method": "GET",
         "timeout": "10s",
         "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/source-files",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/source-files",
+        "method": "GET",
+        "timeout": "10s",
+        "input_query_strings": ["fileUids"]
       },
       {
         "endpoint": "/v1alpha/chunks/{chunk_uid}",
@@ -3159,6 +3173,18 @@
         "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/GetObjectDownloadURL",
         "method": "POST",
         "timeout": "30s"
+      },
+      {
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/SearchChunks",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/SearchChunks",
+        "method": "POST",
+        "timeout": "10s"
+      },
+      {
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/SearchSourceFiles",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/SearchSourceFiles",
+        "method": "POST",
+        "timeout": "10s"
       }
     ],
     "grpc_no_auth": [
