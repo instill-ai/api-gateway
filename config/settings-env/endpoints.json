@@ -2950,7 +2950,14 @@
         "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/files",
         "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/files",
         "method": "POST",
-        "timeout": "10s",
+        "timeout": "600s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/files:move",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/files:move",
+        "method": "POST",
+        "timeout": "600s",
         "input_query_strings": []
       },
       {
@@ -3146,7 +3153,13 @@
         "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/GetObjectUploadURL",
         "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/GetObjectUploadURL",
         "method": "POST",
-        "timeout": "30s"
+        "timeout": "600s"
+      },
+      {
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/MoveFileToCatalog",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/MoveFileToCatalog",
+        "method": "POST",
+        "timeout": "600s"
       },
       {
         "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/GetObjectDownloadURL",
