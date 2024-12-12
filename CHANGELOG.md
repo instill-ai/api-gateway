@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.32.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.31.0-beta...v0.32.0-beta) (2024-12-12)
+
+
+### Features
+
+* **artifact:** add move file endpoint ([#274](https://github.com/instill-ai/api-gateway/issues/274)) ([deec19a](https://github.com/instill-ai/api-gateway/commit/deec19a6e7902684e084e61c2b259c80fcaf14c3))
+
 ## [0.31.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.30.0-beta...v0.31.0-beta) (2024-11-29)
 
 
