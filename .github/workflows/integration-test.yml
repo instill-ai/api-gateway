@@ -81,9 +81,9 @@ jobs:
         # CFG_COMPONENT_SECRETS_GITHUB* variables are injected to test OAuth
         # connection creation on `pipeline-backend`.
         run: |
-          sed -i 's/\(\w\+GITHUB\w\+\)=/\1=foo/' .env.component
           COMPOSE_PROFILES=all \
           EDITION=local-ce:test \
+          COMPONENT_ENV=.env.component-test \
           RAY_LATEST_TAG=latest \
           docker compose -f docker-compose.yml -f docker-compose-latest.yml up -d --quiet-pull
           COMPOSE_PROFILES=all \
