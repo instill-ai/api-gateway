@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.32.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.31.0-beta...v0.32.0-beta) (2025-02-20)
+
+
+### Features
+
+* **all:** rename VDP to pipeline ([#278](https://github.com/instill-ai/api-gateway/issues/278)) ([e4de381](https://github.com/instill-ai/api-gateway/commit/e4de381604481501ff85d4ec30f0f86a98252a4b))
+* **artifact:** add move file endpoint ([#274](https://github.com/instill-ai/api-gateway/issues/274)) ([deec19a](https://github.com/instill-ai/api-gateway/commit/deec19a6e7902684e084e61c2b259c80fcaf14c3))
+* **minio:** add agent header to presigned URLs ([#279](https://github.com/instill-ai/api-gateway/issues/279)) ([d4ceadb](https://github.com/instill-ai/api-gateway/commit/d4ceadb3188d17959971fc23923a186b26bc9606))
+
 ## [0.31.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.30.0-beta...v0.31.0-beta) (2024-11-29)
 
 
