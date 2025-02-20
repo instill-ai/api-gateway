@@ -143,7 +143,6 @@ func (rh *blobHandler) relay(ctx context.Context, p blobHandlerParams) {
 	}
 }
 
-// upload a test file with content "test" to the presigned URL using http client
 func upload(ctx context.Context, req *http.Request, w http.ResponseWriter, rh *blobHandler, objectURL *artifactpb.ObjectURL) error {
 	// rh.mgmtPrivateClient.CheckNamespaceAdmin()
 	originalURL := req.URL.String()
@@ -188,6 +187,14 @@ func upload(ctx context.Context, req *http.Request, w http.ResponseWriter, rh *b
 	// cache control from original request
 	newReq.Header.Set("Cache-Control", req.Header.Get("Cache-Control"))
 	newReq.ContentLength = req.ContentLength
+
+	// request user for audit logging
+	// TODO extract user from authorization / header
+	// TODO use x/minio for header key
+	// newReq.Header.Set("x-amz-meta-instill-user-uid", userUID)
+
+	// request origin for audit logging
+	newReq.Header.Set("User-Agent", presignAgent)
 
 	// last modified time from original request
 	if lastModifiedTime := req.Header.Get("Last-Modified"); lastModifiedTime != "" {
@@ -298,6 +305,14 @@ func download(_ context.Context, req *http.Request, w http.ResponseWriter, rh *b
 		}
 	}
 
+	// request user for audit logging
+	// TODO extract user from authorization / header
+	// TODO use x/minio for header key
+	// newReq.Header.Set("x-amz-meta-instill-user-uid", userUID)
+
+	// request origin for audit logging
+	newReq.Header.Set("User-Agent", presignAgent)
+
 	newResp, err := client.Do(newReq)
 	if err != nil {
 		Error(req.URL.Path, "failed to download file ", err)
@@ -379,3 +394,15 @@ func (cw *countingWriter) Write(p []byte) (int, error) {
 	*cw.bytesWritten += int64(len(p))
 	return len(p), nil
 }
+
+// presignAgent is a hard-coded value for the presigned URLs. Since the client
+// that requests the presigned URL (console) and the one that interacts with
+// MinIO (api-gateway) are different, the first step to audit the MinIO clients
+// is setting this value as a constant.
+// TODO:
+//  1. Pass the agent from the console when requesting the presigned URL and
+//     when using that URL.
+//  2. Read the agent value in `artifact-backend`'s public GetObject*URL methods.
+//  3. Pass the agent value from `api-gateway` when relaying the presigned URL
+//     calls.
+const presignAgent = "artifact-backend-presign"
