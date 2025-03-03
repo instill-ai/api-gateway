@@ -3612,6 +3612,13 @@
         "input_query_strings": []
       },
       {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/files/{file_uid}/summary",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/files/{file_uid}/summary",
+        "method": "GET",
+        "timeout": "10s",
+        "input_query_strings": []
+      },
+      {
         "endpoint": "/v1alpha/namespaces/{namespace_id}/source-files",
         "url_pattern": "/v1alpha/namespaces/{namespace_id}/source-files",
         "method": "GET",
@@ -3722,6 +3729,12 @@
       {
         "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/GetSourceFile",
         "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/GetSourceFile",
+        "method": "POST",
+        "timeout": "10s"
+      },
+      {
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/GetFileSummary",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/GetFileSummary",
         "method": "POST",
         "timeout": "10s"
       },
