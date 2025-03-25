@@ -1,4 +1,5 @@
-FROM golang:1.22.6
+ARG GOLANG_VERSION=1.23.7
+FROM golang:${GOLANG_VERSION}-bookworm
 
 ARG SERVICE_NAME
 
@@ -18,12 +19,13 @@ RUN apt-get update && apt-get install -y \
     jq \
     && rm -rf /var/lib/apt/lists/*
 
-RUN git clone -b v2.7.0 https://github.com/krakendio/krakend-ce.git /krakend && cd /krakend && make build && cp krakend /usr/bin
+ARG KRAKEND_CE_VERSION
+RUN git clone -b v${KRAKEND_CE_VERSION} https://github.com/krakendio/krakend-ce.git /krakend && cd /krakend && make build && cp krakend /usr/bin
 
 # -- set up Go
 RUN chown -R nobody:nogroup /go
-ENV GOCACHE /go/.cache/go-build
-ENV GOENV /go/.config/go/env
+ENV GOCACHE=/go/.cache/go-build
+ENV GOENV=/go/.config/go/env
 
 RUN mkdir -p /usr/local/lib/krakend/plugins && chmod 777 /usr/local/lib/krakend/plugins
 RUN mkdir -p /instill && chmod 777 /instill

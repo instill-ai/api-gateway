@@ -12,7 +12,7 @@ Please refer to the [community contributing section](https://github.com/instill-
 
 ## Development and codebase contribution
 
-Before delving into the details to come up with your first PR, please familiarise yourself with the project structure of [Instill Core](https://github.com/instill-ai/community#instill-core).
+Before delving into the details to come up with your first PR, please familiarize yourself with the project structure of [Instill Core](https://github.com/instill-ai/community#instill-core).
 
 ### Prerequisites
 
@@ -20,31 +20,31 @@ Before delving into the details to come up with your first PR, please familiaris
 
 ### Local development
 
-On the local machine, clone the desired project repository in your workspace either [core](https://github.com/instill-ai/core), [vdp](https://github.com/instill-ai/vdp) or [model](https://github.com/instill-ai/model), then move to the repository folder, and launch all dependent microservices:
+On the local machine, clone the Instill Core project repository in your workspace, then move to the repository folder, and launch all dependent microservices:
 
 ```bash
-$ git clone https://github.com/instill-ai/<project-name-here>.git
-$ cd <project-name-here>
-$ make latest PROFILE=api-gateway
+git clone https://github.com/instill-ai/instill-core.git
+cd instill-core
+make latest PROFILE=exclude-api-gateway
 ```
 
 Clone `api-gateway` repository in your workspace and move to the repository folder:
 
 ```bash
-$ git clone https://github.com/instill-ai/api-gateway.git
-$ cd api-gateway
+git clone https://github.com/instill-ai/api-gateway.git
+cd api-gateway
 ```
 
 ### Build the dev image
 
 ```bash
-$ make build
+make build
 ```
 
 ### Run the dev container
 
 ```bash
-$ make dev
+make dev
 ```
 
 Now, you have the Go project set up in the container, in which you can compile and run the binaries together with the integration test in each container shell.
@@ -53,12 +53,12 @@ Now, you have the Go project set up in the container, in which you can compile a
 
 ```bash
 # Enter api-gateway container
-$ docker exec -it api-gateway /bin/bash
+docker exec -it api-gateway /bin/bash
 
 # In the api-gateway container
-$ make plugin
-$ make config # generate KrakenD configuration file
-$ krakend run -c krakend.json
+make plugin # compile and install the KrakenD plugins
+make config # generate KrakenD configuration file
+krakend run -c krakend.json
 ```
 
 ### CI/CD

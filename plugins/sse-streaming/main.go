@@ -16,12 +16,12 @@ the following configuration must be present in the krakend.json file:
 
 "extra_config": {
     "plugin/http-server": {
-      "name": ["sse-streaming"],
-      "sse-streaming": {
-        "backend_host": "http://localhost:9081"
-      }
-    }
-  }
+		"name": ["sse-streaming"],
+		"sse-streaming": {
+			"backend_host": "http://localhost:9081"
+		}
+	}
+}
 
 the provided endpoint overwrites any existing endpoint in the configuration file.
 
@@ -38,14 +38,14 @@ type registerer string
 // RegisterHandlers registers the handler function with the given name.
 func (r registerer) RegisterHandlers(f func(
 	name string,
-	handler func(context.Context, map[string]interface{}, http.Handler) (http.Handler, error),
+	handler func(context.Context, map[string]any, http.Handler) (http.Handler, error),
 )) {
 	f(string(r), r.registerHandlers)
 }
 
 // registerHandlers extracts configuration and sets up the HTTP handler.
-func (r registerer) registerHandlers(ctx context.Context, extra map[string]interface{}, h http.Handler) (http.Handler, error) {
-	config, ok := extra[pluginName].(map[string]interface{})
+func (r registerer) registerHandlers(ctx context.Context, extra map[string]any, h http.Handler) (http.Handler, error) {
+	config, ok := extra[pluginName].(map[string]any)
 	if !ok {
 		return h, errors.New("configuration not found")
 	}
@@ -129,7 +129,7 @@ func main() {}
 // This logger is replaced by the RegisterLogger method to load the one from KrakenD
 var logger Logger = noopLogger{}
 
-func (registerer) RegisterLogger(v interface{}) {
+func (registerer) RegisterLogger(v any) {
 	l, ok := v.(Logger)
 	if !ok {
 		return
@@ -138,21 +138,22 @@ func (registerer) RegisterLogger(v interface{}) {
 	logger.Debug(fmt.Sprintf("[PLUGIN: %s] Logger loaded", HandlerRegisterer))
 }
 
+// Logger is the interface for the logger
 type Logger interface {
-	Debug(v ...interface{})
-	Info(v ...interface{})
-	Warning(v ...interface{})
-	Error(v ...interface{})
-	Critical(v ...interface{})
-	Fatal(v ...interface{})
+	Debug(v ...any)
+	Info(v ...any)
+	Warning(v ...any)
+	Error(v ...any)
+	Critical(v ...any)
+	Fatal(v ...any)
 }
 
 // Empty logger implementation
 type noopLogger struct{}
 
-func (n noopLogger) Debug(_ ...interface{})    {}
-func (n noopLogger) Info(_ ...interface{})     {}
-func (n noopLogger) Warning(_ ...interface{})  {}
-func (n noopLogger) Error(_ ...interface{})    {}
-func (n noopLogger) Critical(_ ...interface{}) {}
-func (n noopLogger) Fatal(_ ...interface{})    {}
+func (n noopLogger) Debug(_ ...any)    {}
+func (n noopLogger) Info(_ ...any)     {}
+func (n noopLogger) Warning(_ ...any)  {}
+func (n noopLogger) Error(_ ...any)    {}
+func (n noopLogger) Critical(_ ...any) {}
+func (n noopLogger) Fatal(_ ...any)    {}

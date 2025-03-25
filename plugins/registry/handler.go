@@ -9,8 +9,9 @@ import (
 	"strings"
 
 	"github.com/distribution/distribution/registry/api/errcode"
-	grpccodes "google.golang.org/grpc/codes"
 	"google.golang.org/grpc/metadata"
+
+	grpccodes "google.golang.org/grpc/codes"
 	grpcstatus "google.golang.org/grpc/status"
 
 	artifactpb "github.com/instill-ai/protogen-go/artifact/artifact/v1alpha"
@@ -18,7 +19,7 @@ import (
 	modelpb "github.com/instill-ai/protogen-go/model/model/v1alpha"
 )
 
-// urlRegexp will be aplied to the paths involved in pushing an image. It
+// urlRegexp will be applied to the paths involved in pushing an image. It
 // will capture the following fields:
 //  1. Repository name
 //  2. The namespace segment in the repository, determined by its owner owner.
