@@ -1,0 +1,14 @@
+"telemetry/opentelemetry": {
+    "service_name": "krakend_prometheus_service",
+    "metric_reporting_period": 1,
+    "exporters": {
+        "prometheus": [
+            {
+                "name": "prometheus",
+                "port": {{ .ports.api_gateway_metrics_port }},
+                "process_metrics": true,
+                "go_metrics": true
+            }
+        ]
+    }
+}

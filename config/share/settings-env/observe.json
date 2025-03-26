@@ -1,6 +1,3 @@
 {
-  "log_level": "${LOG_LEVEL}",
-  "influxdb_host": "${INFLUXDB_HOST}",
-  "jaeger_enabled": "${JAEGER_ENABLED}",
-  "jaeger_host": "${JAEGER_HOST}"
+  "log_level": "${LOG_LEVEL}"
 }
