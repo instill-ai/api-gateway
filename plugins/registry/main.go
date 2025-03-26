@@ -15,12 +15,12 @@ type registerer string
 
 func (r registerer) RegisterHandlers(f func(
 	name string,
-	handler func(context.Context, map[string]interface{}, http.Handler) (http.Handler, error),
+	handler func(context.Context, map[string]any, http.Handler) (http.Handler, error),
 )) {
 	f(string(r), r.registerHandlers)
 }
 
-func (r registerer) registerHandlers(ctx context.Context, extra map[string]interface{}, h http.Handler) (http.Handler, error) {
+func (r registerer) registerHandlers(ctx context.Context, extra map[string]any, h http.Handler) (http.Handler, error) {
 	config, ok := extra[pluginName].(map[string]any)
 	if !ok {
 		return nil, fmt.Errorf("configuration not found")
@@ -57,7 +57,7 @@ var HandlerRegisterer = registerer(pluginName)
 // This logger is replaced by the RegisterLogger method to load the one from KrakenD
 var logger = logging.NoOp
 
-func (registerer) RegisterLogger(v interface{}) {
+func (registerer) RegisterLogger(v any) {
 	l, ok := v.(logging.BasicLogger)
 	if !ok {
 		return

@@ -20,12 +20,12 @@ type clientRegisterer string
 
 func (r clientRegisterer) RegisterClients(f func(
 	name string,
-	handler func(context.Context, map[string]interface{}) (http.Handler, error),
+	handler func(context.Context, map[string]any) (http.Handler, error),
 )) {
 	f(string(r), r.registerClients)
 }
 
-func (r clientRegisterer) registerClients(_ context.Context, extra map[string]interface{}) (http.Handler, error) {
+func (r clientRegisterer) registerClients(_ context.Context, extra map[string]any) (http.Handler, error) {
 
 	// check the passed configuration and initialize the plugin
 	name, ok := extra["name"].(string)
@@ -85,7 +85,7 @@ func (r clientRegisterer) registerClients(_ context.Context, extra map[string]in
 	}), nil
 }
 
-func (clientRegisterer) RegisterLogger(v interface{}) {
+func (clientRegisterer) RegisterLogger(v any) {
 	l, ok := v.(logging.BasicLogger)
 	if !ok {
 		return

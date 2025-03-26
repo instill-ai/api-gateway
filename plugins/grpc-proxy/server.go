@@ -73,12 +73,12 @@ func (l *responseHijacker) WriteTrailer() {
 
 func (r registerer) RegisterHandlers(f func(
 	name string,
-	handler func(context.Context, map[string]interface{}, http.Handler) (http.Handler, error),
+	handler func(context.Context, map[string]any, http.Handler) (http.Handler, error),
 )) {
 	f(string(r), r.registerHandlers)
 }
 
-func (r registerer) registerHandlers(ctx context.Context, extra map[string]interface{}, h http.Handler) (http.Handler, error) {
+func (r registerer) registerHandlers(ctx context.Context, extra map[string]any, h http.Handler) (http.Handler, error) {
 
 	return h2c.NewHandler(http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
 		if req.Header.Get("Accept") == "text/event-stream" {
@@ -93,7 +93,7 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]inter
 
 }
 
-func (registerer) RegisterLogger(v interface{}) {
+func (registerer) RegisterLogger(v any) {
 	l, ok := v.(logging.BasicLogger)
 	if !ok {
 		return

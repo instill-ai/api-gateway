@@ -1,11 +1,14 @@
-FROM golang:1.22.6-alpine3.20 as krakend_builder
+ARG GOLANG_VERSION=1.23.7
+ARG ALPINE_VERSION=3.21
+FROM golang:${GOLANG_VERSION}-alpine${ALPINE_VERSION} AS krakend_builder
 
 RUN apk --no-cache --virtual .build-deps add git make gcc musl-dev binutils-gold
 
-RUN git clone -b v2.7.0 https://github.com/krakendio/krakend-ce.git /krakend && cd /krakend && make build && cp krakend /usr/bin
+ARG KRAKEND_CE_VERSION
+RUN git clone -b v${KRAKEND_CE_VERSION} https://github.com/krakendio/krakend-ce.git /krakend && cd /krakend && make build && cp krakend /usr/bin
 
 
-FROM --platform=$BUILDPLATFORM golang:1.22.6-alpine3.20 AS build
+FROM --platform=$BUILDPLATFORM golang:${GOLANG_VERSION}-alpine${ALPINE_VERSION} AS build
 
 ARG SERVICE_NAME
 

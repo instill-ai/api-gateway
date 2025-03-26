@@ -17,7 +17,7 @@ dev:							## Run dev container
 		-p ${SERVICE_PORT}:${SERVICE_PORT} \
 		-p ${STATES_PORT}:${STATES_PORT} \
 		-p ${METRICS_PORT}:${METRICS_PORT} \
-		--network instill-network \
+		--network $$(docker network ls --format '{{.Name}}' | grep -q '^instill-network$$' && echo 'instill-network' || echo 'bridge') \
 		--name ${SERVICE_NAME} \
 		instill/${SERVICE_NAME}:dev >/dev/null 2>&1
 
@@ -40,8 +40,10 @@ top:							## Display all running service processes
 .PHONY: build
 build:							## Build dev docker image
 	@docker build \
+		--build-arg GOLANG_VERSION=${GOLANG_VERSION} \
+		--build-arg KRAKEND_CE_VERSION=${KRAKEND_CE_VERSION} \
 		--build-arg SERVICE_NAME=${SERVICE_NAME} \
-		-f Dockerfile.dev -t instill/${SERVICE_NAME}:dev .
+	-f Dockerfile.dev -t instill/${SERVICE_NAME}:dev .
 
 .PHONY: plugin
 plugin:							# Compile the KrakenD plugins and copy them to /usr/local/lib/krakend/plugins
