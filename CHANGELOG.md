@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.33.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.32.0-beta...v0.33.0-beta) (2025-03-27)
+
+
+### Features
+
+* **artifact:** add get summary endpoint ([#280](https://github.com/instill-ai/api-gateway/issues/280)) ([56d9e86](https://github.com/instill-ai/api-gateway/commit/56d9e86d02f3379c8e67103f846eb0273fb74e55))
+
 ## [0.32.0-beta](https://github.com/instill-ai/api-gateway/compare/v0.31.0-beta...v0.32.0-beta) (2025-02-20)
 
 
