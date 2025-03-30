@@ -3572,6 +3572,13 @@
         ]
       },
       {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/files/{file_uid}",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/files/{file_uid}",
+        "method": "GET",
+        "timeout": "10s",
+        "input_query_strings": []
+      },
+      {
         "endpoint": "/v1alpha/catalogs/files",
         "url_pattern": "/v1alpha/catalogs/files",
         "method": "DELETE",
@@ -3717,6 +3724,12 @@
       {
         "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/ListCatalogFiles",
         "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/ListCatalogFiles",
+        "method": "POST",
+        "timeout": "10s"
+      },
+      {
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/GetCatalogFile",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/GetCatalogFile",
         "method": "POST",
         "timeout": "10s"
       },
