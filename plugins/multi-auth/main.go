@@ -10,7 +10,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/gofrs/uuid"
+	"github.com/gofrs/uuid/v5"
 	"github.com/luraproject/lura/v2/logging"
 	"google.golang.org/grpc/metadata"
 
