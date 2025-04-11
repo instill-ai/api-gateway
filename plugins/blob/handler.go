@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"html"
 	"io"
 	"net/http"
 	"strings"
@@ -79,14 +80,16 @@ type blobHandlerParams struct {
 // handler is the http handler for the blob plugin
 func (rh *blobHandler) handler(ctx context.Context) http.HandlerFunc {
 	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
-		Info(req.Method+" "+req.URL.Path, " start relaying request to blob backend")
+		path := html.EscapeString(req.URL.Path)
+
+		Info(req.Method+" "+path, " start relaying request to blob backend")
 
 		// NOTE: the object url uid is the last part of the request path
-		parts := strings.Split(req.URL.Path, "/")
+		parts := strings.Split(path, "/")
 		objectURLUID := parts[len(parts)-1]
 
 		if _, err := uuid.FromString(objectURLUID); err != nil {
-			Error(req.URL.Path, " object url uid is not a uuid ", err)
+			Error(path, " object url uid is not a uuid ", err)
 			rh.handleError(req, w, err)
 			return
 		}
@@ -94,7 +97,7 @@ func (rh *blobHandler) handler(ctx context.Context) http.HandlerFunc {
 			Uid: objectURLUID,
 		})
 		if err != nil {
-			Error(req.URL.Path, " get object url info failed ", err)
+			Error(path, " get object url info failed ", err)
 			rh.handleError(req, w, err)
 			return
 		}
@@ -111,7 +114,7 @@ func (rh *blobHandler) handler(ctx context.Context) http.HandlerFunc {
 			Uid: objectURLInfo.ObjectUrl.GetObjectUid(),
 		})
 		if err != nil {
-			Error(req.URL.Path, " get object info failed ", err)
+			Error(path, " get object info failed ", err)
 			rh.handleError(req, w, err)
 			return
 		}
@@ -145,7 +148,7 @@ func (rh *blobHandler) relay(ctx context.Context, p blobHandlerParams) {
 
 func upload(ctx context.Context, req *http.Request, w http.ResponseWriter, rh *blobHandler, objectURL *artifactpb.ObjectURL) error {
 	// rh.mgmtPrivateClient.CheckNamespaceAdmin()
-	originalURL := req.URL.String()
+	originalURL := html.EscapeString(req.URL.String())
 	req.URL.Scheme = "http"
 	req.URL.Host = rh.minioAddr
 	req.RequestURI = ""
@@ -278,7 +281,7 @@ func upload(ctx context.Context, req *http.Request, w http.ResponseWriter, rh *b
 }
 
 func download(_ context.Context, req *http.Request, w http.ResponseWriter, rh *blobHandler, objectURL *artifactpb.ObjectURL, object *artifactpb.Object) error {
-	originalURL := req.URL.String()
+	originalURL := html.EscapeString(req.URL.String())
 	req.URL.Scheme = "http"
 	req.URL.Host = rh.minioAddr
 	req.RequestURI = ""
@@ -365,7 +368,7 @@ func download(_ context.Context, req *http.Request, w http.ResponseWriter, rh *b
 }
 
 func (rh *blobHandler) handleError(req *http.Request, w http.ResponseWriter, e error) {
-	Error(req.URL.Path, e)
+	Error(html.EscapeString(req.URL.Path), e)
 
 	// Set the status code
 	w.WriteHeader(http.StatusInternalServerError)
@@ -382,7 +385,7 @@ func (rh *blobHandler) handleError(req *http.Request, w http.ResponseWriter, e e
 
 	// Encode the error response as JSON
 	if err := json.NewEncoder(w).Encode(errorResponse); err != nil {
-		Error(req.URL.Path, "failed to encode error response", err)
+		Error(html.EscapeString(req.URL.Path), "failed to encode error response", err)
 	}
 }
 
