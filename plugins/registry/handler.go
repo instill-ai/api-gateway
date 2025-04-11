@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"html"
 	"io"
 	"net/http"
 	"regexp"
@@ -116,7 +117,7 @@ type registryHandlerParams struct {
 
 func (rh *registryHandler) handler(ctx context.Context) http.HandlerFunc {
 	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
-		logger.Info(req.Method + " " + req.URL.Path)
+		logger.Info(req.Method + " " + html.EscapeString(req.URL.Path))
 
 		// Authenticate the user via docker login
 		username, password, ok := req.BasicAuth()
@@ -140,7 +141,7 @@ func (rh *registryHandler) handler(ctx context.Context) http.HandlerFunc {
 			case grpccodes.Unauthenticated:
 				rh.handleError(req, w, authErr)
 			default:
-				logger.Error(req.URL.Path, "failed to validate token", err)
+				logger.Error(html.EscapeString(req.URL.Path), "failed to validate token", err)
 				rh.handleError(req, w, err)
 			}
 
@@ -171,7 +172,7 @@ func (rh *registryHandler) login(ctx context.Context, p registryHandlerParams) {
 	lookupReq := &mgmtpb.LookUpUserAdminRequest{UserUid: p.userUID}
 	userLookup, err := rh.mgmtPrivateClient.LookUpUserAdmin(ctx, lookupReq)
 	if err != nil {
-		logger.Error(req.URL.Path, "failed to lookup user", err)
+		logger.Error(html.EscapeString(req.URL.Path), "failed to lookup user", err)
 		rh.handleError(req, w, err)
 		return
 	}
@@ -211,7 +212,7 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 
 		resp, err := rh.mgmtPublicClient.ListUserMemberships(ctx, &mgmtpb.ListUserMembershipsRequest{UserId: p.userID})
 		if err != nil {
-			logger.Error(req.URL.Path, "failed to check organization", err)
+			logger.Error(html.EscapeString(req.URL.Path), "failed to check organization", err)
 			rh.handleError(req, w, err)
 			return
 		}
@@ -244,10 +245,10 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 		if err != nil {
 			switch grpcstatus.Convert(err).Code() {
 			case grpccodes.NotFound:
-				logger.Warning(req.URL.Path, "model", name, "doesn't exist: ", err)
+				logger.Warning(html.EscapeString(req.URL.Path), "model", name, "doesn't exist: ", err)
 				rh.handleNameUnknown(w, "model "+name+" doesn't exist")
 			default:
-				logger.Error(req.URL.Path, "failed to validate namespace", err)
+				logger.Error(html.EscapeString(req.URL.Path), "failed to validate namespace", err)
 				rh.handleError(req, w, err)
 			}
 			return
@@ -260,7 +261,7 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
-		logger.Error(req.URL.Path, "failed to relay request", err)
+		logger.Error(html.EscapeString(req.URL.Path), "failed to relay request", err)
 		rh.handleError(req, w, err)
 		return
 	}
@@ -276,7 +277,7 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 			},
 		}
 		if _, err := rh.artifactPrivateClient.CreateRepositoryTag(ctx, createTagReq); err != nil {
-			logger.Error(req.URL.Path, "failed to create tag", err)
+			logger.Error(html.EscapeString(req.URL.Path), "failed to create tag", err)
 			rh.handleError(req, w, err)
 			return
 		}
@@ -296,7 +297,7 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 			Version:     resourceID,
 			Digest:      digest,
 		}); err != nil {
-			logger.Error(req.URL.Path, "failed to deploy model", err)
+			logger.Error(html.EscapeString(req.URL.Path), "failed to deploy model", err)
 			rh.handleError(req, w, err)
 			return
 		}
@@ -331,10 +332,10 @@ var (
 )
 
 func (rh *registryHandler) handleError(req *http.Request, w http.ResponseWriter, e error) {
-	logger.Warning(req.URL.Path, e)
+	logger.Warning(html.EscapeString(req.URL.Path), e)
 
 	if err := errcode.ServeJSON(w, e); err != nil {
-		logger.Error(req.URL.Path, "failed to handle error", e)
+		logger.Error(html.EscapeString(req.URL.Path), "failed to handle error", e)
 	}
 }
 
