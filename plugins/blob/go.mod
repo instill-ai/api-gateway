@@ -3,7 +3,7 @@ module blob-plugin
 go 1.23.7
 
 require (
-	github.com/gofrs/uuid v4.3.1+incompatible
+	github.com/gofrs/uuid/v5 v5.3.2
 	github.com/instill-ai/protogen-go v0.3.3-alpha.0.20241024152819-5ed9f53b5c8a
 	google.golang.org/grpc v1.66.0
 	google.golang.org/protobuf v1.36.3
