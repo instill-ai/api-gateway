@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"html"
 	"net/http"
 	"strings"
 
@@ -51,17 +52,48 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]any, 
 
 func main() {}
 
-// HandlerRegisterer is the symbol the plugin loader will try to load. It must implement the Registerer interface
+// HandlerRegisterer is the symbol the plugin loader will try to load. It must
+// implement the Registerer interface.
 var HandlerRegisterer = registerer(pluginName)
 
-// This logger is replaced by the RegisterLogger method to load the one from KrakenD
-var logger = logging.NoOp
+// This logger is replaced by the RegisterLogger method to load the one from
+// KrakenD.
+var logger logging.Logger = logging.NoOp
 
 func (registerer) RegisterLogger(v any) {
-	l, ok := v.(logging.BasicLogger)
+	l, ok := v.(logging.Logger)
 	if !ok {
 		return
 	}
 	logger = l
-	logger.Info(fmt.Sprintf("[PLUGIN: %s] Logger loaded", HandlerRegisterer))
+	logger.Info(logPrefix, "Logger loaded")
 }
+
+// The following functions are shortcuts for formatted logging.
+var logPrefix = fmt.Sprintf("[PLUGIN: %s]", HandlerRegisterer)
+
+func sanitize(s string) string {
+	// html.EscapeString doesn't fully prevent log injection.
+	sanitized := strings.ReplaceAll(s, "\n", "")
+	sanitized = strings.ReplaceAll(sanitized, "\r", "")
+	sanitized = strings.ReplaceAll(sanitized, "\t", "")
+	sanitized = strings.ReplaceAll(sanitized, "\x00", "")
+
+	return html.EscapeString(sanitized)
+}
+
+func logReq(req *http.Request, v []any) []any {
+	logFields := make([]any, 3, len(v)+3)
+	logFields[0] = logPrefix
+	logFields[1] = req.Method
+	logFields[2] = sanitize(req.URL.Path)
+
+	return append(logFields, v...)
+}
+
+func logDebug(req *http.Request, v ...any)    { logger.Debug(logReq(req, v)...) }
+func logInfo(req *http.Request, v ...any)     { logger.Info(logReq(req, v)...) }
+func logWarning(req *http.Request, v ...any)  { logger.Warning(logReq(req, v)...) }
+func logError(req *http.Request, v ...any)    { logger.Error(logReq(req, v)...) }
+func logCritical(req *http.Request, v ...any) { logger.Critical(logReq(req, v)...) }
+func logFatal(req *http.Request, v ...any)    { logger.Fatal(logReq(req, v)...) }

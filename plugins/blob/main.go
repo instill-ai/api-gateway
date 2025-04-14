@@ -3,8 +3,11 @@ package main
 import (
 	"context"
 	"fmt"
+	"html"
 	"net/http"
 	"strings"
+
+	"github.com/luraproject/lura/v2/logging"
 )
 
 var pluginName = "blob"
@@ -44,70 +47,50 @@ func (r blob) registerHandlers(ctx context.Context, extra map[string]any, h http
 
 func main() {}
 
-// HandlerRegisterer is the symbol the plugin loader will try to load. It must implement the Registerer interface
+// HandlerRegisterer is the symbol the plugin loader will try to load. It must
+// implement the Registerer interface.
 var HandlerRegisterer = blob(pluginName)
 
-// This logger is replaced by the RegisterLogger method to load the one from KrakenD
-var logger Logger = noopLogger{}
+// This logger will be replaced by the RegisterLogger method to load the one from
+// KrakenD.
+var logger logging.Logger = logging.NoOp
 
 func (blob) RegisterLogger(v any) {
-	l, ok := v.(Logger)
+	l, ok := v.(logging.Logger)
 	if !ok {
 		return
 	}
 	logger = l
-	Debug("Logger loaded")
+
+	logger.Info(logPrefix, "Logger loaded")
 }
 
-// Logger is the interface for the logger
-type Logger interface {
-	Debug(v ...any)
-	Info(v ...any)
-	Warning(v ...any)
-	Error(v ...any)
-	Critical(v ...any)
-	Fatal(v ...any)
+// The following functions are shortcuts for formatted logging.
+var logPrefix = fmt.Sprintf("[PLUGIN: %s]", HandlerRegisterer)
+
+func sanitize(s string) string {
+	// html.EscapeString doesn't fully prevent log injection.
+	sanitized := strings.ReplaceAll(s, "\n", "")
+	sanitized = strings.ReplaceAll(sanitized, "\r", "")
+	sanitized = strings.ReplaceAll(sanitized, "\t", "")
+	sanitized = strings.ReplaceAll(sanitized, "\x00", "")
+
+	return html.EscapeString(sanitized)
+
 }
 
-// Empty logger implementation
-type noopLogger struct{}
+func logReq(req *http.Request, v []any) []any {
+	logFields := make([]any, 3, len(v)+3)
+	logFields[0] = logPrefix
+	logFields[1] = req.Method
+	logFields[2] = sanitize(req.URL.Path)
 
-func (n noopLogger) Debug(_ ...any)    {}
-func (n noopLogger) Info(_ ...any)     {}
-func (n noopLogger) Warning(_ ...any)  {}
-func (n noopLogger) Error(_ ...any)    {}
-func (n noopLogger) Critical(_ ...any) {}
-func (n noopLogger) Fatal(_ ...any)    {}
-
-// InfoTemplate is a template for logging
-const InfoTemplate = "[PLUGIN: %s] %s "
-
-// Info is a shortcut for logger.Info
-func Info(v ...any) {
-	logger.Info(fmt.Sprintf(InfoTemplate, HandlerRegisterer, fmt.Sprint(v...)))
+	return append(logFields, v...)
 }
 
-// Debug is a shortcut for logger.Debug
-func Debug(v ...any) {
-	logger.Debug(fmt.Sprintf(InfoTemplate, HandlerRegisterer, fmt.Sprint(v...)))
-}
-
-// Warning is a shortcut for logger.Warning
-func Warning(v ...any) {
-	logger.Warning(fmt.Sprintf(InfoTemplate, HandlerRegisterer, fmt.Sprint(v...)))
-}
-
-// Error is a shortcut for logger.Error
-func Error(v ...any) {
-	logger.Error(fmt.Sprintf(InfoTemplate, HandlerRegisterer, fmt.Sprint(v...)))
-}
-
-// Critical is a shortcut for logger.Critical
-func Critical(v ...any) {
-	logger.Critical(fmt.Sprintf(InfoTemplate, HandlerRegisterer, fmt.Sprint(v...)))
-}
-
-// Fatal is a shortcut for logger.Fatal
-func Fatal(v ...any) {
-	logger.Fatal(fmt.Sprintf(InfoTemplate, HandlerRegisterer, fmt.Sprint(v...)))
-}
+func logDebug(req *http.Request, v ...any)    { logger.Debug(logReq(req, v)...) }
+func logInfo(req *http.Request, v ...any)     { logger.Info(logReq(req, v)...) }
+func logWarning(req *http.Request, v ...any)  { logger.Warning(logReq(req, v)...) }
+func logError(req *http.Request, v ...any)    { logger.Error(logReq(req, v)...) }
+func logCritical(req *http.Request, v ...any) { logger.Critical(logReq(req, v)...) }
+func logFatal(req *http.Request, v ...any)    { logger.Fatal(logReq(req, v)...) }
