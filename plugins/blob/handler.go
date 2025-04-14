@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"html"
 	"io"
 	"net/http"
 	"strings"
@@ -49,11 +48,11 @@ func newBlobHandler(config map[string]any) (*blobHandler, error) {
 
 	mgmtPublicConn, err := newGRPCConn(mgmtPublicAddr, "", "")
 	if err != nil {
-		return nil, fmt.Errorf("failed to connect with mgmt-backend: %w ", err)
+		return nil, fmt.Errorf("failed to connect with mgmt-backend: %w", err)
 	}
 	mgmtPrivateConn, err := newGRPCConn(mgmtPrivateAddr, "", "")
 	if err != nil {
-		return nil, fmt.Errorf("failed to connect with mgmt-backend: %w ", err)
+		return nil, fmt.Errorf("failed to connect with mgmt-backend: %w", err)
 	}
 
 	artifactPrivateConn, err := newGRPCConn(artifactPrivateAddr, "", "")
@@ -80,16 +79,14 @@ type blobHandlerParams struct {
 // handler is the http handler for the blob plugin
 func (rh *blobHandler) handler(ctx context.Context) http.HandlerFunc {
 	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
-		path := html.EscapeString(req.URL.Path)
-
-		Info(req.Method+" "+path, " start relaying request to blob backend")
+		logInfo(req, "start relaying request to blob backend")
 
 		// NOTE: the object url uid is the last part of the request path
-		parts := strings.Split(path, "/")
+		parts := strings.Split(req.URL.Path, "/")
 		objectURLUID := parts[len(parts)-1]
 
 		if _, err := uuid.FromString(objectURLUID); err != nil {
-			Error(path, " object url uid is not a uuid ", err)
+			logError(req, "object url uid is not a uuid", err)
 			rh.handleError(req, w, err)
 			return
 		}
@@ -97,7 +94,7 @@ func (rh *blobHandler) handler(ctx context.Context) http.HandlerFunc {
 			Uid: objectURLUID,
 		})
 		if err != nil {
-			Error(path, " get object url info failed ", err)
+			logError(req, "get object url info failed", err)
 			rh.handleError(req, w, err)
 			return
 		}
@@ -105,7 +102,7 @@ func (rh *blobHandler) handler(ctx context.Context) http.HandlerFunc {
 		// Note: first milestone will not check if the object url is expired
 		// check if the object url is expired
 		// if objectURLInfo.ObjectUrl.GetUrlExpireAt().AsTime().Before(time.Now()) {
-		// 	rh.handleError(req, w, fmt.Errorf(" object url expired "))
+		// 	rh.handleError(req, w, fmt.Errorf("object url expired"))
 		// 	return
 		// }
 
@@ -114,7 +111,7 @@ func (rh *blobHandler) handler(ctx context.Context) http.HandlerFunc {
 			Uid: objectURLInfo.ObjectUrl.GetObjectUid(),
 		})
 		if err != nil {
-			Error(path, " get object info failed ", err)
+			logError(req, "get object info failed", err)
 			rh.handleError(req, w, err)
 			return
 		}
@@ -142,13 +139,12 @@ func (rh *blobHandler) relay(ctx context.Context, p blobHandlerParams) {
 	} else if req.Method == http.MethodGet {
 		download(ctx, req, w, rh, p.ObjectURL, p.Object)
 	} else {
-		rh.handleError(req, w, fmt.Errorf("method not supported "))
+		rh.handleError(req, w, fmt.Errorf("method not supported"))
 	}
 }
 
 func upload(ctx context.Context, req *http.Request, w http.ResponseWriter, rh *blobHandler, objectURL *artifactpb.ObjectURL) error {
 	// rh.mgmtPrivateClient.CheckNamespaceAdmin()
-	originalURL := html.EscapeString(req.URL.String())
 	req.URL.Scheme = "http"
 	req.URL.Host = rh.minioAddr
 	req.RequestURI = ""
@@ -162,9 +158,9 @@ func upload(ctx context.Context, req *http.Request, w http.ResponseWriter, rh *b
 	var byteCounter int64
 	teeReader := io.TeeReader(req.Body, &countingWriter{&byteCounter})
 
-	newReq, err := http.NewRequest(http.MethodPut, req.URL.String(), teeReader)
+	newReq, err := http.NewRequest(req.Method, req.URL.String(), teeReader)
 	if err != nil {
-		Error(newReq.URL.Path, "failed to create request", err)
+		logError(newReq, "failed to create request", err)
 		rh.handleError(newReq, w, err)
 		return err
 	}
@@ -204,7 +200,7 @@ func upload(ctx context.Context, req *http.Request, w http.ResponseWriter, rh *b
 		newReq.Header.Set("Last-Modified", lastModifiedTime)
 		lastModifiedTime, err := time.Parse(time.RFC1123, req.Header.Get("Last-Modified"))
 		if err != nil {
-			Error(req.URL.Path, " failed to parse last modified time ", err)
+			logError(req, "failed to parse last modified time", err)
 			rh.handleError(req, w, err)
 			return err
 		}
@@ -212,7 +208,7 @@ func upload(ctx context.Context, req *http.Request, w http.ResponseWriter, rh *b
 	}
 	newResp, err := client.Do(newReq)
 	if err != nil {
-		Error(req.URL.Path, "failed to upload file", err)
+		logError(req, "failed to upload file", err)
 		rh.handleError(req, w, err)
 		return err
 	}
@@ -229,25 +225,24 @@ func upload(ctx context.Context, req *http.Request, w http.ResponseWriter, rh *b
 
 	written, err := io.Copy(w, newResp.Body)
 	if err != nil {
-		Error("PUT ", originalURL, " upload file failed", err)
+		logError(req, "file upload failed", err)
 		rh.handleError(req, w, err)
 		return err
 	}
 
 	// NOTE: if the written bytes is 0, it means the upload is successful.
 	if written == 0 {
-		Info(
-			"PUT ",
-			originalURL,
-			" upload file success, ",
+		logInfo(
+			req,
+			"upload file success,",
 			byteCounter,
-			" bytes transferred, Content-Length: ",
+			"bytes transferred, Content-Length:",
 			req.ContentLength,
-			" bytes, Content-Type: ",
+			"bytes, Content-Type:",
 			req.Header.Get("Content-Type"),
-			", Object UID: ",
+			", Object UID:",
 			objectURL.GetObjectUid(),
-			" Namespace UID: ",
+			", Namespace UID:",
 			objectURL.NamespaceUid,
 		)
 		isUploaded := true
@@ -262,7 +257,7 @@ func upload(ctx context.Context, req *http.Request, w http.ResponseWriter, rh *b
 		if lastModifiedTime != "" {
 			lastModifiedTime, err := time.Parse(time.RFC1123, lastModifiedTime)
 			if err != nil {
-				Error(req.URL.Path, "failed to parse last modified time", err)
+				logError(req, "failed to parse last modified time", err)
 				rh.handleError(req, w, err)
 				return err
 			} else {
@@ -271,7 +266,7 @@ func upload(ctx context.Context, req *http.Request, w http.ResponseWriter, rh *b
 		}
 		_, err = rh.artifactPrivateClient.UpdateObject(ctx, grpcReq)
 		if err != nil {
-			Error(req.URL.Path, "failed to update object info", err)
+			logError(req, "failed to update object info", err)
 			rh.handleError(req, w, err)
 			return err
 		}
@@ -281,7 +276,6 @@ func upload(ctx context.Context, req *http.Request, w http.ResponseWriter, rh *b
 }
 
 func download(_ context.Context, req *http.Request, w http.ResponseWriter, rh *blobHandler, objectURL *artifactpb.ObjectURL, object *artifactpb.Object) error {
-	originalURL := html.EscapeString(req.URL.String())
 	req.URL.Scheme = "http"
 	req.URL.Host = rh.minioAddr
 	req.RequestURI = ""
@@ -292,9 +286,9 @@ func download(_ context.Context, req *http.Request, w http.ResponseWriter, rh *b
 
 	client := &http.Client{}
 
-	newReq, err := http.NewRequest(http.MethodGet, req.URL.String(), nil)
+	newReq, err := http.NewRequest(req.Method, req.URL.String(), nil)
 	if err != nil {
-		Error(req.URL.Path, "failed to create request ", err)
+		logError(req, "failed to create request", err)
 		rh.handleError(req, w, err)
 		return err
 	}
@@ -318,7 +312,7 @@ func download(_ context.Context, req *http.Request, w http.ResponseWriter, rh *b
 
 	newResp, err := client.Do(newReq)
 	if err != nil {
-		Error(req.URL.Path, "failed to download file ", err)
+		logError(req, "failed to download file", err)
 		rh.handleError(req, w, err)
 		return err
 	}
@@ -345,22 +339,21 @@ func download(_ context.Context, req *http.Request, w http.ResponseWriter, rh *b
 	if newResp.StatusCode != http.StatusNotModified {
 		written, err = io.Copy(w, newResp.Body)
 		if err != nil {
-			Error("GET ", originalURL, " download file failed ", err)
+			logError(req, "download file failed", err)
 			rh.handleError(req, w, err)
 			return err
 		}
 	}
 
-	Info(
-		"GET ",
-		originalURL,
-		" download file success, ",
+	logInfo(
+		req,
+		"download file success,",
 		written,
-		" bytes transferred, Content-Type: ",
+		"bytes transferred, Content-Type:",
 		newResp.Header.Get("Content-Type"),
-		", Object UID: ",
+		", Object UID:",
 		objectURL.GetObjectUid(),
-		" Namespace UID: ",
+		", Namespace UID:",
 		objectURL.NamespaceUid,
 	)
 
@@ -368,7 +361,7 @@ func download(_ context.Context, req *http.Request, w http.ResponseWriter, rh *b
 }
 
 func (rh *blobHandler) handleError(req *http.Request, w http.ResponseWriter, e error) {
-	Error(html.EscapeString(req.URL.Path), e)
+	logError(req, e)
 
 	// Set the status code
 	w.WriteHeader(http.StatusInternalServerError)
@@ -385,7 +378,7 @@ func (rh *blobHandler) handleError(req *http.Request, w http.ResponseWriter, e e
 
 	// Encode the error response as JSON
 	if err := json.NewEncoder(w).Encode(errorResponse); err != nil {
-		Error(html.EscapeString(req.URL.Path), "failed to encode error response", err)
+		logError(req, "failed to encode error response", err)
 	}
 }
 
