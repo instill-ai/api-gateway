@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.33.2-beta](https://github.com/instill-ai/api-gateway/compare/v0.33.1-beta...v0.33.2-beta) (2025-04-14)
+
+
+### Bug Fixes
+
+* **security:** escape request paths to avoid log injection ([#288](https://github.com/instill-ai/api-gateway/issues/288)) ([b9417da](https://github.com/instill-ai/api-gateway/commit/b9417da9827b66b55f196d3ba665acd79b1566a1))
+
 ## [0.33.1-beta](https://github.com/instill-ai/api-gateway/compare/v0.33.0-beta...v0.33.1-beta) (2025-03-30)
 
 
