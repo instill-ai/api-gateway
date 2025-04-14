@@ -239,7 +239,7 @@ func upload(ctx context.Context, req *http.Request, w http.ResponseWriter, rh *b
 			"bytes transferred, Content-Length:",
 			req.ContentLength,
 			"bytes, Content-Type:",
-			req.Header.Get("Content-Type"),
+			sanitize(req.Header.Get("Content-Type")),
 			", Object UID:",
 			objectURL.GetObjectUid(),
 			", Namespace UID:",
