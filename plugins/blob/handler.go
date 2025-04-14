@@ -9,9 +9,9 @@ import (
 	"strings"
 	"time"
 
+	"github.com/gofrs/uuid/v5"
 	"google.golang.org/protobuf/types/known/timestamppb"
 
-	"github.com/gofrs/uuid"
 	artifactpb "github.com/instill-ai/protogen-go/artifact/artifact/v1alpha"
 	mgmtPb "github.com/instill-ai/protogen-go/core/mgmt/v1beta"
 )
