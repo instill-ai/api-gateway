@@ -4,9 +4,12 @@ FROM golang:${GOLANG_VERSION}-alpine${ALPINE_VERSION} AS krakend_builder
 
 RUN apk --no-cache --virtual .build-deps add git make gcc musl-dev binutils-gold
 
-ARG KRAKEND_CE_VERSION=2.9.4
-RUN git clone -b v${KRAKEND_CE_VERSION} https://github.com/krakendio/krakend-ce.git /krakend && cd /krakend && make build && cp krakend /usr/bin
-
+ARG KRAKEND_COMMIT_HASH
+RUN git clone https://github.com/krakendio/krakend-ce.git /krakend && \
+    cd /krakend && \
+    git checkout ${KRAKEND_COMMIT_HASH} && \
+    make build && \
+    cp krakend /usr/bin
 
 FROM --platform=$BUILDPLATFORM golang:${GOLANG_VERSION}-alpine${ALPINE_VERSION} AS build
 

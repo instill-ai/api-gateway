@@ -41,7 +41,7 @@ top:							## Display all running service processes
 build:							## Build dev docker image
 	@docker build \
 		--build-arg GOLANG_VERSION=${GOLANG_VERSION} \
-		--build-arg KRAKEND_CE_VERSION=${KRAKEND_CE_VERSION} \
+		--build-arg KRAKEND_COMMIT_HASH=${KRAKEND_COMMIT_HASH} \
 		--build-arg SERVICE_NAME=${SERVICE_NAME} \
 	-f Dockerfile.dev -t instill/${SERVICE_NAME}:dev .
 
