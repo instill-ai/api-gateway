@@ -1,3 +1,3 @@
 module sse_streaming_plugin
 
-go 1.23.7
+go 1.24.2

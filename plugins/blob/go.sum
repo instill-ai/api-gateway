@@ -6,8 +6,8 @@ github.com/grpc-ecosystem/grpc-gateway/v2 v2.20.0 h1:bkypFPDjIYGfCYD5mRBvpqxfYX1
 github.com/grpc-ecosystem/grpc-gateway/v2 v2.20.0/go.mod h1:P+Lt/0by1T8bfcF3z737NnSbmxQAppXMRziHUxPOC8k=
 github.com/instill-ai/protogen-go v0.3.3-alpha.0.20241024152819-5ed9f53b5c8a h1:FAj25JbB8CUfUbyPAj1PupoFHo9sW5kffjQyVjkXDg4=
 github.com/instill-ai/protogen-go v0.3.3-alpha.0.20241024152819-5ed9f53b5c8a/go.mod h1:rf0UY7VpEgpaLudYEcjx5rnbuwlBaaLyD4FQmWLtgAY=
-github.com/luraproject/lura/v2 v2.9.1 h1:ALN5mn83geDF8AtriMyEJmYFse4wqOxdlB7OjWYwwFg=
-github.com/luraproject/lura/v2 v2.9.1/go.mod h1:MWbT5xuqJkMoUCRo6vvvWZhjRsCpvntEUYrsSGgV3yo=
+github.com/luraproject/lura/v2 v2.10.0 h1:kmsES0tA9fontjY8snC81J/lI6mSqIUvDgro0y1Uc2Q=
+github.com/luraproject/lura/v2 v2.10.0/go.mod h1:ycBOK6hypYOwT3aWE38GEK9YWMVgWvXA7DNrIQ7EeHY=
 golang.org/x/net v0.38.0 h1:vRMAPTMaeGqVhG5QyLJHqNDwecKTomGeqbnfZyKlBI8=
 golang.org/x/net v0.38.0/go.mod h1:ivrbrMbzFq5J41QOQh0siUuly180yBYtLp+CKbEaFx8=
 golang.org/x/sys v0.31.0 h1:ioabZlmFYtWhL+TRYpcnNlLwhyxaM9kWTDEmfnprqik=

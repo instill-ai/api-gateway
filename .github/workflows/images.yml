@@ -37,7 +37,7 @@ jobs:
           build-args: |
             GOLANG_VERSION=${{ env.GOLANG_VERSION }}
             ALPINE_VERSION=${{ env.ALPINE_VERSION }}
-            KRAKEND_COMMIT_HASH=${{ env.KRAKEND_COMMIT_HASH }}
+            KRAKEND_CE_VERSION=${{ env.KRAKEND_CE_VERSION }}
             SERVICE_NAME=${{ env.SERVICE_NAME }}
           tags: instill/api-gateway:latest
           cache-from: type=registry,ref=instill/api-gateway:buildcache
@@ -64,7 +64,7 @@ jobs:
           build-args: |
             GOLANG_VERSION=${{ env.GOLANG_VERSION }}
             ALPINE_VERSION=${{ env.ALPINE_VERSION }}
-            KRAKEND_COMMIT_HASH=${{ env.KRAKEND_COMMIT_HASH }}
+            KRAKEND_CE_VERSION=${{ env.KRAKEND_CE_VERSION }}
             SERVICE_NAME=api-gateway
           tags: instill/api-gateway:${{steps.set_version.outputs.no_v_tag}}
           cache-from: type=registry,ref=instill/api-gateway:buildcache
