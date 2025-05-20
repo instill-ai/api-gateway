@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.33.3-beta](https://github.com/instill-ai/api-gateway/compare/v0.33.2-beta...v0.33.3-beta) (2025-05-20)
+
+
+### Miscellaneous Chores
+
+* release v0.33.3-beta ([17097fd](https://github.com/instill-ai/api-gateway/commit/17097fd2a17ae9a77b4b92e28d347a17229b4259))
+
 ## [0.33.2-beta](https://github.com/instill-ai/api-gateway/compare/v0.33.1-beta...v0.33.2-beta) (2025-04-14)
 
 
