@@ -63,9 +63,9 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]any, 
 
 		if req.URL.String() == "/__health" {
 			h.ServeHTTP(w, req)
-		} else if req.URL.String() == "/v1beta/validate_token" || req.URL.String() == "/core/v1beta/validate_token" {
+		} else if req.URL.String() == "/v1beta/validate_token" {
 			h.ServeHTTP(w, req)
-		} else if req.URL.String() == "/v1beta/auth/login" || req.URL.String() == "/core/v1beta/auth/login" {
+		} else if req.URL.String() == "/v1beta/auth/login" {
 			h.ServeHTTP(w, req)
 		} else if strings.HasPrefix(authorization, "Basic ") || strings.HasPrefix(authorization, "basic ") {
 			basicAuth := strings.Split(authorization, " ")[1]
