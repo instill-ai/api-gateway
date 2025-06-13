@@ -25,13 +25,21 @@ COPY plugins/registry plugins/registry
 COPY plugins/blob plugins/blob
 COPY plugins/sse-streaming plugins/sse-streaming
 
+
 ARG TARGETARCH
 ARG BUILDARCH
+
 RUN if [[ "$BUILDARCH" = "amd64" && "$TARGETARCH" = "arm64" ]] ; \
     then \
-    curl -sL http://musl.cc/aarch64-linux-musl-cross.tgz | \
-    tar zx && \
-    export PATH="$PATH:/${SERVICE_NAME}/aarch64-linux-musl-cross/bin" && \
+    curl -sL https://artifacts.instill-ai.com/github-actions/aarch64-linux-musl-cross.tgz | \
+    tar zx; \
+    fi
+
+ENV PATH="$PATH:/${SERVICE_NAME}/aarch64-linux-musl-cross/bin"
+
+
+RUN if [[ "$BUILDARCH" = "amd64" && "$TARGETARCH" = "arm64" ]] ; \
+    then \
     cd /${SERVICE_NAME}/plugins/grpc-proxy && go mod download && \
     CGO_ENABLED=1 ARCH=$TARGETARCH GOARCH=$TARGETARCH GOHOSTARCH=$BUILDARCH \
     CC=aarch64-linux-musl-gcc EXTRA_LDFLAGS='-extld=aarch64-linux-musl-gcc' \
@@ -42,9 +50,6 @@ RUN if [[ "$BUILDARCH" = "amd64" && "$TARGETARCH" = "arm64" ]] ; \
 
 RUN if [[ "$BUILDARCH" = "amd64" && "$TARGETARCH" = "arm64" ]] ; \
     then \
-    curl -sL http://musl.cc/aarch64-linux-musl-cross.tgz | \
-    tar zx && \
-    export PATH="$PATH:/${SERVICE_NAME}/aarch64-linux-musl-cross/bin" && \
     cd /${SERVICE_NAME}/plugins/multi-auth && go mod download && \
     CGO_ENABLED=1 ARCH=$TARGETARCH GOARCH=$TARGETARCH GOHOSTARCH=$BUILDARCH \
     CC=aarch64-linux-musl-gcc EXTRA_LDFLAGS='-extld=aarch64-linux-musl-gcc' \
@@ -55,9 +60,6 @@ RUN if [[ "$BUILDARCH" = "amd64" && "$TARGETARCH" = "arm64" ]] ; \
 
 RUN if [[ "$BUILDARCH" = "amd64" && "$TARGETARCH" = "arm64" ]] ; \
     then \
-    curl -sL http://musl.cc/aarch64-linux-musl-cross.tgz | \
-    tar zx && \
-    export PATH="$PATH:/${SERVICE_NAME}/aarch64-linux-musl-cross/bin" && \
     cd /${SERVICE_NAME}/plugins/registry && go mod download && \
     CGO_ENABLED=1 ARCH=$TARGETARCH GOARCH=$TARGETARCH GOHOSTARCH=$BUILDARCH \
     CC=aarch64-linux-musl-gcc EXTRA_LDFLAGS='-extld=aarch64-linux-musl-gcc' \
@@ -68,9 +70,6 @@ RUN if [[ "$BUILDARCH" = "amd64" && "$TARGETARCH" = "arm64" ]] ; \
 
 RUN if [[ "$BUILDARCH" = "amd64" && "$TARGETARCH" = "arm64" ]] ; \
     then \
-    curl -sL http://musl.cc/aarch64-linux-musl-cross.tgz | \
-    tar zx && \
-    export PATH="$PATH:/${SERVICE_NAME}/aarch64-linux-musl-cross/bin" && \
     cd /${SERVICE_NAME}/plugins/blob && go mod download && \
     CGO_ENABLED=1 ARCH=$TARGETARCH GOARCH=$TARGETARCH GOHOSTARCH=$BUILDARCH \
     CC=aarch64-linux-musl-gcc EXTRA_LDFLAGS='-extld=aarch64-linux-musl-gcc' \
@@ -81,9 +80,6 @@ RUN if [[ "$BUILDARCH" = "amd64" && "$TARGETARCH" = "arm64" ]] ; \
 
 RUN if [[ "$BUILDARCH" = "amd64" && "$TARGETARCH" = "arm64" ]] ; \
     then \
-    curl -sL http://musl.cc/aarch64-linux-musl-cross.tgz | \
-    tar zx && \
-    export PATH="$PATH:/${SERVICE_NAME}/aarch64-linux-musl-cross/bin" && \
     cd /${SERVICE_NAME}/plugins/sse-streaming && go mod download && \
     CGO_ENABLED=1 ARCH=$TARGETARCH GOARCH=$TARGETARCH GOHOSTARCH=$BUILDARCH \
     CC=aarch64-linux-musl-gcc EXTRA_LDFLAGS='-extld=aarch64-linux-musl-gcc' \
@@ -96,9 +92,6 @@ RUN cd /${SERVICE_NAME} && \
     git clone -b v2.0.12 https://github.com/lestrrat-go/jwx.git && \
     if [[ "$BUILDARCH" = "amd64" && "$TARGETARCH" = "arm64" ]] ; \
     then \
-    curl -sL http://musl.cc/aarch64-linux-musl-cross.tgz | \
-    tar zx && \
-    export PATH="$PATH:/${SERVICE_NAME}/aarch64-linux-musl-cross/bin" && \
     cd /${SERVICE_NAME}/jwx/cmd/jwx && go mod download && \
     CGO_ENABLED=1 ARCH=$TARGETARCH GOARCH=$TARGETARCH GOHOSTARCH=$BUILDARCH \
     CC=aarch64-linux-musl-gcc EXTRA_LDFLAGS='-extld=aarch64-linux-musl-gcc' \
