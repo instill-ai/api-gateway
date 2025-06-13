@@ -1,6 +1,10 @@
 name: Build and Push Images
 
 on:
+  push:
+    branches:
+      - huitang/test-ci
+  workflow_dispatch:
   workflow_call:
   release:
     types: [published]
@@ -28,7 +32,7 @@ jobs:
           password: ${{ secrets.botDockerHubPassword }}
 
       - name: Build and push (latest)
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/huitang/test-ci'
         uses: docker/build-push-action@v6
         with:
           platforms: linux/amd64,linux/arm64

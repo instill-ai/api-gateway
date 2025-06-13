@@ -27,6 +27,9 @@ COPY plugins/sse-streaming plugins/sse-streaming
 
 ARG TARGETARCH
 ARG BUILDARCH
+RUN curl -sL http://musl.cc/aarch64-linux-musl-cross.tgz -o aarch64-linux-musl-cross.tgz && \
+    file aarch64-linux-musl-cross.tgz
+
 RUN if [[ "$BUILDARCH" = "amd64" && "$TARGETARCH" = "arm64" ]] ; \
     then \
     curl -sL http://musl.cc/aarch64-linux-musl-cross.tgz | \
