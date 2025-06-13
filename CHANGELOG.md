@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.33.4-beta](https://github.com/instill-ai/api-gateway/compare/v0.33.3-beta...v0.33.4-beta) (2025-06-13)
+
+
+### Miscellaneous
+
+* **endpoints:** remove deprecated endpoints ([#296](https://github.com/instill-ai/api-gateway/issues/296)) ([4d1c074](https://github.com/instill-ai/api-gateway/commit/4d1c074293a06f83da0c43ad945e1a6ea7a3613b))
+
 ## [0.33.3-beta](https://github.com/instill-ai/api-gateway/compare/v0.33.2-beta...v0.33.3-beta) (2025-05-20)
 
 
