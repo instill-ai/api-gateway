@@ -34,17 +34,6 @@ jobs:
           username: drop@instill-ai.com
           password: ${{ secrets.botDockerHubPassword }}
 
-      - name: Set Versions
-        if: github.event_name == 'release' || startsWith(github.ref, 'refs/tags/')
-        uses: actions/github-script@v6
-        id: set_version
-        with:
-          script: |
-            const tag = '${{ github.ref_name }}'
-            const no_v_tag = tag.replace('v', '')
-            core.setOutput('tag', tag)
-            core.setOutput('no_v_tag', no_v_tag)
-
       - name: Build and push (latest)
         if: github.ref == 'refs/heads/main'
         uses: docker/build-push-action@v6
@@ -61,8 +50,19 @@ jobs:
           cache-from: type=registry,ref=instill/api-gateway:buildcache
           cache-to: type=registry,ref=instill/api-gateway:buildcache,mode=max
 
-      - name: Build and push (rc)
-        if: startsWith(github.ref, 'refs/tags/')
+      - name: Set Versions
+        if: github.event_name == 'release' || startsWith(github.ref, 'refs/tags/')
+        uses: actions/github-script@v6
+        id: set_version
+        with:
+          script: |
+            const tag = '${{ github.ref_name }}'
+            const no_v_tag = tag.replace('v', '')
+            core.setOutput('tag', tag)
+            core.setOutput('no_v_tag', no_v_tag)
+
+      - name: Build and push (rc/release)
+        if: startsWith(github.ref, 'refs/tags/') || github.event_name == 'release'
         uses: docker/build-push-action@v6
         with:
           platforms: linux/amd64,linux/arm64
@@ -72,22 +72,7 @@ jobs:
             GOLANG_VERSION=${{ env.GOLANG_VERSION }}
             ALPINE_VERSION=${{ env.ALPINE_VERSION }}
             KRAKEND_CE_VERSION=${{ env.KRAKEND_CE_VERSION }}
-            SERVICE_NAME=api-gateway
-          tags: instill/api-gateway:${{steps.set_version.outputs.no_v_tag}}-rc
-          cache-from: type=registry,ref=instill/api-gateway:buildcache
-          cache-to: type=registry,ref=instill/api-gateway:buildcache,mode=max
-      - name: Build and push (release)
-        if: github.event_name == 'release'
-        uses: docker/build-push-action@v6
-        with:
-          platforms: linux/amd64,linux/arm64
-          context: .
-          push: true
-          build-args: |
-            GOLANG_VERSION=${{ env.GOLANG_VERSION }}
-            ALPINE_VERSION=${{ env.ALPINE_VERSION }}
-            KRAKEND_CE_VERSION=${{ env.KRAKEND_CE_VERSION }}
-            SERVICE_NAME=api-gateway
+            SERVICE_NAME=${{ env.SERVICE_NAME }}
           tags: instill/api-gateway:${{steps.set_version.outputs.no_v_tag}}
           cache-from: type=registry,ref=instill/api-gateway:buildcache
           cache-to: type=registry,ref=instill/api-gateway:buildcache,mode=max
