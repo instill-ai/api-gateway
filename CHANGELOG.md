@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.34.0](https://github.com/instill-ai/api-gateway/compare/v0.33.3-beta...v0.34.0) (2025-06-18)
+
+
+### Miscellaneous
+
+* **endpoints:** remove deprecated endpoints ([#296](https://github.com/instill-ai/api-gateway/issues/296)) ([4d1c074](https://github.com/instill-ai/api-gateway/commit/4d1c074293a06f83da0c43ad945e1a6ea7a3613b))
+* release v0.34.0 ([38407e0](https://github.com/instill-ai/api-gateway/commit/38407e0f539675a1e60f6843e63bae6407a21715))
+* release v0.34.0 ([e66c100](https://github.com/instill-ai/api-gateway/commit/e66c100a91a4e9a20aa3fb71d2d27a3a0e9a080f))
+
 ## [0.33.3-beta](https://github.com/instill-ai/api-gateway/compare/v0.33.2-beta...v0.33.3-beta) (2025-05-20)
 
 
