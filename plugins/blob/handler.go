@@ -328,7 +328,7 @@ func download(_ context.Context, req *http.Request, w http.ResponseWriter, rh *b
 	}
 
 	// set attachment header
-	w.Header().Set("Content-Disposition", "attachment; filename="+object.GetName())
+	w.Header().Set("Content-Disposition", "inline; filename="+object.GetName())
 
 	w.WriteHeader(newResp.StatusCode)
 
