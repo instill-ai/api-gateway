@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.34.1](https://github.com/instill-ai/api-gateway/compare/v0.34.0...v0.34.1) (2025-06-26)
+
+
+### Miscellaneous
+
+* **blob:** allow file be previewed in browser ([#303](https://github.com/instill-ai/api-gateway/issues/303)) ([02992e6](https://github.com/instill-ai/api-gateway/commit/02992e6aa0a49e35799224a6a97a1233d64cf894))
+
 ## [0.34.0](https://github.com/instill-ai/api-gateway/compare/v0.33.3-beta...v0.34.0) (2025-06-18)
 
 
