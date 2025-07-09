@@ -44,9 +44,8 @@ func (r blob) registerHandlers(ctx context.Context, extra map[string]any, h http
 		// schema://host:port/v1alpha/blob-urls/base64_encoded_presigned_url
 		// Here in this plugin, we decode the base64 string to the presigned URL
 		// and forward the request to MinIO.
-		if len(parts) > 2 && parts[2] == "blob-urls" {
-
-			blobURLBytes, err := base64.StdEncoding.DecodeString(parts[3])
+		if len(parts) > 3 && parts[2] == "blob-urls" {
+			blobURLBytes, err := base64.URLEncoding.DecodeString(parts[3])
 			if err != nil {
 				return
 			}
