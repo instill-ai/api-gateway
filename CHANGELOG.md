@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.34.2](https://github.com/instill-ai/api-gateway/compare/v0.34.1...v0.34.2) (2025-07-09)
+
+
+### Features
+
+* **plugin:** support new blob-url path ([#305](https://github.com/instill-ai/api-gateway/issues/305)) ([8c366f0](https://github.com/instill-ai/api-gateway/commit/8c366f04318ac77c2a1e2e13a60abce676121be3))
+
+
+### Bug Fixes
+
+* **plugin:** use URLEncoding to decode blob URL ([#307](https://github.com/instill-ai/api-gateway/issues/307)) ([c07f8df](https://github.com/instill-ai/api-gateway/commit/c07f8df60f2c986508612cb2376637b857603d24))
+
 ## [0.34.1](https://github.com/instill-ai/api-gateway/compare/v0.34.0...v0.34.1) (2025-06-26)
 
 
