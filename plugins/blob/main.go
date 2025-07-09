@@ -48,10 +48,12 @@ func (r blob) registerHandlers(ctx context.Context, extra map[string]any, h http
 
 			blobURLBytes, err := base64.StdEncoding.DecodeString(parts[3])
 			if err != nil {
+				logger.Error(logPrefix, "Failed to decode blob URL", err)
 				return
 			}
 			blobURL, err := url.Parse(string(blobURLBytes))
 			if err != nil {
+				logger.Error(logPrefix, "Failed to parse blob URL", err)
 				return
 			}
 			blobURL.Scheme = "http"
@@ -64,6 +66,7 @@ func (r blob) registerHandlers(ctx context.Context, extra map[string]any, h http
 
 			if err != nil {
 				http.Error(w, "Failed to proxy request", http.StatusInternalServerError)
+				logger.Error(logPrefix, "Failed to proxy request", err)
 				return
 			}
 			defer resp.Body.Close()
