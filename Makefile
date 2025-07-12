@@ -37,13 +37,23 @@ rm:								## Remove container
 top:							## Display all running service processes
 	@docker top ${SERVICE_NAME}
 
-.PHONY: build
-build:							## Build dev docker image
+.PHONY: build-dev
+build-dev:							## Build dev docker image
 	@docker build \
 		--build-arg GOLANG_VERSION=${GOLANG_VERSION} \
 		--build-arg KRAKEND_CE_VERSION=${KRAKEND_CE_VERSION} \
 		--build-arg SERVICE_NAME=${SERVICE_NAME} \
+		--build-arg SERVICE_VERSION=dev \
 	-f Dockerfile.dev -t instill/${SERVICE_NAME}:dev .
+
+.PHONY: build-latest
+build-latest:							## Build docker image
+	@docker build \
+		--build-arg GOLANG_VERSION=${GOLANG_VERSION} \
+		--build-arg KRAKEND_CE_VERSION=${KRAKEND_CE_VERSION} \
+		--build-arg SERVICE_NAME=${SERVICE_NAME} \
+		--build-arg SERVICE_VERSION=dev \
+		-t instill/${SERVICE_NAME}:latest .
 
 .PHONY: plugin
 plugin:							# Compile the KrakenD plugins and copy them to /usr/local/lib/krakend/plugins
@@ -52,7 +62,6 @@ plugin:							# Compile the KrakenD plugins and copy them to /usr/local/lib/krak
 	@bash -c "cd plugins/registry && go build -buildmode=plugin -buildvcs=false -o /usr/local/lib/krakend/plugins/registry.so ./..."
 	@bash -c "cd plugins/blob && go build -buildmode=plugin -buildvcs=false -o /usr/local/lib/krakend/plugins/blob.so ./..."
 	@bash -c "cd plugins/sse-streaming && go build -buildmode=plugin -buildvcs=false -o /usr/local/lib/krakend/plugins/sse-streaming.so ./..."
-
 
 .PHONY: config
 config:							## Output the composed KrakenD configuration

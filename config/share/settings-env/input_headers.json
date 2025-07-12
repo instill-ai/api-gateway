@@ -6,9 +6,8 @@
     "Request-Id",
     "Backend",
     "Authorization",
-    "X-B3-Sampled",
-    "X-B3-Spanid",
-    "X-B3-Traceid"
+    "traceparent",
+    "tracestate"
   ],
   "http_auth": [
     "Accept",
@@ -18,9 +17,8 @@
     "X-Forwarded-For",
     "Request-Id",
     "Backend",
-    "X-B3-Sampled",
-    "X-B3-Spanid",
-    "X-B3-Traceid",
+    "traceparent",
+    "tracestate",
     "jwt-sub",
     "Instill-Auth-Type",
     "Instill-User-Uid",
@@ -41,9 +39,8 @@
     "X-Forwarded-For",
     "Request-Id",
     "Backend",
-    "X-B3-Sampled",
-    "X-B3-Spanid",
-    "X-B3-Traceid"
+    "traceparent",
+    "tracestate"
   ],
   "grpc_auth": [
     "Authorization",
@@ -54,9 +51,8 @@
     "Backend",
     "Grpc-Accept-Encoding",
     "Te",
-    "X-B3-Sampled",
-    "X-B3-Spanid",
-    "X-B3-Traceid",
+    "traceparent",
+    "tracestate",
     "jwt-sub",
     "Instill-Auth-Type",
     "Instill-User-Uid",
@@ -75,8 +71,7 @@
     "Backend",
     "Grpc-Accept-Encoding",
     "Te",
-    "X-B3-Sampled",
-    "X-B3-Spanid",
-    "X-B3-Traceid"
+    "traceparent",
+    "tracestate"
   ]
 }
