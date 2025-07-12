@@ -11,7 +11,7 @@ RUN git clone https://github.com/krakendio/krakend-ce.git /krakend && \
     make build && \
     cp krakend /usr/bin
 
-FROM --platform=$BUILDPLATFORM golang:${GOLANG_VERSION}-alpine${ALPINE_VERSION} AS build
+FROM golang:${GOLANG_VERSION}-alpine${ALPINE_VERSION} AS build
 
 ARG SERVICE_NAME
 
@@ -111,7 +111,7 @@ RUN apk add --no-cache ca-certificates tzdata && \
 
 COPY --from=krakend_builder /usr/bin/krakend /usr/bin/krakend
 
-ARG SERVICE_NAME
+ARG SERVICE_NAME SERVICE_VERSION
 
 WORKDIR /${SERVICE_NAME}
 
@@ -133,3 +133,6 @@ COPY scripts scripts
 RUN chown krakend:nogroup -R .
 
 USER krakend
+
+ENV SERVICE_NAME=${SERVICE_NAME}
+ENV SERVICE_VERSION=${SERVICE_VERSION}

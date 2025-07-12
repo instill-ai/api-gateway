@@ -1,6 +1,7 @@
 "telemetry/opentelemetry": {
-    "service_name": "krakend_prometheus_service",
-    "metric_reporting_period": 1,
+    "service_name": "api-gateway",
+    "service_version": "{{ .observe.service_version }}",
+    "deploy_env": "{{ .observe.deploy_env }}",
     "exporters": {
         "prometheus": [
             {
@@ -9,6 +10,51 @@
                 "process_metrics": true,
                 "go_metrics": true
             }
+        ],
+        "otlp": [
+            {
+                "name": "otel-collector",
+                "host": "{{ .observe.otel_collector_host }}",
+                "port": {{ .observe.otel_collector_port }},
+                "use_http": false
+            }
         ]
+    },
+    "layers": {
+        "global": {
+            "disable_metrics": false,
+            "disable_traces": false,
+            "disable_propagation": false
+        },
+        "proxy": {
+            "disable_metrics": false,
+            "disable_traces": false
+        },
+        "backend": {
+            "metrics": {
+                "disable_stage": false,
+                "round_trip": true,
+                "read_payload": true,
+                "detailed_connection": true,
+                "static_attributes": [
+                    {
+                        "key": "my_metric_attr",
+                        "value": "my_middle_metric"
+                    }
+                ]
+            },
+            "traces": {
+                "disable_stage": false,
+                "round_trip": true,
+                "read_payload": true,
+                "detailed_connection": true,
+                "static_attributes": [
+                    {
+                        "key": "my_metric_attr",
+                        "value": "my_middle_metric"
+                    }
+                ]
+            }
+        }
     }
 }

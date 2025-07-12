@@ -82,6 +82,10 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
+      - name: Set short commit SHA
+        run: |
+          echo "COMMIT_SHORT_SHA=${GITHUB_SHA:0:7}" >> $GITHUB_ENV
+
       - name: Build image
         uses: docker/build-push-action@v6
         with:
@@ -91,8 +95,8 @@ jobs:
             GOLANG_VERSION=${{ env.GOLANG_VERSION }}
             ALPINE_VERSION=${{ env.ALPINE_VERSION }}
             KRAKEND_CE_VERSION=${{ env.KRAKEND_CE_VERSION }}
-            SERVICE_NAME=api-gateway
-            SERVICE_VERSION=${{ github.sha }}
+            SERVICE_NAME=${{ env.SERVICE_NAME }}
+            SERVICE_VERSION=${{ env.COMMIT_SHORT_SHA }}
           tags: instill/api-gateway:latest
           cache-from: |
             type=registry,ref=instill/api-gateway:buildcache
