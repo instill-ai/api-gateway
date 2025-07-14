@@ -1,6 +1,6 @@
 module grpc_proxy_plugin
 
-go 1.24.2
+go 1.24.4
 
 require (
 	github.com/luraproject/lura/v2 v2.10.0

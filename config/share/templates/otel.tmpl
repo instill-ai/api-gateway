@@ -1,0 +1,48 @@
+"telemetry/opentelemetry": {
+    "service_name": "api-gateway",
+    "service_version": "{{ .observe.service_version }}",
+    "deploy_env": "{{ .observe.deploy_env }}",
+    "exporters": {
+        "prometheus": [
+            {
+                "name": "prometheus",
+                "port": {{ .ports.api_gateway_metrics_port }},
+                "process_metrics": true,
+                "go_metrics": true
+            }
+        ],
+        "otlp": [
+            {
+                "name": "otel-collector",
+                "host": "{{ .observe.otel_collector_host }}",
+                "port": {{ .observe.otel_collector_port }},
+                "use_http": false
+            }
+        ]
+    },
+    "layers": {
+        "global": {
+            "disable_metrics": false,
+            "disable_traces": false,
+            "disable_propagation": false
+        },
+        "proxy": {
+            "disable_metrics": false,
+            "disable_traces": false
+        },
+        "backend": {
+            "metrics": {
+                "disable_stage": false,
+                "round_trip": true,
+                "read_payload": true,
+                "detailed_connection": true
+            },
+            "traces": {
+                "disable_stage": false,
+                "round_trip": true,
+                "read_payload": true,
+                "detailed_connection": true
+            }
+        }
+    }
+}

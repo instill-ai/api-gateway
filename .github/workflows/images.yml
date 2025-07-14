@@ -34,6 +34,10 @@ jobs:
           username: drop@instill-ai.com
           password: ${{ secrets.botDockerHubPassword }}
 
+      - name: Set short commit SHA
+        run: |
+          echo "COMMIT_SHORT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+
       - name: Build and push (latest)
         if: github.ref == 'refs/heads/main'
         uses: docker/build-push-action@v6
@@ -42,10 +46,11 @@ jobs:
           context: .
           push: true
           build-args: |
+            SERVICE_NAME=${{ env.SERVICE_NAME }}
+            SERVICE_VERSION=${{ env.COMMIT_SHORT_SHA }}
             GOLANG_VERSION=${{ env.GOLANG_VERSION }}
             ALPINE_VERSION=${{ env.ALPINE_VERSION }}
             KRAKEND_CE_VERSION=${{ env.KRAKEND_CE_VERSION }}
-            SERVICE_NAME=${{ env.SERVICE_NAME }}
           tags: instill/api-gateway:latest
           cache-from: type=registry,ref=instill/api-gateway:buildcache
           cache-to: type=registry,ref=instill/api-gateway:buildcache,mode=max
@@ -69,10 +74,11 @@ jobs:
           context: .
           push: true
           build-args: |
+            SERVICE_NAME=${{ env.SERVICE_NAME }}
+            SERVICE_VERSION=${{steps.set_version.outputs.no_v_tag}}
             GOLANG_VERSION=${{ env.GOLANG_VERSION }}
             ALPINE_VERSION=${{ env.ALPINE_VERSION }}
             KRAKEND_CE_VERSION=${{ env.KRAKEND_CE_VERSION }}
-            SERVICE_NAME=${{ env.SERVICE_NAME }}
           tags: instill/api-gateway:${{steps.set_version.outputs.no_v_tag}}
           cache-from: type=registry,ref=instill/api-gateway:buildcache
           cache-to: type=registry,ref=instill/api-gateway:buildcache,mode=max

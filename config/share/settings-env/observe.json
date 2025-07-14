@@ -1,3 +1,7 @@
 {
-  "log_level": "${LOG_LEVEL}"
+  "log_level": "${LOG_LEVEL}",
+  "service_version": "${SERVICE_VERSION}",
+  "deploy_env": "${DEPLOY_ENV}",
+  "otel_collector_host": "${OTEL_COLLECTOR_HOST}",
+  "otel_collector_port": "${OTEL_COLLECTOR_PORT}"
 }

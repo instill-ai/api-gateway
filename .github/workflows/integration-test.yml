@@ -9,14 +9,8 @@ on:
       - main
 
 jobs:
-  build-push-image:
-    if: github.ref == 'refs/heads/main'
-    name: Build and push image
-    uses: instill-ai/api-gateway/.github/workflows/images.yml@main
-    secrets: inherit
-  pr-head:
-    if: github.event_name == 'pull_request'
-    name: PR head branch
+  integration-test:
+    name: Integration test
     strategy:
       fail-fast: false
       matrix:
@@ -38,18 +32,6 @@ jobs:
       - name: Restart docker
         run: sudo service docker restart
 
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          repository: instill-ai/api-gateway
-          ref: ${{ github.event.pull_request.head.sha }}
-          path: api-gateway
-
-      - name: Load .env file (api-gateway)
-        uses: cardinalby/export-env-action@v2
-        with:
-          envFile: ./api-gateway/.env
-
       - name: Checkout repo (instill-core)
         uses: actions/checkout@v4
         with:
@@ -61,6 +43,18 @@ jobs:
         uses: cardinalby/export-env-action@v2
         with:
           envFile: ./instill-core/.env
+
+      - name: Checkout (api-gateway)
+        uses: actions/checkout@v4
+        with:
+          repository: instill-ai/api-gateway
+          ref: ${{ github.event.pull_request.head.sha }}
+          path: api-gateway
+
+      - name: Load .env file (api-gateway)
+        uses: cardinalby/export-env-action@v2
+        with:
+          envFile: ./api-gateway/.env
 
       - uses: actions/setup-go@v5
         with:
@@ -82,6 +76,10 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
+      - name: Set short commit SHA
+        run: |
+          echo "COMMIT_SHORT_SHA=${GITHUB_SHA:0:7}" >> $GITHUB_ENV
+
       - name: Build image
         uses: docker/build-push-action@v6
         with:
@@ -91,8 +89,8 @@ jobs:
             GOLANG_VERSION=${{ env.GOLANG_VERSION }}
             ALPINE_VERSION=${{ env.ALPINE_VERSION }}
             KRAKEND_CE_VERSION=${{ env.KRAKEND_CE_VERSION }}
-            SERVICE_NAME=api-gateway
-            SERVICE_VERSION=${{ github.sha }}
+            SERVICE_NAME=${{ env.SERVICE_NAME }}
+            SERVICE_VERSION=${{ env.COMMIT_SHORT_SHA }}
           tags: instill/api-gateway:latest
           cache-from: |
             type=registry,ref=instill/api-gateway:buildcache

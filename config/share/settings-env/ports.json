@@ -1,6 +1,5 @@
 {
   "api_gateway_port": "${API_GATEWAY_PORT}",
   "api_gateway_stats_port": "${API_GATEWAY_STATS_PORT}",
-  "api_gateway_metrics_port": "${API_GATEWAY_METRICS_PORT}",
-  "jaeger_port": "${JAEGER_PORT}"
+  "api_gateway_metrics_port": "${API_GATEWAY_METRICS_PORT}"
 }

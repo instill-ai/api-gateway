@@ -30,7 +30,7 @@
       "syslog": false,
       "stdout": true
     },    
-    {{ template "opentelemetry.tmpl" . }},
+    {{ template "otel.tmpl" . }},
     {{ template "cors.tmpl" . }},
     "plugin/http-server": {
       "name": ["sse-streaming", "multi-auth", "grpc-proxy-server", "registry","blob"],
@@ -53,7 +53,7 @@
         "artifact_private_hostport": "{{ .plugins.artifact_private_hostport }}"
       },
       "sse-streaming": {
-         "backend_host": "{{ .plugins.pipeline_public_hostport }}"
+        "backend_host": "{{ .plugins.pipeline_public_hostport }}"
       }
     }
   },

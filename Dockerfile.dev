@@ -1,7 +1,7 @@
-ARG GOLANG_VERSION=1.24.2
+ARG GOLANG_VERSION=1.24.4
 FROM golang:${GOLANG_VERSION}-bookworm
 
-ARG SERVICE_NAME
+ARG SERVICE_NAME SERVICE_VERSION
 
 WORKDIR /${SERVICE_NAME}
 
@@ -39,4 +39,8 @@ WORKDIR /tmp
 RUN git clone -b v2.0.12 https://github.com/lestrrat-go/jwx.git && cd jwx && make jwx && cd .. && rm -r jwx
 
 WORKDIR /${SERVICE_NAME}
+
+ENV SERVICE_NAME=${SERVICE_NAME}
+ENV SERVICE_VERSION=${SERVICE_VERSION}
+
 ENTRYPOINT ["tail", "-f", "/dev/null"]
