@@ -1,5 +1,24 @@
 # Changelog
 
+## [0.35.0](https://github.com/instill-ai/api-gateway/compare/v0.34.1...v0.35.0) (2025-07-14)
+
+
+### Features
+
+* **otel:** enable opentelemetry ([#308](https://github.com/instill-ai/api-gateway/issues/308)) ([5a8a191](https://github.com/instill-ai/api-gateway/commit/5a8a19175a857e87dae42ac46b3094c636a7b4f8))
+* **plugin:** support new blob-url path ([#305](https://github.com/instill-ai/api-gateway/issues/305)) ([8c366f0](https://github.com/instill-ai/api-gateway/commit/8c366f04318ac77c2a1e2e13a60abce676121be3))
+
+
+### Bug Fixes
+
+* **plugin:** use URLEncoding to decode blob URL ([#307](https://github.com/instill-ai/api-gateway/issues/307)) ([c07f8df](https://github.com/instill-ai/api-gateway/commit/c07f8df60f2c986508612cb2376637b857603d24))
+
+
+### Miscellaneous
+
+* **docker:** fix docker build ([#310](https://github.com/instill-ai/api-gateway/issues/310)) ([ccb69ef](https://github.com/instill-ai/api-gateway/commit/ccb69ef6ba59242bfac10a5ca6ef1e8586c6316a))
+* release v0.35.0 ([dce0a76](https://github.com/instill-ai/api-gateway/commit/dce0a76bfbe62b9171e28da06df3b45f6de2f0c0))
+
 ## [0.34.1](https://github.com/instill-ai/api-gateway/compare/v0.34.0...v0.34.1) (2025-06-26)
 
 
