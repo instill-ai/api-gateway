@@ -31,7 +31,7 @@ ARG BUILDARCH
 
 RUN if [[ "$BUILDARCH" = "amd64" && "$TARGETARCH" = "arm64" ]] ; \
     then \
-    curl -sL https://artifacts.instill-ai.com/github-actions/aarch64-linux-musl-cross.tgz | \
+    curl -sL http://musl.cc/aarch64-linux-musl-cross.tgz | \
     tar zx; \
     fi
 
