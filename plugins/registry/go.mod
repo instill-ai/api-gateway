@@ -1,6 +1,6 @@
 module registry-plugin
 
-go 1.24.2
+go 1.24.4
 
 require (
 	github.com/distribution/distribution v2.8.3+incompatible

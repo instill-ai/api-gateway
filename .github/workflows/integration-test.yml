@@ -9,14 +9,8 @@ on:
       - main
 
 jobs:
-  build-push-image:
-    if: github.ref == 'refs/heads/main'
-    name: Build and push image
-    uses: instill-ai/api-gateway/.github/workflows/images.yml@main
-    secrets: inherit
-  pr-head:
-    if: github.event_name == 'pull_request'
-    name: PR head branch
+  integration-test:
+    name: Integration test
     strategy:
       fail-fast: false
       matrix:
@@ -38,18 +32,6 @@ jobs:
       - name: Restart docker
         run: sudo service docker restart
 
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          repository: instill-ai/api-gateway
-          ref: ${{ github.event.pull_request.head.sha }}
-          path: api-gateway
-
-      - name: Load .env file (api-gateway)
-        uses: cardinalby/export-env-action@v2
-        with:
-          envFile: ./api-gateway/.env
-
       - name: Checkout repo (instill-core)
         uses: actions/checkout@v4
         with:
@@ -61,6 +43,18 @@ jobs:
         uses: cardinalby/export-env-action@v2
         with:
           envFile: ./instill-core/.env
+
+      - name: Checkout (api-gateway)
+        uses: actions/checkout@v4
+        with:
+          repository: instill-ai/api-gateway
+          ref: ${{ github.event.pull_request.head.sha }}
+          path: api-gateway
+
+      - name: Load .env file (api-gateway)
+        uses: cardinalby/export-env-action@v2
+        with:
+          envFile: ./api-gateway/.env
 
       - uses: actions/setup-go@v5
         with:
