@@ -11,7 +11,7 @@ RUN git clone https://github.com/krakendio/krakend-ce.git /krakend && \
     make build && \
     cp krakend /usr/bin
 
-FROM golang:${GOLANG_VERSION}-alpine${ALPINE_VERSION} AS build
+FROM --platform=$BUILDPLATFORM golang:${GOLANG_VERSION}-alpine${ALPINE_VERSION} AS build
 
 ARG SERVICE_NAME
 
@@ -31,8 +31,8 @@ ARG BUILDARCH
 
 RUN if [[ "$BUILDARCH" = "amd64" && "$TARGETARCH" = "arm64" ]] ; \
     then \
-    curl -sL https://artifacts.instill-ai.com/github-actions/aarch64-linux-musl-cross.tgz | \
-    tar zx; \
+    curl -fSL https://artifacts.instill-ai.com/github-actions/aarch64-linux-musl-cross.tgz | \
+    tar -xvzf -; \
     fi
 
 ENV PATH="$PATH:/${SERVICE_NAME}/aarch64-linux-musl-cross/bin"
