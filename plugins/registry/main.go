@@ -8,6 +8,8 @@ import (
 	"strings"
 
 	"github.com/luraproject/lura/v2/logging"
+	"go.opentelemetry.io/otel/attribute"
+	"go.opentelemetry.io/otel/trace"
 )
 
 var pluginName = "registry"
@@ -33,6 +35,24 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]any, 
 	}
 
 	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+		// Extract OpenTelemetry context from incoming request
+		otelCtx := req.Context()
+
+		// Create a span for the registry plugin
+		tracer := trace.SpanFromContext(otelCtx).TracerProvider().Tracer("registry")
+		spanCtx, span := tracer.Start(otelCtx, "registry.handle_request",
+			trace.WithAttributes(
+				attribute.String("http.method", req.Method),
+				attribute.String("http.url", req.URL.String()),
+				attribute.String("http.user_agent", req.UserAgent()),
+				attribute.String("plugin.name", pluginName),
+			),
+		)
+		defer span.End()
+
+		// Add span context to request
+		req = req.WithContext(spanCtx)
+
 		// If the URL path starts with "/v2/" (exactly /v2/ indicating the
 		// first handshake request to confirm registry V2 API), it means that
 		// the request is intended for the Instill Artifact registry. In this
@@ -40,14 +60,15 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]any, 
 		// Otherwise, if the URL path does not match any of these patterns, the
 		// traffic is passed through to the next handler.
 		if !strings.HasPrefix(req.URL.Path, "/v2/") {
+			span.SetAttributes(attribute.String("registry.skip_reason", "non_v2_path"))
 			h.ServeHTTP(w, req)
 			return
 		}
 
-		registryHandler.handler(ctx)(w, req)
+		span.SetAttributes(attribute.String("registry.action", "process_v2_request"))
+		registryHandler.handler(spanCtx)(w, req)
 
 	}), nil
-
 }
 
 func main() {}

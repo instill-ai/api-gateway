@@ -9,6 +9,9 @@ import (
 	"strings"
 
 	"github.com/distribution/distribution/registry/api/errcode"
+	"go.opentelemetry.io/otel/attribute"
+	"go.opentelemetry.io/otel/codes"
+	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/grpc/metadata"
 
 	grpccodes "google.golang.org/grpc/codes"
@@ -116,33 +119,70 @@ type registryHandlerParams struct {
 
 func (rh *registryHandler) handler(ctx context.Context) http.HandlerFunc {
 	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+		// Extract OpenTelemetry context from incoming request
+		otelCtx := req.Context()
+
+		// Create a span for the registry handler
+		tracer := trace.SpanFromContext(otelCtx).TracerProvider().Tracer("registry")
+		spanCtx, span := tracer.Start(otelCtx, "registry.handler",
+			trace.WithAttributes(
+				attribute.String("registry.action", "authenticate_and_process"),
+			),
+		)
+		defer span.End()
+
 		// Authenticate the user via docker login
 		username, password, ok := req.BasicAuth()
 		if !ok {
 			// Challenge the user for basic authentication
+			span.SetAttributes(attribute.String("auth.error", "missing_basic_auth"))
+			span.SetStatus(codes.Error, "Missing basic authentication")
 			w.Header().Set("WWW-Authenticate", `Basic realm="Restricted"`)
 			rh.handleError(req, w, authErr)
 			return
 		}
 
+		span.SetAttributes(attribute.String("auth.username", username))
+
 		// Validate the api key and the namespace authorization
 		if !strings.HasPrefix(password, "instill_sk_") {
+			span.SetAttributes(attribute.String("auth.error", "invalid_api_key_format"))
+			span.SetStatus(codes.Error, "Invalid API key format")
 			rh.handleError(req, w, authErr)
 			return
 		}
 
-		ctx = withBearerAuth(ctx, password)
+		// Create a child span for token validation
+		tokenSpanCtx, tokenSpan := tracer.Start(spanCtx, "registry.validate_token",
+			trace.WithAttributes(
+				attribute.String("grpc.method", "ValidateToken"),
+				attribute.String("grpc.service", "mgmtpb.MgmtPublicService"),
+			),
+		)
+		defer tokenSpan.End()
+
+		ctx = withBearerAuth(tokenSpanCtx, password)
 		tokenValidation, err := rh.mgmtPublicClient.ValidateToken(ctx, &mgmtpb.ValidateTokenRequest{})
 		if err != nil {
+			tokenSpan.RecordError(err)
+			tokenSpan.SetStatus(codes.Error, err.Error())
+			span.RecordError(err)
+
 			switch grpcstatus.Convert(err).Code() {
 			case grpccodes.Unauthenticated:
+				span.SetAttributes(attribute.String("auth.error", "unauthorized"))
 				rh.handleError(req, w, authErr)
 			default:
+				span.SetAttributes(attribute.String("auth.error", "validation_failed"))
 				rh.handleError(req, w, fmt.Errorf("validating token: %w", err))
 			}
 
 			return
 		}
+
+		// Record successful authentication
+		tokenSpan.SetAttributes(attribute.String("auth.user_uid", tokenValidation.UserUid))
+		span.SetAttributes(attribute.String("auth.user_uid", tokenValidation.UserUid))
 
 		params := registryHandlerParams{
 			writer:  w,
@@ -152,11 +192,13 @@ func (rh *registryHandler) handler(ctx context.Context) http.HandlerFunc {
 		}
 
 		if req.URL.Path == "/v2/" {
-			rh.login(ctx, params)
+			span.SetAttributes(attribute.String("registry.action", "login"))
+			rh.login(spanCtx, params)
 			return
 		}
 
-		rh.relay(ctx, params)
+		span.SetAttributes(attribute.String("registry.action", "relay"))
+		rh.relay(spanCtx, params)
 	})
 }
 
@@ -164,33 +206,73 @@ func (rh *registryHandler) login(ctx context.Context, p registryHandlerParams) {
 	req := p.req
 	w := p.writer
 
+	// Create a child span for login processing
+	tracer := trace.SpanFromContext(ctx).TracerProvider().Tracer("registry")
+	loginSpanCtx, loginSpan := tracer.Start(ctx, "registry.login",
+		trace.WithAttributes(
+			attribute.String("registry.action", "user_lookup"),
+		),
+	)
+	defer loginSpan.End()
+
 	// Check if the login username is the same with the user id retrieved from the token validation response
 	lookupReq := &mgmtpb.LookUpUserAdminRequest{UserUid: p.userUID}
-	userLookup, err := rh.mgmtPrivateClient.LookUpUserAdmin(ctx, lookupReq)
+
+	// Create a child span for the gRPC call
+	grpcSpanCtx, grpcSpan := tracer.Start(loginSpanCtx, "registry.grpc_lookup_user_admin",
+		trace.WithAttributes(
+			attribute.String("grpc.method", "LookUpUserAdmin"),
+			attribute.String("grpc.service", "mgmtpb.MgmtPrivateService"),
+		),
+	)
+	defer grpcSpan.End()
+
+	userLookup, err := rh.mgmtPrivateClient.LookUpUserAdmin(grpcSpanCtx, lookupReq)
 	if err != nil {
+		grpcSpan.RecordError(err)
+		grpcSpan.SetStatus(codes.Error, err.Error())
+		loginSpan.RecordError(err)
+		loginSpan.SetStatus(codes.Error, err.Error())
 		rh.handleError(req, w, fmt.Errorf("looking up user: %w", err))
 		return
 	}
 
+	grpcSpan.SetAttributes(attribute.String("user.id", userLookup.User.Id))
+	loginSpan.SetAttributes(attribute.String("user.id", userLookup.User.Id))
+
 	if userLookup.User.Id != p.userID {
+		loginSpan.SetAttributes(attribute.String("auth.error", "username_mismatch"))
+		loginSpan.SetStatus(codes.Error, "Username mismatch")
 		rh.handleError(req, w, authErr)
 		return
 	}
+
+	loginSpan.SetAttributes(attribute.String("auth.result", "success"))
 }
 
 func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 	req := p.req
 	w := p.writer
 
+	// Create a child span for relay processing
+	tracer := trace.SpanFromContext(ctx).TracerProvider().Tracer("registry")
+	relaySpanCtx, relaySpan := tracer.Start(ctx, "registry.relay",
+		trace.WithAttributes(
+			attribute.String("registry.action", "relay_request"),
+		),
+	)
+	defer relaySpan.End()
+
 	// Docker image tag format:
 	// [registry]/[namespace]/[repository path]:[image tag]
 	// The namespace is the user uid or the organization uid
 	matches := urlRegexp.FindStringSubmatch(req.URL.Path)
 	if len(matches) == 0 {
+		relaySpan.SetAttributes(attribute.String("registry.error", "invalid_url_format"))
+		relaySpan.SetStatus(codes.Error, "Invalid URL format")
 		msg := "Artifacts in Instill registry should have the format " +
 			"<namespace>/<id>, where namespace can be a user or organization ID"
 		rh.handleError(req, w, errcode.ErrorCodeDenied.WithMessage(msg))
-
 		return
 	}
 
@@ -200,13 +282,42 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 	resourceType := matches[4]
 	resourceID := matches[5]
 
-	// If the username and the namespace is not the same, check if the
-	// namespace is an organisation name where the user has the membership.
-	if namespace != p.userID {
-		ctx := withUserUIDAuth(ctx, p.userUID)
+	relaySpan.SetAttributes(
+		attribute.String("registry.repository", repository),
+		attribute.String("registry.namespace", namespace),
+		attribute.String("registry.content_id", contentID),
+		attribute.String("registry.resource_type", resourceType),
+		attribute.String("registry.resource_id", resourceID),
+	)
 
-		resp, err := rh.mgmtPublicClient.ListUserMemberships(ctx, &mgmtpb.ListUserMembershipsRequest{UserId: p.userID})
+	// If the username and the namespace is not the same, check if the
+	// namespace is an organization name where the user has the membership.
+	if namespace != p.userID {
+		// Create a child span for membership check
+		membershipSpanCtx, membershipSpan := tracer.Start(relaySpanCtx, "registry.check_membership",
+			trace.WithAttributes(
+				attribute.String("registry.action", "check_organization_membership"),
+			),
+		)
+		defer membershipSpan.End()
+
+		withUserUIDAuth(membershipSpanCtx, p.userUID)
+
+		// Create a child span for the gRPC call
+		grpcSpanCtx, grpcSpan := tracer.Start(membershipSpanCtx, "registry.grpc_list_user_memberships",
+			trace.WithAttributes(
+				attribute.String("grpc.method", "ListUserMemberships"),
+				attribute.String("grpc.service", "mgmtpb.MgmtPublicService"),
+			),
+		)
+		defer grpcSpan.End()
+
+		resp, err := rh.mgmtPublicClient.ListUserMemberships(grpcSpanCtx, &mgmtpb.ListUserMembershipsRequest{UserId: p.userID})
 		if err != nil {
+			grpcSpan.RecordError(err)
+			grpcSpan.SetStatus(codes.Error, err.Error())
+			membershipSpan.RecordError(err)
+			membershipSpan.SetStatus(codes.Error, err.Error())
 			rh.handleError(req, w, fmt.Errorf("checking organization: %w", err))
 			return
 		}
@@ -220,14 +331,18 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 		}
 
 		if !isValid {
+			membershipSpan.SetAttributes(attribute.String("auth.error", "no_organization_membership"))
+			membershipSpan.SetStatus(codes.Error, "No valid organization membership")
 			rh.handleError(req, w, authErr)
 			return
 		}
+
+		membershipSpan.SetAttributes(attribute.String("auth.result", "valid_membership"))
 	}
 
 	// Check the existence of the model namespace before continuing with the push.
 	if req.Method == http.MethodHead {
-		ctx := withUserUIDAuth(ctx, p.userUID)
+		withUserUIDAuth(ctx, p.userUID)
 
 		var name string
 		var err error
