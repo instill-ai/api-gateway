@@ -38,7 +38,7 @@ jobs:
         run: |
           echo "COMMIT_SHORT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
 
-      - name: Build and push (latest)
+      - name: Build and push (commit hash and latest)
         if: github.ref == 'refs/heads/main'
         uses: docker/build-push-action@v6
         with:
@@ -51,7 +51,9 @@ jobs:
             GOLANG_VERSION=${{ env.GOLANG_VERSION }}
             ALPINE_VERSION=${{ env.ALPINE_VERSION }}
             KRAKEND_CE_VERSION=${{ env.KRAKEND_CE_VERSION }}
-          tags: instill/api-gateway:latest
+          tags: |
+            instill/api-gateway:${{ env.COMMIT_SHORT_SHA }}
+            instill/api-gateway:latest
           cache-from: type=registry,ref=instill/api-gateway:buildcache
           cache-to: type=registry,ref=instill/api-gateway:buildcache,mode=max
 
