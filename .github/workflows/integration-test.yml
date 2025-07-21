@@ -91,20 +91,20 @@ jobs:
             KRAKEND_CE_VERSION=${{ env.KRAKEND_CE_VERSION }}
             SERVICE_NAME=${{ env.SERVICE_NAME }}
             SERVICE_VERSION=${{ env.COMMIT_SHORT_SHA }}
-          tags: instill/api-gateway:latest
+          tags: instill/api-gateway:${{ env.COMMIT_SHORT_SHA }}
           cache-from: |
             type=registry,ref=instill/api-gateway:buildcache
           cache-to: |
             type=registry,ref=instill/api-gateway:buildcache,mode=max
 
-      - name: Launch Instill Core CE (latest)
+      - name: Launch Instill Core CE (commit hash)
         working-directory: instill-core
         run: |
           # CFG_COMPONENT_SECRETS_GITHUB* variables are injected to test OAuth
           # connection creation on `pipeline-backend`.
           make latest EDITION=local-ce:test ENV_SECRETS_COMPONENT=.env.secrets.component.test
 
-      - name: Run ${{ matrix.component }} integration test (latest)
+      - name: Run ${{ matrix.component }} integration test (commit hash)
         run: |
           git clone https://github.com/instill-ai/${{ matrix.component }}.git
           cd ${{ matrix.component }}
