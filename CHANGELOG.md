@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.35.1](https://github.com/instill-ai/api-gateway/compare/v0.35.0...v0.35.1) (2025-07-23)
+
+
+### Miscellaneous
+
+* **plugins:** instrument client and server plugins ([#311](https://github.com/instill-ai/api-gateway/issues/311)) ([ad6a5d6](https://github.com/instill-ai/api-gateway/commit/ad6a5d6e3784078d67980600955a33494d6db235))
+
 ## [0.35.0](https://github.com/instill-ai/api-gateway/compare/v0.34.1...v0.35.0) (2025-07-14)
 
 
