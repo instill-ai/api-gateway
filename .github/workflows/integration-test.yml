@@ -102,7 +102,7 @@ jobs:
         run: |
           # CFG_COMPONENT_SECRETS_GITHUB* variables are injected to test OAuth
           # connection creation on `pipeline-backend`.
-          make latest EDITION=local-ce:test ENV_SECRETS_COMPONENT=.env.secrets.component.test
+          make compose-dev EDITION=local-ce:test ENV_SECRETS_COMPONENT=.env.secrets.component.test API_GATEWAY_VERSION=${{ env.COMMIT_SHORT_SHA }}
 
       - name: Run ${{ matrix.component }} integration test (commit hash)
         run: |

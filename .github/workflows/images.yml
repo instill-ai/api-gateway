@@ -36,7 +36,7 @@ jobs:
 
       - name: Set short commit SHA
         run: |
-          echo "COMMIT_SHORT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+          echo "COMMIT_SHORT_SHA=$(git rev-parse --short=7 HEAD)" >> $GITHUB_ENV
 
       - name: Build and push (commit hash and latest)
         if: github.ref == 'refs/heads/main'
