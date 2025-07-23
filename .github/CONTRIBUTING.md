@@ -25,7 +25,7 @@ On the local machine, clone the Instill Core project repository in your workspac
 ```bash
 git clone https://github.com/instill-ai/instill-core.git
 cd instill-core
-make latest PROFILE=exclude-api-gateway
+make compose-dev
 ```
 
 Clone `api-gateway` repository in your workspace and move to the repository folder:
@@ -33,6 +33,11 @@ Clone `api-gateway` repository in your workspace and move to the repository fold
 ```bash
 git clone https://github.com/instill-ai/api-gateway.git
 cd api-gateway
+```
+### Remove the existing api-gateway container
+
+```bash
+docker rm -f api-gateway
 ```
 
 ### Build the dev image
