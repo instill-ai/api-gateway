@@ -1,5 +1,5 @@
 {
-  "log_level": "${LOG_LEVEL}",
+  "observe_enabled": "${OBSERVE_ENABLED}",
   "service_version": "${SERVICE_VERSION}",
   "deploy_env": "${DEPLOY_ENV}",
   "otel_collector_host": "${OTEL_COLLECTOR_HOST}",

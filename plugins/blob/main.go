@@ -11,6 +11,10 @@ import (
 	"strings"
 
 	"github.com/luraproject/lura/v2/logging"
+	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
+	"go.opentelemetry.io/otel/attribute"
+	"go.opentelemetry.io/otel/codes"
+	"go.opentelemetry.io/otel/trace"
 )
 
 var pluginName = "blob"
@@ -35,7 +39,28 @@ func (r blob) registerHandlers(ctx context.Context, extra map[string]any, h http
 		return nil, fmt.Errorf("failed to configure handler: %w", err)
 	}
 
+	// Create HTTP client with OpenTelemetry instrumentation
+	httpClient := http.Client{Transport: otelhttp.NewTransport(http.DefaultTransport)}
+
 	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+		// Extract OpenTelemetry context from incoming request
+		otelCtx := req.Context()
+
+		// Create a span for the blob plugin
+		tracer := trace.SpanFromContext(otelCtx).TracerProvider().Tracer("blob")
+		spanCtx, span := tracer.Start(otelCtx, "blob.handle_request",
+			trace.WithAttributes(
+				attribute.String("http.method", req.Method),
+				attribute.String("http.url", req.URL.String()),
+				attribute.String("http.user_agent", req.UserAgent()),
+				attribute.String("plugin.name", pluginName),
+			),
+		)
+		defer span.End()
+
+		// Add span context to request
+		req = req.WithContext(spanCtx)
+
 		parts := strings.Split(req.URL.Path, "/")
 
 		// TODO: we should be able to implement this to directly rely on KrakenD instead of writing our own proxy.
@@ -45,27 +70,71 @@ func (r blob) registerHandlers(ctx context.Context, extra map[string]any, h http
 		// Here in this plugin, we decode the base64 string to the presigned URL
 		// and forward the request to MinIO.
 		if len(parts) > 3 && parts[2] == "blob-urls" {
+			span.SetAttributes(attribute.String("blob.action", "proxy_presigned_url"))
+
+			// Create a child span for presigned URL processing
+			presignedSpanCtx, presignedSpan := tracer.Start(spanCtx, "blob.process_presigned_url",
+				trace.WithAttributes(
+					attribute.String("blob.encoded_url", parts[3]),
+				),
+			)
+			defer presignedSpan.End()
+
 			blobURLBytes, err := base64.URLEncoding.DecodeString(parts[3])
 			if err != nil {
+				presignedSpan.RecordError(err)
+				presignedSpan.SetStatus(codes.Error, err.Error())
+				span.RecordError(err)
+				span.SetStatus(codes.Error, err.Error())
 				return
 			}
+
 			blobURL, err := url.Parse(string(blobURLBytes))
 			if err != nil {
+				presignedSpan.RecordError(err)
+				presignedSpan.SetStatus(codes.Error, err.Error())
+				span.RecordError(err)
+				span.SetStatus(codes.Error, err.Error())
 				return
 			}
+
 			blobURL.Scheme = "http"
 			req.Header.Set("host", blobURL.Host)
 			req.Host = blobURL.Host
 			req.URL = blobURL
 			req.RequestURI = ""
 			req.Header.Del("Authorization")
-			resp, err := http.DefaultClient.Do(req)
 
+			presignedSpan.SetAttributes(
+				attribute.String("blob.target_host", blobURL.Host),
+				attribute.String("blob.target_url", blobURL.String()),
+			)
+
+			// Create a child span for the HTTP request to MinIO
+			httpSpanCtx, httpSpan := tracer.Start(presignedSpanCtx, "blob.http_minio_request",
+				trace.WithAttributes(
+					attribute.String("http.target", blobURL.String()),
+					attribute.String("http.method", req.Method),
+				),
+			)
+			defer httpSpan.End()
+
+			resp, err := httpClient.Do(req.WithContext(httpSpanCtx))
 			if err != nil {
+				httpSpan.RecordError(err)
+				httpSpan.SetStatus(codes.Error, err.Error())
+				presignedSpan.RecordError(err)
+				presignedSpan.SetStatus(codes.Error, err.Error())
+				span.RecordError(err)
+				span.SetStatus(codes.Error, err.Error())
 				http.Error(w, "Failed to proxy request", http.StatusInternalServerError)
 				return
 			}
 			defer resp.Body.Close()
+
+			httpSpan.SetAttributes(attribute.Int("http.status_code", resp.StatusCode))
+			presignedSpan.SetAttributes(attribute.Int("http.status_code", resp.StatusCode))
+			span.SetAttributes(attribute.Int("http.status_code", resp.StatusCode))
 
 			// Copy response headers
 			for k, hs := range resp.Header {
@@ -82,17 +151,23 @@ func (r blob) registerHandlers(ctx context.Context, extra map[string]any, h http
 			// Stream response body
 			_, err = io.Copy(w, resp.Body)
 			if err != nil {
+				presignedSpan.RecordError(err)
+				presignedSpan.SetStatus(codes.Error, err.Error())
+				span.RecordError(err)
+				span.SetStatus(codes.Error, err.Error())
 				logger.Error(logPrefix, "Failed to stream response body:", err)
 			}
 			return
 		}
 
 		if len(parts) < 6 || parts[1] != "v1alpha" || parts[2] != "namespaces" || parts[4] != "blob-urls" {
+			span.SetAttributes(attribute.String("blob.action", "pass_through"))
 			h.ServeHTTP(w, req)
 			return
 		}
 
-		blobHandler.handler(ctx)(w, req)
+		span.SetAttributes(attribute.String("blob.action", "process_blob_request"))
+		blobHandler.handler(spanCtx)(w, req)
 
 	}), nil
 
