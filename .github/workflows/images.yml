@@ -31,8 +31,8 @@ jobs:
       - name: Login to DockerHub
         uses: docker/login-action@v3
         with:
-          username: drop@instill-ai.com
-          password: ${{ secrets.botDockerHubPassword }}
+          username: dropletbot
+          password: ${{ secrets.BOTDOCKERHUBPERSONALACCESSTOKEN }}
 
       - name: Set short commit SHA
         run: |
