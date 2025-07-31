@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.36.0](https://github.com/instill-ai/api-gateway/compare/v0.35.0...v0.36.0) (2025-07-31)
+
+
+### Miscellaneous
+
+* **plugin,otel:** add missing OTEL logics ([#315](https://github.com/instill-ai/api-gateway/issues/315)) ([f326ee6](https://github.com/instill-ai/api-gateway/commit/f326ee6454c6d862fe74a4fda815056d22ed9eaa))
+* **plugins:** instrument client and server plugins ([#311](https://github.com/instill-ai/api-gateway/issues/311)) ([ad6a5d6](https://github.com/instill-ai/api-gateway/commit/ad6a5d6e3784078d67980600955a33494d6db235))
+* release v0.36.0 ([5a728c5](https://github.com/instill-ai/api-gateway/commit/5a728c5bf431f6d9cf9def82a96cdc27d54ab629))
+
 ## [0.35.0](https://github.com/instill-ai/api-gateway/compare/v0.34.1...v0.35.0) (2025-07-14)
 
 
