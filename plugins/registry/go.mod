@@ -27,3 +27,9 @@ require (
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20240812133136-8ffd90a71988 // indirect
 	google.golang.org/protobuf v1.36.3 // indirect
 )
+
+replace golang.org/x/net => golang.org/x/net v0.38.0
+
+replace golang.org/x/sys => golang.org/x/sys v0.31.0
+
+replace golang.org/x/text => golang.org/x/text v0.23.0
