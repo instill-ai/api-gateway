@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.36.1](https://github.com/instill-ai/api-gateway/compare/v0.36.0...v0.36.1) (2025-08-03)
+
+
+### Bug Fixes
+
+* **plugin:** fix registry context auth bug ([#317](https://github.com/instill-ai/api-gateway/issues/317)) ([beb9add](https://github.com/instill-ai/api-gateway/commit/beb9add146e854221752d55d0ff3a969e91530fe))
+
 ## [0.36.0](https://github.com/instill-ai/api-gateway/compare/v0.35.0...v0.36.0) (2025-07-31)
 
 
