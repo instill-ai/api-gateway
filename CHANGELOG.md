@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.36.2](https://github.com/instill-ai/api-gateway/compare/v0.36.1...v0.36.2) (2025-09-02)
+
+
+### Features
+
+* **kbfile:** add status filter to catalog file list ([#319](https://github.com/instill-ai/api-gateway/issues/319)) ([54a4058](https://github.com/instill-ai/api-gateway/commit/54a4058b02b4a4d5ef8868945307fd14f4ec5222))
+
 ## [0.36.1](https://github.com/instill-ai/api-gateway/compare/v0.36.0...v0.36.1) (2025-08-03)
 
 
