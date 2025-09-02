@@ -3568,7 +3568,8 @@
         "input_query_strings": [
           "pageSize",
           "pageToken",
-          "filter.fileUids"
+          "filter.fileUids",
+          "filter.processStatus"
         ]
       },
       {
