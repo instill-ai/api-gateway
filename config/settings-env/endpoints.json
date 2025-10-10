@@ -3561,6 +3561,13 @@
         "input_query_strings": []
       },
       {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/files/{file_uid}/tags",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/files/{file_uid}/tags",
+        "method": "PUT",
+        "timeout": "10s",
+        "input_query_strings": []
+      },
+      {
         "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/files",
         "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/files",
         "method": "GET",
@@ -3787,6 +3794,12 @@
         "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/MoveFileToCatalog",
         "method": "POST",
         "timeout": "600s"
+      },
+      {
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/UpdateCatalogFileTags",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/UpdateCatalogFileTags",
+        "method": "POST",
+        "timeout": "10s"
       },
       {
         "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/GetObjectDownloadURL",
