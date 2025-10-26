@@ -34,7 +34,7 @@
     {{ end }}
     {{ template "cors.tmpl" . }},
     "plugin/http-server": {
-      "name": ["sse-streaming", "multi-auth", "grpc-proxy-server", "registry","blob"],
+      "name": ["sse-streaming", "multi-auth", "grpc-proxy-server", "registry", "blob"],
       "multi-auth":{
         "grpc_server": "{{ .plugins.mgmt_public_hostport }}"
       },
