@@ -1274,7 +1274,9 @@
         "url_pattern": "/v1beta/integrations/{id}",
         "method": "GET",
         "timeout": "30s",
-        "input_query_strings": ["view"]
+        "input_query_strings": [
+          "view"
+        ]
       },
       {
         "endpoint": "/v1beta/namespaces/{namespace_id}/connections",
@@ -1331,7 +1333,9 @@
         "url_pattern": "/v1beta/namespaces/{namespace_id}/connections/{connection_id}",
         "method": "GET",
         "timeout": "30s",
-        "input_query_strings": ["view"]
+        "input_query_strings": [
+          "view"
+        ]
       }
     ],
     "no_auth": [
@@ -3509,166 +3513,125 @@
     ],
     "http_auth": [
       {
-        "endpoint": "/v1alpha/repositories/{namespace}/{id}/tags",
-        "url_pattern": "/v1alpha/repositories/{namespace}/{id}/tags",
-        "method": "GET",
-        "timeout": "30s",
-        "input_query_strings": [
-          "pageSize",
-          "page"
-        ]
-      },
-      {
-        "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs",
-        "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs",
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/knowledge-bases",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/knowledge-bases",
         "method": "POST",
         "timeout": "10s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs",
-        "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs",
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}",
         "method": "GET",
         "timeout": "10s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}",
-        "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}",
-        "method": "PUT",
-        "timeout": "10s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}",
-        "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}",
-        "method": "DELETE",
-        "timeout": "10s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/files",
-        "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/files",
-        "method": "POST",
-        "timeout": "600s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/files:move",
-        "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/files:move",
-        "method": "POST",
-        "timeout": "600s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/files/{file_uid}/tags",
-        "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/files/{file_uid}/tags",
-        "method": "PUT",
-        "timeout": "10s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/files",
-        "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/files",
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/knowledge-bases",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/knowledge-bases",
         "method": "GET",
         "timeout": "10s",
         "input_query_strings": [
           "pageSize",
           "pageToken",
-          "filter.fileUids",
-          "filter.processStatus"
+          "filter"
         ]
       },
       {
-        "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/files/{file_uid}",
-        "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/files/{file_uid}",
-        "method": "GET",
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}",
+        "method": "PUT",
         "timeout": "10s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/catalogs/files",
-        "url_pattern": "/v1alpha/catalogs/files",
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}",
         "method": "DELETE",
         "timeout": "10s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}/files",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}/files",
+        "method": "POST",
+        "timeout": "600s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}/files/{file_id}",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}/files/{file_id}",
+        "method": "GET",
+        "timeout": "10s",
         "input_query_strings": [
-          "fileUid"
+          "view"
         ]
       },
       {
-        "endpoint": "/v1alpha/catalogs/files/processAsync",
-        "url_pattern": "/v1alpha/catalogs/files/processAsync",
-        "method": "POST",
-        "timeout": "10s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/chunks",
-        "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/chunks",
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}/files",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}/files",
         "method": "GET",
         "timeout": "10s",
         "input_query_strings": [
-          "fileUid",
-          "chunkUids"
+          "pageSize",
+          "pageToken",
+          "filter"
         ]
       },
       {
-        "endpoint": "/v1alpha/namespaces/{namespace_id}/chunks",
-        "url_pattern": "/v1alpha/namespaces/{namespace_id}/chunks",
-        "method": "GET",
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}/files/{file_id}",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}/files/{file_id}",
+        "method": "PATCH",
         "timeout": "10s",
-        "input_query_strings": ["chunkUids"]
+        "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/files/{file_uid}/source",
-        "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/files/{file_uid}/source",
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}/files/{file_id}",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}/files/{file_id}",
+        "method": "DELETE",
+        "timeout": "60s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}/files/{file_id}/chunks/{chunk_id}",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}/files/{file_id}/chunks/{chunk_id}",
         "method": "GET",
         "timeout": "10s",
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/files/{file_uid}/summary",
-        "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/files/{file_uid}/summary",
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}/files/{file_id}/chunks",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}/files/{file_id}/chunks",
         "method": "GET",
         "timeout": "10s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/namespaces/{namespace_id}/source-files",
-        "url_pattern": "/v1alpha/namespaces/{namespace_id}/source-files",
-        "method": "GET",
-        "timeout": "10s",
-        "input_query_strings": ["fileUids"]
-      },
-      {
-        "endpoint": "/v1alpha/chunks/{chunk_uid}",
-        "url_pattern": "/v1alpha/chunks/{chunk_uid}",
-        "method": "POST",
-        "timeout": "10s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/chunks/retrieve",
-        "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/chunks/retrieve",
-        "method": "POST",
-        "timeout": "30s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/ask",
-        "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}/ask",
-        "method": "POST",
-        "timeout": "30s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}",
-        "url_pattern": "/v1alpha/namespaces/{namespace_id}/catalogs/{catalog_id}",
-        "method": "GET",
-        "timeout": "30s",
         "input_query_strings": [
-          "fileId",
-          "fileUid"
+          "pageSize",
+          "pageToken",
+          "filter"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}/chunks/{chunk_id}",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}/chunks/{chunk_id}",
+        "method": "PATCH",
+        "timeout": "10s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}/searchChunks",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}/searchChunks",
+        "method": "POST",
+        "timeout": "30s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}/runs",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}/runs",
+        "method": "GET",
+        "timeout": "10s",
+        "input_query_strings": [
+          "pageSize",
+          "pageToken"
         ]
       },
       {
@@ -3676,68 +3639,90 @@
         "url_pattern": "/v1alpha/namespaces/{namespace_id}/object-upload-url",
         "method": "GET",
         "timeout": "30s",
-        "input_query_strings": ["objectName", "urlExpireDays","lastModifiedTime","contentType","objectExpireDays"]
+        "input_query_strings": [
+          "objectName",
+          "urlExpireDays",
+          "lastModifiedTime",
+          "contentType",
+          "objectExpireDays"
+        ]
       },
       {
         "endpoint": "/v1alpha/namespaces/{namespace_id}/object-download-url",
         "url_pattern": "/v1alpha/namespaces/{namespace_id}/object-download-url",
         "method": "GET",
         "timeout": "30s",
-        "input_query_strings": ["objectUid","objectName","urlExpireDays"]
+        "input_query_strings": [
+          "objectUid",
+          "objectName",
+          "urlExpireDays"
+        ]
       }
     ],
     "grpc_auth": [
       {
-        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/CreateCatalog",
-        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/CreateCatalog",
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/CreateKnowledgeBase",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/CreateKnowledgeBase",
         "method": "POST",
         "timeout": "10s"
       },
       {
-        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/ListCatalogs",
-        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/ListCatalogs",
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/GetKnowledgeBase",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/GetKnowledgeBase",
         "method": "POST",
         "timeout": "10s"
       },
       {
-        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/UpdateCatalog",
-        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/UpdateCatalog",
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/ListKnowledgeBases",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/ListKnowledgeBases",
         "method": "POST",
         "timeout": "10s"
       },
       {
-        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/DeleteCatalog",
-        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/DeleteCatalog",
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/UpdateKnowledgeBase",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/UpdateKnowledgeBase",
         "method": "POST",
         "timeout": "10s"
       },
       {
-        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/UploadCatalogFile",
-        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/UploadCatalogFile",
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/DeleteKnowledgeBase",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/DeleteKnowledgeBase",
+        "method": "POST",
+        "timeout": "10s"
+      },
+      {
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/CreateFile",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/CreateFile",
+        "method": "POST",
+        "timeout": "600s"
+      },
+      {
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/GetFile",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/GetFile",
+        "method": "POST",
+        "timeout": "10s"
+      },
+      {
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/ListFiles",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/ListFiles",
+        "method": "POST",
+        "timeout": "10s"
+      },
+      {
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/UpdateFile",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/UpdateFile",
+        "method": "POST",
+        "timeout": "10s"
+      },
+      {
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/DeleteFile",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/DeleteFile",
         "method": "POST",
         "timeout": "60s"
       },
       {
-        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/DeleteCatalogFile",
-        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/DeleteCatalogFile",
-        "method": "POST",
-        "timeout": "60s"
-      },
-      {
-        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/ProcessCatalogFiles",
-        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/ProcessCatalogFiles",
-        "method": "POST",
-        "timeout": "10s"
-      },
-      {
-        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/ListCatalogFiles",
-        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/ListCatalogFiles",
-        "method": "POST",
-        "timeout": "10s"
-      },
-      {
-        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/GetCatalogFile",
-        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/GetCatalogFile",
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/GetChunk",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/GetChunk",
         "method": "POST",
         "timeout": "10s"
       },
@@ -3748,40 +3733,22 @@
         "timeout": "10s"
       },
       {
-        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/GetSourceFile",
-        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/GetSourceFile",
-        "method": "POST",
-        "timeout": "10s"
-      },
-      {
-        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/GetFileSummary",
-        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/GetFileSummary",
-        "method": "POST",
-        "timeout": "10s"
-      },
-      {
         "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/UpdateChunk",
         "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/UpdateChunk",
         "method": "POST",
         "timeout": "10s"
       },
       {
-        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/SimilarityChunksSearch",
-        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/SimilarityChunksSearch",
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/SearchChunks",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/SearchChunks",
         "method": "POST",
         "timeout": "30s"
       },
       {
-        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/QuestionAnswering",
-        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/QuestionAnswering",
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/ListKnowledgeBaseRuns",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/ListKnowledgeBaseRuns",
         "method": "POST",
-        "timeout": "30s"
-      },
-      {
-        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/GetFileCatalog",
-        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/GetFileCatalog",
-        "method": "POST",
-        "timeout": "30s"
+        "timeout": "10s"
       },
       {
         "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/GetObjectUploadURL",
@@ -3790,34 +3757,10 @@
         "timeout": "600s"
       },
       {
-        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/MoveFileToCatalog",
-        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/MoveFileToCatalog",
-        "method": "POST",
-        "timeout": "600s"
-      },
-      {
-        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/UpdateCatalogFileTags",
-        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/UpdateCatalogFileTags",
-        "method": "POST",
-        "timeout": "10s"
-      },
-      {
         "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/GetObjectDownloadURL",
         "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/GetObjectDownloadURL",
         "method": "POST",
         "timeout": "30s"
-      },
-      {
-        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/SearchChunks",
-        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/SearchChunks",
-        "method": "POST",
-        "timeout": "10s"
-      },
-      {
-        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/SearchSourceFiles",
-        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/SearchSourceFiles",
-        "method": "POST",
-        "timeout": "10s"
       }
     ],
     "grpc_no_auth": [

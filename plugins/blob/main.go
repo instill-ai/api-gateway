@@ -99,7 +99,6 @@ func (r blob) registerHandlers(ctx context.Context, extra map[string]any, h http
 			}
 
 			blobURL.Scheme = "http"
-			req.Header.Set("host", blobURL.Host)
 			req.Host = blobURL.Host
 			req.URL = blobURL
 			req.RequestURI = ""
