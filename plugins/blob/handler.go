@@ -90,7 +90,7 @@ func (rh *blobHandler) handler(ctx context.Context) http.HandlerFunc {
 			rh.handleError(req, w, err)
 			return
 		}
-		objectURLInfo, err := rh.artifactPrivateClient.GetObjectURL(ctx, &artifactpb.GetObjectURLRequest{
+		objectURLInfo, err := rh.artifactPrivateClient.GetObjectURLAdmin(ctx, &artifactpb.GetObjectURLAdminRequest{
 			Uid: objectURLUID,
 		})
 		if err != nil {
@@ -107,7 +107,7 @@ func (rh *blobHandler) handler(ctx context.Context) http.HandlerFunc {
 		// }
 
 		// get object info
-		object, err := rh.artifactPrivateClient.GetObject(ctx, &artifactpb.GetObjectRequest{
+		object, err := rh.artifactPrivateClient.GetObjectAdmin(ctx, &artifactpb.GetObjectAdminRequest{
 			Uid: objectURLInfo.ObjectUrl.GetObjectUid(),
 		})
 		if err != nil {
@@ -247,7 +247,7 @@ func upload(ctx context.Context, req *http.Request, w http.ResponseWriter, rh *b
 		)
 		isUploaded := true
 		contentType := req.Header.Get("Content-Type")
-		grpcReq := &artifactpb.UpdateObjectRequest{
+		grpcReq := &artifactpb.UpdateObjectAdminRequest{
 			Uid:        objectURL.GetObjectUid(),
 			Size:       &byteCounter,
 			IsUploaded: &isUploaded,
@@ -264,7 +264,7 @@ func upload(ctx context.Context, req *http.Request, w http.ResponseWriter, rh *b
 				grpcReq.LastModifiedTime = timestamppb.New(lastModifiedTime)
 			}
 		}
-		_, err = rh.artifactPrivateClient.UpdateObject(ctx, grpcReq)
+		_, err = rh.artifactPrivateClient.UpdateObjectAdmin(ctx, grpcReq)
 		if err != nil {
 			logError(req, "failed to update object info", err)
 			rh.handleError(req, w, err)

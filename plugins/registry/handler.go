@@ -17,7 +17,6 @@ import (
 	grpccodes "google.golang.org/grpc/codes"
 	grpcstatus "google.golang.org/grpc/status"
 
-	artifactpb "github.com/instill-ai/protogen-go/artifact/artifact/v1alpha"
 	mgmtpb "github.com/instill-ai/protogen-go/core/mgmt/v1beta"
 	modelpb "github.com/instill-ai/protogen-go/model/model/v1alpha"
 )
@@ -41,22 +40,20 @@ import (
 var urlRegexp = regexp.MustCompile(`/v2/(([^/]+)/([^/]+))/(blobs|manifests)/(.*)`)
 
 type registryHandler struct {
-	mgmtPublicClient      mgmtpb.MgmtPublicServiceClient
-	mgmtPrivateClient     mgmtpb.MgmtPrivateServiceClient
-	modelPublicClient     modelpb.ModelPublicServiceClient
-	modelPrivateClient    modelpb.ModelPrivateServiceClient
-	artifactPrivateClient artifactpb.ArtifactPrivateServiceClient
+	mgmtPublicClient   mgmtpb.MgmtPublicServiceClient
+	mgmtPrivateClient  mgmtpb.MgmtPrivateServiceClient
+	modelPublicClient  modelpb.ModelPublicServiceClient
+	modelPrivateClient modelpb.ModelPrivateServiceClient
 
 	registryAddr string
 }
 
 func newRegistryHandler(config map[string]any) (*registryHandler, error) {
 	var (
-		mgmtPublicAddr      string
-		mgmtPrivateAddr     string
-		modelPublicAddr     string
-		modelPrivateAddr    string
-		artifactPrivateAddr string
+		mgmtPublicAddr   string
+		mgmtPrivateAddr  string
+		modelPublicAddr  string
+		modelPrivateAddr string
 	)
 	var ok bool
 	var rh registryHandler
@@ -76,9 +73,6 @@ func newRegistryHandler(config map[string]any) (*registryHandler, error) {
 	if modelPrivateAddr, ok = config["model_private_hostport"].(string); !ok {
 		return nil, fmt.Errorf("invalid model private address")
 	}
-	if artifactPrivateAddr, ok = config["artifact_private_hostport"].(string); !ok {
-		return nil, fmt.Errorf("invalid artifact private address")
-	}
 
 	mgmtPublicConn, err := newGRPCConn(mgmtPublicAddr, "", "")
 	if err != nil {
@@ -96,16 +90,11 @@ func newRegistryHandler(config map[string]any) (*registryHandler, error) {
 	if err != nil {
 		return nil, fmt.Errorf("failed to connect with model-backend: %w", err)
 	}
-	artifactPrivateConn, err := newGRPCConn(artifactPrivateAddr, "", "")
-	if err != nil {
-		return nil, fmt.Errorf("failed to connect with artifact-backend: %w", err)
-	}
 
 	rh.mgmtPublicClient = mgmtpb.NewMgmtPublicServiceClient(mgmtPublicConn)
 	rh.mgmtPrivateClient = mgmtpb.NewMgmtPrivateServiceClient(mgmtPrivateConn)
 	rh.modelPublicClient = modelpb.NewModelPublicServiceClient(modelPublicConn)
 	rh.modelPrivateClient = modelpb.NewModelPrivateServiceClient(modelPrivateConn)
-	rh.artifactPrivateClient = artifactpb.NewArtifactPrivateServiceClient(artifactPrivateConn)
 
 	return &rh, nil
 }
@@ -377,19 +366,19 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 	if req.Method == http.MethodPut && resourceType == "manifests" && resp.StatusCode == http.StatusCreated {
 		digest := resp.Header.Get("Docker-Content-Digest")
 
-		createTagReq := &artifactpb.CreateRepositoryTagRequest{
-			Tag: &artifactpb.RepositoryTag{
+		createTagReq := &modelpb.CreateRepositoryTagRequest{
+			Tag: &modelpb.RepositoryTag{
 				Digest: digest,
 				Name:   fmt.Sprintf("repositories/%s/tags/%s", repository, resourceID),
 				Id:     resourceID,
 			},
 		}
-		if _, err := rh.artifactPrivateClient.CreateRepositoryTag(ctx, createTagReq); err != nil {
+		if _, err := rh.modelPrivateClient.CreateRepositoryTag(ctx, createTagReq); err != nil {
 			rh.handleError(req, w, fmt.Errorf("creating tag: %w", err))
 			return
 		}
 
-		// Deploy model.The previous operations are idempotent so it should be
+		// Deploy model. The previous operations are idempotent so it should be
 		// safe to repeat them if we fail here.
 		//
 		// TODO in the future the registry will handle more than model images,
