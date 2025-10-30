@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.36.3](https://github.com/instill-ai/api-gateway/compare/v0.36.2...v0.36.3) (2025-10-30)
+
+
+### Features
+
+* **artifact:** add tag update endpoint ([#321](https://github.com/instill-ai/api-gateway/issues/321)) ([044c6e0](https://github.com/instill-ai/api-gateway/commit/044c6e0d82b20e1b2d59822e3c460aba9bec6122))
+
+
+### Bug Fixes
+
+* **blob-plugin:** remove redundant Host header setting to fix presigned URL validation and update artifact endpoints ([#323](https://github.com/instill-ai/api-gateway/issues/323)) ([f86e6a9](https://github.com/instill-ai/api-gateway/commit/f86e6a958098b28e4a3030260c826f5765fab11a))
+
+
+### Refactor
+
+* **registry:** migrate repository tag management to model-backend ([#324](https://github.com/instill-ai/api-gateway/issues/324)) ([4e26462](https://github.com/instill-ai/api-gateway/commit/4e26462b3dca6185c56929dee1274aba58e713fe))
+
 ## [0.36.2](https://github.com/instill-ai/api-gateway/compare/v0.36.1...v0.36.2) (2025-09-02)
 
 
