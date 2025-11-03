@@ -3593,6 +3593,13 @@
         "input_query_strings": []
       },
       {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}/files/{file_id}/reprocess",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}/files/{file_id}/reprocess",
+        "method": "POST",
+        "timeout": "60s",
+        "input_query_strings": []
+      },
+      {
         "endpoint": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}/files/{file_id}/chunks/{chunk_id}",
         "url_pattern": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}/files/{file_id}/chunks/{chunk_id}",
         "method": "GET",
@@ -3717,6 +3724,12 @@
       {
         "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/DeleteFile",
         "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/DeleteFile",
+        "method": "POST",
+        "timeout": "60s"
+      },
+      {
+        "endpoint": "/artifact.artifact.v1alpha.ArtifactPublicService/ReprocessFile",
+        "url_pattern": "/artifact.artifact.v1alpha.ArtifactPublicService/ReprocessFile",
         "method": "POST",
         "timeout": "60s"
       },
