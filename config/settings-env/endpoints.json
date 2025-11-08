@@ -3564,7 +3564,8 @@
         "method": "GET",
         "timeout": "10s",
         "input_query_strings": [
-          "view"
+          "view",
+          "storage_provider"
         ]
       },
       {
