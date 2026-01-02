@@ -99,7 +99,7 @@
       {
         "endpoint": "/v1beta/users/{user_id}/memberships/{organization_id}",
         "url_pattern": "/v1beta/users/{user_id}/memberships/{organization_id}",
-        "method": "PUT",
+        "method": "PATCH",
         "timeout": "30s",
         "input_query_strings": []
       },
@@ -165,7 +165,7 @@
       {
         "endpoint": "/v1beta/organizations/{organization_id}/memberships/{user_id}",
         "url_pattern": "/v1beta/organizations/{organization_id}/memberships/{user_id}",
-        "method": "PUT",
+        "method": "PATCH",
         "timeout": "30s",
         "input_query_strings": []
       },
@@ -3540,7 +3540,7 @@
       {
         "endpoint": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}",
         "url_pattern": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}",
-        "method": "PUT",
+        "method": "PATCH",
         "timeout": "10s",
         "input_query_strings": []
       },
