@@ -28,7 +28,8 @@
     "Instill-Share-Code",
     "Instill-Requester-Uid",
     "Instill-Share-Code",
-    "Instill-User-Agent"
+    "Instill-User-Agent",
+    "Instill-Operation-Source"
   ],
   "webhook": [
     "*"
@@ -60,7 +61,8 @@
     "Instill-Visitor-Uid",
     "Instill-Return-Traces",
     "Instill-Share-Code",
-    "Instill-Requester-Uid"
+    "Instill-Requester-Uid",
+    "Instill-Operation-Source"
   ],
   "grpc_no_auth": [
     "Content-Type",
