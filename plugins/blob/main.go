@@ -80,13 +80,22 @@ func (r blob) registerHandlers(ctx context.Context, extra map[string]any, h http
 			)
 			defer presignedSpan.End()
 
-			blobURLBytes, err := base64.URLEncoding.DecodeString(parts[3])
+			// Try to decode with URLEncoding first (with padding)
+			// If that fails, try RawURLEncoding (without padding) as fallback
+			// This handles cases where padding might be stripped by browsers
+			encodedURL := parts[3]
+			blobURLBytes, err := base64.URLEncoding.DecodeString(encodedURL)
 			if err != nil {
-				presignedSpan.RecordError(err)
-				presignedSpan.SetStatus(codes.Error, err.Error())
-				span.RecordError(err)
-				span.SetStatus(codes.Error, err.Error())
-				return
+				// Try RawURLEncoding which doesn't require padding
+				blobURLBytes, err = base64.RawURLEncoding.DecodeString(encodedURL)
+				if err != nil {
+					presignedSpan.RecordError(err)
+					presignedSpan.SetStatus(codes.Error, err.Error())
+					span.RecordError(err)
+					span.SetStatus(codes.Error, err.Error())
+					http.Error(w, "Failed to decode blob URL: "+err.Error(), http.StatusBadRequest)
+					return
+				}
 			}
 
 			blobURL, err := url.Parse(string(blobURLBytes))
@@ -95,14 +104,11 @@ func (r blob) registerHandlers(ctx context.Context, extra map[string]any, h http
 				presignedSpan.SetStatus(codes.Error, err.Error())
 				span.RecordError(err)
 				span.SetStatus(codes.Error, err.Error())
+				http.Error(w, "Failed to parse blob URL: "+err.Error(), http.StatusBadRequest)
 				return
 			}
 
 			blobURL.Scheme = "http"
-			req.Host = blobURL.Host
-			req.URL = blobURL
-			req.RequestURI = ""
-			req.Header.Del("Authorization")
 
 			presignedSpan.SetAttributes(
 				attribute.String("blob.target_host", blobURL.Host),
@@ -118,7 +124,34 @@ func (r blob) registerHandlers(ctx context.Context, extra map[string]any, h http
 			)
 			defer httpSpan.End()
 
-			resp, err := httpClient.Do(req.WithContext(httpSpanCtx))
+			// Create a NEW request instead of reusing the original to avoid
+			// passing unwanted headers to MinIO. For PUT/POST requests, forward the body.
+			newReq, err := http.NewRequestWithContext(httpSpanCtx, req.Method, blobURL.String(), req.Body)
+			if err != nil {
+				httpSpan.RecordError(err)
+				httpSpan.SetStatus(codes.Error, err.Error())
+				http.Error(w, "Failed to create request", http.StatusInternalServerError)
+				return
+			}
+
+			// For PUT/POST requests, set Content-Length from original request
+			if req.ContentLength > 0 {
+				newReq.ContentLength = req.ContentLength
+			}
+
+			// Only copy safe headers that MinIO might need
+			if accept := req.Header.Get("Accept"); accept != "" {
+				newReq.Header.Set("Accept", accept)
+			}
+			if acceptEncoding := req.Header.Get("Accept-Encoding"); acceptEncoding != "" {
+				newReq.Header.Set("Accept-Encoding", acceptEncoding)
+			}
+			// Forward Content-Type for PUT/POST requests (important for file uploads)
+			if contentType := req.Header.Get("Content-Type"); contentType != "" {
+				newReq.Header.Set("Content-Type", contentType)
+			}
+
+			resp, err := httpClient.Do(newReq)
 			if err != nil {
 				httpSpan.RecordError(err)
 				httpSpan.SetStatus(codes.Error, err.Error())

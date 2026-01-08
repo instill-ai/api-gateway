@@ -83,100 +83,6 @@
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1beta/users/{user_id}/memberships",
-        "url_pattern": "/v1beta/users/{user_id}/memberships",
-        "method": "GET",
-        "timeout": "30s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1beta/users/{user_id}/memberships/{organization_id}",
-        "url_pattern": "/v1beta/users/{user_id}/memberships/{organization_id}",
-        "method": "GET",
-        "timeout": "30s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1beta/users/{user_id}/memberships/{organization_id}",
-        "url_pattern": "/v1beta/users/{user_id}/memberships/{organization_id}",
-        "method": "PATCH",
-        "timeout": "30s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1beta/users/{user_id}/memberships/{organization_id}",
-        "url_pattern": "/v1beta/users/{user_id}/memberships/{organization_id}",
-        "method": "DELETE",
-        "timeout": "30s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1beta/organizations",
-        "url_pattern": "/v1beta/organizations",
-        "method": "POST",
-        "timeout": "30s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1beta/organizations",
-        "url_pattern": "/v1beta/organizations",
-        "method": "GET",
-        "timeout": "30s",
-        "input_query_strings": [
-          "pageSize",
-          "pageToken"
-        ]
-      },
-      {
-        "endpoint": "/v1beta/organizations/{organization_id}",
-        "url_pattern": "/v1beta/organizations/{organization_id}",
-        "method": "GET",
-        "timeout": "30s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1beta/organizations/{organization_id}",
-        "url_pattern": "/v1beta/organizations/{organization_id}",
-        "method": "PATCH",
-        "timeout": "30s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1beta/organizations/{organization_id}",
-        "url_pattern": "/v1beta/organizations/{organization_id}",
-        "method": "DELETE",
-        "timeout": "30s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1beta/organizations/{organization_id}/memberships",
-        "url_pattern": "/v1beta/organizations/{organization_id}/memberships",
-        "method": "GET",
-        "timeout": "30s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1beta/organizations/{organization_id}/memberships/{user_id}",
-        "url_pattern": "/v1beta/organizations/{organization_id}/memberships/{user_id}",
-        "method": "GET",
-        "timeout": "30s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1beta/organizations/{organization_id}/memberships/{user_id}",
-        "url_pattern": "/v1beta/organizations/{organization_id}/memberships/{user_id}",
-        "method": "PATCH",
-        "timeout": "30s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1beta/organizations/{organization_id}/memberships/{user_id}",
-        "url_pattern": "/v1beta/organizations/{organization_id}/memberships/{user_id}",
-        "method": "DELETE",
-        "timeout": "30s",
-        "input_query_strings": []
-      },
-      {
         "endpoint": "/v1beta/tokens",
         "url_pattern": "/v1beta/tokens",
         "method": "POST",
@@ -311,13 +217,6 @@
       {
         "endpoint": "/v1beta/users/{user_id}/avatar",
         "url_pattern": "/v1beta/users/{user_id}/avatar",
-        "method": "GET",
-        "timeout": "30s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1beta/organizations/{organization_id}/avatar",
-        "url_pattern": "/v1beta/organizations/{organization_id}/avatar",
         "method": "GET",
         "timeout": "30s",
         "input_query_strings": []
@@ -3542,7 +3441,9 @@
         "url_pattern": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}",
         "method": "PATCH",
         "timeout": "10s",
-        "input_query_strings": []
+        "input_query_strings": [
+          "updateMask"
+        ]
       },
       {
         "endpoint": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}",
