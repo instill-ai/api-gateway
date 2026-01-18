@@ -18,7 +18,7 @@ import (
 	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/grpc/metadata"
 
-	mgmtPB "github.com/instill-ai/protogen-go/core/mgmt/v1beta"
+	mgmtPB "github.com/instill-ai/protogen-go/mgmt/v1beta"
 )
 
 // pluginName is the plugin name

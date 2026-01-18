@@ -1,6 +1,6 @@
 module sse_streaming_plugin
 
-go 1.24.4
+go 1.25.6
 
 require (
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.53.0
