@@ -17,8 +17,8 @@ import (
 	grpccodes "google.golang.org/grpc/codes"
 	grpcstatus "google.golang.org/grpc/status"
 
-	mgmtpb "github.com/instill-ai/protogen-go/core/mgmt/v1beta"
-	modelpb "github.com/instill-ai/protogen-go/model/model/v1alpha"
+	mgmtpb "github.com/instill-ai/protogen-go/mgmt/v1beta"
+	modelpb "github.com/instill-ai/protogen-go/model/v1alpha"
 )
 
 // urlRegexp will be applied to the paths involved in pushing an image. It
@@ -206,7 +206,7 @@ func (rh *registryHandler) login(ctx context.Context, p registryHandlerParams) {
 	defer loginSpan.End()
 
 	// Check if the login username is the same with the user id retrieved from the token validation response
-	lookupReq := &mgmtpb.LookUpUserAdminRequest{UserUid: p.userUID}
+	lookupReq := &mgmtpb.LookUpUserAdminRequest{Permalink: fmt.Sprintf("users/%s", p.userUID)}
 
 	// Create a child span for the gRPC call
 	_, grpcSpan := tracer.Start(loginSpanCtx, "registry.grpc_lookup_user_admin",
@@ -280,54 +280,12 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 		attribute.String("registry.resource_id", resourceID),
 	)
 
-	// If the username and the namespace is not the same, check if the
-	// namespace is an organization name where the user has the membership.
+	// In CE edition, organizations don't exist, so if namespace != userID, deny access.
+	// In EE edition, this would check organization membership via ListUserMemberships.
 	if namespace != p.userID {
-		// Create a child span for membership check
-		_, membershipSpan := tracer.Start(ctx, "registry.check_membership",
-			trace.WithAttributes(
-				attribute.String("registry.action", "check_organization_membership"),
-			),
-		)
-		defer membershipSpan.End()
-
-		authCtx := withUserUIDAuth(ctx, p.userUID)
-
-		// Create a child span for the gRPC call
-		_, grpcSpan := tracer.Start(ctx, "registry.grpc_list_user_memberships",
-			trace.WithAttributes(
-				attribute.String("grpc.method", "ListUserMemberships"),
-				attribute.String("grpc.service", "mgmtpb.MgmtPublicService"),
-			),
-		)
-		defer grpcSpan.End()
-
-		resp, err := rh.mgmtPublicClient.ListUserMemberships(authCtx, &mgmtpb.ListUserMembershipsRequest{UserId: p.userID})
-		if err != nil {
-			grpcSpan.RecordError(err)
-			grpcSpan.SetStatus(codes.Error, err.Error())
-			membershipSpan.RecordError(err)
-			membershipSpan.SetStatus(codes.Error, err.Error())
-			rh.handleError(req, w, fmt.Errorf("checking organization: %w", err))
-			return
-		}
-
-		isValid := false
-		for _, membership := range resp.Memberships {
-			if namespace == membership.Organization.Id && membership.State == mgmtpb.MembershipState_MEMBERSHIP_STATE_ACTIVE {
-				isValid = true
-				break
-			}
-		}
-
-		if !isValid {
-			membershipSpan.SetAttributes(attribute.String("auth.error", "no_organization_membership"))
-			membershipSpan.SetStatus(codes.Error, "No valid organization membership")
-			rh.handleError(req, w, authErr)
-			return
-		}
-
-		membershipSpan.SetAttributes(attribute.String("auth.result", "valid_membership"))
+		// CE edition: deny access to namespaces that don't belong to the user
+		rh.handleError(req, w, authErr)
+		return
 	}
 
 	// Check the existence of the model namespace before continuing with the push.
@@ -338,8 +296,7 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 		var err error
 
 		_, err = rh.modelPublicClient.GetNamespaceModel(authCtx, &modelpb.GetNamespaceModelRequest{
-			NamespaceId: namespace,
-			ModelId:     contentID,
+			Name: fmt.Sprintf("namespaces/%s/models/%s", namespace, contentID),
 		})
 		if err != nil {
 			switch grpcstatus.Convert(err).Code() {

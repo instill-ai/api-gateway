@@ -1,10 +1,10 @@
 module multi_auth_plugin
 
-go 1.24.4
+go 1.25.6
 
 require (
 	github.com/gofrs/uuid/v5 v5.3.2
-	github.com/instill-ai/protogen-go v0.3.3-alpha.0.20251029195138-d623a821ff95
+	github.com/instill-ai/protogen-go v0.3.3-alpha.0.20260118003146-5bd5d4129f45
 	github.com/luraproject/lura/v2 v2.10.0
 	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.53.0
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.53.0
