@@ -8,13 +8,12 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/luraproject/lura/v2/logging"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/codes"
 	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/grpc/metadata"
 
-	mgmtPB "github.com/instill-ai/protogen-go/core/mgmt/v1beta"
+	mgmtPB "github.com/instill-ai/protogen-go/mgmt/v1beta"
 )
 
 // pluginName is the plugin name
@@ -74,30 +73,22 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]any, 
 		req = req.WithContext(spanCtx)
 
 		authorization := req.Header.Get("Authorization")
+		urlPath := req.URL.Path
 
-		// Skip auth for health check endpoint
-		if req.URL.String() == "/__health" {
-			span.SetAttributes(attribute.String("auth.skip_reason", "health_check"))
+		// Public endpoints that don't require authentication
+		isPublicEndpoint := urlPath == "/__health" ||
+			urlPath == "/v1beta/validate-token" ||
+			urlPath == "/v1beta/auth/login" ||
+			strings.Contains(urlPath, "/health/") ||
+			strings.Contains(urlPath, "/ready/") ||
+			strings.HasSuffix(urlPath, "/Liveness") ||
+			strings.HasSuffix(urlPath, "/Readiness")
+
+		if isPublicEndpoint {
+			span.SetAttributes(attribute.String("auth.skip_reason", "public_endpoint"))
+			span.SetAttributes(attribute.String("auth.public_path", urlPath))
 			h.ServeHTTP(w, req)
-			return
-		}
-
-		// Skip auth for token validation endpoint
-		if req.URL.String() == "/v1beta/validate_token" {
-			span.SetAttributes(attribute.String("auth.skip_reason", "validate_token_endpoint"))
-			h.ServeHTTP(w, req)
-			return
-		}
-
-		// Skip auth for login endpoint
-		if req.URL.String() == "/v1beta/auth/login" {
-			span.SetAttributes(attribute.String("auth.skip_reason", "login_endpoint"))
-			h.ServeHTTP(w, req)
-			return
-		}
-
-		// Basic Auth: Username/password validated via AuthTokenIssuer gRPC
-		if strings.HasPrefix(authorization, "Basic ") || strings.HasPrefix(authorization, "basic ") {
+		} else if strings.HasPrefix(authorization, "Basic ") || strings.HasPrefix(authorization, "basic ") {
 			// Create a child span for basic auth processing
 			basicAuthSpanCtx, basicAuthSpan := tracer.Start(spanCtx, "simple-auth.basic_auth",
 				trace.WithAttributes(
@@ -144,20 +135,16 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]any, 
 			req.Header.Set("Instill-Auth-Type", "user")
 			req.Header.Set("Instill-User-Uid", resp.AccessToken.Sub)
 			h.ServeHTTP(w, req)
-			return
-		}
 
-		// Bearer instill_sk_*: API key tokens validated via ValidateToken gRPC
-		if strings.HasPrefix(authorization, "Bearer instill_sk_") || strings.HasPrefix(authorization, "bearer instill_sk_") {
-			// Create a child span for bearer token processing
+		} else if strings.HasPrefix(authorization, "Bearer instill_sk_") || strings.HasPrefix(authorization, "bearer instill_sk_") {
+			// API key validation via mgmt-backend
 			bearerSpanCtx, bearerSpan := tracer.Start(spanCtx, "simple-auth.bearer_token",
 				trace.WithAttributes(
-					attribute.String("auth.type", "bearer_instill_sk"),
+					attribute.String("auth.type", "bearer_api_key"),
 				),
 			)
 			defer bearerSpan.End()
 
-			// Create a child span for the gRPC call
 			grpcSpanCtx, grpcSpan := tracer.Start(bearerSpanCtx, "simple-auth.grpc_validate_token",
 				trace.WithAttributes(
 					attribute.String("grpc.method", "ValidateToken"),
@@ -166,8 +153,8 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]any, 
 			)
 			defer grpcSpan.End()
 
-			grpcCtx := metadata.AppendToOutgoingContext(grpcSpanCtx, "Authorization", req.Header.Get("authorization"))
-			resp, err := mgmtClient.ValidateToken(grpcCtx, &mgmtPB.ValidateTokenRequest{})
+			ctx = metadata.AppendToOutgoingContext(grpcSpanCtx, "Authorization", req.Header.Get("authorization"))
+			resp, err := mgmtClient.ValidateToken(ctx, &mgmtPB.ValidateTokenRequest{})
 			if err != nil {
 				grpcSpan.RecordError(err)
 				grpcSpan.SetStatus(codes.Error, err.Error())
@@ -176,30 +163,54 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]any, 
 				return
 			}
 
-			// Record successful authentication
-			grpcSpan.SetAttributes(attribute.String("auth.user_uid", resp.UserUid))
-			bearerSpan.SetAttributes(attribute.String("auth.user_uid", resp.UserUid))
+			userUID := resp.User
+			if after, ok := strings.CutPrefix(resp.User, "users/"); ok {
+				userUID = after
+			}
+			grpcSpan.SetAttributes(attribute.String("auth.user_uid", userUID))
+			bearerSpan.SetAttributes(attribute.String("auth.user_uid", userUID))
 
 			req.Header.Set("Instill-Auth-Type", "user")
-			req.Header.Set("Instill-User-Uid", resp.UserUid)
+			req.Header.Set("Instill-User-Uid", userUID)
 			h.ServeHTTP(w, req)
-			return
-		}
 
-		// Any other auth method (including no auth) returns 401 Unauthorized
-		span.SetAttributes(attribute.String("auth.type", "unsupported"))
-		span.SetStatus(codes.Error, "Unsupported authentication method")
-		writeStatusUnauthorized(req, w)
+		} else {
+			// Unknown or missing authorization - return unauthorized
+			// CE edition only supports Basic Auth and Bearer instill_sk_ tokens
+			span.SetAttributes(attribute.String("auth.result", "unauthorized"))
+			span.SetAttributes(attribute.String("auth.reason", "unsupported_auth_type"))
+			writeStatusUnauthorized(req, w)
+		}
 	}), nil
 }
 
 func main() {}
 
+// Logger is the interface for the logger (matches KrakenD's expected interface)
+type Logger interface {
+	Debug(v ...any)
+	Info(v ...any)
+	Warning(v ...any)
+	Error(v ...any)
+	Critical(v ...any)
+	Fatal(v ...any)
+}
+
+// Empty logger implementation
+type noopLogger struct{}
+
+func (n noopLogger) Debug(_ ...any)    {}
+func (n noopLogger) Info(_ ...any)     {}
+func (n noopLogger) Warning(_ ...any)  {}
+func (n noopLogger) Error(_ ...any)    {}
+func (n noopLogger) Critical(_ ...any) {}
+func (n noopLogger) Fatal(_ ...any)    {}
+
 // This logger is replaced by the RegisterLogger method to load the one from KrakenD
-var logger = logging.NoOp
+var logger Logger = noopLogger{}
 
 func (registerer) RegisterLogger(v any) {
-	l, ok := v.(logging.BasicLogger)
+	l, ok := v.(Logger)
 	if !ok {
 		return
 	}

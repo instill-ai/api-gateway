@@ -8,7 +8,7 @@ import (
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/credentials/insecure"
 
-	mgmtPB "github.com/instill-ai/protogen-go/core/mgmt/v1beta"
+	mgmtPB "github.com/instill-ai/protogen-go/mgmt/v1beta"
 )
 
 const MaxPayloadSize = 1024 * 1024 * 32

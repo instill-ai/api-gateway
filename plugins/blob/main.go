@@ -28,15 +28,10 @@ func (r blob) RegisterHandlers(f func(
 	f(string(r), r.registerHandlers)
 }
 
-func (r blob) registerHandlers(ctx context.Context, extra map[string]any, h http.Handler) (http.Handler, error) {
-	config, ok := extra[pluginName].(map[string]any)
+func (r blob) registerHandlers(_ context.Context, extra map[string]any, h http.Handler) (http.Handler, error) {
+	_, ok := extra[pluginName].(map[string]any)
 	if !ok {
 		return nil, fmt.Errorf("configuration not found")
-	}
-
-	blobHandler, err := newBlobHandler(config)
-	if err != nil {
-		return nil, fmt.Errorf("failed to configure handler: %w", err)
 	}
 
 	// Create HTTP client with OpenTelemetry instrumentation
@@ -192,14 +187,9 @@ func (r blob) registerHandlers(ctx context.Context, extra map[string]any, h http
 			return
 		}
 
-		if len(parts) < 6 || parts[1] != "v1alpha" || parts[2] != "namespaces" || parts[4] != "blob-urls" {
-			span.SetAttributes(attribute.String("blob.action", "pass_through"))
-			h.ServeHTTP(w, req)
-			return
-		}
-
-		span.SetAttributes(attribute.String("blob.action", "process_blob_request"))
-		blobHandler.handler(spanCtx)(w, req)
+		// Pass through any other requests to the next handler
+		span.SetAttributes(attribute.String("blob.action", "pass_through"))
+		h.ServeHTTP(w, req)
 
 	}), nil
 
