@@ -1,5 +1,34 @@
 # Changelog
 
+## [0.36.3](https://github.com/instill-ai/api-gateway/compare/v0.36.2...v0.36.3) (2026-01-25)
+
+
+### Features
+
+* **artifact:** add tag update endpoint ([#321](https://github.com/instill-ai/api-gateway/issues/321)) ([044c6e0](https://github.com/instill-ai/api-gateway/commit/044c6e0d82b20e1b2d59822e3c460aba9bec6122))
+* **endpoints:** add file reprocessing endpoints ([#325](https://github.com/instill-ai/api-gateway/issues/325)) ([fa122d7](https://github.com/instill-ai/api-gateway/commit/fa122d7e3856d9bd047609040ac70be82b5e2e11))
+
+
+### Bug Fixes
+
+* **blob-plugin:** remove redundant Host header setting to fix presigned URL validation and update artifact endpoints ([#323](https://github.com/instill-ai/api-gateway/issues/323)) ([f86e6a9](https://github.com/instill-ai/api-gateway/commit/f86e6a958098b28e4a3030260c826f5765fab11a))
+* **blob:** improve base64 URL decoding and request handling for MinIO proxy ([#328](https://github.com/instill-ai/api-gateway/issues/328)) ([91a66cd](https://github.com/instill-ai/api-gateway/commit/91a66cd34b27e83aa7c4dbf1968971026d808275))
+* **config:** align update endpoints with Google AIP ([#327](https://github.com/instill-ai/api-gateway/issues/327)) ([06f78a7](https://github.com/instill-ai/api-gateway/commit/06f78a78e4cff45045d4f5906bc51e8690c2fe07))
+* **templates:** remove extra slash in internal gRPC endpoint paths ([#332](https://github.com/instill-ai/api-gateway/issues/332)) ([46e1e20](https://github.com/instill-ai/api-gateway/commit/46e1e20372a788d32ef863ccc14874974ead32af))
+
+
+### Miscellaneous
+
+* **endpoint:** add storage_provider input query for GetFileRequest ([#326](https://github.com/instill-ai/api-gateway/issues/326)) ([a5e77d7](https://github.com/instill-ai/api-gateway/commit/a5e77d7341783789ec69eeaff8b014c51fdb935f))
+
+
+### Refactor
+
+* **config:** align artifact endpoints with protobuf flattened resource paths ([#330](https://github.com/instill-ai/api-gateway/issues/330)) ([c73890a](https://github.com/instill-ai/api-gateway/commit/c73890a0cfced797d5576875d7b6db75f0db20a3))
+* **plugin:** rename multi-auth to simple-auth with simplified CE auth ([#331](https://github.com/instill-ai/api-gateway/issues/331)) ([937a81e](https://github.com/instill-ai/api-gateway/commit/937a81ea017d77014356febb9b4bed30621a53a3))
+* **proto:** update to flattened protobuf package structure ([#329](https://github.com/instill-ai/api-gateway/issues/329)) ([e0e0e9a](https://github.com/instill-ai/api-gateway/commit/e0e0e9af90072791a54d4d43f3d605e5ea65fc8b))
+* **registry:** migrate repository tag management to model-backend ([#324](https://github.com/instill-ai/api-gateway/issues/324)) ([4e26462](https://github.com/instill-ai/api-gateway/commit/4e26462b3dca6185c56929dee1274aba58e713fe))
+
 ## [0.36.2](https://github.com/instill-ai/api-gateway/compare/v0.36.1...v0.36.2) (2025-09-02)
 
 
