@@ -23,11 +23,11 @@ jobs:
         with:
           go-version: 1.24.4
 
-      - name: Generate coverage report (multi-auth)
+      - name: Generate coverage report (simple-auth)
         run: |
-          cd plugins/multi-auth
+          cd plugins/simple-auth
           go mod tidy
-          go test -race ./... -coverprofile=coverage-multi-auth-plugin.txt -covermode=atomic
+          go test -race ./... -coverprofile=coverage-simple-auth-plugin.txt -covermode=atomic
 
       - name: Generate coverage report (grpc-proxy)
         run: |
@@ -46,10 +46,10 @@ jobs:
           go mod tidy
           go test -race ./... -coverprofile=coverage-blob-plugin.txt -covermode=atomic
 
-      - name: Upload coverage report (multi-auth)
+      - name: Upload coverage report (simple-auth)
         uses: codecov/codecov-action@v2
         with:
-          file: ./coverage-multi-auth-plugin.txt
+          file: ./coverage-simple-auth-plugin.txt
           flags: unittests
           name: codecov-umbrella
 

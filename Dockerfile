@@ -20,7 +20,7 @@ RUN apk --no-cache --virtual .build-deps add tar make gcc musl-dev binutils-gold
 WORKDIR /${SERVICE_NAME}
 
 COPY plugins/grpc-proxy plugins/grpc-proxy
-COPY plugins/multi-auth plugins/multi-auth
+COPY plugins/simple-auth plugins/simple-auth
 COPY plugins/registry plugins/registry
 COPY plugins/blob plugins/blob
 COPY plugins/sse-streaming plugins/sse-streaming
@@ -50,13 +50,13 @@ RUN if [[ "$BUILDARCH" = "amd64" && "$TARGETARCH" = "arm64" ]] ; \
 
 RUN if [[ "$BUILDARCH" = "amd64" && "$TARGETARCH" = "arm64" ]] ; \
     then \
-    cd /${SERVICE_NAME}/plugins/multi-auth && go mod download && \
+    cd /${SERVICE_NAME}/plugins/simple-auth && go mod download && \
     CGO_ENABLED=1 ARCH=$TARGETARCH GOARCH=$TARGETARCH GOHOSTARCH=$BUILDARCH \
     CC=aarch64-linux-musl-gcc EXTRA_LDFLAGS='-extld=aarch64-linux-musl-gcc' \
-    go build -buildmode=plugin -buildvcs=false -o multi-auth.so ./; \
+    go build -buildmode=plugin -buildvcs=false -o simple-auth.so ./; \
     else \
-    cd /${SERVICE_NAME}/plugins/multi-auth && go mod download && \
-    CGO_ENABLED=1 go build -buildmode=plugin -buildvcs=false -o multi-auth.so ./ ; fi
+    cd /${SERVICE_NAME}/plugins/simple-auth && go mod download && \
+    CGO_ENABLED=1 go build -buildmode=plugin -buildvcs=false -o simple-auth.so ./ ; fi
 
 RUN if [[ "$BUILDARCH" = "amd64" && "$TARGETARCH" = "arm64" ]] ; \
     then \
@@ -118,7 +118,7 @@ WORKDIR /${SERVICE_NAME}
 RUN mkdir -p /usr/local/lib/krakend/plugins && chmod 777 /usr/local/lib/krakend/plugins
 
 COPY --from=build --chown=krakend:nogroup /${SERVICE_NAME}/plugins/grpc-proxy/grpc-proxy.so /usr/local/lib/krakend/plugins
-COPY --from=build --chown=krakend:nogroup /${SERVICE_NAME}/plugins/multi-auth/multi-auth.so /usr/local/lib/krakend/plugins
+COPY --from=build --chown=krakend:nogroup /${SERVICE_NAME}/plugins/simple-auth/simple-auth.so /usr/local/lib/krakend/plugins
 COPY --from=build --chown=krakend:nogroup /${SERVICE_NAME}/plugins/registry/registry.so /usr/local/lib/krakend/plugins
 COPY --from=build --chown=krakend:nogroup /${SERVICE_NAME}/plugins/blob/blob.so /usr/local/lib/krakend/plugins
 COPY --from=build --chown=krakend:nogroup /${SERVICE_NAME}/plugins/sse-streaming/sse-streaming.so /usr/local/lib/krakend/plugins

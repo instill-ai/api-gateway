@@ -58,7 +58,7 @@ build-latest:							## Build docker image
 .PHONY: plugin
 plugin:							# Compile the KrakenD plugins and copy them to /usr/local/lib/krakend/plugins
 	@bash -c "cd plugins/grpc-proxy && go build -buildmode=plugin -buildvcs=false -o /usr/local/lib/krakend/plugins/grpc-proxy.so ./..."
-	@bash -c "cd plugins/multi-auth && go build -buildmode=plugin -buildvcs=false -o /usr/local/lib/krakend/plugins/multi-auth.so ./..."
+	@bash -c "cd plugins/simple-auth && go build -buildmode=plugin -buildvcs=false -o /usr/local/lib/krakend/plugins/simple-auth.so ./..."
 	@bash -c "cd plugins/registry && go build -buildmode=plugin -buildvcs=false -o /usr/local/lib/krakend/plugins/registry.so ./..."
 	@bash -c "cd plugins/blob && go build -buildmode=plugin -buildvcs=false -o /usr/local/lib/krakend/plugins/blob.so ./..."
 	@bash -c "cd plugins/sse-streaming && go build -buildmode=plugin -buildvcs=false -o /usr/local/lib/krakend/plugins/sse-streaming.so ./..."
