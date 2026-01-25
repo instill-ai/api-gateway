@@ -1,16 +1,13 @@
 module blob-plugin
 
-go 1.24.4
+go 1.25.6
 
 require (
-	github.com/gofrs/uuid/v5 v5.3.2
-	github.com/instill-ai/protogen-go v0.3.3-alpha.0.20251029195138-d623a821ff95
-	github.com/luraproject/lura/v2 v2.10.0
+	github.com/luraproject/lura/v2 v2.12.1
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.53.0
-	go.opentelemetry.io/otel v1.33.0
-	go.opentelemetry.io/otel/trace v1.33.0
-	google.golang.org/grpc v1.66.0
-	google.golang.org/protobuf v1.36.3
+	go.opentelemetry.io/otel v1.34.0
+	go.opentelemetry.io/otel/trace v1.34.0
+	google.golang.org/grpc v1.71.0
 )
 
 require (
@@ -18,12 +15,21 @@ require (
 	github.com/felixge/httpsnoop v1.0.4 // indirect
 	github.com/go-logr/logr v1.4.2 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
-	github.com/grpc-ecosystem/grpc-gateway/v2 v2.20.0 // indirect
 	go.opentelemetry.io/auto/sdk v1.1.0 // indirect
-	go.opentelemetry.io/otel/metric v1.33.0 // indirect
-	golang.org/x/net v0.38.0 // indirect
-	golang.org/x/sys v0.31.0 // indirect
-	golang.org/x/text v0.23.0 // indirect
-	google.golang.org/genproto/googleapis/api v0.0.0-20240812133136-8ffd90a71988 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20240812133136-8ffd90a71988 // indirect
+	go.opentelemetry.io/otel/metric v1.34.0 // indirect
+	golang.org/x/net v0.47.0 // indirect
+	golang.org/x/sys v0.38.0 // indirect
+	golang.org/x/text v0.31.0 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20250115164207-1a7da9e5054f // indirect
+	google.golang.org/protobuf v1.36.9 // indirect
 )
+
+replace golang.org/x/net => golang.org/x/net v0.47.0
+
+replace golang.org/x/sys => golang.org/x/sys v0.38.0
+
+replace golang.org/x/text => golang.org/x/text v0.31.0
+
+replace google.golang.org/protobuf => google.golang.org/protobuf v1.36.10
+
+replace google.golang.org/genproto/googleapis/rpc => google.golang.org/genproto/googleapis/rpc v0.0.0-20251002232023-7c0ddcbb5797

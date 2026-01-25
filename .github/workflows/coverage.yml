@@ -21,7 +21,7 @@ jobs:
 
       - uses: actions/setup-go@v5
         with:
-          go-version: 1.24.4
+          go-version: ${{ env.GOLANG_VERSION }}
 
       - name: Generate coverage report (simple-auth)
         run: |
@@ -47,29 +47,29 @@ jobs:
           go test -race ./... -coverprofile=coverage-blob-plugin.txt -covermode=atomic
 
       - name: Upload coverage report (simple-auth)
-        uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v5
         with:
           file: ./coverage-simple-auth-plugin.txt
           flags: unittests
-          name: codecov-umbrella
+          name: codecov-simple-auth
 
       - name: Upload coverage report (grpc-proxy)
-        uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v5
         with:
           file: ./coverage-grpc-proxy-plugin.txt
           flags: unittests
-          name: codecov-umbrella
+          name: codecov-grpc-proxy
 
       - name: Upload coverage report (registry)
-        uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v5
         with:
           file: ./coverage-registry-plugin.txt
           flags: unittests
-          name: codecov-umbrella
+          name: codecov-registry
 
       - name: Upload coverage report (blob)
-        uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v5
         with:
           file: ./coverage-blob-plugin.txt
           flags: unittests
-          name: codecov-umbrella
+          name: codecov-blob
