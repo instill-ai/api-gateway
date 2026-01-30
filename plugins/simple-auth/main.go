@@ -108,15 +108,15 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]any, 
 			}
 
 			// Create a child span for the gRPC call
-			grpcSpanCtx, grpcSpan := tracer.Start(basicAuthSpanCtx, "simple-auth.grpc_auth_token_issuer",
+			grpcSpanCtx, grpcSpan := tracer.Start(basicAuthSpanCtx, "simple-auth.grpc_authenticate_user",
 				trace.WithAttributes(
-					attribute.String("grpc.method", "AuthTokenIssuer"),
+					attribute.String("grpc.method", "AuthenticateUser"),
 					attribute.String("grpc.service", "mgmtPB.MgmtPublicService"),
 				),
 			)
 			defer grpcSpan.End()
 
-			resp, err := mgmtClient.AuthTokenIssuer(grpcSpanCtx, &mgmtPB.AuthTokenIssuerRequest{
+			resp, err := mgmtClient.AuthenticateUser(grpcSpanCtx, &mgmtPB.AuthenticateUserRequest{
 				Username: strings.Split(string(basicAuthDecoded), ":")[0],
 				Password: strings.Split(string(basicAuthDecoded), ":")[1],
 			})
@@ -129,11 +129,11 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]any, 
 			}
 
 			// Record successful authentication
-			grpcSpan.SetAttributes(attribute.String("auth.user_uid", resp.AccessToken.Sub))
-			basicAuthSpan.SetAttributes(attribute.String("auth.user_uid", resp.AccessToken.Sub))
+			grpcSpan.SetAttributes(attribute.String("auth.user_uid", resp.UserUid))
+			basicAuthSpan.SetAttributes(attribute.String("auth.user_uid", resp.UserUid))
 
 			req.Header.Set("Instill-Auth-Type", "user")
-			req.Header.Set("Instill-User-Uid", resp.AccessToken.Sub)
+			req.Header.Set("Instill-User-Uid", resp.UserUid)
 			h.ServeHTTP(w, req)
 
 		} else if strings.HasPrefix(authorization, "Bearer instill_sk_") || strings.HasPrefix(authorization, "bearer instill_sk_") {

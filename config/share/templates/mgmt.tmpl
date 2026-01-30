@@ -38,7 +38,7 @@
   ]
 }
 {{- end}}
-,
+{{- if gt (len $endpoints.basic) 0 }},{{ end }}
 {{- range $idx, $endpoint := $endpoints.http_auth }}
 {{- if $idx -}},{{ end }}
 {
@@ -114,7 +114,7 @@
   ]
 }
 {{- end}}
-,
+{{- if gt (len $endpoints.http_auth) 0 }},{{ end }}
 {{- range $idx, $endpoint := $endpoints.no_auth }}
 {{- if $idx -}},{{ end }}
 {
@@ -186,7 +186,7 @@
   ]
 }
 {{- end}}
-,
+{{- if gt (len $endpoints.no_auth) 0 }},{{ end }}
 {{- range $idx, $endpoint := $endpoints.grpc_auth }}
 {{- if $idx -}},{{ end }}
 {
@@ -238,7 +238,7 @@
   ]
 }
 {{- end }}
-,
+{{- if gt (len $endpoints.grpc_auth) 0 }},{{ end }}
 {{- range $idx, $endpoint := $endpoints.grpc_no_auth }}
 {{- if $idx -}},{{ end }}
 {

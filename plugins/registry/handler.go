@@ -300,7 +300,7 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 		var name string
 		var err error
 
-		_, err = rh.modelPublicClient.GetNamespaceModel(authCtx, &modelpb.GetNamespaceModelRequest{
+		_, err = rh.modelPublicClient.GetModel(authCtx, &modelpb.GetModelRequest{
 			Name: fmt.Sprintf("namespaces/%s/models/%s", namespace, contentID),
 		})
 		if err != nil {
@@ -351,7 +351,7 @@ func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
 
 		// Construct the full resource name for the model version
 		modelVersionName := fmt.Sprintf("namespaces/%s/models/%s/versions/%s", namespace, contentID, resourceID)
-		if _, err := rh.modelPrivateClient.DeployNamespaceModelAdmin(ctx, &modelpb.DeployNamespaceModelAdminRequest{
+		if _, err := rh.modelPrivateClient.DeployModelAdmin(ctx, &modelpb.DeployModelAdminRequest{
 			Name:   modelVersionName,
 			Digest: digest,
 		}); err != nil {

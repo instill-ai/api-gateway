@@ -6,41 +6,8 @@
     }
   ],
   "mgmt": {
-    "basic": [
-      {
-        "endpoint": "/v1beta/auth/login",
-        "url_pattern": "/v1beta/auth/token-issuer",
-        "method": "POST",
-        "timeout": "30s",
-        "input_query_strings": [],
-        "extra_config": {
-          "auth/signer": {
-            "alg": "RS256",
-            "jwk_local_path": "/instill/instill.jwks",
-            "keys_to_sign": [
-              "accessToken"
-            ],
-            "kid": "instill",
-            "disable_jwk_security": true
-          }
-        }
-      }
-    ],
+    "basic": [],
     "http_auth": [
-      {
-        "endpoint": "/v1beta/auth/logout",
-        "url_pattern": "/v1beta/auth/logout",
-        "method": "POST",
-        "timeout": "30s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1beta/auth/validate-access-token",
-        "url_pattern": "/v1beta/auth/validate-access-token",
-        "method": "POST",
-        "timeout": "30s",
-        "input_query_strings": []
-      },
       {
         "endpoint": "/v1beta/auth/change-password",
         "url_pattern": "/v1beta/auth/change-password",
@@ -1312,398 +1279,104 @@
         "timeout": "5s"
       },
       {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/CreateNamespacePipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/CreateNamespacePipeline",
+        "endpoint": "/pipeline.v1beta.PipelinePublicService/CreatePipeline",
+        "url_pattern": "/pipeline.v1beta.PipelinePublicService/CreatePipeline",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/ListNamespacePipelines",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/ListNamespacePipelines",
+        "endpoint": "/pipeline.v1beta.PipelinePublicService/GetPipeline",
+        "url_pattern": "/pipeline.v1beta.PipelinePublicService/GetPipeline",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/GetNamespacePipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/GetNamespacePipeline",
+        "endpoint": "/pipeline.v1beta.PipelinePublicService/UpdatePipeline",
+        "url_pattern": "/pipeline.v1beta.PipelinePublicService/UpdatePipeline",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/UpdateNamespacePipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/UpdateNamespacePipeline",
+        "endpoint": "/pipeline.v1beta.PipelinePublicService/DeletePipeline",
+        "url_pattern": "/pipeline.v1beta.PipelinePublicService/DeletePipeline",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/DeleteNamespacePipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/DeleteNamespacePipeline",
+        "endpoint": "/pipeline.v1beta.PipelinePublicService/RenamePipeline",
+        "url_pattern": "/pipeline.v1beta.PipelinePublicService/RenamePipeline",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/RenameNamespacePipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/RenameNamespacePipeline",
+        "endpoint": "/pipeline.v1beta.PipelinePublicService/ClonePipeline",
+        "url_pattern": "/pipeline.v1beta.PipelinePublicService/ClonePipeline",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/CloneNamespacePipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/CloneNamespacePipeline",
+        "endpoint": "/pipeline.v1beta.PipelinePublicService/ValidatePipeline",
+        "url_pattern": "/pipeline.v1beta.PipelinePublicService/ValidatePipeline",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/ValidateNamespacePipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/ValidateNamespacePipeline",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/TriggerNamespacePipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/TriggerNamespacePipeline",
+        "endpoint": "/pipeline.v1beta.PipelinePublicService/TriggerPipeline",
+        "url_pattern": "/pipeline.v1beta.PipelinePublicService/TriggerPipeline",
         "method": "POST",
         "timeout": "3600s"
       },
       {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/TriggerAsyncNamespacePipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/TriggerAsyncNamespacePipeline",
+        "endpoint": "/pipeline.v1beta.PipelinePublicService/TriggerAsyncPipeline",
+        "url_pattern": "/pipeline.v1beta.PipelinePublicService/TriggerAsyncPipeline",
         "method": "POST",
         "timeout": "3600s"
       },
       {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/CreateNamespacePipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/CreateNamespacePipelineRelease",
+        "endpoint": "/pipeline.v1beta.PipelinePublicService/CreatePipelineRelease",
+        "url_pattern": "/pipeline.v1beta.PipelinePublicService/CreatePipelineRelease",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/ListNamespacePipelineReleases",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/ListNamespacePipelineReleases",
+        "endpoint": "/pipeline.v1beta.PipelinePublicService/ListPipelineReleases",
+        "url_pattern": "/pipeline.v1beta.PipelinePublicService/ListPipelineReleases",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/GetNamespacePipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/GetNamespacePipelineRelease",
+        "endpoint": "/pipeline.v1beta.PipelinePublicService/GetPipelineRelease",
+        "url_pattern": "/pipeline.v1beta.PipelinePublicService/GetPipelineRelease",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/UpdateNamespacePipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/UpdateNamespacePipelineRelease",
+        "endpoint": "/pipeline.v1beta.PipelinePublicService/UpdatePipelineRelease",
+        "url_pattern": "/pipeline.v1beta.PipelinePublicService/UpdatePipelineRelease",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/DeleteNamespacePipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/DeleteNamespacePipelineRelease",
+        "endpoint": "/pipeline.v1beta.PipelinePublicService/DeletePipelineRelease",
+        "url_pattern": "/pipeline.v1beta.PipelinePublicService/DeletePipelineRelease",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/WatchNamespacePipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/WatchNamespacePipelineRelease",
+        "endpoint": "/pipeline.v1beta.PipelinePublicService/ClonePipelineRelease",
+        "url_pattern": "/pipeline.v1beta.PipelinePublicService/ClonePipelineRelease",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/SetDefaultNamespacePipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/SetDefaultNamespacePipelineRelease",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/RestoreNamespacePipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/RestoreNamespacePipelineRelease",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/RenameNamespacePipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/RenameNamespacePipelineRelease",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/CloneNamespacePipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/CloneNamespacePipelineRelease",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/TriggerNamespacePipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/TriggerNamespacePipelineRelease",
+        "endpoint": "/pipeline.v1beta.PipelinePublicService/TriggerPipelineRelease",
+        "url_pattern": "/pipeline.v1beta.PipelinePublicService/TriggerPipelineRelease",
         "method": "POST",
         "timeout": "3600s"
       },
       {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/TriggerAsyncNamespacePipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/TriggerAsyncNamespacePipelineRelease",
-        "method": "POST",
-        "timeout": "3600s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/CreateUserPipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/CreateUserPipeline",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/ListUserPipelines",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/ListUserPipelines",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/GetUserPipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/GetUserPipeline",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/UpdateUserPipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/UpdateUserPipeline",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/DeleteUserPipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/DeleteUserPipeline",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/RenameUserPipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/RenameUserPipeline",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/CloneUserPipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/CloneUserPipeline",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/ValidateUserPipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/ValidateUserPipeline",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/TriggerUserPipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/TriggerUserPipeline",
-        "method": "POST",
-        "timeout": "3600s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/TriggerAsyncUserPipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/TriggerAsyncUserPipeline",
-        "method": "POST",
-        "timeout": "3600s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/CreateUserPipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/CreateUserPipelineRelease",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/ListUserPipelineReleases",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/ListUserPipelineReleases",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/GetUserPipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/GetUserPipelineRelease",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/UpdateUserPipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/UpdateUserPipelineRelease",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/DeleteUserPipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/DeleteUserPipelineRelease",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/WatchUserPipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/WatchUserPipelineRelease",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/SetDefaultUserPipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/SetDefaultUserPipelineRelease",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/RestoreUserPipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/RestoreUserPipelineRelease",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/RenameUserPipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/RenameUserPipelineRelease",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/CloneUserPipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/CloneUserPipelineRelease",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/TriggerUserPipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/TriggerUserPipelineRelease",
-        "method": "POST",
-        "timeout": "3600s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/TriggerAsyncUserPipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/TriggerAsyncUserPipelineRelease",
-        "method": "POST",
-        "timeout": "3600s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/CreateOrganizationPipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/CreateOrganizationPipeline",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/ListOrganizationPipelines",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/ListOrganizationPipelines",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/GetOrganizationPipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/GetOrganizationPipeline",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/UpdateOrganizationPipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/UpdateOrganizationPipeline",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/DeleteOrganizationPipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/DeleteOrganizationPipeline",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/RenameOrganizationPipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/RenameOrganizationPipeline",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/CloneOrganizationPipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/CloneOrganizationPipeline",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/ValidateOrganizationPipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/ValidateOrganizationPipeline",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/TriggerOrganizationPipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/TriggerOrganizationPipeline",
-        "method": "POST",
-        "timeout": "3600s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/TriggerAsyncOrganizationPipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/TriggerAsyncOrganizationPipeline",
-        "method": "POST",
-        "timeout": "3600s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/CreateOrganizationPipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/CreateOrganizationPipelineRelease",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/ListOrganizationPipelineReleases",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/ListOrganizationPipelineReleases",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/GetOrganizationPipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/GetOrganizationPipelineRelease",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/UpdateOrganizationPipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/UpdateOrganizationPipelineRelease",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/DeleteOrganizationPipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/DeleteOrganizationPipelineRelease",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/WatchOrganizationPipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/WatchOrganizationPipelineRelease",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/SetDefaultOrganizationPipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/SetDefaultOrganizationPipelineRelease",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/RestoreOrganizationPipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/RestoreOrganizationPipelineRelease",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/RenameOrganizationPipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/RenameOrganizationPipelineRelease",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/CloneOrganizationPipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/CloneOrganizationPipelineRelease",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/TriggerOrganizationPipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/TriggerOrganizationPipelineRelease",
-        "method": "POST",
-        "timeout": "3600s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/TriggerAsyncOrganizationPipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/TriggerAsyncOrganizationPipelineRelease",
+        "endpoint": "/pipeline.v1beta.PipelinePublicService/TriggerAsyncPipelineRelease",
+        "url_pattern": "/pipeline.v1beta.PipelinePublicService/TriggerAsyncPipelineRelease",
         "method": "POST",
         "timeout": "3600s"
       },
@@ -1750,120 +1423,6 @@
         "timeout": "5s"
       },
       {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/CreateUserSecret",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/CreateUserSecret",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/ListUserSecrets",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/ListUserSecrets",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/GetUserSecret",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/GetUserSecret",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/UpdateUserSecret",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/UpdateUserSecret",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/DeleteUserSecret",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/DeleteUserSecret",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/CreateOrganizationSecret",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/CreateOrganizationSecret",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/ListOrganizationSecrets",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/ListOrganizationSecrets",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/GetOrganizationSecret",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/GetOrganizationSecret",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/UpdateOrganizationSecret",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/UpdateOrganizationSecret",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/DeleteOrganizationSecret",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/DeleteOrganizationSecret",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/GetIntegration",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/GetIntegration",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/ListIntegrations",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/ListIntegrations",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/CreateNamespaceConnection",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/CreateNamespaceConnection",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/UpdateNamespaceConnection",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/UpdateNamespaceConnection",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/DeleteNamespaceConnection",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/DeleteNamespaceConnection",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/TestNamespaceConnection",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/TestNamespaceConnection",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/ListPipelineIDsByConnectionID",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/ListPipelineIDsByConnectionID",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/ListNamespaceConnections",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/ListNamespaceConnections",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/pipeline.v1beta.PipelinePublicService/GetNamespaceConnection",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/GetNamespaceConnection",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
         "endpoint": "/pipeline.v1beta.PipelinePublicService/ListPipelineRuns",
         "url_pattern": "/pipeline.v1beta.PipelinePublicService/ListPipelineRuns",
         "method": "POST",
@@ -1882,586 +1441,58 @@
         "timeout": "30s"
       },
       {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/CheckName",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/CheckName",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/ListPipelines",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/ListPipelines",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/CreateNamespacePipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/CreateNamespacePipeline",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/ListNamespacePipelines",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/ListNamespacePipelines",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/GetNamespacePipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/GetNamespacePipeline",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/UpdateNamespacePipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/UpdateNamespacePipeline",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/DeleteNamespacePipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/DeleteNamespacePipeline",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/RenameNamespacePipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/RenameNamespacePipeline",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/CloneNamespacePipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/CloneNamespacePipeline",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/ValidateNamespacePipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/ValidateNamespacePipeline",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerNamespacePipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/TriggerNamespacePipeline",
-        "method": "POST",
-        "timeout": "3600s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerAsyncNamespacePipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/TriggerAsyncNamespacePipeline",
-        "method": "POST",
-        "timeout": "3600s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/CreateNamespacePipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/CreateNamespacePipelineRelease",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/ListNamespacePipelineReleases",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/ListNamespacePipelineReleases",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/GetNamespacePipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/GetNamespacePipelineRelease",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/UpdateNamespacePipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/UpdateNamespacePipelineRelease",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/DeleteNamespacePipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/DeleteNamespacePipelineRelease",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/WatchNamespacePipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/WatchNamespacePipelineRelease",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/SetDefaultNamespacePipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/SetDefaultNamespacePipelineRelease",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/RestoreNamespacePipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/RestoreNamespacePipelineRelease",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/RenameNamespacePipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/RenameNamespacePipelineRelease",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/CloneNamespacePipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/CloneNamespacePipelineRelease",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerNamespacePipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/TriggerNamespacePipelineRelease",
-        "method": "POST",
-        "timeout": "3600s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerAsyncNamespacePipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/TriggerAsyncNamespacePipelineRelease",
-        "method": "POST",
-        "timeout": "3600s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/CreateUserPipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/CreateUserPipeline",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/ListUserPipelines",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/ListUserPipelines",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/GetUserPipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/GetUserPipeline",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/UpdateUserPipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/UpdateUserPipeline",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/DeleteUserPipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/DeleteUserPipeline",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/RenameUserPipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/RenameUserPipeline",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/CloneUserPipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/CloneUserPipeline",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/ValidateUserPipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/ValidateUserPipeline",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerUserPipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/TriggerUserPipeline",
-        "method": "POST",
-        "timeout": "3600s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerAsyncUserPipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/TriggerAsyncUserPipeline",
-        "method": "POST",
-        "timeout": "3600s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/CreateUserPipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/CreateUserPipelineRelease",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/ListUserPipelineReleases",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/ListUserPipelineReleases",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/GetUserPipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/GetUserPipelineRelease",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/UpdateUserPipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/UpdateUserPipelineRelease",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/DeleteUserPipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/DeleteUserPipelineRelease",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/WatchUserPipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/WatchUserPipelineRelease",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/SetDefaultUserPipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/SetDefaultUserPipelineRelease",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/RestoreUserPipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/RestoreUserPipelineRelease",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/RenameUserPipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/RenameUserPipelineRelease",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/CloneUserPipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/CloneUserPipelineRelease",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerUserPipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/TriggerUserPipelineRelease",
-        "method": "POST",
-        "timeout": "3600s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerAsyncUserPipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/TriggerAsyncUserPipelineRelease",
-        "method": "POST",
-        "timeout": "3600s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/CreateOrganizationPipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/CreateOrganizationPipeline",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/ListOrganizationPipelines",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/ListOrganizationPipelines",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/GetOrganizationPipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/GetOrganizationPipeline",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/UpdateOrganizationPipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/UpdateOrganizationPipeline",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/DeleteOrganizationPipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/DeleteOrganizationPipeline",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/RenameOrganizationPipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/RenameOrganizationPipeline",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/CloneOrganizationPipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/CloneOrganizationPipeline",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/ValidateOrganizationPipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/ValidateOrganizationPipeline",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerOrganizationPipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/TriggerOrganizationPipeline",
-        "method": "POST",
-        "timeout": "3600s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerAsyncOrganizationPipeline",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/TriggerAsyncOrganizationPipeline",
-        "method": "POST",
-        "timeout": "3600s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/CreateOrganizationPipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/CreateOrganizationPipelineRelease",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/ListOrganizationPipelineReleases",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/ListOrganizationPipelineReleases",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/GetOrganizationPipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/GetOrganizationPipelineRelease",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/UpdateOrganizationPipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/UpdateOrganizationPipelineRelease",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/DeleteOrganizationPipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/DeleteOrganizationPipelineRelease",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/WatchOrganizationPipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/WatchOrganizationPipelineRelease",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/SetDefaultOrganizationPipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/SetDefaultOrganizationPipelineRelease",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/RestoreOrganizationPipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/RestoreOrganizationPipelineRelease",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/RenameOrganizationPipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/RenameOrganizationPipelineRelease",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/CloneOrganizationPipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/CloneOrganizationPipelineRelease",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerOrganizationPipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/TriggerOrganizationPipelineRelease",
-        "method": "POST",
-        "timeout": "3600s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/TriggerAsyncOrganizationPipelineRelease",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/TriggerAsyncOrganizationPipelineRelease",
-        "method": "POST",
-        "timeout": "3600s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/GetOperation",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/GetOperation",
-        "method": "POST",
-        "timeout": "3600s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/ListComponentDefinitions",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/ListComponentDefinitions",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/CreateNamespaceSecret",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/CreateNamespaceSecret",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/ListNamespaceSecrets",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/ListNamespaceSecrets",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/GetNamespaceSecret",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/GetNamespaceSecret",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/UpdateNamespaceSecret",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/UpdateNamespaceSecret",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/DeleteNamespaceSecret",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/DeleteNamespaceSecret",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/CreateUserSecret",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/CreateUserSecret",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/ListUserSecrets",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/ListUserSecrets",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/GetUserSecret",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/GetUserSecret",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/UpdateUserSecret",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/UpdateUserSecret",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/DeleteUserSecret",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/DeleteUserSecret",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/CreateOrganizationSecret",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/CreateOrganizationSecret",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/ListOrganizationSecrets",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/ListOrganizationSecrets",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/GetOrganizationSecret",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/GetOrganizationSecret",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/UpdateOrganizationSecret",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/UpdateOrganizationSecret",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/DeleteOrganizationSecret",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/DeleteOrganizationSecret",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/GetIntegration",
+        "endpoint": "/pipeline.v1beta.PipelinePublicService/GetIntegration",
         "url_pattern": "/pipeline.v1beta.PipelinePublicService/GetIntegration",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/ListIntegrations",
+        "endpoint": "/pipeline.v1beta.PipelinePublicService/ListIntegrations",
         "url_pattern": "/pipeline.v1beta.PipelinePublicService/ListIntegrations",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/CreateNamespaceConnection",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/CreateNamespaceConnection",
+        "endpoint": "/pipeline.v1beta.PipelinePublicService/CreateConnection",
+        "url_pattern": "/pipeline.v1beta.PipelinePublicService/CreateConnection",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/UpdateNamespaceConnection",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/UpdateNamespaceConnection",
+        "endpoint": "/pipeline.v1beta.PipelinePublicService/UpdateConnection",
+        "url_pattern": "/pipeline.v1beta.PipelinePublicService/UpdateConnection",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/DeleteNamespaceConnection",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/DeleteNamespaceConnection",
+        "endpoint": "/pipeline.v1beta.PipelinePublicService/DeleteConnection",
+        "url_pattern": "/pipeline.v1beta.PipelinePublicService/DeleteConnection",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/TestNamespaceConnection",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/TestNamespaceConnection",
+        "endpoint": "/pipeline.v1beta.PipelinePublicService/TestConnection",
+        "url_pattern": "/pipeline.v1beta.PipelinePublicService/TestConnection",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/ListPipelineIDsByConnectionID",
+        "endpoint": "/pipeline.v1beta.PipelinePublicService/ListPipelineIDsByConnectionID",
         "url_pattern": "/pipeline.v1beta.PipelinePublicService/ListPipelineIDsByConnectionID",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/ListNamespaceConnections",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/ListNamespaceConnections",
+        "endpoint": "/pipeline.v1beta.PipelinePublicService/ListConnections",
+        "url_pattern": "/pipeline.v1beta.PipelinePublicService/ListConnections",
         "method": "POST",
         "timeout": "5s"
       },
       {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/GetNamespaceConnection",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/GetNamespaceConnection",
+        "endpoint": "/pipeline.v1beta.PipelinePublicService/GetConnection",
+        "url_pattern": "/pipeline.v1beta.PipelinePublicService/GetConnection",
         "method": "POST",
         "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/ListPipelineRuns",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/ListPipelineRuns",
-        "method": "POST",
-        "timeout": "30s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/ListComponentRuns",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/ListComponentRuns",
-        "method": "POST",
-        "timeout": "30s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/ListPipelineRunsByRequester",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/ListPipelineRunsByRequester",
-        "method": "POST",
-        "timeout": "30s"
       }
     ],
     "grpc_no_auth": [
@@ -2473,18 +1504,6 @@
       },
       {
         "endpoint": "/pipeline.v1beta.PipelinePublicService/Readiness",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/Readiness",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/Liveness",
-        "url_pattern": "/pipeline.v1beta.PipelinePublicService/Liveness",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/vdp.pipeline.v1beta.PipelinePublicService/Readiness",
         "url_pattern": "/pipeline.v1beta.PipelinePublicService/Readiness",
         "method": "POST",
         "timeout": "5s"
@@ -2673,260 +1692,6 @@
         ]
       },
       {
-        "endpoint": "/v1alpha/users/{user_id}/models",
-        "url_pattern": "/v1alpha/users/{user_id}/models",
-        "method": "GET",
-        "timeout": "30s",
-        "input_query_strings": [
-          "view",
-          "pageSize",
-          "pageToken",
-          "visibility",
-          "filter",
-          "orderBy",
-          "showDeleted"
-        ]
-      },
-      {
-        "endpoint": "/v1alpha/users/{user_id}/models",
-        "url_pattern": "/v1alpha/users/{user_id}/models",
-        "method": "POST",
-        "timeout": "30s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}",
-        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}",
-        "method": "GET",
-        "timeout": "30s",
-        "input_query_strings": [
-          "view"
-        ]
-      },
-      {
-        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}",
-        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}",
-        "method": "PATCH",
-        "timeout": "30s",
-        "input_query_strings": [
-          "updateMask"
-        ]
-      },
-      {
-        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}",
-        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}",
-        "method": "DELETE",
-        "timeout": "30s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/rename",
-        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/rename",
-        "method": "POST",
-        "timeout": "30s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/watch",
-        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/watch",
-        "method": "GET",
-        "timeout": "30s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/trigger",
-        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/trigger",
-        "method": "POST",
-        "timeout": "600s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/trigger-async",
-        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/trigger-async",
-        "method": "POST",
-        "timeout": "30s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/trigger-multipart",
-        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/trigger-multipart",
-        "method": "POST",
-        "timeout": "600s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/versions",
-        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/versions",
-        "method": "GET",
-        "timeout": "30s",
-        "input_query_strings": [
-          "pageSize",
-          "page"
-        ]
-      },
-      {
-        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/versions/{version_id}",
-        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/versions/{version_id}",
-        "method": "DELETE",
-        "timeout": "30s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/versions/{version_id}/watch",
-        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/versions/{version_id}/watch",
-        "method": "GET",
-        "timeout": "30s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/versions/{version_id}/trigger",
-        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/versions/{version_id}/trigger",
-        "method": "POST",
-        "timeout": "600s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/versions/{version_id}/trigger-async",
-        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/versions/{version_id}/trigger-async",
-        "method": "POST",
-        "timeout": "30s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/versions/{version_id}/trigger-multipart",
-        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/versions/{version_id}/trigger-multipart",
-        "method": "POST",
-        "timeout": "600s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/organizations/{organization_id}/models",
-        "url_pattern": "/v1alpha/organizations/{organization_id}/models",
-        "method": "GET",
-        "timeout": "30s",
-        "input_query_strings": [
-          "view",
-          "pageSize",
-          "pageToken",
-          "visibility",
-          "filter",
-          "orderBy",
-          "showDeleted"
-        ]
-      },
-      {
-        "endpoint": "/v1alpha/organizations/{organization_id}/models",
-        "url_pattern": "/v1alpha/organizations/{organization_id}/models",
-        "method": "POST",
-        "timeout": "30s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}",
-        "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}",
-        "method": "GET",
-        "timeout": "30s",
-        "input_query_strings": [
-          "view"
-        ]
-      },
-      {
-        "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}",
-        "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}",
-        "method": "PATCH",
-        "timeout": "30s",
-        "input_query_strings": [
-          "updateMask"
-        ]
-      },
-      {
-        "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}",
-        "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}",
-        "method": "DELETE",
-        "timeout": "30s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}/rename",
-        "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}/rename",
-        "method": "POST",
-        "timeout": "30s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}/watch",
-        "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}/watch",
-        "method": "GET",
-        "timeout": "30s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}/trigger",
-        "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}/trigger",
-        "method": "POST",
-        "timeout": "600s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}/trigger-async",
-        "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}/trigger-async",
-        "method": "POST",
-        "timeout": "30s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}/trigger-multipart",
-        "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}/trigger-multipart",
-        "method": "POST",
-        "timeout": "600s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}/versions",
-        "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}/versions",
-        "method": "GET",
-        "timeout": "30s",
-        "input_query_strings": [
-          "pageSize",
-          "page"
-        ]
-      },
-      {
-        "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}/versions/{version_id}",
-        "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}/versions/{version_id}",
-        "method": "DELETE",
-        "timeout": "30s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}/versions/{version_id}/watch",
-        "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}/versions/{version_id}/watch",
-        "method": "GET",
-        "timeout": "30s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}/versions/{version_id}/trigger",
-        "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}/versions/{version_id}/trigger",
-        "method": "POST",
-        "timeout": "600s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}/versions/{version_id}/trigger-async",
-        "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}/versions/{version_id}/trigger-async",
-        "method": "POST",
-        "timeout": "30s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}/versions/{version_id}/trigger-multipart",
-        "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}/versions/{version_id}/trigger-multipart",
-        "method": "POST",
-        "timeout": "600s",
-        "input_query_strings": []
-      },
-      {
         "endpoint": "/v1alpha/operations/{id}",
         "url_pattern": "/v1alpha/operations/{id}",
         "method": "GET",
@@ -2945,24 +1710,6 @@
       {
         "endpoint": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/operation",
         "url_pattern": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/operation",
-        "method": "GET",
-        "timeout": "30s",
-        "input_query_strings": [
-          "view"
-        ]
-      },
-      {
-        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/operation",
-        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/operation",
-        "method": "GET",
-        "timeout": "30s",
-        "input_query_strings": [
-          "view"
-        ]
-      },
-      {
-        "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}/operation",
-        "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}/operation",
         "method": "GET",
         "timeout": "30s",
         "input_query_strings": [
@@ -3013,20 +1760,6 @@
       {
         "endpoint": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/image",
         "url_pattern": "/v1alpha/namespaces/{namespace_id}/models/{model_id}/image",
-        "method": "GET",
-        "timeout": "30s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/users/{user_id}/models/{model_id}/image",
-        "url_pattern": "/v1alpha/users/{user_id}/models/{model_id}/image",
-        "method": "GET",
-        "timeout": "30s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/organizations/{organization_id}/models/{model_id}/image",
-        "url_pattern": "/v1alpha/organizations/{organization_id}/models/{model_id}/image",
         "method": "GET",
         "timeout": "30s",
         "input_query_strings": []
@@ -3136,82 +1869,10 @@
         "timeout": "600s"
       },
       {
-        "endpoint": "/model.v1alpha.ModelPublicService/CreateUserModel",
-        "url_pattern": "/model.v1alpha.ModelPublicService/CreateUserModel",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/model.v1alpha.ModelPublicService/ListUserModels",
-        "url_pattern": "/model.v1alpha.ModelPublicService/ListUserModels",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/model.v1alpha.ModelPublicService/ListUserModelVersions",
-        "url_pattern": "/model.v1alpha.ModelPublicService/ListUserModelVersions",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/model.v1alpha.ModelPublicService/DeleteUserModelVersion",
-        "url_pattern": "/model.v1alpha.ModelPublicService/DeleteUserModelVersion",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/model.v1alpha.ModelPublicService/GetUserModel",
-        "url_pattern": "/model.v1alpha.ModelPublicService/GetUserModel",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/model.v1alpha.ModelPublicService/UpdateUserModel",
-        "url_pattern": "/model.v1alpha.ModelPublicService/UpdateUserModel",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/model.v1alpha.ModelPublicService/DeleteUserModel",
-        "url_pattern": "/model.v1alpha.ModelPublicService/DeleteUserModel",
-        "method": "POST",
-        "timeout": "30s"
-      },
-      {
-        "endpoint": "/model.v1alpha.ModelPublicService/RenameUserModel",
-        "url_pattern": "/model.v1alpha.ModelPublicService/RenameUserModel",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/model.v1alpha.ModelPublicService/GetUserModelCard",
-        "url_pattern": "/model.v1alpha.ModelPublicService/GetUserModelCard",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/model.v1alpha.ModelPublicService/WatchUserModel",
-        "url_pattern": "/model.v1alpha.ModelPublicService/WatchUserModel",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
         "endpoint": "/model.v1alpha.ModelPublicService/WatchUserLatestModel",
         "url_pattern": "/model.v1alpha.ModelPublicService/WatchUserLatestModel",
         "method": "POST",
         "timeout": "5s"
-      },
-      {
-        "endpoint": "/model.v1alpha.ModelPublicService/TriggerUserModel",
-        "url_pattern": "/model.v1alpha.ModelPublicService/TriggerUserModel",
-        "method": "POST",
-        "timeout": "600s"
-      },
-      {
-        "endpoint": "/model.v1alpha.ModelPublicService/TriggerAsyncUserModel",
-        "url_pattern": "/model.v1alpha.ModelPublicService/TriggerAsyncUserModel",
-        "method": "POST",
-        "timeout": "30s"
       },
       {
         "endpoint": "/model.v1alpha.ModelPublicService/TriggerUserLatestModel",
@@ -3226,88 +1887,10 @@
         "timeout": "30s"
       },
       {
-        "endpoint": "/model.v1alpha.ModelPublicService/TriggerUserModelBinaryFileUpload",
-        "url_pattern": "/model.v1alpha.ModelPublicService/TriggerUserModelBinaryFileUpload",
-        "method": "POST",
-        "timeout": "600s"
-      },
-      {
-        "endpoint": "/model.v1alpha.ModelPublicService/CreateOrganizationModel",
-        "url_pattern": "/model.v1alpha.ModelPublicService/CreateOrganizationModel",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/model.v1alpha.ModelPublicService/ListOrganizationModels",
-        "url_pattern": "/model.v1alpha.ModelPublicService/ListOrganizationModels",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/model.v1alpha.ModelPublicService/ListOrganizationModelVersions",
-        "url_pattern": "/model.v1alpha.ModelPublicService/ListOrganizationModelVersions",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/model.v1alpha.ModelPublicService/DeleteOrganizationModelVersion",
-        "url_pattern": "/model.v1alpha.ModelPublicService/DeleteOrganizationModelVersion",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/model.v1alpha.ModelPublicService/GetOrganizationModel",
-        "url_pattern": "/model.v1alpha.ModelPublicService/GetOrganizationModel",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/model.v1alpha.ModelPublicService/UpdateOrganizationModel",
-        "url_pattern": "/model.v1alpha.ModelPublicService/UpdateOrganizationModel",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/model.v1alpha.ModelPublicService/DeleteOrganizationModel",
-        "url_pattern": "/model.v1alpha.ModelPublicService/DeleteOrganizationModel",
-        "method": "POST",
-        "timeout": "30s"
-      },
-      {
-        "endpoint": "/model.v1alpha.ModelPublicService/RenameOrganizationModel",
-        "url_pattern": "/model.v1alpha.ModelPublicService/RenameOrganizationModel",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/model.v1alpha.ModelPublicService/GetOrganizationModelCard",
-        "url_pattern": "/model.v1alpha.ModelPublicService/GetOrganizationModelCard",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
-        "endpoint": "/model.v1alpha.ModelPublicService/WatchOrganizationModel",
-        "url_pattern": "/model.v1alpha.ModelPublicService/WatchOrganizationModel",
-        "method": "POST",
-        "timeout": "5s"
-      },
-      {
         "endpoint": "/model.v1alpha.ModelPublicService/WatchOrganizationLatestModel",
         "url_pattern": "/model.v1alpha.ModelPublicService/WatchOrganizationLatestModel",
         "method": "POST",
         "timeout": "5s"
-      },
-      {
-        "endpoint": "/model.v1alpha.ModelPublicService/TriggerOrganizationModel",
-        "url_pattern": "/model.v1alpha.ModelPublicService/TriggerOrganizationModel",
-        "method": "POST",
-        "timeout": "600s"
-      },
-      {
-        "endpoint": "/model.v1alpha.ModelPublicService/TriggerAsyncOrganizationModel",
-        "url_pattern": "/model.v1alpha.ModelPublicService/TriggerAsyncOrganizationModel",
-        "method": "POST",
-        "timeout": "30s"
       },
       {
         "endpoint": "/model.v1alpha.ModelPublicService/TriggerOrganizationLatestModel",
@@ -3320,12 +1903,6 @@
         "url_pattern": "/model.v1alpha.ModelPublicService/TriggerAsyncOrganizationLatestModel",
         "method": "POST",
         "timeout": "30s"
-      },
-      {
-        "endpoint": "/model.v1alpha.ModelPublicService/TriggerOrganizationModelBinaryFileUpload",
-        "url_pattern": "/model.v1alpha.ModelPublicService/TriggerOrganizationModelBinaryFileUpload",
-        "method": "POST",
-        "timeout": "600s"
       },
       {
         "endpoint": "/model.v1alpha.ModelPublicService/GetNamespaceLatestModelOperation",
@@ -3467,8 +2044,76 @@
         "url_pattern": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}/files",
         "method": "POST",
         "timeout": "600s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}/files",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}/files",
+        "method": "GET",
+        "timeout": "10s",
         "input_query_strings": [
-          "knowledgeBaseId"
+          "pageSize",
+          "pageToken",
+          "filter"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}/files/{file_id}",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}/files/{file_id}",
+        "method": "GET",
+        "timeout": "10s",
+        "input_query_strings": [
+          "view",
+          "storage_provider"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}/files/{file_id}",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}/files/{file_id}",
+        "method": "PATCH",
+        "timeout": "10s",
+        "input_query_strings": [
+          "updateMask"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}/files/{file_id}",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}/files/{file_id}",
+        "method": "DELETE",
+        "timeout": "10s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}/files/{file_id}/reprocess",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}/files/{file_id}/reprocess",
+        "method": "POST",
+        "timeout": "600s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}/files/{file_id}/chunks",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}/files/{file_id}/chunks",
+        "method": "GET",
+        "timeout": "10s",
+        "input_query_strings": [
+          "pageSize",
+          "pageToken"
+        ]
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}/files/{file_id}/chunks/{chunk_id}",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}/files/{file_id}/chunks/{chunk_id}",
+        "method": "GET",
+        "timeout": "10s",
+        "input_query_strings": []
+      },
+      {
+        "endpoint": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}/files/{file_id}/chunks/{chunk_id}",
+        "url_pattern": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}/files/{file_id}/chunks/{chunk_id}",
+        "method": "PATCH",
+        "timeout": "10s",
+        "input_query_strings": [
+          "updateMask"
         ]
       },
       {

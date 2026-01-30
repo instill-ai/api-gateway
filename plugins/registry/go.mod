@@ -5,7 +5,7 @@ go 1.25.6
 require (
 	github.com/distribution/distribution v2.8.3+incompatible
 	github.com/frankban/quicktest v1.14.6
-	github.com/instill-ai/protogen-go v0.3.3-alpha.0.20260121105057-e8e7f1a4ac1f
+	github.com/instill-ai/protogen-go v0.3.3-alpha.0.20260130101410-2df13d165253
 	github.com/luraproject/lura/v2 v2.12.1
 	go.opentelemetry.io/otel v1.34.0
 	go.opentelemetry.io/otel/trace v1.34.0
