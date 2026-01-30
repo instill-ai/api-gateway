@@ -1,33 +1,21 @@
 {
   "version": 3,
   "name": "API Gateway",
-  "port": {
-    { .ports.api_gateway_port
-    }
-  },
-  {
-    { if and .tls.public_key .tls.private_key
-    }
-  }
+  "port": {{ .ports.api_gateway_port }},
+  {{ if and .tls.public_key .tls.private_key }}
   "tls": {
     "public_key": "{{ .tls.public_key }}",
     "private_key": "{{ .tls.private_key }}",
     "min_version": "TLS10",
     "max_version": "TLS13"
   },
-  {
-    { end
-    }
-  }
+  {{ end }}
   "client_tls": {
     "allow_insecure_connections": true
   },
   "timeout": "3000ms",
   "cache_ttl": "300s",
-  {
-    { include "plugin"
-    }
-  },
+  {{ include "plugin" }},
   "extra_config": {
     "router": {
       "logger_skip_paths": [
@@ -41,22 +29,10 @@
       "syslog": false,
       "stdout": true
     },
-    {
-      { if eq .observe.observe_enabled "true"
-      }
-    }
-    {
-      { template "otel.tmpl" .
-      }
-    },
-    {
-      { end
-      }
-    }
-    {
-      { template "cors.tmpl" .
-      }
-    },
+    {{ if eq .observe.observe_enabled "true" }}
+    {{ template "otel.tmpl" . }},
+    {{ end }}
+    {{ template "cors.tmpl" . }},
     "plugin/http-server": {
       "name": [
         "sse-streaming",
@@ -89,25 +65,10 @@
     }
   },
   "endpoints": [
-    {
-      {- template "mgmt.tmpl" .
-      }
-    },
-    {
-      {- template "pipeline.tmpl" .
-      }
-    },
-    {
-      {- template "model.tmpl" .
-      }
-    },
-    {
-      {- template "artifact.tmpl" .
-      }
-    },
-    {
-      {- template "debug.tmpl" .
-      }
-    }
+    {{- template "mgmt.tmpl" . }},
+    {{- template "pipeline.tmpl" . }},
+    {{- template "model.tmpl" . }},
+    {{- template "artifact.tmpl" . }},
+    {{- template "debug.tmpl" . }}
   ]
 }
