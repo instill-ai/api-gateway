@@ -596,8 +596,8 @@
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/releases/{release_id}/setDefault",
-        "url_pattern": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/releases/{release_id}/setDefault",
+        "endpoint": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/releases/{release_id}/set-default",
+        "url_pattern": "/v1beta/namespaces/{namespace_id}/pipelines/{pipeline_id}/releases/{release_id}/set-default",
         "method": "POST",
         "timeout": "30s",
         "input_query_strings": []
@@ -819,8 +819,8 @@
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1beta/users/{user_id}/pipelines/{pipeline_id}/releases/{release_id}/setDefault",
-        "url_pattern": "/v1beta/users/{user_id}/pipelines/{pipeline_id}/releases/{release_id}/setDefault",
+        "endpoint": "/v1beta/users/{user_id}/pipelines/{pipeline_id}/releases/{release_id}/set-default",
+        "url_pattern": "/v1beta/users/{user_id}/pipelines/{pipeline_id}/releases/{release_id}/set-default",
         "method": "POST",
         "timeout": "30s",
         "input_query_strings": []
@@ -1001,8 +1001,8 @@
         "input_query_strings": []
       },
       {
-        "endpoint": "/v1beta/organizations/{organization_id}/pipelines/{pipeline_id}/releases/{release_id}/setDefault",
-        "url_pattern": "/v1beta/organizations/{organization_id}/pipelines/{pipeline_id}/releases/{release_id}/setDefault",
+        "endpoint": "/v1beta/organizations/{organization_id}/pipelines/{pipeline_id}/releases/{release_id}/set-default",
+        "url_pattern": "/v1beta/organizations/{organization_id}/pipelines/{pipeline_id}/releases/{release_id}/set-default",
         "method": "POST",
         "timeout": "30s",
         "input_query_strings": []
@@ -3460,85 +3460,6 @@
         "url_pattern": "/v1alpha/namespaces/{namespace_id}/knowledge-bases/{knowledge_base_id}",
         "method": "DELETE",
         "timeout": "10s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/namespaces/{namespace_id}/files",
-        "url_pattern": "/v1alpha/namespaces/{namespace_id}/files",
-        "method": "POST",
-        "timeout": "600s",
-        "input_query_strings": [
-          "knowledgeBaseId"
-        ]
-      },
-      {
-        "endpoint": "/v1alpha/namespaces/{namespace_id}/files",
-        "url_pattern": "/v1alpha/namespaces/{namespace_id}/files",
-        "method": "GET",
-        "timeout": "10s",
-        "input_query_strings": [
-          "knowledgeBaseId",
-          "pageSize",
-          "pageToken",
-          "filter"
-        ]
-      },
-      {
-        "endpoint": "/v1alpha/namespaces/{namespace_id}/files/{file_id}",
-        "url_pattern": "/v1alpha/namespaces/{namespace_id}/files/{file_id}",
-        "method": "GET",
-        "timeout": "10s",
-        "input_query_strings": [
-          "view",
-          "storageProvider"
-        ]
-      },
-      {
-        "endpoint": "/v1alpha/namespaces/{namespace_id}/files/{file_id}",
-        "url_pattern": "/v1alpha/namespaces/{namespace_id}/files/{file_id}",
-        "method": "PATCH",
-        "timeout": "10s",
-        "input_query_strings": [
-          "updateMask"
-        ]
-      },
-      {
-        "endpoint": "/v1alpha/namespaces/{namespace_id}/files/{file_id}",
-        "url_pattern": "/v1alpha/namespaces/{namespace_id}/files/{file_id}",
-        "method": "DELETE",
-        "timeout": "60s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/namespaces/{namespace_id}/files/{file_id}/chunks",
-        "url_pattern": "/v1alpha/namespaces/{namespace_id}/files/{file_id}/chunks",
-        "method": "GET",
-        "timeout": "10s",
-        "input_query_strings": [
-          "pageSize",
-          "pageToken",
-          "filter"
-        ]
-      },
-      {
-        "endpoint": "/v1alpha/namespaces/{namespace_id}/files/{file_id}/chunks/{chunk_id}",
-        "url_pattern": "/v1alpha/namespaces/{namespace_id}/files/{file_id}/chunks/{chunk_id}",
-        "method": "GET",
-        "timeout": "10s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/namespaces/{namespace_id}/files/{file_id}/chunks/{chunk_id}",
-        "url_pattern": "/v1alpha/namespaces/{namespace_id}/files/{file_id}/chunks/{chunk_id}",
-        "method": "PATCH",
-        "timeout": "10s",
-        "input_query_strings": []
-      },
-      {
-        "endpoint": "/v1alpha/namespaces/{namespace_id}/files/{file_id}/reprocess",
-        "url_pattern": "/v1alpha/namespaces/{namespace_id}/files/{file_id}/reprocess",
-        "method": "POST",
-        "timeout": "60s",
         "input_query_strings": []
       },
       {
