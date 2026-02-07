@@ -31,8 +31,11 @@ ARG BUILDARCH
 
 RUN if [[ "$BUILDARCH" = "amd64" && "$TARGETARCH" = "arm64" ]] ; \
     then \
-    curl -fSL https://artifacts.instill-ai.com/github-actions/aarch64-linux-musl-cross.tgz | \
-    tar -xvzf -; \
+    curl -fSL --retry 10 --retry-delay 5 --retry-all-errors \
+    -o /tmp/aarch64-linux-musl-cross.tgz \
+    https://artifacts.instill-ai.com/github-actions/aarch64-linux-musl-cross.tgz && \
+    tar -xzf /tmp/aarch64-linux-musl-cross.tgz && \
+    rm /tmp/aarch64-linux-musl-cross.tgz; \
     fi
 
 ENV PATH="$PATH:/${SERVICE_NAME}/aarch64-linux-musl-cross/bin"
