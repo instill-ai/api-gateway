@@ -21,7 +21,9 @@
       "logger_skip_paths": [
         "/__health"
       ],
-      "use_h2c": true
+      "use_h2c": true,
+      "disable_redirect_fixed_path": true,
+      "disable_redirect_trailing_slash": true
     },
     "telemetry/logging": {
       "level": "{{ .logging.log_level }}",
