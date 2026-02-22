@@ -54,6 +54,14 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]any, 
 	mgmtClient, _ := InitMgmtPublicServiceClient(context.Background(), config["grpc_server"].(string), "", "")
 
 	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+		// Strip all gateway-internal headers to prevent external callers from
+		// spoofing identity by injecting these headers directly.
+		req.Header.Del("Instill-Auth-Type")
+		req.Header.Del("Instill-User-Uid")
+		req.Header.Del("Instill-Visitor-Uid")
+		req.Header.Del("Instill-Namespace-Id")
+		req.Header.Del("Instill-Internal-Request-Uid")
+
 		// Extract OpenTelemetry context from incoming request
 		otelCtx := req.Context()
 

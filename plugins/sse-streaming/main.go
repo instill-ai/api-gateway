@@ -97,6 +97,13 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]any, 
 
 		// This is a quick solution since we only support sse for pipeline trigger endpoint
 		if req.Header.Get("Accept") == "text/event-stream" {
+			authType := req.Header.Get("Instill-Auth-Type")
+			if authType == "" || authType == "visitor" {
+				span.SetAttributes(attribute.String("sse.action", "rejected_unauthenticated"))
+				span.SetStatus(codes.Error, "unauthenticated SSE request")
+				http.Error(w, `{"error":"authentication required"}`, http.StatusUnauthorized)
+				return
+			}
 			span.SetAttributes(attribute.String("sse.action", "proxy_sse_request"))
 			proxyHandler(spanCtx, w, req, httpClient, backendHost)
 		} else {
