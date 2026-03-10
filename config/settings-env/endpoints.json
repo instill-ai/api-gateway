@@ -2064,7 +2064,7 @@
         "timeout": "10s",
         "input_query_strings": [
           "view",
-          "storage_provider"
+          "storageProvider"
         ]
       },
       {
