@@ -9,6 +9,8 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+	"sync"
+	"time"
 
 	"github.com/luraproject/lura/v2/logging"
 	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
@@ -28,20 +30,98 @@ func (r blob) RegisterHandlers(f func(
 	f(string(r), r.registerHandlers)
 }
 
+type cacheEntry struct {
+	presignedURL string
+	expiresAt    time.Time
+}
+
+var (
+	blobCacheMu sync.RWMutex
+	blobCache   = make(map[string]cacheEntry)
+)
+
+const cacheTTL = 5 * time.Minute
+
+func getCachedPresignedURL(objectID string) (string, bool) {
+	blobCacheMu.RLock()
+	defer blobCacheMu.RUnlock()
+
+	entry, ok := blobCache[objectID]
+	if !ok || time.Now().After(entry.expiresAt) {
+		return "", false
+	}
+	return entry.presignedURL, true
+}
+
+func setCachedPresignedURL(objectID, presignedURL string) {
+	blobCacheMu.Lock()
+	defer blobCacheMu.Unlock()
+
+	blobCache[objectID] = cacheEntry{
+		presignedURL: presignedURL,
+		expiresAt:    time.Now().Add(cacheTTL),
+	}
+}
+
+// resolveObjectID calls the artifact-backend internal endpoint to resolve an
+// object_id into a fresh presigned URL.
+func resolveObjectID(ctx context.Context, httpClient *http.Client, artifactHost, objectID string) (string, error) {
+	reqURL := fmt.Sprintf("http://%s/internal/resolve-blob/%s", artifactHost, objectID)
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, reqURL, nil)
+	if err != nil {
+		return "", fmt.Errorf("creating resolve request: %w", err)
+	}
+
+	resp, err := httpClient.Do(req)
+	if err != nil {
+		return "", fmt.Errorf("calling artifact-backend: %w", err)
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return "", fmt.Errorf("artifact-backend returned status %d", resp.StatusCode)
+	}
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return "", fmt.Errorf("reading response body: %w", err)
+	}
+
+	return strings.TrimSpace(string(body)), nil
+}
+
+// tryDecodeAsPresignedURL attempts to base64-decode the segment and parse it
+// as a URL. Returns the parsed URL if successful, nil otherwise.
+func tryDecodeAsPresignedURL(encoded string) *url.URL {
+	blobURLBytes, err := base64.URLEncoding.DecodeString(encoded)
+	if err != nil {
+		blobURLBytes, err = base64.RawURLEncoding.DecodeString(encoded)
+		if err != nil {
+			return nil
+		}
+	}
+
+	parsed, err := url.Parse(string(blobURLBytes))
+	if err != nil || parsed.Scheme == "" || parsed.Host == "" {
+		return nil
+	}
+
+	return parsed
+}
+
 func (r blob) registerHandlers(_ context.Context, extra map[string]any, h http.Handler) (http.Handler, error) {
-	_, ok := extra[pluginName].(map[string]any)
+	cfg, ok := extra[pluginName].(map[string]any)
 	if !ok {
 		return nil, fmt.Errorf("configuration not found")
 	}
 
-	// Create HTTP client with OpenTelemetry instrumentation
+	artifactPrivateHostport, _ := cfg["artifact_private_hostport"].(string)
+
 	httpClient := http.Client{Transport: otelhttp.NewTransport(http.DefaultTransport)}
 
 	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
-		// Extract OpenTelemetry context from incoming request
 		otelCtx := req.Context()
 
-		// Create a span for the blob plugin
 		tracer := trace.SpanFromContext(otelCtx).TracerProvider().Tracer("blob")
 		spanCtx, span := tracer.Start(otelCtx, "blob.handle_request",
 			trace.WithAttributes(
@@ -53,146 +133,143 @@ func (r blob) registerHandlers(_ context.Context, extra map[string]any, h http.H
 		)
 		defer span.End()
 
-		// Add span context to request
 		req = req.WithContext(spanCtx)
 
 		parts := strings.Split(req.URL.Path, "/")
 
-		// TODO: we should be able to implement this to directly rely on KrakenD instead of writing our own proxy.
-
-		// We encode the MinIO presigned URL to a base64 string in the format:
-		// schema://host:port/v1alpha/blob-urls/base64_encoded_presigned_url
-		// Here in this plugin, we decode the base64 string to the presigned URL
-		// and forward the request to MinIO.
 		if len(parts) > 3 && parts[2] == "blob-urls" {
-			span.SetAttributes(attribute.String("blob.action", "proxy_presigned_url"))
+			encodedOrID := parts[3]
 
-			// Create a child span for presigned URL processing
-			presignedSpanCtx, presignedSpan := tracer.Start(spanCtx, "blob.process_presigned_url",
-				trace.WithAttributes(
-					attribute.String("blob.encoded_url", parts[3]),
-				),
+			// Mode 1: Try to decode as base64-encoded presigned URL
+			if blobURL := tryDecodeAsPresignedURL(encodedOrID); blobURL != nil {
+				span.SetAttributes(attribute.String("blob.action", "proxy_presigned_url"))
+				proxyToMinIO(spanCtx, tracer, &httpClient, w, req, blobURL, false)
+				return
+			}
+
+			// Mode 2: Treat as object_id, resolve via artifact-backend
+			if artifactPrivateHostport == "" {
+				span.RecordError(fmt.Errorf("artifact_private_hostport not configured"))
+				span.SetStatus(codes.Error, "artifact_private_hostport not configured")
+				http.Error(w, "blob resolution not available", http.StatusServiceUnavailable)
+				return
+			}
+
+			span.SetAttributes(
+				attribute.String("blob.action", "resolve_object_id"),
+				attribute.String("blob.object_id", encodedOrID),
 			)
-			defer presignedSpan.End()
 
-			// Try to decode with URLEncoding first (with padding)
-			// If that fails, try RawURLEncoding (without padding) as fallback
-			// This handles cases where padding might be stripped by browsers
-			encodedURL := parts[3]
-			blobURLBytes, err := base64.URLEncoding.DecodeString(encodedURL)
-			if err != nil {
-				// Try RawURLEncoding which doesn't require padding
-				blobURLBytes, err = base64.RawURLEncoding.DecodeString(encodedURL)
+			// Check in-memory cache first
+			presignedURLStr, cached := getCachedPresignedURL(encodedOrID)
+			if !cached {
+				var err error
+				presignedURLStr, err = resolveObjectID(spanCtx, &httpClient, artifactPrivateHostport, encodedOrID)
 				if err != nil {
-					presignedSpan.RecordError(err)
-					presignedSpan.SetStatus(codes.Error, err.Error())
 					span.RecordError(err)
 					span.SetStatus(codes.Error, err.Error())
-					http.Error(w, "Failed to decode blob URL: "+err.Error(), http.StatusBadRequest)
+					http.Error(w, "Failed to resolve object", http.StatusNotFound)
 					return
 				}
+				setCachedPresignedURL(encodedOrID, presignedURLStr)
 			}
+			span.SetAttributes(attribute.Bool("blob.cache_hit", cached))
 
-			blobURL, err := url.Parse(string(blobURLBytes))
+			blobURL, err := url.Parse(presignedURLStr)
 			if err != nil {
-				presignedSpan.RecordError(err)
-				presignedSpan.SetStatus(codes.Error, err.Error())
 				span.RecordError(err)
 				span.SetStatus(codes.Error, err.Error())
-				http.Error(w, "Failed to parse blob URL: "+err.Error(), http.StatusBadRequest)
+				http.Error(w, "Failed to parse resolved URL", http.StatusInternalServerError)
 				return
 			}
-
 			blobURL.Scheme = "http"
 
-			presignedSpan.SetAttributes(
-				attribute.String("blob.target_host", blobURL.Host),
-				attribute.String("blob.target_url", blobURL.String()),
-			)
-
-			// Create a child span for the HTTP request to MinIO
-			httpSpanCtx, httpSpan := tracer.Start(presignedSpanCtx, "blob.http_minio_request",
-				trace.WithAttributes(
-					attribute.String("http.target", blobURL.String()),
-					attribute.String("http.method", req.Method),
-				),
-			)
-			defer httpSpan.End()
-
-			// Create a NEW request instead of reusing the original to avoid
-			// passing unwanted headers to MinIO. For PUT/POST requests, forward the body.
-			newReq, err := http.NewRequestWithContext(httpSpanCtx, req.Method, blobURL.String(), req.Body)
-			if err != nil {
-				httpSpan.RecordError(err)
-				httpSpan.SetStatus(codes.Error, err.Error())
-				http.Error(w, "Failed to create request", http.StatusInternalServerError)
-				return
-			}
-
-			// For PUT/POST requests, set Content-Length from original request
-			if req.ContentLength > 0 {
-				newReq.ContentLength = req.ContentLength
-			}
-
-			// Only copy safe headers that MinIO might need
-			if accept := req.Header.Get("Accept"); accept != "" {
-				newReq.Header.Set("Accept", accept)
-			}
-			if acceptEncoding := req.Header.Get("Accept-Encoding"); acceptEncoding != "" {
-				newReq.Header.Set("Accept-Encoding", acceptEncoding)
-			}
-			// Forward Content-Type for PUT/POST requests (important for file uploads)
-			if contentType := req.Header.Get("Content-Type"); contentType != "" {
-				newReq.Header.Set("Content-Type", contentType)
-			}
-
-			resp, err := httpClient.Do(newReq)
-			if err != nil {
-				httpSpan.RecordError(err)
-				httpSpan.SetStatus(codes.Error, err.Error())
-				presignedSpan.RecordError(err)
-				presignedSpan.SetStatus(codes.Error, err.Error())
-				span.RecordError(err)
-				span.SetStatus(codes.Error, err.Error())
-				http.Error(w, "Failed to proxy request", http.StatusInternalServerError)
-				return
-			}
-			defer resp.Body.Close()
-
-			httpSpan.SetAttributes(attribute.Int("http.status_code", resp.StatusCode))
-			presignedSpan.SetAttributes(attribute.Int("http.status_code", resp.StatusCode))
-			span.SetAttributes(attribute.Int("http.status_code", resp.StatusCode))
-
-			// Copy response headers
-			for k, hs := range resp.Header {
-				if k != "Access-Control-Allow-Origin" {
-					for _, h := range hs {
-						w.Header().Add(k, h)
-					}
-				}
-			}
-
-			// Set status code
-			w.WriteHeader(resp.StatusCode)
-
-			// Stream response body
-			_, err = io.Copy(w, resp.Body)
-			if err != nil {
-				presignedSpan.RecordError(err)
-				presignedSpan.SetStatus(codes.Error, err.Error())
-				span.RecordError(err)
-				span.SetStatus(codes.Error, err.Error())
-				logger.Error(logPrefix, "Failed to stream response body:", err)
-			}
+			proxyToMinIO(spanCtx, tracer, &httpClient, w, req, blobURL, true)
 			return
 		}
 
-		// Pass through any other requests to the next handler
 		span.SetAttributes(attribute.String("blob.action", "pass_through"))
 		h.ServeHTTP(w, req)
 
 	}), nil
 
+}
+
+// proxyToMinIO proxies the request to MinIO using the resolved presigned URL.
+// When isObjectID is true, Cache-Control headers are added for browser caching.
+func proxyToMinIO(
+	ctx context.Context,
+	tracer trace.Tracer,
+	httpClient *http.Client,
+	w http.ResponseWriter,
+	req *http.Request,
+	blobURL *url.URL,
+	isObjectID bool,
+) {
+	_, httpSpan := tracer.Start(ctx, "blob.http_minio_request",
+		trace.WithAttributes(
+			attribute.String("http.target", blobURL.String()),
+			attribute.String("http.method", req.Method),
+		),
+	)
+	defer httpSpan.End()
+
+	newReq, err := http.NewRequestWithContext(ctx, req.Method, blobURL.String(), req.Body)
+	if err != nil {
+		httpSpan.RecordError(err)
+		httpSpan.SetStatus(codes.Error, err.Error())
+		http.Error(w, "Failed to create request", http.StatusInternalServerError)
+		return
+	}
+
+	if req.ContentLength > 0 {
+		newReq.ContentLength = req.ContentLength
+	}
+
+	if accept := req.Header.Get("Accept"); accept != "" {
+		newReq.Header.Set("Accept", accept)
+	}
+	if acceptEncoding := req.Header.Get("Accept-Encoding"); acceptEncoding != "" {
+		newReq.Header.Set("Accept-Encoding", acceptEncoding)
+	}
+	if contentType := req.Header.Get("Content-Type"); contentType != "" {
+		newReq.Header.Set("Content-Type", contentType)
+	}
+
+	resp, err := httpClient.Do(newReq)
+	if err != nil {
+		httpSpan.RecordError(err)
+		httpSpan.SetStatus(codes.Error, err.Error())
+		http.Error(w, "Failed to proxy request", http.StatusInternalServerError)
+		return
+	}
+	defer resp.Body.Close()
+
+	httpSpan.SetAttributes(attribute.Int("http.status_code", resp.StatusCode))
+
+	for k, hs := range resp.Header {
+		if k != "Access-Control-Allow-Origin" {
+			for _, h := range hs {
+				w.Header().Add(k, h)
+			}
+		}
+	}
+
+	// For object_id-resolved requests, add aggressive browser caching since
+	// objects are immutable. Legacy base64 presigned URLs manage their own
+	// expiry via the signed URL parameters.
+	if isObjectID {
+		w.Header().Set("Cache-Control", "public, max-age=86400")
+	}
+
+	w.WriteHeader(resp.StatusCode)
+
+	_, err = io.Copy(w, resp.Body)
+	if err != nil {
+		httpSpan.RecordError(err)
+		httpSpan.SetStatus(codes.Error, err.Error())
+		logger.Error(logPrefix, "Failed to stream response body:", err)
+	}
 }
 
 func main() {}
