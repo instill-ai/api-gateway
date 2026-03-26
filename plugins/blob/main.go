@@ -3,9 +3,11 @@ package main
 import (
 	"context"
 	"encoding/base64"
+	"errors"
 	"fmt"
 	"html"
 	"io"
+	"net"
 	"net/http"
 	"net/url"
 	"strings"
@@ -117,7 +119,15 @@ func (r blob) registerHandlers(_ context.Context, extra map[string]any, h http.H
 
 	artifactPrivateHostport, _ := cfg["artifact_private_hostport"].(string)
 
-	httpClient := http.Client{Transport: otelhttp.NewTransport(http.DefaultTransport)}
+	transport := &http.Transport{
+		MaxIdleConns:        100,
+		MaxIdleConnsPerHost: 20,
+		MaxConnsPerHost:     50,
+		IdleConnTimeout:     30 * time.Second,
+		DisableCompression:  true,
+		ForceAttemptHTTP2:   false,
+	}
+	httpClient := http.Client{Transport: otelhttp.NewTransport(transport)}
 
 	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
 		otelCtx := req.Context()
@@ -266,10 +276,40 @@ func proxyToMinIO(
 
 	_, err = io.Copy(w, resp.Body)
 	if err != nil {
-		httpSpan.RecordError(err)
-		httpSpan.SetStatus(codes.Error, err.Error())
-		logger.Error(logPrefix, "Failed to stream response body:", err)
+		if isClientDisconnect(err) {
+			httpSpan.SetAttributes(attribute.Bool("blob.client_disconnected", true))
+			logger.Debug(logPrefix, "Client disconnected during streaming:", err)
+		} else {
+			httpSpan.RecordError(err)
+			httpSpan.SetStatus(codes.Error, err.Error())
+			logger.Error(logPrefix, "Failed to stream response body:", err)
+		}
 	}
+}
+
+// isClientDisconnect returns true when the error indicates the downstream
+// client (or an intermediate proxy such as the GCP LB) closed the connection.
+// These are expected during normal browsing (e.g. user navigates away while a
+// blob is streaming) and should not be logged at ERROR level.
+func isClientDisconnect(err error) bool {
+	if err == nil {
+		return false
+	}
+
+	msg := err.Error()
+	if strings.Contains(msg, "http2: stream closed") ||
+		strings.Contains(msg, "client disconnected") ||
+		strings.Contains(msg, "broken pipe") ||
+		strings.Contains(msg, "connection reset by peer") {
+		return true
+	}
+
+	var netErr *net.OpError
+	if errors.As(err, &netErr) {
+		return true
+	}
+
+	return errors.Is(err, context.Canceled)
 }
 
 func main() {}
