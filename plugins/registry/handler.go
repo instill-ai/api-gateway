@@ -170,20 +170,38 @@ func (rh *registryHandler) handler(ctx context.Context) http.HandlerFunc {
 			return
 		}
 
-		// Record successful authentication
-		// Extract user UID from resource name (format: users/{user_uid})
-		userUID := tokenValidation.User
+		// Extract user identifier from resource name (format: users/{user})
+		userIdentifier := tokenValidation.User
 		if after, ok0 := strings.CutPrefix(tokenValidation.User, "users/"); ok0 {
-			userUID = after
+			userIdentifier = after
 		}
-		tokenSpan.SetAttributes(attribute.String("auth.user_uid", userUID))
-		span.SetAttributes(attribute.String("auth.user_uid", userUID))
+		tokenSpan.SetAttributes(attribute.String("auth.user_identifier", userIdentifier))
+
+		// Resolve user ID to full user record (including UUID) via GetUserAdmin.
+		// ValidateToken returns a user ID (e.g. "pinglin"), not a UUID.
+		getUserReq := &mgmtpb.GetUserAdminRequest{Name: fmt.Sprintf("users/%s", userIdentifier)}
+		userLookup, err := rh.mgmtPrivateClient.GetUserAdmin(ctx, getUserReq)
+		if err != nil {
+			tokenSpan.RecordError(err)
+			span.RecordError(err)
+			rh.handleError(req, w, fmt.Errorf("looking up user: %w", err))
+			return
+		}
+
+		span.SetAttributes(attribute.String("auth.user_id", userLookup.User.Id))
+
+		if userLookup.User.Id != username {
+			span.SetAttributes(attribute.String("auth.error", "username_mismatch"))
+			span.SetStatus(codes.Error, "Username mismatch")
+			rh.handleError(req, w, authErr)
+			return
+		}
 
 		params := registryHandlerParams{
 			writer:  w,
 			req:     req,
-			userID:  username,
-			userUID: userUID,
+			userID:  userLookup.User.Id,
+			userUID: userLookup.User.Id,
 		}
 
 		if req.URL.Path == "/v2/" {
@@ -197,52 +215,9 @@ func (rh *registryHandler) handler(ctx context.Context) http.HandlerFunc {
 	})
 }
 
-func (rh *registryHandler) login(ctx context.Context, p registryHandlerParams) {
-	req := p.req
-	w := p.writer
-
-	// Create a child span for login processing
-	tracer := trace.SpanFromContext(ctx).TracerProvider().Tracer("registry")
-	loginSpanCtx, loginSpan := tracer.Start(ctx, "registry.login",
-		trace.WithAttributes(
-			attribute.String("registry.action", "user_lookup"),
-		),
-	)
-	defer loginSpan.End()
-
-	// Check if the login username is the same with the user id retrieved from the token validation response
-	lookupReq := &mgmtpb.LookUpUserAdminRequest{Permalink: fmt.Sprintf("users/%s", p.userUID)}
-
-	// Create a child span for the gRPC call
-	_, grpcSpan := tracer.Start(loginSpanCtx, "registry.grpc_lookup_user_admin",
-		trace.WithAttributes(
-			attribute.String("grpc.method", "LookUpUserAdmin"),
-			attribute.String("grpc.service", "mgmtpb.MgmtPrivateService"),
-		),
-	)
-	defer grpcSpan.End()
-
-	userLookup, err := rh.mgmtPrivateClient.LookUpUserAdmin(ctx, lookupReq)
-	if err != nil {
-		grpcSpan.RecordError(err)
-		grpcSpan.SetStatus(codes.Error, err.Error())
-		loginSpan.RecordError(err)
-		loginSpan.SetStatus(codes.Error, err.Error())
-		rh.handleError(req, w, fmt.Errorf("looking up user: %w", err))
-		return
-	}
-
-	grpcSpan.SetAttributes(attribute.String("user.id", userLookup.User.Id))
-	loginSpan.SetAttributes(attribute.String("user.id", userLookup.User.Id))
-
-	if userLookup.User.Id != p.userID {
-		loginSpan.SetAttributes(attribute.String("auth.error", "username_mismatch"))
-		loginSpan.SetStatus(codes.Error, "Username mismatch")
-		rh.handleError(req, w, authErr)
-		return
-	}
-
-	loginSpan.SetAttributes(attribute.String("auth.result", "success"))
+func (rh *registryHandler) login(_ context.Context, _ registryHandlerParams) {
+	// User validation (ID match, token check) is already performed in handler().
+	// A successful reach here means the login is valid — respond with 200 OK.
 }
 
 func (rh *registryHandler) relay(ctx context.Context, p registryHandlerParams) {
