@@ -61,7 +61,8 @@ plugin:							# Compile the KrakenD plugins and copy them to /usr/local/lib/krak
 	@bash -c "cd plugins/simple-auth && go build -buildmode=plugin -buildvcs=false -o /usr/local/lib/krakend/plugins/simple-auth.so ./..."
 	@bash -c "cd plugins/registry && go build -buildmode=plugin -buildvcs=false -o /usr/local/lib/krakend/plugins/registry.so ./..."
 	@bash -c "cd plugins/blob && go build -buildmode=plugin -buildvcs=false -o /usr/local/lib/krakend/plugins/blob.so ./..."
-	@bash -c "cd plugins/sse-streaming && go build -buildmode=plugin -buildvcs=false -o /usr/local/lib/krakend/plugins/sse-streaming.so ./..."
+	@bash -c "cd plugins/pipeline-sse-streaming && go build -buildmode=plugin -buildvcs=false -o /usr/local/lib/krakend/plugins/pipeline-sse-streaming.so ./..."
+	@bash -c "cd plugins/model-sse-streaming && go build -buildmode=plugin -buildvcs=false -o /usr/local/lib/krakend/plugins/model-sse-streaming.so ./..."
 
 .PHONY: config
 config:							## Output the composed KrakenD configuration

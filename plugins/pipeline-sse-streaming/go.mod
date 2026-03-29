@@ -1,4 +1,4 @@
-module sse_streaming_plugin
+module pipeline_sse_streaming_plugin
 
 go 1.25.6
 

@@ -23,7 +23,8 @@ COPY plugins/grpc-proxy plugins/grpc-proxy
 COPY plugins/simple-auth plugins/simple-auth
 COPY plugins/registry plugins/registry
 COPY plugins/blob plugins/blob
-COPY plugins/sse-streaming plugins/sse-streaming
+COPY plugins/pipeline-sse-streaming plugins/pipeline-sse-streaming
+COPY plugins/model-sse-streaming plugins/model-sse-streaming
 
 
 ARG TARGETARCH
@@ -83,13 +84,23 @@ RUN if [[ "$BUILDARCH" = "amd64" && "$TARGETARCH" = "arm64" ]] ; \
 
 RUN if [[ "$BUILDARCH" = "amd64" && "$TARGETARCH" = "arm64" ]] ; \
     then \
-    cd /${SERVICE_NAME}/plugins/sse-streaming && go mod download && \
+    cd /${SERVICE_NAME}/plugins/pipeline-sse-streaming && go mod download && \
     CGO_ENABLED=1 ARCH=$TARGETARCH GOARCH=$TARGETARCH GOHOSTARCH=$BUILDARCH \
     CC=aarch64-linux-musl-gcc EXTRA_LDFLAGS='-extld=aarch64-linux-musl-gcc' \
-    go build -buildmode=plugin -buildvcs=false -o sse-streaming.so ./ ; \
+    go build -buildmode=plugin -buildvcs=false -o pipeline-sse-streaming.so ./ ; \
     else \
-    cd /${SERVICE_NAME}/plugins/sse-streaming && go mod download && \
-    CGO_ENABLED=1 go build -buildmode=plugin -buildvcs=false -o sse-streaming.so ./ ; fi
+    cd /${SERVICE_NAME}/plugins/pipeline-sse-streaming && go mod download && \
+    CGO_ENABLED=1 go build -buildmode=plugin -buildvcs=false -o pipeline-sse-streaming.so ./ ; fi
+
+RUN if [[ "$BUILDARCH" = "amd64" && "$TARGETARCH" = "arm64" ]] ; \
+    then \
+    cd /${SERVICE_NAME}/plugins/model-sse-streaming && go mod download && \
+    CGO_ENABLED=1 ARCH=$TARGETARCH GOARCH=$TARGETARCH GOHOSTARCH=$BUILDARCH \
+    CC=aarch64-linux-musl-gcc EXTRA_LDFLAGS='-extld=aarch64-linux-musl-gcc' \
+    go build -buildmode=plugin -buildvcs=false -o model-sse-streaming.so ./ ; \
+    else \
+    cd /${SERVICE_NAME}/plugins/model-sse-streaming && go mod download && \
+    CGO_ENABLED=1 go build -buildmode=plugin -buildvcs=false -o model-sse-streaming.so ./ ; fi
 
 RUN cd /${SERVICE_NAME} && \
     git clone -b v2.0.12 https://github.com/lestrrat-go/jwx.git && \
@@ -124,7 +135,8 @@ COPY --from=build --chown=krakend:nogroup /${SERVICE_NAME}/plugins/grpc-proxy/gr
 COPY --from=build --chown=krakend:nogroup /${SERVICE_NAME}/plugins/simple-auth/simple-auth.so /usr/local/lib/krakend/plugins
 COPY --from=build --chown=krakend:nogroup /${SERVICE_NAME}/plugins/registry/registry.so /usr/local/lib/krakend/plugins
 COPY --from=build --chown=krakend:nogroup /${SERVICE_NAME}/plugins/blob/blob.so /usr/local/lib/krakend/plugins
-COPY --from=build --chown=krakend:nogroup /${SERVICE_NAME}/plugins/sse-streaming/sse-streaming.so /usr/local/lib/krakend/plugins
+COPY --from=build --chown=krakend:nogroup /${SERVICE_NAME}/plugins/pipeline-sse-streaming/pipeline-sse-streaming.so /usr/local/lib/krakend/plugins
+COPY --from=build --chown=krakend:nogroup /${SERVICE_NAME}/plugins/model-sse-streaming/model-sse-streaming.so /usr/local/lib/krakend/plugins
 COPY --from=build --chown=krakend:nogroup /go/bin/jwx /go/bin/jwx
 RUN mkdir -p /instill && chmod 777 /instill
 

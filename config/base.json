@@ -37,7 +37,8 @@
     {{ template "cors.tmpl" . }},
     "plugin/http-server": {
       "name": [
-        "sse-streaming",
+        "model-sse-streaming",
+        "pipeline-sse-streaming",
         "simple-auth",
         "grpc-proxy-server",
         "registry",
@@ -61,7 +62,10 @@
         "mgmt_private_hostport": "{{ .plugins.mgmt_private_hostport }}",
         "artifact_private_hostport": "{{ .plugins.artifact_private_hostport }}"
       },
-      "sse-streaming": {
+      "model-sse-streaming": {
+        "backend_hostport": "{{ .plugins.model_public_hostport }}"
+      },
+      "pipeline-sse-streaming": {
         "backend_host": "{{ .plugins.pipeline_public_hostport }}"
       }
     }
