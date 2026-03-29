@@ -112,7 +112,12 @@ func validateToken(ctx context.Context, req *http.Request, httpClient http.Clien
 
 	authHeader := req.Header.Get("Authorization")
 	if !strings.HasPrefix(authHeader, "Bearer ") {
-		return "", errors.New("invalid authorization header")
+		if apiKey := req.Header.Get("X-Api-Key"); apiKey != "" {
+			authHeader = "Bearer " + apiKey
+			req.Header.Set("Authorization", authHeader)
+		} else {
+			return "", errors.New("invalid authorization header")
+		}
 	}
 	token := strings.TrimPrefix(authHeader, "Bearer ")
 
