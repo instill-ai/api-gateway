@@ -207,6 +207,16 @@ func (r blob) registerHandlers(_ context.Context, extra map[string]any, h http.H
 
 // proxyToMinIO proxies the request to MinIO using the resolved presigned URL.
 // When isObjectID is true, Cache-Control headers are added for browser caching.
+//
+// BLOB-INV-RANGE: request headers that gate partial/conditional delivery
+// (Range, If-Range, If-None-Match, If-Modified-Since) MUST be forwarded to the
+// upstream object store. The browser <video> element relies on 206 Partial
+// Content for seeking into multi-hundred-MB files; stripping Range forces
+// MinIO to re-stream the full object on every seek. The 24h Cache-Control is
+// scoped to 200 OK responses only so 206 bodies are never cached as if they
+// were the whole object and 304 responses keep their native revalidation
+// semantics. Guarded by plugins/blob/main_test.go and
+// artifact-backend-ee/integration-test/standalone-blob-range.js.
 func proxyToMinIO(
 	ctx context.Context,
 	tracer trace.Tracer,
@@ -245,6 +255,14 @@ func proxyToMinIO(
 	if contentType := req.Header.Get("Content-Type"); contentType != "" {
 		newReq.Header.Set("Content-Type", contentType)
 	}
+	// Forward byte-range and conditional-request headers verbatim so MinIO can
+	// answer with 206 Partial Content (video seek) or 304 Not Modified
+	// (conditional revalidation). See BLOB-INV-RANGE above.
+	for _, h := range []string{"Range", "If-Range", "If-None-Match", "If-Modified-Since"} {
+		if v := req.Header.Get(h); v != "" {
+			newReq.Header.Set(h, v)
+		}
+	}
 
 	resp, err := httpClient.Do(newReq)
 	if err != nil {
@@ -267,8 +285,10 @@ func proxyToMinIO(
 
 	// For object_id-resolved requests, add aggressive browser caching since
 	// objects are immutable. Legacy base64 presigned URLs manage their own
-	// expiry via the signed URL parameters.
-	if isObjectID {
+	// expiry via the signed URL parameters. Scope to 200 OK only: a 206
+	// Partial Content body must never be cached as if it were the full
+	// object, and 304 Not Modified already has its own cache semantics.
+	if isObjectID && resp.StatusCode == http.StatusOK {
 		w.Header().Set("Cache-Control", "public, max-age=86400")
 	}
 

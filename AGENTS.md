@@ -57,3 +57,14 @@ No Go test target is defined at the repo root. Plugin modules are independent; u
 - Plugins must be built with the exact Go toolchain version used by the KrakenD binary — mismatches break `-buildmode=plugin` loading. Prefer building through the Docker images.
 - Cross-compiling to arm64 from amd64 uses the `aarch64-linux-musl-cross` toolchain pulled in the Dockerfile; replicate those env vars (`CC`, `CGO_ENABLED=1`, `GOARCH`) if building outside Docker.
 - Releases go through `release-please`; see that directory for config.
+
+## Invariants
+
+### BLOB-INV-RANGE — blob plugin transparently forwards partial/conditional headers
+
+The `plugins/blob` handler is a transparent HTTP byte-proxy to MinIO; every code path through `proxyToMinIO` MUST:
+
+1. Forward `Range`, `If-Range`, `If-None-Match`, and `If-Modified-Since` verbatim onto the upstream MinIO request. Dropping these headers silently is **not** a perf optimisation — it coerces MinIO into `200 OK` with the full object body on every request, which breaks `<video>.fastSeek()` and HTTP cache revalidation for every downstream consumer (multi-hundred-MB citation videos become unplayable). Per-endpoint header allow-lists in `settings-env/input_headers.json` do **not** apply to `plugin/http-server` handlers, so this responsibility lives entirely in the plugin code.
+2. Scope the 24 h `Cache-Control: public, max-age=86400` to `200 OK` responses only — `206 Partial Content` bodies must never inherit the full-object cache directive (a CDN/browser would reuse them as if they were the whole object), and `304 Not Modified` already carries the validator's own cache semantics.
+
+Guarded by `plugins/blob/main_test.go` (unit, table-driven) and `artifact-backend-ee/integration-test/standalone-blob-range.js` (end-to-end k6, exercised via `derivedResourceUri`).
