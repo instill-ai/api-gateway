@@ -215,8 +215,7 @@ func (r blob) registerHandlers(_ context.Context, extra map[string]any, h http.H
 // MinIO to re-stream the full object on every seek. The 24h Cache-Control is
 // scoped to 200 OK responses only so 206 bodies are never cached as if they
 // were the whole object and 304 responses keep their native revalidation
-// semantics. Guarded by plugins/blob/main_test.go and
-// artifact-backend-ee/integration-test/standalone-blob-range.js.
+// semantics. Guarded by plugins/blob/main_test.go.
 func proxyToMinIO(
 	ctx context.Context,
 	tracer trace.Tracer,
