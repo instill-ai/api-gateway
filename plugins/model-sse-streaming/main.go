@@ -53,9 +53,6 @@ func (r registerer) registerHandlers(_ context.Context, extra map[string]any, h 
 		selfURL = "https://localhost:8080/v1beta/user"
 	}
 
-	transport := http.DefaultTransport.(*http.Transport).Clone()
-	transport.TLSClientConfig = &tls.Config{InsecureSkipVerify: useTLS} // #nosec G402
-
 	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
 		path := strings.TrimSuffix(req.URL.Path, "/")
 
@@ -76,7 +73,15 @@ func (r registerer) registerHandlers(_ context.Context, extra map[string]any, h 
 			attribute.String("http.url", req.URL.String()),
 		)
 
+		// Per-request transport: prevents HTTP/1.1 connection pooling from
+		// pinning all traffic to a single backend pod. With a headless K8s
+		// Service, each new connection triggers DNS re-resolution, distributing
+		// load across replicas. The TLS config is only for localhost self-calls.
+		transport := http.DefaultTransport.(*http.Transport).Clone()
+		transport.DisableKeepAlives = true
+		transport.TLSClientConfig = &tls.Config{InsecureSkipVerify: useTLS} // #nosec G402
 		httpClient := http.Client{Transport: transport}
+		defer httpClient.CloseIdleConnections()
 
 		existingAuthType := req.Header.Get("Instill-Auth-Type")
 		existingUserUID := req.Header.Get("Instill-User-Uid")

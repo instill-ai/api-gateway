@@ -65,8 +65,6 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]any, 
 		return h, errors.New("invalid backend_host URL")
 	}
 
-	httpClient := http.Client{Transport: otelhttp.NewTransport(http.DefaultTransport)}
-
 	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
 		otelCtx := req.Context()
 
@@ -80,6 +78,15 @@ func (r registerer) registerHandlers(ctx context.Context, extra map[string]any, 
 			),
 		)
 		defer span.End()
+
+		// Per-request transport: prevents HTTP/1.1 connection pooling from
+		// pinning all traffic to a single backend pod. With a headless K8s
+		// Service, each new connection triggers DNS re-resolution, distributing
+		// load across replicas.
+		tr := http.DefaultTransport.(*http.Transport).Clone()
+		tr.DisableKeepAlives = true
+		httpClient := http.Client{Transport: otelhttp.NewTransport(tr)}
+		defer httpClient.CloseIdleConnections()
 
 		req = req.WithContext(spanCtx)
 
