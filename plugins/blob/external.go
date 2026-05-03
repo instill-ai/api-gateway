@@ -7,6 +7,7 @@ import (
 )
 
 const maxPayloadSize = 1024 * 1024 * 32
+const roundRobinSvcConfig = `{"loadBalancingConfig":[{"round_robin":{}}]}`
 
 func newGRPCConn(server, cert, key string) (*grpc.ClientConn, error) {
 	var creds credentials.TransportCredentials
@@ -26,7 +27,8 @@ func newGRPCConn(server, cert, key string) (*grpc.ClientConn, error) {
 			grpc.MaxCallRecvMsgSize(maxPayloadSize),
 			grpc.MaxCallSendMsgSize(maxPayloadSize),
 		),
+		grpc.WithDefaultServiceConfig(roundRobinSvcConfig),
 	}
 
-	return grpc.Dial(server, opts...)
+	return grpc.NewClient("dns:///"+server, opts...)
 }

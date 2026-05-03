@@ -13,6 +13,8 @@ import (
 
 const MaxPayloadSize = 1024 * 1024 * 32
 
+const roundRobinSvcConfig = `{"loadBalancingConfig":[{"round_robin":{}}]}`
+
 func InitMgmtPublicServiceClient(ctx context.Context, server string, cert string, key string) (mgmtPB.MgmtPublicServiceClient, *grpc.ClientConn) {
 
 	var dialOpts []grpc.DialOption
@@ -23,6 +25,7 @@ func InitMgmtPublicServiceClient(ctx context.Context, server string, cert string
 			grpc.MaxCallSendMsgSize(MaxPayloadSize),
 		),
 		grpc.WithStatsHandler(otelgrpc.NewClientHandler()),
+		grpc.WithDefaultServiceConfig(roundRobinSvcConfig),
 	)
 
 	if cert != "" && key != "" {
@@ -35,7 +38,7 @@ func InitMgmtPublicServiceClient(ctx context.Context, server string, cert string
 		dialOpts = append(dialOpts, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	}
 
-	clientConn, err := grpc.NewClient(server, dialOpts...)
+	clientConn, err := grpc.NewClient("dns:///"+server, dialOpts...)
 	if err != nil {
 		return nil, nil
 	}

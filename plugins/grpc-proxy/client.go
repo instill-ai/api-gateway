@@ -41,21 +41,22 @@ func (r clientRegisterer) registerClients(_ context.Context, extra map[string]an
 		return nil, fmt.Errorf("unknown register %s", name)
 	}
 
-	// Create HTTP client with OpenTelemetry instrumentation
-	tr := &http2.Transport{
-		AllowHTTP: true,
-		DialTLS: func(netw, addr string, cfg *tls.Config) (net.Conn, error) {
-			return net.Dial(netw, addr)
-		},
-	}
-
-	// Wrap the transport with OpenTelemetry instrumentation
-	otelTransport := otelhttp.NewTransport(tr)
-	httpClient := http.Client{Transport: otelTransport}
-	defer httpClient.CloseIdleConnections()
-
 	// return the actual handler wrapping or your custom logic so it can be used as a replacement for the default http handler
 	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+		// Per-request transport: prevents HTTP/2 connection pooling from
+		// pinning all traffic to a single backend pod. Each request opens a
+		// fresh TCP connection; with a headless K8s Service the DNS resolver
+		// returns individual pod IPs, distributing load across replicas.
+		tr := &http2.Transport{
+			AllowHTTP: true,
+			DialTLS: func(netw, addr string, cfg *tls.Config) (net.Conn, error) {
+				return net.Dial(netw, addr)
+			},
+		}
+		otelTransport := otelhttp.NewTransport(tr)
+		httpClient := http.Client{Transport: otelTransport}
+		defer httpClient.CloseIdleConnections()
+
 		// Extract OpenTelemetry context from the request
 		otelCtx := req.Context()
 
