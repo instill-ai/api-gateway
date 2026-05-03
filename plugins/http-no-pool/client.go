@@ -7,13 +7,14 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/luraproject/lura/v2/logging"
 	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/codes"
 	"go.opentelemetry.io/otel/propagation"
 	"go.opentelemetry.io/otel/trace"
+
+	"github.com/luraproject/lura/v2/logging"
 )
 
 // ClientRegisterer is the symbol the plugin loader will try to load.
@@ -122,5 +123,4 @@ func (clientRegisterer) RegisterLogger(v any) {
 		return
 	}
 	logger = l
-	logger.Debug(fmt.Sprintf("[PLUGIN: %s] Logger loaded", ClientRegisterer))
 }

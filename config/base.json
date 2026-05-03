@@ -42,7 +42,8 @@
         "simple-auth",
         "grpc-proxy-server",
         "registry",
-        "blob"
+        "blob",
+        "http-no-pool"
       ],
       "simple-auth": {
         "grpc_server": "{{ .plugins.mgmt_public_hostport }}"
