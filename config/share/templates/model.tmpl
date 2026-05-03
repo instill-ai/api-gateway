@@ -27,6 +27,10 @@
       "method": "{{ .method }}",
       "disable_host_sanitize": false,
       "extra_config": {
+        "plugin/http-client": {
+          "name": "http-no-pool-client",
+          "http-no-pool-client": {}
+        },
         "github.com/devopsfaith/krakend-martian": {
           "header.Modifier": {
             "scope": ["response"],
@@ -64,6 +68,10 @@
       "method": "{{ .method }}",
       "disable_host_sanitize": false,
       "extra_config": {
+        "plugin/http-client": {
+          "name": "http-no-pool-client",
+          "http-no-pool-client": {}
+        },
         "github.com/devopsfaith/krakend-martian": {
           "header.Modifier": {
             "scope": ["response"],
@@ -102,6 +110,10 @@
       "method": "{{ .method }}",
       "disable_host_sanitize": false,
       "extra_config": {
+        "plugin/http-client": {
+          "name": "http-no-pool-client",
+          "http-no-pool-client": {}
+        },
         "github.com/devopsfaith/krakend-martian": {
           "header.Modifier": {
             "scope": ["response"],
@@ -136,6 +148,10 @@
       "method": "{{ .method }}",
       "disable_host_sanitize": false,
       "extra_config": {
+        "plugin/http-client": {
+          "name": "http-no-pool-client",
+          "http-no-pool-client": {}
+        },
         "github.com/devopsfaith/krakend-martian": {
           "header.Modifier": {
             "scope": ["response"],

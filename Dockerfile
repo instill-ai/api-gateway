@@ -25,6 +25,7 @@ COPY plugins/registry plugins/registry
 COPY plugins/blob plugins/blob
 COPY plugins/pipeline-sse-streaming plugins/pipeline-sse-streaming
 COPY plugins/model-sse-streaming plugins/model-sse-streaming
+COPY plugins/http-no-pool plugins/http-no-pool
 
 
 ARG TARGETARCH
@@ -102,6 +103,16 @@ RUN if [[ "$BUILDARCH" = "amd64" && "$TARGETARCH" = "arm64" ]] ; \
     cd /${SERVICE_NAME}/plugins/model-sse-streaming && go mod download && \
     CGO_ENABLED=1 go build -buildmode=plugin -buildvcs=false -o model-sse-streaming.so ./ ; fi
 
+RUN if [[ "$BUILDARCH" = "amd64" && "$TARGETARCH" = "arm64" ]] ; \
+    then \
+    cd /${SERVICE_NAME}/plugins/http-no-pool && go mod download && \
+    CGO_ENABLED=1 ARCH=$TARGETARCH GOARCH=$TARGETARCH GOHOSTARCH=$BUILDARCH \
+    CC=aarch64-linux-musl-gcc EXTRA_LDFLAGS='-extld=aarch64-linux-musl-gcc' \
+    go build -buildmode=plugin -buildvcs=false -o http-no-pool.so ./ ; \
+    else \
+    cd /${SERVICE_NAME}/plugins/http-no-pool && go mod download && \
+    CGO_ENABLED=1 go build -buildmode=plugin -buildvcs=false -o http-no-pool.so ./ ; fi
+
 RUN cd /${SERVICE_NAME} && \
     git clone -b v2.0.12 https://github.com/lestrrat-go/jwx.git && \
     if [[ "$BUILDARCH" = "amd64" && "$TARGETARCH" = "arm64" ]] ; \
@@ -137,6 +148,7 @@ COPY --from=build --chown=krakend:nogroup /${SERVICE_NAME}/plugins/registry/regi
 COPY --from=build --chown=krakend:nogroup /${SERVICE_NAME}/plugins/blob/blob.so /usr/local/lib/krakend/plugins
 COPY --from=build --chown=krakend:nogroup /${SERVICE_NAME}/plugins/pipeline-sse-streaming/pipeline-sse-streaming.so /usr/local/lib/krakend/plugins
 COPY --from=build --chown=krakend:nogroup /${SERVICE_NAME}/plugins/model-sse-streaming/model-sse-streaming.so /usr/local/lib/krakend/plugins
+COPY --from=build --chown=krakend:nogroup /${SERVICE_NAME}/plugins/http-no-pool/http-no-pool.so /usr/local/lib/krakend/plugins
 COPY --from=build --chown=krakend:nogroup /go/bin/jwx /go/bin/jwx
 RUN mkdir -p /instill && chmod 777 /instill
 
