@@ -3,7 +3,7 @@ module simple_auth_plugin
 go 1.25.6
 
 require (
-	github.com/instill-ai/protogen-go v0.3.3-alpha.0.20260130101410-2df13d165253
+	github.com/instill-ai/protogen-go v0.3.3-alpha.0.20260216034810-ff9e6f04b974
 	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.53.0
 	go.opentelemetry.io/otel v1.34.0
 	go.opentelemetry.io/otel/trace v1.34.0
